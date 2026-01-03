@@ -21,6 +21,19 @@ from book.api.witness.client import (
 )
 from book.api.witness.compare import compare_action
 from book.api.witness.enforcement import enforcement_detail, enforcement_detail_from_probe_result
+from book.api.witness.keepalive import (
+    KEEPALIVE_MODE_HOLD_OPEN,
+    KEEPALIVE_MODE_PID_LEASE,
+    KEEPALIVE_MODE_POLICYWITNESS,
+    KeepaliveHandle,
+    KeepaliveRecord,
+    KeepaliveSpec,
+    lease_pid,
+    open_keepalive,
+    open_policywitness_session,
+    spawn_hold_open,
+)
+from book.api.witness.sb_api_validator import run_sb_api_validator
 from book.api.witness.lifecycle import snapshot_from_event, snapshot_from_probe, snapshot_from_session
 from book.api.witness.models import (
     ActionSpec,
@@ -32,6 +45,7 @@ from book.api.witness.models import (
     LifecycleSnapshot,
     ProbeRequest,
     ProbeResult,
+    SandboxCheckSpec,
     SbplAction,
 )
 from book.api.witness.outputs import OutputSpec
@@ -42,8 +56,10 @@ from book.api.witness.paths import (
     WITNESS_EVIDENCE_MANIFEST,
     WITNESS_EVIDENCE_PROFILES,
     WITNESS_EVIDENCE_SYMBOLS,
+    WITNESS_HOLD_OPEN,
     WITNESS_LOG_OBSERVER,
     WITNESS_RESOURCES,
+    WITNESS_SB_API_VALIDATOR,
 )
 from book.api.witness.protocol import WaitSpec
 from book.api.witness.session import XpcSession, open_session
@@ -55,19 +71,28 @@ __all__ = [
     "ComparisonReport",
     "EnforcementDetail",
     "EntitlementAction",
+    "KEEPALIVE_MODE_HOLD_OPEN",
+    "KEEPALIVE_MODE_PID_LEASE",
+    "KEEPALIVE_MODE_POLICYWITNESS",
     "LifecycleSnapshot",
+    "KeepaliveHandle",
+    "KeepaliveRecord",
+    "KeepaliveSpec",
     "OutputSpec",
     "ProbeRequest",
     "ProbeResult",
     "REPO_ROOT",
+    "SandboxCheckSpec",
     "SbplAction",
     "WITNESS_APP",
     "WITNESS_CLI",
     "WITNESS_EVIDENCE_MANIFEST",
     "WITNESS_EVIDENCE_PROFILES",
     "WITNESS_EVIDENCE_SYMBOLS",
+    "WITNESS_HOLD_OPEN",
     "WITNESS_LOG_OBSERVER",
     "WITNESS_RESOURCES",
+    "WITNESS_SB_API_VALIDATOR",
     "WORLD_ID",
     "WaitSpec",
     "XpcSession",
@@ -78,20 +103,25 @@ __all__ = [
     "enforcement_detail_from_probe_result",
     "health_check",
     "inspect_macho",
+    "lease_pid",
     "list_profiles",
     "list_services",
     "load_evidence_manifest",
     "load_evidence_profiles",
     "load_evidence_symbols",
+    "open_keepalive",
     "open_session",
+    "open_policywitness_session",
     "quarantine_lab",
     "run_matrix",
     "run_matrix_group",
     "run_probe",
     "run_probe_request",
+    "run_sb_api_validator",
     "show_profile",
     "snapshot_from_event",
     "snapshot_from_probe",
     "snapshot_from_session",
+    "spawn_hold_open",
     "verify_evidence",
 ]

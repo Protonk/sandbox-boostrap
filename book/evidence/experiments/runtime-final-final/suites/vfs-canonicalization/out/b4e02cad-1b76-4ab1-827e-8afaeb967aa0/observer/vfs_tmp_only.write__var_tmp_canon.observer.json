@@ -1,0 +1,44 @@
+{
+  "data": {
+    "correlation_id": null,
+    "deny_lines": [
+      "2026-01-03 09:25:12.499515-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(44074) deny(1) file-read-metadata /var",
+      "2026-01-03 09:25:12.538475-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_writer(44074) deny(1) file-read-metadata /var"
+    ],
+    "duration_ms": null,
+    "end": "2026-01-03 09:25:14",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2026-01-03 09:25:12.499515-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(44074) deny(1) file-read-metadata /var\n2026-01-03 09:25:12.538475-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_writer(44074) deny(1) file-read-metadata /var",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 3,
+    "observer_schema_version": 1,
+    "pid": 44074,
+    "plan_id": null,
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(44074)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"44074\")))",
+    "process_name": "sandbox_writer",
+    "row_id": "vfs_tmp_only:write_/var/tmp/canon",
+    "start": "2026-01-03 09:25:10",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767461112602,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

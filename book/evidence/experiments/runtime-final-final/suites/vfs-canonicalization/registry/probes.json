@@ -2768,7 +2768,7 @@
       "name": "read_openat_/tmp/foo",
       "operation": "file-read*",
       "target": "/tmp/foo",
-      "expected": "allow",
+      "expected": "deny",
       "supports_lanes": {
         "baseline": true,
         "scenario": true,
@@ -2817,7 +2817,7 @@
       "name": "read_openat_/private/tmp/foo",
       "operation": "file-read*",
       "target": "/private/tmp/foo",
-      "expected": "allow",
+      "expected": "deny",
       "supports_lanes": {
         "baseline": true,
         "scenario": true,
@@ -2864,6 +2864,154 @@
     },
     "vfs_private_tmp_only_openat:read_openat_rootrel_private/tmp/foo": {
       "probe_id": "vfs_private_tmp_only_openat:read_openat_rootrel_private/tmp/foo",
+      "name": "read_openat_rootrel_private/tmp/foo",
+      "operation": "file-read*",
+      "target": "private/tmp/foo",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "private/tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "syscall": "openat_rootrel"
+    },
+    "vfs_private_tmp_only_openat_dir_allowed:read_open_/tmp/foo": {
+      "probe_id": "vfs_private_tmp_only_openat_dir_allowed:read_open_/tmp/foo",
+      "name": "read_open_/tmp/foo",
+      "operation": "file-read*",
+      "target": "/tmp/foo",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "vfs_private_tmp_only_openat_dir_allowed:read_openat_/tmp/foo": {
+      "probe_id": "vfs_private_tmp_only_openat_dir_allowed:read_openat_/tmp/foo",
+      "name": "read_openat_/tmp/foo",
+      "operation": "file-read*",
+      "target": "/tmp/foo",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "syscall": "openat"
+    },
+    "vfs_private_tmp_only_openat_dir_allowed:read_open_/private/tmp/foo": {
+      "probe_id": "vfs_private_tmp_only_openat_dir_allowed:read_open_/private/tmp/foo",
+      "name": "read_open_/private/tmp/foo",
+      "operation": "file-read*",
+      "target": "/private/tmp/foo",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/private/tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "vfs_private_tmp_only_openat_dir_allowed:read_openat_/private/tmp/foo": {
+      "probe_id": "vfs_private_tmp_only_openat_dir_allowed:read_openat_/private/tmp/foo",
+      "name": "read_openat_/private/tmp/foo",
+      "operation": "file-read*",
+      "target": "/private/tmp/foo",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/private/tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "syscall": "openat"
+    },
+    "vfs_private_tmp_only_openat_dir_allowed:read_openat_rootrel_tmp/foo": {
+      "probe_id": "vfs_private_tmp_only_openat_dir_allowed:read_openat_rootrel_tmp/foo",
+      "name": "read_openat_rootrel_tmp/foo",
+      "operation": "file-read*",
+      "target": "tmp/foo",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "syscall": "openat_rootrel"
+    },
+    "vfs_private_tmp_only_openat_dir_allowed:read_openat_rootrel_private/tmp/foo": {
+      "probe_id": "vfs_private_tmp_only_openat_dir_allowed:read_openat_rootrel_private/tmp/foo",
       "name": "read_openat_rootrel_private/tmp/foo",
       "operation": "file-read*",
       "target": "private/tmp/foo",

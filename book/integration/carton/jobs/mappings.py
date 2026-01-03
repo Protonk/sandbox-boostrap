@@ -53,3 +53,10 @@ def run_vfs_canonicalization(repo_root: Path) -> None:
         "book.integration.carton.mappings.vfs_canonicalization.generate_path_canonicalization_map",
         repo_root=repo_root,
     )
+
+
+def run_policygraph_node_fields(repo_root: Path) -> None:
+    common.run_module(
+        "book.integration.carton.mappings.policy.generate_policygraph_node_fields",
+        repo_root=repo_root,
+    )

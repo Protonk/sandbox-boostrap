@@ -1,0 +1,41 @@
+{
+  "data": {
+    "correlation_id": null,
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": "2026-01-03 08:54:44",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    ",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 1,
+    "observer_schema_version": 1,
+    "pid": 33383,
+    "plan_id": null,
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(33383)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"33383\")))",
+    "process_name": "sandbox_writer",
+    "row_id": "vfs_firmlink_both:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+    "start": "2026-01-03 08:54:40",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767459282722,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

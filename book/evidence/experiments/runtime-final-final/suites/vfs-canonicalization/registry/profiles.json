@@ -103,6 +103,23 @@
       "key_specific_rules": [],
       "notes": null
     },
+    "vfs_private_tmp_only_openat_dir_allowed": {
+      "profile_id": "vfs_private_tmp_only_openat_dir_allowed",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_private_tmp_only_openat_dir_allowed.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probe_refs": [
+        "vfs_private_tmp_only_openat_dir_allowed:read_open_/tmp/foo",
+        "vfs_private_tmp_only_openat_dir_allowed:read_openat_/tmp/foo",
+        "vfs_private_tmp_only_openat_dir_allowed:read_open_/private/tmp/foo",
+        "vfs_private_tmp_only_openat_dir_allowed:read_openat_/private/tmp/foo",
+        "vfs_private_tmp_only_openat_dir_allowed:read_openat_rootrel_tmp/foo",
+        "vfs_private_tmp_only_openat_dir_allowed:read_openat_rootrel_private/tmp/foo"
+      ],
+      "key_specific_rules": [],
+      "notes": null
+    },
     "vfs_var_tmp_alias_only": {
       "profile_id": "vfs_var_tmp_alias_only",
       "profile_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_alias_only.sb",

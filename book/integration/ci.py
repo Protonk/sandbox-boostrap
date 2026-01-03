@@ -88,6 +88,7 @@ def run_field2_hunt() -> None:
         "book/integration/tests/runtime/test_runtime_promotion_contracts.py",
         "book/integration/tests/runtime/test_runtime_signatures_mapping.py",
         "book/integration/tests/smoke/test_field2_refresh_smoke.py",
+        "book/integration/tests/smoke/test_policygraph_node_fields_smoke.py",
     ]
 
     cmd = [sys.executable, "-m", "pytest", *tests]

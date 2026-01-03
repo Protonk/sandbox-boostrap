@@ -1,9 +1,9 @@
 """
-Paths and shared constants for the PolicyWitness tool bundle.
+Paths and shared constants for PolicyWitness and witness-adjacent helpers.
 
 This module centralizes the repo-local location of PolicyWitness.app and its
-embedded helper binaries. Import these paths instead of reconstructing them so
-callers remain aligned with the fixed tool bundle layout.
+embedded helper binaries, plus small witness-side helpers. Import these paths
+instead of reconstructing them so callers remain aligned with the fixed layout.
 """
 
 from __future__ import annotations
@@ -22,3 +22,5 @@ WITNESS_EVIDENCE = WITNESS_RESOURCES / "Evidence"
 WITNESS_EVIDENCE_MANIFEST = WITNESS_EVIDENCE / "manifest.json"
 WITNESS_EVIDENCE_PROFILES = WITNESS_EVIDENCE / "profiles.json"
 WITNESS_EVIDENCE_SYMBOLS = WITNESS_EVIDENCE / "symbols.json"
+WITNESS_HOLD_OPEN = REPO_ROOT / "book" / "api" / "witness" / "native" / "hold_open" / "hold_open"
+WITNESS_SB_API_VALIDATOR = REPO_ROOT / "book" / "api" / "witness" / "native" / "sb_api_validator" / "sb_api_validator"

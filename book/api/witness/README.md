@@ -7,6 +7,8 @@ PolicyWitness app bundle: `book/tools/witness/PolicyWitness.app`
 ## Entry points
 - `book.api.witness.client.run_probe` / `run_probe_request` (one-shot probes via `xpc run`)
 - `book.api.witness.session.open_session` / `XpcSession` (`xpc session` control plane)
+- `book.api.witness.keepalive.open_keepalive` / `spawn_hold_open` / `open_policywitness_session` (keepalive connectors)
+- `book.api.witness.sb_api_validator.run_sb_api_validator` (sandbox_check oracle lane)
 - `book.api.witness.lifecycle.snapshot_from_probe` / `snapshot_from_session` (on-demand lifecycle snapshots)
 - `book.api.witness.enforcement.enforcement_detail` (minute enforcement detail from probe + observer)
 - `book.api.witness.compare.compare_action` (entitlements/SBPL/none baseline comparison)
@@ -20,6 +22,47 @@ from book.api.witness import client
 
 health = client.health_check()
 print(health["stdout_json"]["data"]["ok"])
+```
+
+## Keepalive connectors
+Use these to get a stable PID without ad-hoc glue. Modes:
+
+- `policywitness_session`: keep a PolicyWitness XPC service alive (supports `keepalive` + wait barrier).
+- `spawn_hold_open`: start a minimal helper that blocks until signaled.
+- `pid_lease`: attach-only handle for an existing PID (no keepalive, just liveness checks).
+
+PolicyWitness session example:
+
+```py
+from book.api.witness import keepalive
+
+with keepalive.open_policywitness_session(
+    profile_id="minimal",
+    plan_id="witness:keepalive",
+    wait_spec="fifo:auto",
+    heartbeat_s=5.0,
+) as handle:
+    print(handle.record.pid)
+    handle.trigger_wait()
+```
+
+Spawn hold_open example (build with `book/api/witness/native/hold_open/build.sh` first):
+
+```py
+from book.api.witness import keepalive
+
+with keepalive.spawn_hold_open(wait_spec="fifo:auto") as handle:
+    print(handle.record.pid)
+    handle.trigger_wait()
+```
+
+To run hold_open under another wrapper (for example SBPL apply), pass a prefix:
+
+```py
+from book.api.witness import keepalive
+
+prefix = ["book/tools/sbpl/wrapper/wrapper", "--sbpl", "path/to/profile.sb", "--"]
+handle = keepalive.spawn_hold_open(command_prefix=prefix)
 ```
 
 ## CLI to API mapping (high level)
@@ -136,6 +179,54 @@ action = models.ActionSpec(
 )
 report = compare.compare_action(action)
 print(report.to_json())
+```
+
+## Sandbox_check oracle lane
+Use `sb_api_validator` to query `sandbox_check()` against a target PID (oracle only):
+
+```py
+from book.api.witness import sb_api_validator
+
+result = sb_api_validator.run_sb_api_validator(
+    pid=1234,
+    operation="file-read*",
+    filter_type="path",
+    filter_value="/etc/hosts",
+)
+print(result["stdout_json"])
+```
+
+Build the helper first if needed:
+
+```sh
+book/api/witness/native/sb_api_validator/build.sh
+```
+
+Attach it to tri-run by adding `sandbox_check` to `ActionSpec`:
+
+```py
+from book.api.witness import compare, models
+
+action = models.ActionSpec(
+    action_id="fs_read_hosts",
+    entitlements=models.EntitlementAction(
+        profile_id="minimal",
+        probe_id="fs_op",
+        probe_args=["--op", "open_read", "--path", "/etc/hosts"],
+    ),
+    sbpl=models.SbplAction(
+        command=models.CommandSpec(argv=["/bin/cat", "/etc/hosts"]),
+        sbpl_path=Path("book/evidence/experiments/runtime-final-final/suites/runtime-checks/sb/profile.sb"),
+    ),
+    none=models.CommandSpec(argv=["/bin/cat", "/etc/hosts"]),
+    sandbox_check=models.SandboxCheckSpec(
+        operation="file-read*",
+        filter_type="path",
+        filter_value="/etc/hosts",
+    ),
+)
+report = compare.compare_action(action)
+print(report.to_json()["results"]["sandbox_check"])
 ```
 
 ## Common outcomes (not automatic denials)

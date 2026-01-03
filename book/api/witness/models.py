@@ -142,6 +142,17 @@ class SbplAction:
 
 
 @dataclass(frozen=True)
+class SandboxCheckSpec:
+    """Spec for running sb_api_validator against a target PID."""
+
+    operation: str
+    filter_type: Optional[str] = None
+    filter_value: Optional[str] = None
+    extra: Optional[str] = None
+    timeout_s: Optional[float] = None
+
+
+@dataclass(frozen=True)
 class ActionSpec:
     """Baseline comparison spec for entitlements/SBPL/none."""
 
@@ -149,6 +160,7 @@ class ActionSpec:
     entitlements: Optional[EntitlementAction] = None
     sbpl: Optional[SbplAction] = None
     none: Optional[CommandSpec] = None
+    sandbox_check: Optional[SandboxCheckSpec] = None
 
 
 @dataclass

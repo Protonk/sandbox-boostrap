@@ -1,0 +1,44 @@
+{
+  "data": {
+    "correlation_id": null,
+    "deny_lines": [
+      "2026-01-03 10:23:09.582465-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64797) deny(1) file-read-metadata /private/tmp/vfs_linkdir/to_var_tmp",
+      "2026-01-03 10:23:09.612084-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_writer(64797) deny(1) file-read-metadata /private/tmp/vfs_linkdir/to_var_tmp"
+    ],
+    "duration_ms": null,
+    "end": "2026-01-03 10:23:11",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2026-01-03 10:23:09.582465-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64797) deny(1) file-read-metadata /private/tmp/vfs_linkdir/to_var_tmp\n2026-01-03 10:23:09.612084-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_writer(64797) deny(1) file-read-metadata /private/tmp/vfs_linkdir/to_var_tmp",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 3,
+    "observer_schema_version": 1,
+    "pid": 64797,
+    "plan_id": null,
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64797)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64797\")))",
+    "process_name": "sandbox_writer",
+    "row_id": "vfs_link_both:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+    "start": "2026-01-03 10:23:07",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767464589611,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

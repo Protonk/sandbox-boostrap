@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": null,
+    "deny_lines": [
+      "2026-01-03 08:56:25.344737-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(34680) deny(1) file-read-data /private/var/tmp/vfs_canon_probe"
+    ],
+    "duration_ms": null,
+    "end": "2026-01-03 08:56:27",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2026-01-03 08:56:25.344737-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(34680) deny(1) file-read-data /private/var/tmp/vfs_canon_probe",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 2,
+    "observer_schema_version": 1,
+    "pid": 34680,
+    "plan_id": null,
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(34680)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"34680\")))",
+    "process_name": "sandbox_reader",
+    "row_id": "vfs_var_tmp_data_only:read_/private/var/tmp/vfs_canon_probe",
+    "start": "2026-01-03 08:56:23",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767459385319,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

@@ -210,6 +210,12 @@ def _summarize_runtime(run_dir: Path, bundle_meta: dict[str, Any]) -> dict[str, 
         operation = record.get("operation")
         if operation not in allowed_ops:
             continue
+        # Normalize shape: some runtime events intentionally lack an FD-based
+        # witness (denied opens) and some probes use non-absolute spellings
+        # (openat-rootrel). Keep `observed_path` present (nullable) so the
+        # derived summary stays schema-stable.
+        if "observed_path" not in record:
+            record["observed_path"] = None
         requested_path = record.get("requested_path") or record.get("target")
         witness = None
         if profile_id and operation and requested_path:
@@ -248,7 +254,7 @@ def _aggregate_deny_witnesses(run_dir: Path, bundle_meta: dict[str, Any]) -> dic
             if not isinstance(probe, dict):
                 continue
             rr = probe.get("runtime_result") if isinstance(probe.get("runtime_result"), dict) else {}
-            observer = rr.get("observer") if isinstance(rr.get("observer"), dict) else None
+            observer = probe.get("observer") if isinstance(probe.get("observer"), dict) else None
             if not observer:
                 continue
             log_path = observer.get("log_path")

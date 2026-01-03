@@ -1,0 +1,3749 @@
+{
+  "schema_version": "runtime-tools.baseline_results.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "0424aaa4-e532-4dab-9c10-eeec89060571",
+  "results": [
+    {
+      "name": "baseline:vfs_tmp_only:read_/tmp/foo",
+      "profile_id": "vfs_tmp_only",
+      "probe_name": "read_/tmp/foo",
+      "operation": "file-read*",
+      "target": "/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/foo",
+        "profile_id": "vfs_tmp_only",
+        "probe_name": "read_/tmp/foo"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_tmp_only:read_/private/tmp/foo",
+      "profile_id": "vfs_tmp_only",
+      "probe_name": "read_/private/tmp/foo",
+      "operation": "file-read*",
+      "target": "/private/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/foo",
+        "profile_id": "vfs_tmp_only",
+        "probe_name": "read_/private/tmp/foo"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_tmp_only:write_/tmp/foo",
+      "profile_id": "vfs_tmp_only",
+      "probe_name": "write_/tmp/foo",
+      "operation": "file-write*",
+      "target": "/tmp/foo",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/foo",
+        "profile_id": "vfs_tmp_only",
+        "probe_name": "write_/tmp/foo"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/foo'"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_tmp_only:write_/private/tmp/foo",
+      "profile_id": "vfs_tmp_only",
+      "probe_name": "write_/private/tmp/foo",
+      "operation": "file-write*",
+      "target": "/private/tmp/foo",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/foo",
+        "profile_id": "vfs_tmp_only",
+        "probe_name": "write_/private/tmp/foo"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/foo'"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_tmp_only:read_/tmp/bar",
+      "profile_id": "vfs_tmp_only",
+      "probe_name": "read_/tmp/bar",
+      "operation": "file-read*",
+      "target": "/tmp/bar",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/bar",
+        "profile_id": "vfs_tmp_only",
+        "probe_name": "read_/tmp/bar"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/bar"
+      ],
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks bar\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_tmp_only:read_/private/tmp/bar",
+      "profile_id": "vfs_tmp_only",
+      "probe_name": "read_/private/tmp/bar",
+      "operation": "file-read*",
+      "target": "/private/tmp/bar",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/bar",
+        "profile_id": "vfs_tmp_only",
+        "probe_name": "read_/private/tmp/bar"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/bar"
+      ],
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks bar\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_tmp_only:write_/tmp/bar",
+      "profile_id": "vfs_tmp_only",
+      "probe_name": "write_/tmp/bar",
+      "operation": "file-write*",
+      "target": "/tmp/bar",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/bar",
+        "profile_id": "vfs_tmp_only",
+        "probe_name": "write_/tmp/bar"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/bar'"
+      ],
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_tmp_only:write_/private/tmp/bar",
+      "profile_id": "vfs_tmp_only",
+      "probe_name": "write_/private/tmp/bar",
+      "operation": "file-write*",
+      "target": "/private/tmp/bar",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/bar",
+        "profile_id": "vfs_tmp_only",
+        "probe_name": "write_/private/tmp/bar"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/bar'"
+      ],
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_tmp_only:read_/tmp/nested/child",
+      "profile_id": "vfs_tmp_only",
+      "probe_name": "read_/tmp/nested/child",
+      "operation": "file-read*",
+      "target": "/tmp/nested/child",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/nested/child",
+        "profile_id": "vfs_tmp_only",
+        "probe_name": "read_/tmp/nested/child"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/nested/child"
+      ],
+      "observed_path": "/private/tmp/nested/child",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks nested child\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_tmp_only:read_/private/tmp/nested/child",
+      "profile_id": "vfs_tmp_only",
+      "probe_name": "read_/private/tmp/nested/child",
+      "operation": "file-read*",
+      "target": "/private/tmp/nested/child",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/nested/child",
+        "profile_id": "vfs_tmp_only",
+        "probe_name": "read_/private/tmp/nested/child"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/nested/child"
+      ],
+      "observed_path": "/private/tmp/nested/child",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks nested child\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_tmp_only:write_/tmp/nested/child",
+      "profile_id": "vfs_tmp_only",
+      "probe_name": "write_/tmp/nested/child",
+      "operation": "file-write*",
+      "target": "/tmp/nested/child",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/nested/child",
+        "profile_id": "vfs_tmp_only",
+        "probe_name": "write_/tmp/nested/child"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/nested/child'"
+      ],
+      "observed_path": "/private/tmp/nested/child",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_tmp_only:write_/private/tmp/nested/child",
+      "profile_id": "vfs_tmp_only",
+      "probe_name": "write_/private/tmp/nested/child",
+      "operation": "file-write*",
+      "target": "/private/tmp/nested/child",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/nested/child",
+        "profile_id": "vfs_tmp_only",
+        "probe_name": "write_/private/tmp/nested/child"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/nested/child'"
+      ],
+      "observed_path": "/private/tmp/nested/child",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_tmp_only:read_/var/tmp/canon",
+      "profile_id": "vfs_tmp_only",
+      "probe_name": "read_/var/tmp/canon",
+      "operation": "file-read*",
+      "target": "/var/tmp/canon",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/var/tmp/canon",
+        "profile_id": "vfs_tmp_only",
+        "probe_name": "read_/var/tmp/canon"
+      },
+      "command": [
+        "/bin/cat",
+        "/var/tmp/canon"
+      ],
+      "observed_path": "/private/var/tmp/canon",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks var tmp canon\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_tmp_only:read_/private/var/tmp/canon",
+      "profile_id": "vfs_tmp_only",
+      "probe_name": "read_/private/var/tmp/canon",
+      "operation": "file-read*",
+      "target": "/private/var/tmp/canon",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/var/tmp/canon",
+        "profile_id": "vfs_tmp_only",
+        "probe_name": "read_/private/var/tmp/canon"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/var/tmp/canon"
+      ],
+      "observed_path": "/private/var/tmp/canon",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks var tmp canon\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_tmp_only:write_/var/tmp/canon",
+      "profile_id": "vfs_tmp_only",
+      "probe_name": "write_/var/tmp/canon",
+      "operation": "file-write*",
+      "target": "/var/tmp/canon",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/var/tmp/canon",
+        "profile_id": "vfs_tmp_only",
+        "probe_name": "write_/var/tmp/canon"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/var/tmp/canon'"
+      ],
+      "observed_path": "/private/var/tmp/canon",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_tmp_only:write_/private/var/tmp/canon",
+      "profile_id": "vfs_tmp_only",
+      "probe_name": "write_/private/var/tmp/canon",
+      "operation": "file-write*",
+      "target": "/private/var/tmp/canon",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/var/tmp/canon",
+        "profile_id": "vfs_tmp_only",
+        "probe_name": "write_/private/var/tmp/canon"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/var/tmp/canon'"
+      ],
+      "observed_path": "/private/var/tmp/canon",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only:read_/tmp/foo",
+      "profile_id": "vfs_private_tmp_only",
+      "probe_name": "read_/tmp/foo",
+      "operation": "file-read*",
+      "target": "/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/foo",
+        "profile_id": "vfs_private_tmp_only",
+        "probe_name": "read_/tmp/foo"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only:read_/private/tmp/foo",
+      "profile_id": "vfs_private_tmp_only",
+      "probe_name": "read_/private/tmp/foo",
+      "operation": "file-read*",
+      "target": "/private/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/foo",
+        "profile_id": "vfs_private_tmp_only",
+        "probe_name": "read_/private/tmp/foo"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only:write_/tmp/foo",
+      "profile_id": "vfs_private_tmp_only",
+      "probe_name": "write_/tmp/foo",
+      "operation": "file-write*",
+      "target": "/tmp/foo",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/foo",
+        "profile_id": "vfs_private_tmp_only",
+        "probe_name": "write_/tmp/foo"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/foo'"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only:write_/private/tmp/foo",
+      "profile_id": "vfs_private_tmp_only",
+      "probe_name": "write_/private/tmp/foo",
+      "operation": "file-write*",
+      "target": "/private/tmp/foo",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/foo",
+        "profile_id": "vfs_private_tmp_only",
+        "probe_name": "write_/private/tmp/foo"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/foo'"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only:read_/tmp/bar",
+      "profile_id": "vfs_private_tmp_only",
+      "probe_name": "read_/tmp/bar",
+      "operation": "file-read*",
+      "target": "/tmp/bar",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/bar",
+        "profile_id": "vfs_private_tmp_only",
+        "probe_name": "read_/tmp/bar"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/bar"
+      ],
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks bar\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only:read_/private/tmp/bar",
+      "profile_id": "vfs_private_tmp_only",
+      "probe_name": "read_/private/tmp/bar",
+      "operation": "file-read*",
+      "target": "/private/tmp/bar",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/bar",
+        "profile_id": "vfs_private_tmp_only",
+        "probe_name": "read_/private/tmp/bar"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/bar"
+      ],
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks bar\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only:write_/tmp/bar",
+      "profile_id": "vfs_private_tmp_only",
+      "probe_name": "write_/tmp/bar",
+      "operation": "file-write*",
+      "target": "/tmp/bar",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/bar",
+        "profile_id": "vfs_private_tmp_only",
+        "probe_name": "write_/tmp/bar"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/bar'"
+      ],
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only:write_/private/tmp/bar",
+      "profile_id": "vfs_private_tmp_only",
+      "probe_name": "write_/private/tmp/bar",
+      "operation": "file-write*",
+      "target": "/private/tmp/bar",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/bar",
+        "profile_id": "vfs_private_tmp_only",
+        "probe_name": "write_/private/tmp/bar"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/bar'"
+      ],
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only:read_/tmp/nested/child",
+      "profile_id": "vfs_private_tmp_only",
+      "probe_name": "read_/tmp/nested/child",
+      "operation": "file-read*",
+      "target": "/tmp/nested/child",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/nested/child",
+        "profile_id": "vfs_private_tmp_only",
+        "probe_name": "read_/tmp/nested/child"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/nested/child"
+      ],
+      "observed_path": "/private/tmp/nested/child",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks nested child\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only:read_/private/tmp/nested/child",
+      "profile_id": "vfs_private_tmp_only",
+      "probe_name": "read_/private/tmp/nested/child",
+      "operation": "file-read*",
+      "target": "/private/tmp/nested/child",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/nested/child",
+        "profile_id": "vfs_private_tmp_only",
+        "probe_name": "read_/private/tmp/nested/child"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/nested/child"
+      ],
+      "observed_path": "/private/tmp/nested/child",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks nested child\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only:write_/tmp/nested/child",
+      "profile_id": "vfs_private_tmp_only",
+      "probe_name": "write_/tmp/nested/child",
+      "operation": "file-write*",
+      "target": "/tmp/nested/child",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/nested/child",
+        "profile_id": "vfs_private_tmp_only",
+        "probe_name": "write_/tmp/nested/child"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/nested/child'"
+      ],
+      "observed_path": "/private/tmp/nested/child",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only:write_/private/tmp/nested/child",
+      "profile_id": "vfs_private_tmp_only",
+      "probe_name": "write_/private/tmp/nested/child",
+      "operation": "file-write*",
+      "target": "/private/tmp/nested/child",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/nested/child",
+        "profile_id": "vfs_private_tmp_only",
+        "probe_name": "write_/private/tmp/nested/child"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/nested/child'"
+      ],
+      "observed_path": "/private/tmp/nested/child",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only:read_/var/tmp/canon",
+      "profile_id": "vfs_private_tmp_only",
+      "probe_name": "read_/var/tmp/canon",
+      "operation": "file-read*",
+      "target": "/var/tmp/canon",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/var/tmp/canon",
+        "profile_id": "vfs_private_tmp_only",
+        "probe_name": "read_/var/tmp/canon"
+      },
+      "command": [
+        "/bin/cat",
+        "/var/tmp/canon"
+      ],
+      "observed_path": "/private/var/tmp/canon",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks var tmp canon\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only:read_/private/var/tmp/canon",
+      "profile_id": "vfs_private_tmp_only",
+      "probe_name": "read_/private/var/tmp/canon",
+      "operation": "file-read*",
+      "target": "/private/var/tmp/canon",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/var/tmp/canon",
+        "profile_id": "vfs_private_tmp_only",
+        "probe_name": "read_/private/var/tmp/canon"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/var/tmp/canon"
+      ],
+      "observed_path": "/private/var/tmp/canon",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks var tmp canon\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only:write_/var/tmp/canon",
+      "profile_id": "vfs_private_tmp_only",
+      "probe_name": "write_/var/tmp/canon",
+      "operation": "file-write*",
+      "target": "/var/tmp/canon",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/var/tmp/canon",
+        "profile_id": "vfs_private_tmp_only",
+        "probe_name": "write_/var/tmp/canon"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/var/tmp/canon'"
+      ],
+      "observed_path": "/private/var/tmp/canon",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only:write_/private/var/tmp/canon",
+      "profile_id": "vfs_private_tmp_only",
+      "probe_name": "write_/private/var/tmp/canon",
+      "operation": "file-write*",
+      "target": "/private/var/tmp/canon",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/var/tmp/canon",
+        "profile_id": "vfs_private_tmp_only",
+        "probe_name": "write_/private/var/tmp/canon"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/var/tmp/canon'"
+      ],
+      "observed_path": "/private/var/tmp/canon",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only:read_/private/tmp/nested/../foo",
+      "profile_id": "vfs_private_tmp_only",
+      "probe_name": "read_/private/tmp/nested/../foo",
+      "operation": "file-read*",
+      "target": "/private/tmp/nested/../foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/nested/../foo",
+        "profile_id": "vfs_private_tmp_only",
+        "probe_name": "read_/private/tmp/nested/../foo"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/nested/../foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only:write_/private/tmp/nested/../foo",
+      "profile_id": "vfs_private_tmp_only",
+      "probe_name": "write_/private/tmp/nested/../foo",
+      "operation": "file-write*",
+      "target": "/private/tmp/nested/../foo",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/nested/../foo",
+        "profile_id": "vfs_private_tmp_only",
+        "probe_name": "write_/private/tmp/nested/../foo"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/foo'"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_both_paths:read_/tmp/foo",
+      "profile_id": "vfs_both_paths",
+      "probe_name": "read_/tmp/foo",
+      "operation": "file-read*",
+      "target": "/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/foo",
+        "profile_id": "vfs_both_paths",
+        "probe_name": "read_/tmp/foo"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_both_paths:read_/private/tmp/foo",
+      "profile_id": "vfs_both_paths",
+      "probe_name": "read_/private/tmp/foo",
+      "operation": "file-read*",
+      "target": "/private/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/foo",
+        "profile_id": "vfs_both_paths",
+        "probe_name": "read_/private/tmp/foo"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_both_paths:write_/tmp/foo",
+      "profile_id": "vfs_both_paths",
+      "probe_name": "write_/tmp/foo",
+      "operation": "file-write*",
+      "target": "/tmp/foo",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/foo",
+        "profile_id": "vfs_both_paths",
+        "probe_name": "write_/tmp/foo"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/foo'"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_both_paths:write_/private/tmp/foo",
+      "profile_id": "vfs_both_paths",
+      "probe_name": "write_/private/tmp/foo",
+      "operation": "file-write*",
+      "target": "/private/tmp/foo",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/foo",
+        "profile_id": "vfs_both_paths",
+        "probe_name": "write_/private/tmp/foo"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/foo'"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_both_paths:read_/tmp/bar",
+      "profile_id": "vfs_both_paths",
+      "probe_name": "read_/tmp/bar",
+      "operation": "file-read*",
+      "target": "/tmp/bar",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/bar",
+        "profile_id": "vfs_both_paths",
+        "probe_name": "read_/tmp/bar"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/bar"
+      ],
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks bar\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_both_paths:read_/private/tmp/bar",
+      "profile_id": "vfs_both_paths",
+      "probe_name": "read_/private/tmp/bar",
+      "operation": "file-read*",
+      "target": "/private/tmp/bar",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/bar",
+        "profile_id": "vfs_both_paths",
+        "probe_name": "read_/private/tmp/bar"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/bar"
+      ],
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks bar\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_both_paths:write_/tmp/bar",
+      "profile_id": "vfs_both_paths",
+      "probe_name": "write_/tmp/bar",
+      "operation": "file-write*",
+      "target": "/tmp/bar",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/bar",
+        "profile_id": "vfs_both_paths",
+        "probe_name": "write_/tmp/bar"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/bar'"
+      ],
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_both_paths:write_/private/tmp/bar",
+      "profile_id": "vfs_both_paths",
+      "probe_name": "write_/private/tmp/bar",
+      "operation": "file-write*",
+      "target": "/private/tmp/bar",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/bar",
+        "profile_id": "vfs_both_paths",
+        "probe_name": "write_/private/tmp/bar"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/bar'"
+      ],
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_both_paths:read_/tmp/nested/child",
+      "profile_id": "vfs_both_paths",
+      "probe_name": "read_/tmp/nested/child",
+      "operation": "file-read*",
+      "target": "/tmp/nested/child",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/nested/child",
+        "profile_id": "vfs_both_paths",
+        "probe_name": "read_/tmp/nested/child"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/nested/child"
+      ],
+      "observed_path": "/private/tmp/nested/child",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks nested child\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_both_paths:read_/private/tmp/nested/child",
+      "profile_id": "vfs_both_paths",
+      "probe_name": "read_/private/tmp/nested/child",
+      "operation": "file-read*",
+      "target": "/private/tmp/nested/child",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/nested/child",
+        "profile_id": "vfs_both_paths",
+        "probe_name": "read_/private/tmp/nested/child"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/nested/child"
+      ],
+      "observed_path": "/private/tmp/nested/child",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks nested child\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_both_paths:write_/tmp/nested/child",
+      "profile_id": "vfs_both_paths",
+      "probe_name": "write_/tmp/nested/child",
+      "operation": "file-write*",
+      "target": "/tmp/nested/child",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/nested/child",
+        "profile_id": "vfs_both_paths",
+        "probe_name": "write_/tmp/nested/child"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/nested/child'"
+      ],
+      "observed_path": "/private/tmp/nested/child",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_both_paths:write_/private/tmp/nested/child",
+      "profile_id": "vfs_both_paths",
+      "probe_name": "write_/private/tmp/nested/child",
+      "operation": "file-write*",
+      "target": "/private/tmp/nested/child",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/nested/child",
+        "profile_id": "vfs_both_paths",
+        "probe_name": "write_/private/tmp/nested/child"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/nested/child'"
+      ],
+      "observed_path": "/private/tmp/nested/child",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_both_paths:read_/var/tmp/canon",
+      "profile_id": "vfs_both_paths",
+      "probe_name": "read_/var/tmp/canon",
+      "operation": "file-read*",
+      "target": "/var/tmp/canon",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/var/tmp/canon",
+        "profile_id": "vfs_both_paths",
+        "probe_name": "read_/var/tmp/canon"
+      },
+      "command": [
+        "/bin/cat",
+        "/var/tmp/canon"
+      ],
+      "observed_path": "/private/var/tmp/canon",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks var tmp canon\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_both_paths:read_/private/var/tmp/canon",
+      "profile_id": "vfs_both_paths",
+      "probe_name": "read_/private/var/tmp/canon",
+      "operation": "file-read*",
+      "target": "/private/var/tmp/canon",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/var/tmp/canon",
+        "profile_id": "vfs_both_paths",
+        "probe_name": "read_/private/var/tmp/canon"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/var/tmp/canon"
+      ],
+      "observed_path": "/private/var/tmp/canon",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks var tmp canon\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_both_paths:write_/var/tmp/canon",
+      "profile_id": "vfs_both_paths",
+      "probe_name": "write_/var/tmp/canon",
+      "operation": "file-write*",
+      "target": "/var/tmp/canon",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/var/tmp/canon",
+        "profile_id": "vfs_both_paths",
+        "probe_name": "write_/var/tmp/canon"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/var/tmp/canon'"
+      ],
+      "observed_path": "/private/var/tmp/canon",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_both_paths:write_/private/var/tmp/canon",
+      "profile_id": "vfs_both_paths",
+      "probe_name": "write_/private/var/tmp/canon",
+      "operation": "file-write*",
+      "target": "/private/var/tmp/canon",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/var/tmp/canon",
+        "profile_id": "vfs_both_paths",
+        "probe_name": "write_/private/var/tmp/canon"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/var/tmp/canon'"
+      ],
+      "observed_path": "/private/var/tmp/canon",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only_openat:read_open_/tmp/foo",
+      "profile_id": "vfs_private_tmp_only_openat",
+      "probe_name": "read_open_/tmp/foo",
+      "operation": "file-read*",
+      "target": "/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/foo",
+        "profile_id": "vfs_private_tmp_only_openat",
+        "probe_name": "read_open_/tmp/foo"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only_openat:read_openat_/tmp/foo",
+      "profile_id": "vfs_private_tmp_only_openat",
+      "probe_name": "read_openat_/tmp/foo",
+      "operation": "file-read*",
+      "target": "/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/foo",
+        "profile_id": "vfs_private_tmp_only_openat",
+        "probe_name": "read_openat_/tmp/foo"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only_openat:read_open_/private/tmp/foo",
+      "profile_id": "vfs_private_tmp_only_openat",
+      "probe_name": "read_open_/private/tmp/foo",
+      "operation": "file-read*",
+      "target": "/private/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/foo",
+        "profile_id": "vfs_private_tmp_only_openat",
+        "probe_name": "read_open_/private/tmp/foo"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only_openat:read_openat_/private/tmp/foo",
+      "profile_id": "vfs_private_tmp_only_openat",
+      "probe_name": "read_openat_/private/tmp/foo",
+      "operation": "file-read*",
+      "target": "/private/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/foo",
+        "profile_id": "vfs_private_tmp_only_openat",
+        "probe_name": "read_openat_/private/tmp/foo"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only_openat:read_openat_rootrel_tmp/foo",
+      "profile_id": "vfs_private_tmp_only_openat",
+      "probe_name": "read_openat_rootrel_tmp/foo",
+      "operation": "file-read*",
+      "target": "tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "tmp/foo",
+        "profile_id": "vfs_private_tmp_only_openat",
+        "probe_name": "read_openat_rootrel_tmp/foo"
+      },
+      "command": [
+        "/bin/cat",
+        "tmp/foo"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_non_absolute_target",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_non_absolute_target",
+      "observed_path_nofirmlink_errno": null,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: tmp/foo: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_private_tmp_only_openat:read_openat_rootrel_private/tmp/foo",
+      "profile_id": "vfs_private_tmp_only_openat",
+      "probe_name": "read_openat_rootrel_private/tmp/foo",
+      "operation": "file-read*",
+      "target": "private/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "private/tmp/foo",
+        "profile_id": "vfs_private_tmp_only_openat",
+        "probe_name": "read_openat_rootrel_private/tmp/foo"
+      },
+      "command": [
+        "/bin/cat",
+        "private/tmp/foo"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_non_absolute_target",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_non_absolute_target",
+      "observed_path_nofirmlink_errno": null,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: private/tmp/foo: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_alias_only:read_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "probe_name": "read_/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "target": "/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_alias_only",
+        "probe_name": "read_/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/var/tmp/vfs_canon_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_alias_only:write_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "probe_name": "write_/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "target": "/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_alias_only",
+        "probe_name": "write_/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/var/tmp/vfs_canon_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_alias_only:read_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "probe_name": "read_/private/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "target": "/private/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_alias_only",
+        "probe_name": "read_/private/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/var/tmp/vfs_canon_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_alias_only:write_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "probe_name": "write_/private/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "target": "/private/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_alias_only",
+        "probe_name": "write_/private/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/var/tmp/vfs_canon_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_alias_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "probe_name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_alias_only",
+        "probe_name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_alias_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "probe_name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_alias_only",
+        "probe_name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/System/Volumes/Data/private/var/tmp/vfs_canon_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_private_only:read_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_private_only",
+      "probe_name": "read_/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "target": "/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_private_only",
+        "probe_name": "read_/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/var/tmp/vfs_canon_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_private_only:write_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_private_only",
+      "probe_name": "write_/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "target": "/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_private_only",
+        "probe_name": "write_/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/var/tmp/vfs_canon_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_private_only:read_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_private_only",
+      "probe_name": "read_/private/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "target": "/private/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_private_only",
+        "probe_name": "read_/private/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/var/tmp/vfs_canon_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_private_only:write_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_private_only",
+      "probe_name": "write_/private/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "target": "/private/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_private_only",
+        "probe_name": "write_/private/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/var/tmp/vfs_canon_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_private_only",
+      "probe_name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_private_only",
+        "probe_name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_private_only",
+      "probe_name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_private_only",
+        "probe_name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/System/Volumes/Data/private/var/tmp/vfs_canon_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_both:read_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both",
+      "probe_name": "read_/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "target": "/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_both",
+        "probe_name": "read_/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/var/tmp/vfs_canon_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-c",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_both:write_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both",
+      "probe_name": "write_/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "target": "/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_both",
+        "probe_name": "write_/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/var/tmp/vfs_canon_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_both:read_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both",
+      "probe_name": "read_/private/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "target": "/private/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_both",
+        "probe_name": "read_/private/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/var/tmp/vfs_canon_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-c",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_both:write_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both",
+      "probe_name": "write_/private/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "target": "/private/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_both",
+        "probe_name": "write_/private/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/var/tmp/vfs_canon_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_both:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both",
+      "probe_name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_both",
+        "probe_name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-c",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_both:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both",
+      "probe_name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_both",
+        "probe_name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/System/Volumes/Data/private/var/tmp/vfs_canon_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_both_plus_metadata_var:lstat_/var",
+      "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+      "probe_name": "lstat_/var",
+      "operation": "file-read-metadata",
+      "target": "/var",
+      "primary_intent": {
+        "operation": "file-read-metadata",
+        "target": "/var",
+        "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+        "probe_name": "lstat_/var"
+      },
+      "command": [
+        "/usr/bin/python3",
+        "-c",
+        "import os, sys; os.lstat(sys.argv[1])",
+        "/var"
+      ],
+      "observed_path": "/private/var",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_both_plus_metadata_var:read_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+      "probe_name": "read_/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "target": "/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+        "probe_name": "read_/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/var/tmp/vfs_canon_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-c",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_both_plus_metadata_var:write_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+      "probe_name": "write_/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "target": "/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+        "probe_name": "write_/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/var/tmp/vfs_canon_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_both_plus_metadata_var:read_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+      "probe_name": "read_/private/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "target": "/private/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+        "probe_name": "read_/private/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/var/tmp/vfs_canon_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-c",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_both_plus_metadata_var:write_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+      "probe_name": "write_/private/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "target": "/private/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+        "probe_name": "write_/private/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/var/tmp/vfs_canon_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_data_only:read_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_data_only",
+      "probe_name": "read_/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "target": "/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_data_only",
+        "probe_name": "read_/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/var/tmp/vfs_canon_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-c",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_data_only:write_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_data_only",
+      "probe_name": "write_/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "target": "/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_data_only",
+        "probe_name": "write_/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/var/tmp/vfs_canon_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_data_only:read_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_data_only",
+      "probe_name": "read_/private/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "target": "/private/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_data_only",
+        "probe_name": "read_/private/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/var/tmp/vfs_canon_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-c",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_data_only:write_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_data_only",
+      "probe_name": "write_/private/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "target": "/private/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_data_only",
+        "probe_name": "write_/private/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/var/tmp/vfs_canon_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_data_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_data_only",
+      "probe_name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_data_only",
+        "probe_name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-c",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_var_tmp_data_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_data_only",
+      "probe_name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "profile_id": "vfs_var_tmp_data_only",
+        "probe_name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/System/Volumes/Data/private/var/tmp/vfs_canon_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_etc_alias_only:read_/etc/hosts",
+      "profile_id": "vfs_etc_alias_only",
+      "probe_name": "read_/etc/hosts",
+      "operation": "file-read*",
+      "target": "/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/etc/hosts",
+        "profile_id": "vfs_etc_alias_only",
+        "probe_name": "read_/etc/hosts"
+      },
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_etc_alias_only:read_/private/etc/hosts",
+      "profile_id": "vfs_etc_alias_only",
+      "probe_name": "read_/private/etc/hosts",
+      "operation": "file-read*",
+      "target": "/private/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/etc/hosts",
+        "profile_id": "vfs_etc_alias_only",
+        "probe_name": "read_/private/etc/hosts"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_etc_private_only:read_/etc/hosts",
+      "profile_id": "vfs_etc_private_only",
+      "probe_name": "read_/etc/hosts",
+      "operation": "file-read*",
+      "target": "/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/etc/hosts",
+        "profile_id": "vfs_etc_private_only",
+        "probe_name": "read_/etc/hosts"
+      },
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_etc_private_only:read_/private/etc/hosts",
+      "profile_id": "vfs_etc_private_only",
+      "probe_name": "read_/private/etc/hosts",
+      "operation": "file-read*",
+      "target": "/private/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/etc/hosts",
+        "profile_id": "vfs_etc_private_only",
+        "probe_name": "read_/private/etc/hosts"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_etc_both:read_/etc/hosts",
+      "profile_id": "vfs_etc_both",
+      "probe_name": "read_/etc/hosts",
+      "operation": "file-read*",
+      "target": "/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/etc/hosts",
+        "profile_id": "vfs_etc_both",
+        "probe_name": "read_/etc/hosts"
+      },
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_etc_both:read_/private/etc/hosts",
+      "profile_id": "vfs_etc_both",
+      "probe_name": "read_/private/etc/hosts",
+      "operation": "file-read*",
+      "target": "/private/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/etc/hosts",
+        "profile_id": "vfs_etc_both",
+        "probe_name": "read_/private/etc/hosts"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_etc_both:read_openat_rootrel_etc/hosts",
+      "profile_id": "vfs_etc_both",
+      "probe_name": "read_openat_rootrel_etc/hosts",
+      "operation": "file-read*",
+      "target": "etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "etc/hosts",
+        "profile_id": "vfs_etc_both",
+        "probe_name": "read_openat_rootrel_etc/hosts"
+      },
+      "command": [
+        "/bin/cat",
+        "etc/hosts"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_non_absolute_target",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_non_absolute_target",
+      "observed_path_nofirmlink_errno": null,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: etc/hosts: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_etc_both:read_openat_rootrel_private/etc/hosts",
+      "profile_id": "vfs_etc_both",
+      "probe_name": "read_openat_rootrel_private/etc/hosts",
+      "operation": "file-read*",
+      "target": "private/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "private/etc/hosts",
+        "profile_id": "vfs_etc_both",
+        "probe_name": "read_openat_rootrel_private/etc/hosts"
+      },
+      "command": [
+        "/bin/cat",
+        "private/etc/hosts"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_non_absolute_target",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_non_absolute_target",
+      "observed_path_nofirmlink_errno": null,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: private/etc/hosts: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_etc_both_plus_metadata_etc:lstat_/etc",
+      "profile_id": "vfs_etc_both_plus_metadata_etc",
+      "probe_name": "lstat_/etc",
+      "operation": "file-read-metadata",
+      "target": "/etc",
+      "primary_intent": {
+        "operation": "file-read-metadata",
+        "target": "/etc",
+        "profile_id": "vfs_etc_both_plus_metadata_etc",
+        "probe_name": "lstat_/etc"
+      },
+      "command": [
+        "/usr/bin/python3",
+        "-c",
+        "import os, sys; os.lstat(sys.argv[1])",
+        "/etc"
+      ],
+      "observed_path": "/private/etc",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_etc_both_plus_metadata_etc:read_openat_rootrel_etc/hosts",
+      "profile_id": "vfs_etc_both_plus_metadata_etc",
+      "probe_name": "read_openat_rootrel_etc/hosts",
+      "operation": "file-read*",
+      "target": "etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "etc/hosts",
+        "profile_id": "vfs_etc_both_plus_metadata_etc",
+        "probe_name": "read_openat_rootrel_etc/hosts"
+      },
+      "command": [
+        "/bin/cat",
+        "etc/hosts"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_non_absolute_target",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_non_absolute_target",
+      "observed_path_nofirmlink_errno": null,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: etc/hosts: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_etc_both_plus_metadata_etc:read_openat_rootrel_private/etc/hosts",
+      "profile_id": "vfs_etc_both_plus_metadata_etc",
+      "probe_name": "read_openat_rootrel_private/etc/hosts",
+      "operation": "file-read*",
+      "target": "private/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "private/etc/hosts",
+        "profile_id": "vfs_etc_both_plus_metadata_etc",
+        "probe_name": "read_openat_rootrel_private/etc/hosts"
+      },
+      "command": [
+        "/bin/cat",
+        "private/etc/hosts"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_non_absolute_target",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_non_absolute_target",
+      "observed_path_nofirmlink_errno": null,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: private/etc/hosts: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_etc_both_plus_metadata_etc:read_/etc/hosts",
+      "profile_id": "vfs_etc_both_plus_metadata_etc",
+      "probe_name": "read_/etc/hosts",
+      "operation": "file-read*",
+      "target": "/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/etc/hosts",
+        "profile_id": "vfs_etc_both_plus_metadata_etc",
+        "probe_name": "read_/etc/hosts"
+      },
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_etc_both_plus_metadata_etc:read_/private/etc/hosts",
+      "profile_id": "vfs_etc_both_plus_metadata_etc",
+      "probe_name": "read_/private/etc/hosts",
+      "operation": "file-read*",
+      "target": "/private/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/etc/hosts",
+        "profile_id": "vfs_etc_both_plus_metadata_etc",
+        "probe_name": "read_/private/etc/hosts"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_firmlink_private_only:read_/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_private_only",
+      "probe_name": "read_/private/tmp/vfs_firmlink_probe",
+      "operation": "file-read*",
+      "target": "/private/tmp/vfs_firmlink_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/vfs_firmlink_probe",
+        "profile_id": "vfs_firmlink_private_only",
+        "probe_name": "read_/private/tmp/vfs_firmlink_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/vfs_firmlink_probe"
+      ],
+      "observed_path": "/private/tmp/vfs_firmlink_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_firmlink_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_firmlink_private_only:write_/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_private_only",
+      "probe_name": "write_/private/tmp/vfs_firmlink_probe",
+      "operation": "file-write*",
+      "target": "/private/tmp/vfs_firmlink_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/vfs_firmlink_probe",
+        "profile_id": "vfs_firmlink_private_only",
+        "probe_name": "write_/private/tmp/vfs_firmlink_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/vfs_firmlink_probe'"
+      ],
+      "observed_path": "/private/tmp/vfs_firmlink_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_firmlink_private_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_private_only",
+      "probe_name": "read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "profile_id": "vfs_firmlink_private_only",
+        "probe_name": "read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+      ],
+      "observed_path": "/private/tmp/vfs_firmlink_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_firmlink_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_firmlink_private_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_private_only",
+      "probe_name": "write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "operation": "file-write*",
+      "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "profile_id": "vfs_firmlink_private_only",
+        "probe_name": "write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/System/Volumes/Data/private/tmp/vfs_firmlink_probe'"
+      ],
+      "observed_path": "/private/tmp/vfs_firmlink_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_firmlink_data_only:read_/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_data_only",
+      "probe_name": "read_/private/tmp/vfs_firmlink_probe",
+      "operation": "file-read*",
+      "target": "/private/tmp/vfs_firmlink_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/vfs_firmlink_probe",
+        "profile_id": "vfs_firmlink_data_only",
+        "probe_name": "read_/private/tmp/vfs_firmlink_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/vfs_firmlink_probe"
+      ],
+      "observed_path": "/private/tmp/vfs_firmlink_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_firmlink_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_firmlink_data_only:write_/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_data_only",
+      "probe_name": "write_/private/tmp/vfs_firmlink_probe",
+      "operation": "file-write*",
+      "target": "/private/tmp/vfs_firmlink_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/vfs_firmlink_probe",
+        "profile_id": "vfs_firmlink_data_only",
+        "probe_name": "write_/private/tmp/vfs_firmlink_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/vfs_firmlink_probe'"
+      ],
+      "observed_path": "/private/tmp/vfs_firmlink_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_firmlink_data_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_data_only",
+      "probe_name": "read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "profile_id": "vfs_firmlink_data_only",
+        "probe_name": "read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+      ],
+      "observed_path": "/private/tmp/vfs_firmlink_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_firmlink_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_firmlink_data_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_data_only",
+      "probe_name": "write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "operation": "file-write*",
+      "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "profile_id": "vfs_firmlink_data_only",
+        "probe_name": "write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/System/Volumes/Data/private/tmp/vfs_firmlink_probe'"
+      ],
+      "observed_path": "/private/tmp/vfs_firmlink_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_firmlink_both:read_/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_both",
+      "probe_name": "read_/private/tmp/vfs_firmlink_probe",
+      "operation": "file-read*",
+      "target": "/private/tmp/vfs_firmlink_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/vfs_firmlink_probe",
+        "profile_id": "vfs_firmlink_both",
+        "probe_name": "read_/private/tmp/vfs_firmlink_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/vfs_firmlink_probe"
+      ],
+      "observed_path": "/private/tmp/vfs_firmlink_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_firmlink_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_firmlink_both:write_/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_both",
+      "probe_name": "write_/private/tmp/vfs_firmlink_probe",
+      "operation": "file-write*",
+      "target": "/private/tmp/vfs_firmlink_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/vfs_firmlink_probe",
+        "profile_id": "vfs_firmlink_both",
+        "probe_name": "write_/private/tmp/vfs_firmlink_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/vfs_firmlink_probe'"
+      ],
+      "observed_path": "/private/tmp/vfs_firmlink_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_firmlink_both:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_both",
+      "probe_name": "read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "profile_id": "vfs_firmlink_both",
+        "probe_name": "read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+      ],
+      "observed_path": "/private/tmp/vfs_firmlink_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_firmlink_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_firmlink_both:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_both",
+      "probe_name": "write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "operation": "file-write*",
+      "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "profile_id": "vfs_firmlink_both",
+        "probe_name": "write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/System/Volumes/Data/private/tmp/vfs_firmlink_probe'"
+      ],
+      "observed_path": "/private/tmp/vfs_firmlink_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_var_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_var_tmp_only",
+      "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "operation": "file-read*",
+      "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "profile_id": "vfs_link_var_tmp_only",
+        "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_link_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_link_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_var_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_var_tmp_only",
+      "probe_name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "operation": "file-write*",
+      "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "profile_id": "vfs_link_var_tmp_only",
+        "probe_name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_link_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_var_tmp_only:read_/private/var/tmp/vfs_link_probe",
+      "profile_id": "vfs_link_var_tmp_only",
+      "probe_name": "read_/private/var/tmp/vfs_link_probe",
+      "operation": "file-read*",
+      "target": "/private/var/tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/var/tmp/vfs_link_probe",
+        "profile_id": "vfs_link_var_tmp_only",
+        "probe_name": "read_/private/var/tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/var/tmp/vfs_link_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_link_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_link_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_var_tmp_only:write_/private/var/tmp/vfs_link_probe",
+      "profile_id": "vfs_link_var_tmp_only",
+      "probe_name": "write_/private/var/tmp/vfs_link_probe",
+      "operation": "file-write*",
+      "target": "/private/var/tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/var/tmp/vfs_link_probe",
+        "profile_id": "vfs_link_var_tmp_only",
+        "probe_name": "write_/private/var/tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/var/tmp/vfs_link_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_link_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_private_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_private_tmp_only",
+      "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "operation": "file-read*",
+      "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "profile_id": "vfs_link_private_tmp_only",
+        "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_link_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_link_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_private_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_private_tmp_only",
+      "probe_name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "operation": "file-write*",
+      "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "profile_id": "vfs_link_private_tmp_only",
+        "probe_name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_link_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_private_tmp_only:read_/private/var/tmp/vfs_link_probe",
+      "profile_id": "vfs_link_private_tmp_only",
+      "probe_name": "read_/private/var/tmp/vfs_link_probe",
+      "operation": "file-read*",
+      "target": "/private/var/tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/var/tmp/vfs_link_probe",
+        "profile_id": "vfs_link_private_tmp_only",
+        "probe_name": "read_/private/var/tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/var/tmp/vfs_link_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_link_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_link_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_private_tmp_only:write_/private/var/tmp/vfs_link_probe",
+      "profile_id": "vfs_link_private_tmp_only",
+      "probe_name": "write_/private/var/tmp/vfs_link_probe",
+      "operation": "file-write*",
+      "target": "/private/var/tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/var/tmp/vfs_link_probe",
+        "profile_id": "vfs_link_private_tmp_only",
+        "probe_name": "write_/private/var/tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/var/tmp/vfs_link_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_link_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_both",
+      "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "operation": "file-read*",
+      "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "profile_id": "vfs_link_both",
+        "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_link_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_link_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_both:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_both",
+      "probe_name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "operation": "file-write*",
+      "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "profile_id": "vfs_link_both",
+        "probe_name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_link_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_both:read_/private/var/tmp/vfs_link_probe",
+      "profile_id": "vfs_link_both",
+      "probe_name": "read_/private/var/tmp/vfs_link_probe",
+      "operation": "file-read*",
+      "target": "/private/var/tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/var/tmp/vfs_link_probe",
+        "profile_id": "vfs_link_both",
+        "probe_name": "read_/private/var/tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/var/tmp/vfs_link_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_link_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_link_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_both:write_/private/var/tmp/vfs_link_probe",
+      "profile_id": "vfs_link_both",
+      "probe_name": "write_/private/var/tmp/vfs_link_probe",
+      "operation": "file-write*",
+      "target": "/private/var/tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/var/tmp/vfs_link_probe",
+        "profile_id": "vfs_link_both",
+        "probe_name": "write_/private/var/tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/var/tmp/vfs_link_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_link_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_both_plus_metadata_to_var_tmp:lstat_/private/tmp/vfs_linkdir/to_var_tmp",
+      "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+      "probe_name": "lstat_/private/tmp/vfs_linkdir/to_var_tmp",
+      "operation": "file-read-metadata",
+      "target": "/private/tmp/vfs_linkdir/to_var_tmp",
+      "primary_intent": {
+        "operation": "file-read-metadata",
+        "target": "/private/tmp/vfs_linkdir/to_var_tmp",
+        "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+        "probe_name": "lstat_/private/tmp/vfs_linkdir/to_var_tmp"
+      },
+      "command": [
+        "/usr/bin/python3",
+        "-c",
+        "import os, sys; os.lstat(sys.argv[1])",
+        "/private/tmp/vfs_linkdir/to_var_tmp"
+      ],
+      "observed_path": "/private/var/tmp",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_both_plus_metadata_to_var_tmp:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+      "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "operation": "file-read*",
+      "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+        "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_link_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_link_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_both_plus_metadata_to_var_tmp:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+      "probe_name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "operation": "file-write*",
+      "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+        "probe_name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_link_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_both_plus_metadata_to_var_tmp:read_/private/var/tmp/vfs_link_probe",
+      "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+      "probe_name": "read_/private/var/tmp/vfs_link_probe",
+      "operation": "file-read*",
+      "target": "/private/var/tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/var/tmp/vfs_link_probe",
+        "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+        "probe_name": "read_/private/var/tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/var/tmp/vfs_link_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_link_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_link_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_both_plus_metadata_to_var_tmp:write_/private/var/tmp/vfs_link_probe",
+      "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+      "probe_name": "write_/private/var/tmp/vfs_link_probe",
+      "operation": "file-write*",
+      "target": "/private/var/tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/var/tmp/vfs_link_probe",
+        "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+        "probe_name": "write_/private/var/tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/var/tmp/vfs_link_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_link_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    }
+  ]
+}

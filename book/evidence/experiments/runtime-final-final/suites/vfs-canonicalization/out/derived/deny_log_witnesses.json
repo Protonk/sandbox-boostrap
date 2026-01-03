@@ -1,11 +1,3262 @@
 {
   "bundle": {
-    "artifact_index": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/a2feeb53-0dc2-4201-81e4-4bc24f35fed7/artifact_index.json",
-    "artifact_index_sha256": "81b9b9df73e71157ae70c6bf4a910182145acc0824c56ef43ecba49e3c7c4f82",
-    "bundle_dir": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/a2feeb53-0dc2-4201-81e4-4bc24f35fed7",
-    "run_id": "a2feeb53-0dc2-4201-81e4-4bc24f35fed7"
+    "artifact_index": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/artifact_index.json",
+    "artifact_index_sha256": "970a3d78b5c99b4ae80b2319aa07be750459fc1a5463b2db93d5d5acc789c41e",
+    "bundle_dir": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4",
+    "run_id": "b45e4406-c756-4488-853e-c5a4d081adf4"
   },
-  "records": [],
+  "records": [
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_tmp_only:read_/tmp/foo",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:51.681701-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64309) deny(1) file-read-data /private/tmp/foo"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_tmp_only.read__tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64309,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64309)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64309\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:22:53",
+          "last": null,
+          "start": "2026-01-03 10:22:49"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/tmp/foo",
+      "profile_id": "vfs_tmp_only",
+      "requested_path": "/tmp/foo"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_tmp_only:read_/private/tmp/foo",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:53.257039-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64353) deny(1) file-read-data /private/tmp/foo"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_tmp_only.read__private_tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64353,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64353)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64353\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:22:55",
+          "last": null,
+          "start": "2026-01-03 10:22:51"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/tmp/foo",
+      "profile_id": "vfs_tmp_only",
+      "requested_path": "/private/tmp/foo"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_tmp_only:write_/tmp/foo",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:53.532468-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64364) deny(1) file-write-data /private/tmp/foo"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_tmp_only.write__tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64364,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64364)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64364\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:22:55",
+          "last": null,
+          "start": "2026-01-03 10:22:51"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/tmp/foo",
+      "profile_id": "vfs_tmp_only",
+      "requested_path": "/tmp/foo"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_tmp_only:write_/private/tmp/foo",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:53.661019-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64383) deny(1) file-write-data /private/tmp/foo"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_tmp_only.write__private_tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64383,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64383)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64383\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:22:55",
+          "last": null,
+          "start": "2026-01-03 10:22:51"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/tmp/foo",
+      "profile_id": "vfs_tmp_only",
+      "requested_path": "/private/tmp/foo"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_tmp_only:read_/tmp/bar",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:53.797735-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64394) deny(1) file-read-data /private/tmp/bar"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_tmp_only.read__tmp_bar.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64394,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64394)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64394\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:22:55",
+          "last": null,
+          "start": "2026-01-03 10:22:51"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/tmp/bar",
+      "profile_id": "vfs_tmp_only",
+      "requested_path": "/tmp/bar"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_tmp_only:read_/private/tmp/bar",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:53.936334-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64402) deny(1) file-read-data /private/tmp/bar"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_tmp_only.read__private_tmp_bar.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64402,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64402)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64402\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:22:55",
+          "last": null,
+          "start": "2026-01-03 10:22:51"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/tmp/bar",
+      "profile_id": "vfs_tmp_only",
+      "requested_path": "/private/tmp/bar"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_tmp_only:write_/tmp/bar",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:54.201033-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64406) deny(1) file-write-data /private/tmp/bar"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_tmp_only.write__tmp_bar.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64406,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64406)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64406\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:22:56",
+          "last": null,
+          "start": "2026-01-03 10:22:52"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/tmp/bar",
+      "profile_id": "vfs_tmp_only",
+      "requested_path": "/tmp/bar"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_tmp_only:write_/private/tmp/bar",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:54.362986-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64409) deny(1) file-write-data /private/tmp/bar"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_tmp_only.write__private_tmp_bar.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64409,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64409)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64409\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:22:56",
+          "last": null,
+          "start": "2026-01-03 10:22:52"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/tmp/bar",
+      "profile_id": "vfs_tmp_only",
+      "requested_path": "/private/tmp/bar"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_tmp_only:read_/tmp/nested/child",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:54.493247-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64417) deny(1) file-read-data /private/tmp/nested/child"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_tmp_only.read__tmp_nested_child.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64417,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64417)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64417\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:22:56",
+          "last": null,
+          "start": "2026-01-03 10:22:52"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/tmp/nested/child",
+      "profile_id": "vfs_tmp_only",
+      "requested_path": "/tmp/nested/child"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_tmp_only:read_/private/tmp/nested/child",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:54.618569-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64424) deny(1) file-read-data /private/tmp/nested/child"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_tmp_only.read__private_tmp_nested_child.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64424,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64424)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64424\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:22:56",
+          "last": null,
+          "start": "2026-01-03 10:22:52"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/tmp/nested/child",
+      "profile_id": "vfs_tmp_only",
+      "requested_path": "/private/tmp/nested/child"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_tmp_only:write_/tmp/nested/child",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:54.764248-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64431) deny(1) file-write-data /private/tmp/nested/child"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_tmp_only.write__tmp_nested_child.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64431,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64431)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64431\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:22:56",
+          "last": null,
+          "start": "2026-01-03 10:22:52"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/tmp/nested/child",
+      "profile_id": "vfs_tmp_only",
+      "requested_path": "/tmp/nested/child"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_tmp_only:write_/private/tmp/nested/child",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:54.908555-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64440) deny(1) file-write-data /private/tmp/nested/child"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_tmp_only.write__private_tmp_nested_child.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64440,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64440)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64440\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:22:56",
+          "last": null,
+          "start": "2026-01-03 10:22:52"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/tmp/nested/child",
+      "profile_id": "vfs_tmp_only",
+      "requested_path": "/private/tmp/nested/child"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_tmp_only:read_/var/tmp/canon",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:55.045885-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64447) deny(1) file-read-metadata /var",
+          "2026-01-03 10:22:55.089567-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_reader(64447) deny(1) file-read-metadata /var"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_tmp_only.read__var_tmp_canon.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64447,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64447)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64447\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:22:56",
+          "last": null,
+          "start": "2026-01-03 10:22:52"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/var/tmp/canon",
+      "profile_id": "vfs_tmp_only",
+      "requested_path": "/var/tmp/canon"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_tmp_only:read_/private/var/tmp/canon",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:55.190352-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64450) deny(1) file-read-data /private/var/tmp/canon"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_tmp_only.read__private_var_tmp_canon.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64450,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64450)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64450\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:22:57",
+          "last": null,
+          "start": "2026-01-03 10:22:53"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/var/tmp/canon",
+      "profile_id": "vfs_tmp_only",
+      "requested_path": "/private/var/tmp/canon"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_tmp_only:write_/var/tmp/canon",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:55.324297-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64453) deny(1) file-read-metadata /var",
+          "2026-01-03 10:22:55.359546-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_writer(64453) deny(1) file-read-metadata /var"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_tmp_only.write__var_tmp_canon.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64453,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64453)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64453\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:22:57",
+          "last": null,
+          "start": "2026-01-03 10:22:53"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/var/tmp/canon",
+      "profile_id": "vfs_tmp_only",
+      "requested_path": "/var/tmp/canon"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_tmp_only:write_/private/var/tmp/canon",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:55.459763-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64457) deny(1) file-write-data /private/var/tmp/canon"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_tmp_only.write__private_var_tmp_canon.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64457,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64457)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64457\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:22:57",
+          "last": null,
+          "start": "2026-01-03 10:22:53"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/var/tmp/canon",
+      "profile_id": "vfs_tmp_only",
+      "requested_path": "/private/var/tmp/canon"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only:read_/tmp/foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only.read__tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64467,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64467)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64467\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:22:57",
+          "last": null,
+          "start": "2026-01-03 10:22:53"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/tmp/foo",
+      "profile_id": "vfs_private_tmp_only",
+      "requested_path": "/tmp/foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only:read_/private/tmp/foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only.read__private_tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64470,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64470)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64470\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:22:57",
+          "last": null,
+          "start": "2026-01-03 10:22:53"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/tmp/foo",
+      "profile_id": "vfs_private_tmp_only",
+      "requested_path": "/private/tmp/foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only:write_/tmp/foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only.write__tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64475,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64475)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64475\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:22:57",
+          "last": null,
+          "start": "2026-01-03 10:22:53"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/tmp/foo",
+      "profile_id": "vfs_private_tmp_only",
+      "requested_path": "/tmp/foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only:write_/private/tmp/foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only.write__private_tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64478,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64478)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64478\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:22:58",
+          "last": null,
+          "start": "2026-01-03 10:22:54"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/tmp/foo",
+      "profile_id": "vfs_private_tmp_only",
+      "requested_path": "/private/tmp/foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only:read_/tmp/bar",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only.read__tmp_bar.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64481,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64481)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64481\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:22:58",
+          "last": null,
+          "start": "2026-01-03 10:22:54"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/tmp/bar",
+      "profile_id": "vfs_private_tmp_only",
+      "requested_path": "/tmp/bar"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only:read_/private/tmp/bar",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only.read__private_tmp_bar.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64484,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64484)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64484\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:22:58",
+          "last": null,
+          "start": "2026-01-03 10:22:54"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/tmp/bar",
+      "profile_id": "vfs_private_tmp_only",
+      "requested_path": "/private/tmp/bar"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only:write_/tmp/bar",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only.write__tmp_bar.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64487,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64487)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64487\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:22:58",
+          "last": null,
+          "start": "2026-01-03 10:22:54"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/tmp/bar",
+      "profile_id": "vfs_private_tmp_only",
+      "requested_path": "/tmp/bar"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only:write_/private/tmp/bar",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only.write__private_tmp_bar.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64490,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64490)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64490\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:22:58",
+          "last": null,
+          "start": "2026-01-03 10:22:54"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/tmp/bar",
+      "profile_id": "vfs_private_tmp_only",
+      "requested_path": "/private/tmp/bar"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only:read_/tmp/nested/child",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only.read__tmp_nested_child.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64493,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64493)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64493\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:22:58",
+          "last": null,
+          "start": "2026-01-03 10:22:54"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/tmp/nested/child",
+      "profile_id": "vfs_private_tmp_only",
+      "requested_path": "/tmp/nested/child"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only:read_/private/tmp/nested/child",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only.read__private_tmp_nested_child.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64496,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64496)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64496\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:22:58",
+          "last": null,
+          "start": "2026-01-03 10:22:54"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/tmp/nested/child",
+      "profile_id": "vfs_private_tmp_only",
+      "requested_path": "/private/tmp/nested/child"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only:write_/tmp/nested/child",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only.write__tmp_nested_child.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64499,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64499)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64499\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:22:58",
+          "last": null,
+          "start": "2026-01-03 10:22:54"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/tmp/nested/child",
+      "profile_id": "vfs_private_tmp_only",
+      "requested_path": "/tmp/nested/child"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only:write_/private/tmp/nested/child",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only.write__private_tmp_nested_child.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64502,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64502)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64502\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:22:59",
+          "last": null,
+          "start": "2026-01-03 10:22:55"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/tmp/nested/child",
+      "profile_id": "vfs_private_tmp_only",
+      "requested_path": "/private/tmp/nested/child"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_private_tmp_only:read_/var/tmp/canon",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:57.259092-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_reader(64505) deny(1) file-read-metadata /var"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only.read__var_tmp_canon.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64505,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64505)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64505\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:22:59",
+          "last": null,
+          "start": "2026-01-03 10:22:55"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/var/tmp/canon",
+      "profile_id": "vfs_private_tmp_only",
+      "requested_path": "/var/tmp/canon"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only:read_/private/var/tmp/canon",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only.read__private_var_tmp_canon.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64508,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64508)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64508\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:22:59",
+          "last": null,
+          "start": "2026-01-03 10:22:55"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/var/tmp/canon",
+      "profile_id": "vfs_private_tmp_only",
+      "requested_path": "/private/var/tmp/canon"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_private_tmp_only:write_/var/tmp/canon",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:57.504194-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_writer(64511) deny(1) file-read-metadata /var"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only.write__var_tmp_canon.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64511,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64511)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64511\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:22:59",
+          "last": null,
+          "start": "2026-01-03 10:22:55"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/var/tmp/canon",
+      "profile_id": "vfs_private_tmp_only",
+      "requested_path": "/var/tmp/canon"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only:write_/private/var/tmp/canon",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only.write__private_var_tmp_canon.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64514,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64514)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64514\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:22:59",
+          "last": null,
+          "start": "2026-01-03 10:22:55"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/var/tmp/canon",
+      "profile_id": "vfs_private_tmp_only",
+      "requested_path": "/private/var/tmp/canon"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only:read_/private/tmp/nested/../foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only.read__private_tmp_nested_.._foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64517,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64517)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64517\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:22:59",
+          "last": null,
+          "start": "2026-01-03 10:22:55"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/tmp/nested/../foo",
+      "profile_id": "vfs_private_tmp_only",
+      "requested_path": "/private/tmp/nested/../foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only:write_/private/tmp/nested/../foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only.write__private_tmp_nested_.._foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64520,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64520)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64520\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:22:59",
+          "last": null,
+          "start": "2026-01-03 10:22:55"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/tmp/nested/../foo",
+      "profile_id": "vfs_private_tmp_only",
+      "requested_path": "/private/tmp/nested/../foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_both_paths:read_/tmp/foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_both_paths.read__tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64523,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64523)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64523\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:22:59",
+          "last": null,
+          "start": "2026-01-03 10:22:55"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/tmp/foo",
+      "profile_id": "vfs_both_paths",
+      "requested_path": "/tmp/foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_both_paths:read_/private/tmp/foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_both_paths.read__private_tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64526,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64526)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64526\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:00",
+          "last": null,
+          "start": "2026-01-03 10:22:56"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/tmp/foo",
+      "profile_id": "vfs_both_paths",
+      "requested_path": "/private/tmp/foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_both_paths:write_/tmp/foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_both_paths.write__tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64529,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64529)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64529\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:00",
+          "last": null,
+          "start": "2026-01-03 10:22:56"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/tmp/foo",
+      "profile_id": "vfs_both_paths",
+      "requested_path": "/tmp/foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_both_paths:write_/private/tmp/foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_both_paths.write__private_tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64532,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64532)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64532\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:00",
+          "last": null,
+          "start": "2026-01-03 10:22:56"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/tmp/foo",
+      "profile_id": "vfs_both_paths",
+      "requested_path": "/private/tmp/foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_both_paths:read_/tmp/bar",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_both_paths.read__tmp_bar.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64536,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64536)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64536\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:00",
+          "last": null,
+          "start": "2026-01-03 10:22:56"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/tmp/bar",
+      "profile_id": "vfs_both_paths",
+      "requested_path": "/tmp/bar"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_both_paths:read_/private/tmp/bar",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_both_paths.read__private_tmp_bar.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64539,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64539)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64539\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:00",
+          "last": null,
+          "start": "2026-01-03 10:22:56"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/tmp/bar",
+      "profile_id": "vfs_both_paths",
+      "requested_path": "/private/tmp/bar"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_both_paths:write_/tmp/bar",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_both_paths.write__tmp_bar.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64542,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64542)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64542\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:00",
+          "last": null,
+          "start": "2026-01-03 10:22:56"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/tmp/bar",
+      "profile_id": "vfs_both_paths",
+      "requested_path": "/tmp/bar"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_both_paths:write_/private/tmp/bar",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_both_paths.write__private_tmp_bar.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64545,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64545)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64545\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:00",
+          "last": null,
+          "start": "2026-01-03 10:22:56"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/tmp/bar",
+      "profile_id": "vfs_both_paths",
+      "requested_path": "/private/tmp/bar"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_both_paths:read_/tmp/nested/child",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_both_paths.read__tmp_nested_child.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64548,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64548)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64548\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:00",
+          "last": null,
+          "start": "2026-01-03 10:22:56"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/tmp/nested/child",
+      "profile_id": "vfs_both_paths",
+      "requested_path": "/tmp/nested/child"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_both_paths:read_/private/tmp/nested/child",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_both_paths.read__private_tmp_nested_child.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64551,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64551)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64551\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:01",
+          "last": null,
+          "start": "2026-01-03 10:22:57"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/tmp/nested/child",
+      "profile_id": "vfs_both_paths",
+      "requested_path": "/private/tmp/nested/child"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_both_paths:write_/tmp/nested/child",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_both_paths.write__tmp_nested_child.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64554,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64554)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64554\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:01",
+          "last": null,
+          "start": "2026-01-03 10:22:57"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/tmp/nested/child",
+      "profile_id": "vfs_both_paths",
+      "requested_path": "/tmp/nested/child"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_both_paths:write_/private/tmp/nested/child",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_both_paths.write__private_tmp_nested_child.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64557,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64557)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64557\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:01",
+          "last": null,
+          "start": "2026-01-03 10:22:57"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/tmp/nested/child",
+      "profile_id": "vfs_both_paths",
+      "requested_path": "/private/tmp/nested/child"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_both_paths:read_/var/tmp/canon",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:59.562684-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64560) deny(1) file-read-metadata /var",
+          "2026-01-03 10:22:59.592214-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_reader(64560) deny(1) file-read-metadata /var"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_both_paths.read__var_tmp_canon.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64560,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64560)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64560\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:01",
+          "last": null,
+          "start": "2026-01-03 10:22:57"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/var/tmp/canon",
+      "profile_id": "vfs_both_paths",
+      "requested_path": "/var/tmp/canon"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_both_paths:read_/private/var/tmp/canon",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_both_paths.read__private_var_tmp_canon.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64563,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64563)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64563\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:01",
+          "last": null,
+          "start": "2026-01-03 10:22:57"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/var/tmp/canon",
+      "profile_id": "vfs_both_paths",
+      "requested_path": "/private/var/tmp/canon"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_both_paths:write_/var/tmp/canon",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:22:59.825337-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64566) deny(1) file-read-metadata /var",
+          "2026-01-03 10:22:59.856637-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_writer(64566) deny(1) file-read-metadata /var"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_both_paths.write__var_tmp_canon.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64566,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64566)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64566\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:01",
+          "last": null,
+          "start": "2026-01-03 10:22:57"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/var/tmp/canon",
+      "profile_id": "vfs_both_paths",
+      "requested_path": "/var/tmp/canon"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_both_paths:write_/private/var/tmp/canon",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_both_paths.write__private_var_tmp_canon.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64569,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64569)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64569\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:01",
+          "last": null,
+          "start": "2026-01-03 10:22:57"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/var/tmp/canon",
+      "profile_id": "vfs_both_paths",
+      "requested_path": "/private/var/tmp/canon"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only_openat:read_open_/tmp/foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only_openat.read_open__tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64572,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64572)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64572\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:02",
+          "last": null,
+          "start": "2026-01-03 10:22:58"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_open_/tmp/foo",
+      "profile_id": "vfs_private_tmp_only_openat",
+      "requested_path": "/tmp/foo"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_private_tmp_only_openat:read_openat_/tmp/foo",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:00.403911-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_openat_reader(64575) deny(1) file-read-data /private/tmp"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only_openat.read_openat__tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64575,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_openat_reader(64575)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64575\")))",
+        "process_name": "sandbox_openat_reader",
+        "window": {
+          "end": "2026-01-03 10:23:02",
+          "last": null,
+          "start": "2026-01-03 10:22:58"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_openat_/tmp/foo",
+      "profile_id": "vfs_private_tmp_only_openat",
+      "requested_path": "/tmp/foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only_openat:read_open_/private/tmp/foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only_openat.read_open__private_tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64578,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64578)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64578\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:02",
+          "last": null,
+          "start": "2026-01-03 10:22:58"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_open_/private/tmp/foo",
+      "profile_id": "vfs_private_tmp_only_openat",
+      "requested_path": "/private/tmp/foo"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_private_tmp_only_openat:read_openat_/private/tmp/foo",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:00.702447-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_openat_reader(64581) deny(1) file-read-data /private/tmp"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only_openat.read_openat__private_tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64581,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_openat_reader(64581)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64581\")))",
+        "process_name": "sandbox_openat_reader",
+        "window": {
+          "end": "2026-01-03 10:23:02",
+          "last": null,
+          "start": "2026-01-03 10:22:58"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_openat_/private/tmp/foo",
+      "profile_id": "vfs_private_tmp_only_openat",
+      "requested_path": "/private/tmp/foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only_openat:read_openat_rootrel_tmp/foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only_openat.read_openat_rootrel_tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64584,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_openat_rootrel_reader(64584)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64584\")))",
+        "process_name": "sandbox_openat_rootrel_reader",
+        "window": {
+          "end": "2026-01-03 10:23:02",
+          "last": null,
+          "start": "2026-01-03 10:22:58"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_openat_rootrel_tmp/foo",
+      "profile_id": "vfs_private_tmp_only_openat",
+      "requested_path": "tmp/foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only_openat:read_openat_rootrel_private/tmp/foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only_openat.read_openat_rootrel_private_tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64587,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_openat_rootrel_reader(64587)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64587\")))",
+        "process_name": "sandbox_openat_rootrel_reader",
+        "window": {
+          "end": "2026-01-03 10:23:03",
+          "last": null,
+          "start": "2026-01-03 10:22:59"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_openat_rootrel_private/tmp/foo",
+      "profile_id": "vfs_private_tmp_only_openat",
+      "requested_path": "private/tmp/foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only_openat_dir_allowed:read_open_/tmp/foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only_openat_dir_allowed.read_open__tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64590,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64590)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64590\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:03",
+          "last": null,
+          "start": "2026-01-03 10:22:59"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_open_/tmp/foo",
+      "profile_id": "vfs_private_tmp_only_openat_dir_allowed",
+      "requested_path": "/tmp/foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only_openat_dir_allowed:read_openat_/tmp/foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only_openat_dir_allowed.read_openat__tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64593,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_openat_reader(64593)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64593\")))",
+        "process_name": "sandbox_openat_reader",
+        "window": {
+          "end": "2026-01-03 10:23:03",
+          "last": null,
+          "start": "2026-01-03 10:22:59"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_openat_/tmp/foo",
+      "profile_id": "vfs_private_tmp_only_openat_dir_allowed",
+      "requested_path": "/tmp/foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only_openat_dir_allowed:read_open_/private/tmp/foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only_openat_dir_allowed.read_open__private_tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64596,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64596)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64596\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:03",
+          "last": null,
+          "start": "2026-01-03 10:22:59"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_open_/private/tmp/foo",
+      "profile_id": "vfs_private_tmp_only_openat_dir_allowed",
+      "requested_path": "/private/tmp/foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only_openat_dir_allowed:read_openat_/private/tmp/foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only_openat_dir_allowed.read_openat__private_tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64599,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_openat_reader(64599)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64599\")))",
+        "process_name": "sandbox_openat_reader",
+        "window": {
+          "end": "2026-01-03 10:23:03",
+          "last": null,
+          "start": "2026-01-03 10:22:59"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_openat_/private/tmp/foo",
+      "profile_id": "vfs_private_tmp_only_openat_dir_allowed",
+      "requested_path": "/private/tmp/foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only_openat_dir_allowed:read_openat_rootrel_tmp/foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only_openat_dir_allowed.read_openat_rootrel_tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64602,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_openat_rootrel_reader(64602)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64602\")))",
+        "process_name": "sandbox_openat_rootrel_reader",
+        "window": {
+          "end": "2026-01-03 10:23:03",
+          "last": null,
+          "start": "2026-01-03 10:22:59"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_openat_rootrel_tmp/foo",
+      "profile_id": "vfs_private_tmp_only_openat_dir_allowed",
+      "requested_path": "tmp/foo"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_private_tmp_only_openat_dir_allowed:read_openat_rootrel_private/tmp/foo",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_private_tmp_only_openat_dir_allowed.read_openat_rootrel_private_tmp_foo.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64605,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_openat_rootrel_reader(64605)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64605\")))",
+        "process_name": "sandbox_openat_rootrel_reader",
+        "window": {
+          "end": "2026-01-03 10:23:03",
+          "last": null,
+          "start": "2026-01-03 10:22:59"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_openat_rootrel_private/tmp/foo",
+      "profile_id": "vfs_private_tmp_only_openat_dir_allowed",
+      "requested_path": "private/tmp/foo"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_var_tmp_alias_only:read_/var/tmp/vfs_canon_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_alias_only.read__var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64608,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64608)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64608\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:03",
+          "last": null,
+          "start": "2026-01-03 10:22:59"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "requested_path": "/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_var_tmp_alias_only:write_/var/tmp/vfs_canon_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_alias_only.write__var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64611,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64611)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64611\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:04",
+          "last": null,
+          "start": "2026-01-03 10:23:00"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "requested_path": "/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_var_tmp_alias_only:read_/private/var/tmp/vfs_canon_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_alias_only.read__private_var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64614,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64614)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64614\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:04",
+          "last": null,
+          "start": "2026-01-03 10:23:00"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "requested_path": "/private/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_var_tmp_alias_only:write_/private/var/tmp/vfs_canon_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_alias_only.write__private_var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64617,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64617)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64617\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:04",
+          "last": null,
+          "start": "2026-01-03 10:23:00"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "requested_path": "/private/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_var_tmp_alias_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_alias_only.read__System_Volumes_Data_private_var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64620,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64620)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64620\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:04",
+          "last": null,
+          "start": "2026-01-03 10:23:00"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "requested_path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_var_tmp_alias_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:02.592441-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64623) deny(1) file-write-data /private/var/tmp/vfs_canon_probe"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_alias_only.write__System_Volumes_Data_private_var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64623,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64623)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64623\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:04",
+          "last": null,
+          "start": "2026-01-03 10:23:00"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "requested_path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_var_tmp_private_only:read_/var/tmp/vfs_canon_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:02.709096-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64626) deny(1) file-read-metadata /var",
+          "2026-01-03 10:23:02.741365-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_reader(64626) deny(1) file-read-metadata /var"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_private_only.read__var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64626,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64626)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64626\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:04",
+          "last": null,
+          "start": "2026-01-03 10:23:00"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_private_only",
+      "requested_path": "/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_var_tmp_private_only:write_/var/tmp/vfs_canon_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:02.822464-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64629) deny(1) file-read-metadata /var",
+          "2026-01-03 10:23:02.852126-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_writer(64629) deny(1) file-read-metadata /var"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_private_only.write__var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64629,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64629)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64629\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:04",
+          "last": null,
+          "start": "2026-01-03 10:23:00"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_private_only",
+      "requested_path": "/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_var_tmp_private_only:read_/private/var/tmp/vfs_canon_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_private_only.read__private_var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64632,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64632)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64632\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:04",
+          "last": null,
+          "start": "2026-01-03 10:23:00"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_private_only",
+      "requested_path": "/private/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_var_tmp_private_only:write_/private/var/tmp/vfs_canon_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_private_only.write__private_var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64635,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64635)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64635\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:04",
+          "last": null,
+          "start": "2026-01-03 10:23:00"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_private_only",
+      "requested_path": "/private/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_private_only.read__System_Volumes_Data_private_var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64638,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64638)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64638\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:05",
+          "last": null,
+          "start": "2026-01-03 10:23:01"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_private_only",
+      "requested_path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_private_only.write__System_Volumes_Data_private_var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64641,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64641)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64641\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:05",
+          "last": null,
+          "start": "2026-01-03 10:23:01"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_private_only",
+      "requested_path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_var_tmp_both:read_/var/tmp/vfs_canon_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:03.391915-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64644) deny(1) file-read-metadata /var",
+          "2026-01-03 10:23:03.422494-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_reader(64644) deny(1) file-read-metadata /var"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_both.read__var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64644,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64644)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64644\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:05",
+          "last": null,
+          "start": "2026-01-03 10:23:01"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both",
+      "requested_path": "/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_var_tmp_both:write_/var/tmp/vfs_canon_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:03.500269-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64647) deny(1) file-read-metadata /var",
+          "2026-01-03 10:23:03.531406-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_writer(64647) deny(1) file-read-metadata /var"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_both.write__var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64647,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64647)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64647\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:05",
+          "last": null,
+          "start": "2026-01-03 10:23:01"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both",
+      "requested_path": "/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_var_tmp_both:read_/private/var/tmp/vfs_canon_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_both.read__private_var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64650,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64650)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64650\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:05",
+          "last": null,
+          "start": "2026-01-03 10:23:01"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both",
+      "requested_path": "/private/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_var_tmp_both:write_/private/var/tmp/vfs_canon_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_both.write__private_var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64653,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64653)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64653\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:05",
+          "last": null,
+          "start": "2026-01-03 10:23:01"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both",
+      "requested_path": "/private/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_var_tmp_both:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_both.read__System_Volumes_Data_private_var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64656,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64656)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64656\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:05",
+          "last": null,
+          "start": "2026-01-03 10:23:01"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both",
+      "requested_path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_var_tmp_both:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_both.write__System_Volumes_Data_private_var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64659,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64659)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64659\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:05",
+          "last": null,
+          "start": "2026-01-03 10:23:01"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both",
+      "requested_path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_var_tmp_both_plus_metadata_var:lstat_/var",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:04.254239-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64662) deny(1) sysctl-read kern.maxfilesperproc",
+          "2026-01-03 10:23:04.255724-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64662) deny(1) file-read-data /private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.b45e4406-c756-4488-853e-c5a4d081adf4/book/api/runtime/native/metadata_runner",
+          "2026-01-03 10:23:04.255748-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64662) deny(1) file-read-metadata /private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.b45e4406-c756-4488-853e-c5a4d081adf4/book/api/runtime/native/metadata_runner",
+          "2026-01-03 10:23:04.256312-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64662) deny(1) mach-lookup com.apple.system.opendirectoryd.libinfo",
+          "2026-01-03 10:23:04.256393-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64662) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:04.256428-0800  localhost kernel[0]: (Sandbox) 1 duplicate report for Sandbox: metadata_runner(64662) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:04.256431-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64662) deny(1) file-read-metadata /Users/achyland",
+          "2026-01-03 10:23:04.256655-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64662) deny(1) mach-lookup com.apple.system.opendirectoryd.libinfo",
+          "2026-01-03 10:23:04.256720-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64662) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:04.257037-0800  localhost kernel[0]: (Sandbox) 1 duplicate report for Sandbox: metadata_runner(64662) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:04.257041-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64662) deny(1) mach-lookup com.apple.system.opendirectoryd.libinfo",
+          "2026-01-03 10:23:04.257096-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64662) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:04.257159-0800  localhost kernel[0]: (Sandbox) 1 duplicate report for Sandbox: metadata_runner(64662) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:04.257163-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64662) deny(1) mach-lookup com.apple.system.opendirectoryd.libinfo",
+          "2026-01-03 10:23:04.257222-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64662) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:04.257279-0800  localhost kernel[0]: (Sandbox) 1 duplicate report for Sandbox: metadata_runner(64662) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:04.257282-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64662) deny(1) mach-lookup com.apple.system.opendirectoryd.libinfo",
+          "2026-01-03 10:23:04.257335-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64662) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:04.257389-0800  localhost kernel[0]: (Sandbox) 1 duplicate report for Sandbox: metadata_runner(64662) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:04.257393-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64662) deny(1) mach-lookup com.apple.system.opendirectoryd.libinfo",
+          "2026-01-03 10:23:04.257443-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64662) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:04.257804-0800  localhost kernel[0]: (Sandbox) 1 duplicate report for Sandbox: metadata_runner(64662) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:04.257807-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64662) deny(1) file-read-data /Library/Preferences/.GlobalPreferences.plist"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_both_plus_metadata_var.lstat__var.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64662,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: metadata_runner(64662)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64662\")))",
+        "process_name": "metadata_runner",
+        "window": {
+          "end": "2026-01-03 10:23:06",
+          "last": null,
+          "start": "2026-01-03 10:23:01"
+        }
+      },
+      "operation": "file-read-metadata",
+      "probe_name": "lstat_/var",
+      "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+      "requested_path": "/var"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_var_tmp_both_plus_metadata_var:read_/var/tmp/vfs_canon_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_both_plus_metadata_var.read__var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64665,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64665)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64665\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:06",
+          "last": null,
+          "start": "2026-01-03 10:23:02"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+      "requested_path": "/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_var_tmp_both_plus_metadata_var:write_/var/tmp/vfs_canon_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_both_plus_metadata_var.write__var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64668,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64668)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64668\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:06",
+          "last": null,
+          "start": "2026-01-03 10:23:02"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+      "requested_path": "/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_var_tmp_both_plus_metadata_var:read_/private/var/tmp/vfs_canon_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_both_plus_metadata_var.read__private_var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64671,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64671)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64671\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:06",
+          "last": null,
+          "start": "2026-01-03 10:23:02"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+      "requested_path": "/private/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_var_tmp_both_plus_metadata_var:write_/private/var/tmp/vfs_canon_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_both_plus_metadata_var.write__private_var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64674,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64674)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64674\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:06",
+          "last": null,
+          "start": "2026-01-03 10:23:02"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+      "requested_path": "/private/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_var_tmp_data_only:read_/var/tmp/vfs_canon_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:04.873390-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64677) deny(1) file-read-metadata /var",
+          "2026-01-03 10:23:04.906643-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_reader(64677) deny(1) file-read-metadata /var"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_data_only.read__var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64677,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64677)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64677\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:06",
+          "last": null,
+          "start": "2026-01-03 10:23:02"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_data_only",
+      "requested_path": "/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_var_tmp_data_only:write_/var/tmp/vfs_canon_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:04.998556-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64680) deny(1) file-read-metadata /var",
+          "2026-01-03 10:23:05.028128-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_writer(64680) deny(1) file-read-metadata /var"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_data_only.write__var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64680,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64680)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64680\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:06",
+          "last": null,
+          "start": "2026-01-03 10:23:02"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_data_only",
+      "requested_path": "/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_var_tmp_data_only:read_/private/var/tmp/vfs_canon_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:05.118942-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64683) deny(1) file-read-data /private/var/tmp/vfs_canon_probe"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_data_only.read__private_var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64683,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64683)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64683\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:07",
+          "last": null,
+          "start": "2026-01-03 10:23:03"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_data_only",
+      "requested_path": "/private/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_var_tmp_data_only:write_/private/var/tmp/vfs_canon_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:05.240745-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64686) deny(1) file-write-data /private/var/tmp/vfs_canon_probe"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_data_only.write__private_var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64686,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64686)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64686\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:07",
+          "last": null,
+          "start": "2026-01-03 10:23:03"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_data_only",
+      "requested_path": "/private/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_var_tmp_data_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:05.362604-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64689) deny(1) file-read-data /private/var/tmp/vfs_canon_probe"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_data_only.read__System_Volumes_Data_private_var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64689,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64689)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64689\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:07",
+          "last": null,
+          "start": "2026-01-03 10:23:03"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_data_only",
+      "requested_path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_var_tmp_data_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:05.480877-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64692) deny(1) file-write-data /private/var/tmp/vfs_canon_probe"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_var_tmp_data_only.write__System_Volumes_Data_private_var_tmp_vfs_canon_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64692,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64692)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64692\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:07",
+          "last": null,
+          "start": "2026-01-03 10:23:03"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "profile_id": "vfs_var_tmp_data_only",
+      "requested_path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_etc_alias_only:read_/etc/hosts",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:05.603334-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64695) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:05.635306-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_reader(64695) deny(1) file-read-metadata /etc"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_etc_alias_only.read__etc_hosts.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64695,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64695)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64695\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:07",
+          "last": null,
+          "start": "2026-01-03 10:23:03"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/etc/hosts",
+      "profile_id": "vfs_etc_alias_only",
+      "requested_path": "/etc/hosts"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_etc_alias_only:read_/private/etc/hosts",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:05.726315-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64698) deny(1) file-read-data /private/etc/hosts"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_etc_alias_only.read__private_etc_hosts.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64698,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64698)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64698\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:07",
+          "last": null,
+          "start": "2026-01-03 10:23:03"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/etc/hosts",
+      "profile_id": "vfs_etc_alias_only",
+      "requested_path": "/private/etc/hosts"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_etc_private_only:read_/etc/hosts",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:05.847512-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64701) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:05.880432-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_reader(64701) deny(1) file-read-metadata /etc"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_etc_private_only.read__etc_hosts.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64701,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64701)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64701\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:07",
+          "last": null,
+          "start": "2026-01-03 10:23:03"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/etc/hosts",
+      "profile_id": "vfs_etc_private_only",
+      "requested_path": "/etc/hosts"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_etc_private_only:read_/private/etc/hosts",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_etc_private_only.read__private_etc_hosts.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64704,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64704)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64704\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:07",
+          "last": null,
+          "start": "2026-01-03 10:23:03"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/etc/hosts",
+      "profile_id": "vfs_etc_private_only",
+      "requested_path": "/private/etc/hosts"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_etc_both:read_/etc/hosts",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:06.090864-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64707) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:06.119563-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_reader(64707) deny(1) file-read-metadata /etc"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_etc_both.read__etc_hosts.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64707,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64707)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64707\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:08",
+          "last": null,
+          "start": "2026-01-03 10:23:04"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/etc/hosts",
+      "profile_id": "vfs_etc_both",
+      "requested_path": "/etc/hosts"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_etc_both:read_/private/etc/hosts",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_etc_both.read__private_etc_hosts.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64710,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64710)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64710\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:08",
+          "last": null,
+          "start": "2026-01-03 10:23:04"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/etc/hosts",
+      "profile_id": "vfs_etc_both",
+      "requested_path": "/private/etc/hosts"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_etc_both:read_openat_rootrel_etc/hosts",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:06.328768-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_openat_rootrel_reader(64713) deny(1) file-read-metadata /etc"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_etc_both.read_openat_rootrel_etc_hosts.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64713,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_openat_rootrel_reader(64713)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64713\")))",
+        "process_name": "sandbox_openat_rootrel_reader",
+        "window": {
+          "end": "2026-01-03 10:23:08",
+          "last": null,
+          "start": "2026-01-03 10:23:04"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_openat_rootrel_etc/hosts",
+      "profile_id": "vfs_etc_both",
+      "requested_path": "etc/hosts"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_etc_both:read_openat_rootrel_private/etc/hosts",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_etc_both.read_openat_rootrel_private_etc_hosts.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64716,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_openat_rootrel_reader(64716)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64716\")))",
+        "process_name": "sandbox_openat_rootrel_reader",
+        "window": {
+          "end": "2026-01-03 10:23:08",
+          "last": null,
+          "start": "2026-01-03 10:23:04"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_openat_rootrel_private/etc/hosts",
+      "profile_id": "vfs_etc_both",
+      "requested_path": "private/etc/hosts"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_etc_both_plus_metadata_etc:lstat_/etc",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:06.571133-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) sysctl-read kern.maxfilesperproc",
+          "2026-01-03 10:23:06.571719-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) file-read-data /private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.b45e4406-c756-4488-853e-c5a4d081adf4/book/api/runtime/native/metadata_runner",
+          "2026-01-03 10:23:06.571727-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) file-read-metadata /private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.b45e4406-c756-4488-853e-c5a4d081adf4/book/api/runtime/native/metadata_runner",
+          "2026-01-03 10:23:06.571985-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) mach-lookup com.apple.system.opendirectoryd.libinfo",
+          "2026-01-03 10:23:06.572061-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) file-read-data /private/etc/passwd",
+          "2026-01-03 10:23:06.572068-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) file-read-metadata /private/etc/passwd",
+          "2026-01-03 10:23:06.572083-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) file-read-metadata /Users/achyland",
+          "2026-01-03 10:23:06.572194-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) mach-lookup com.apple.system.opendirectoryd.libinfo",
+          "2026-01-03 10:23:06.572232-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) file-read-data /private/etc/passwd",
+          "2026-01-03 10:23:06.572236-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) file-read-metadata /private/etc/passwd",
+          "2026-01-03 10:23:06.572359-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) mach-lookup com.apple.system.opendirectoryd.libinfo",
+          "2026-01-03 10:23:06.572391-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) file-read-data /private/etc/passwd",
+          "2026-01-03 10:23:06.572395-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) file-read-metadata /private/etc/passwd",
+          "2026-01-03 10:23:06.572418-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) mach-lookup com.apple.system.opendirectoryd.libinfo",
+          "2026-01-03 10:23:06.572452-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) file-read-data /private/etc/passwd",
+          "2026-01-03 10:23:06.572457-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) file-read-metadata /private/etc/passwd",
+          "2026-01-03 10:23:06.572478-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) mach-lookup com.apple.system.opendirectoryd.libinfo",
+          "2026-01-03 10:23:06.572505-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) file-read-data /private/etc/passwd",
+          "2026-01-03 10:23:06.572509-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) file-read-metadata /private/etc/passwd",
+          "2026-01-03 10:23:06.572527-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) mach-lookup com.apple.system.opendirectoryd.libinfo",
+          "2026-01-03 10:23:06.572553-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) file-read-data /private/etc/passwd",
+          "2026-01-03 10:23:06.572558-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) file-read-metadata /private/etc/passwd",
+          "2026-01-03 10:23:06.572685-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64719) deny(1) file-read-data /Library/Preferences/.GlobalPreferences.plist"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_etc_both_plus_metadata_etc.lstat__etc.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64719,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: metadata_runner(64719)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64719\")))",
+        "process_name": "metadata_runner",
+        "window": {
+          "end": "2026-01-03 10:23:08",
+          "last": null,
+          "start": "2026-01-03 10:23:04"
+        }
+      },
+      "operation": "file-read-metadata",
+      "probe_name": "lstat_/etc",
+      "profile_id": "vfs_etc_both_plus_metadata_etc",
+      "requested_path": "/etc"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_etc_both_plus_metadata_etc:read_openat_rootrel_etc/hosts",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_etc_both_plus_metadata_etc.read_openat_rootrel_etc_hosts.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64722,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_openat_rootrel_reader(64722)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64722\")))",
+        "process_name": "sandbox_openat_rootrel_reader",
+        "window": {
+          "end": "2026-01-03 10:23:08",
+          "last": null,
+          "start": "2026-01-03 10:23:04"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_openat_rootrel_etc/hosts",
+      "profile_id": "vfs_etc_both_plus_metadata_etc",
+      "requested_path": "etc/hosts"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_etc_both_plus_metadata_etc:read_openat_rootrel_private/etc/hosts",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_etc_both_plus_metadata_etc.read_openat_rootrel_private_etc_hosts.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64725,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_openat_rootrel_reader(64725)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64725\")))",
+        "process_name": "sandbox_openat_rootrel_reader",
+        "window": {
+          "end": "2026-01-03 10:23:08",
+          "last": null,
+          "start": "2026-01-03 10:23:04"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_openat_rootrel_private/etc/hosts",
+      "profile_id": "vfs_etc_both_plus_metadata_etc",
+      "requested_path": "private/etc/hosts"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_etc_both_plus_metadata_etc:read_/etc/hosts",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_etc_both_plus_metadata_etc.read__etc_hosts.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64728,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64728)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64728\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:08",
+          "last": null,
+          "start": "2026-01-03 10:23:04"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/etc/hosts",
+      "profile_id": "vfs_etc_both_plus_metadata_etc",
+      "requested_path": "/etc/hosts"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_etc_both_plus_metadata_etc:read_/private/etc/hosts",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_etc_both_plus_metadata_etc.read__private_etc_hosts.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64731,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64731)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64731\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:09",
+          "last": null,
+          "start": "2026-01-03 10:23:04"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/etc/hosts",
+      "profile_id": "vfs_etc_both_plus_metadata_etc",
+      "requested_path": "/private/etc/hosts"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_firmlink_private_only:read_/private/tmp/vfs_firmlink_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_firmlink_private_only.read__private_tmp_vfs_firmlink_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64734,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64734)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64734\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:09",
+          "last": null,
+          "start": "2026-01-03 10:23:05"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_private_only",
+      "requested_path": "/private/tmp/vfs_firmlink_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_firmlink_private_only:write_/private/tmp/vfs_firmlink_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_firmlink_private_only.write__private_tmp_vfs_firmlink_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64737,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64737)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64737\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:09",
+          "last": null,
+          "start": "2026-01-03 10:23:05"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_private_only",
+      "requested_path": "/private/tmp/vfs_firmlink_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_firmlink_private_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_firmlink_private_only.read__System_Volumes_Data_private_tmp_vfs_firmlink_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64740,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64740)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64740\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:09",
+          "last": null,
+          "start": "2026-01-03 10:23:05"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_private_only",
+      "requested_path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_firmlink_private_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_firmlink_private_only.write__System_Volumes_Data_private_tmp_vfs_firmlink_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64743,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64743)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64743\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:09",
+          "last": null,
+          "start": "2026-01-03 10:23:05"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_private_only",
+      "requested_path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_firmlink_data_only:read_/private/tmp/vfs_firmlink_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:07.640641-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64746) deny(1) file-read-data /private/tmp/vfs_firmlink_probe"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_firmlink_data_only.read__private_tmp_vfs_firmlink_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64746,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64746)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64746\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:09",
+          "last": null,
+          "start": "2026-01-03 10:23:05"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_data_only",
+      "requested_path": "/private/tmp/vfs_firmlink_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_firmlink_data_only:write_/private/tmp/vfs_firmlink_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:07.753315-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64749) deny(1) file-write-data /private/tmp/vfs_firmlink_probe"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_firmlink_data_only.write__private_tmp_vfs_firmlink_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64749,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64749)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64749\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:09",
+          "last": null,
+          "start": "2026-01-03 10:23:05"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_data_only",
+      "requested_path": "/private/tmp/vfs_firmlink_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_firmlink_data_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:07.871248-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64752) deny(1) file-read-data /private/tmp/vfs_firmlink_probe"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_firmlink_data_only.read__System_Volumes_Data_private_tmp_vfs_firmlink_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64752,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64752)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64752\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:09",
+          "last": null,
+          "start": "2026-01-03 10:23:05"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_data_only",
+      "requested_path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_firmlink_data_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:07.986538-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64755) deny(1) file-write-data /private/tmp/vfs_firmlink_probe"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_firmlink_data_only.write__System_Volumes_Data_private_tmp_vfs_firmlink_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64755,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64755)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64755\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:09",
+          "last": null,
+          "start": "2026-01-03 10:23:05"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_data_only",
+      "requested_path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_firmlink_both:read_/private/tmp/vfs_firmlink_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_firmlink_both.read__private_tmp_vfs_firmlink_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64758,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64758)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64758\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:10",
+          "last": null,
+          "start": "2026-01-03 10:23:06"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_both",
+      "requested_path": "/private/tmp/vfs_firmlink_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_firmlink_both:write_/private/tmp/vfs_firmlink_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_firmlink_both.write__private_tmp_vfs_firmlink_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64761,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64761)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64761\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:10",
+          "last": null,
+          "start": "2026-01-03 10:23:06"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_both",
+      "requested_path": "/private/tmp/vfs_firmlink_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_firmlink_both:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_firmlink_both.read__System_Volumes_Data_private_tmp_vfs_firmlink_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64764,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64764)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64764\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:10",
+          "last": null,
+          "start": "2026-01-03 10:23:06"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_both",
+      "requested_path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_firmlink_both:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_firmlink_both.write__System_Volumes_Data_private_tmp_vfs_firmlink_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64767,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64767)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64767\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:10",
+          "last": null,
+          "start": "2026-01-03 10:23:06"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "profile_id": "vfs_firmlink_both",
+      "requested_path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_link_var_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:08.550927-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64770) deny(1) file-read-metadata /private/tmp/vfs_linkdir/to_var_tmp",
+          "2026-01-03 10:23:08.580188-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_reader(64770) deny(1) file-read-metadata /private/tmp/vfs_linkdir/to_var_tmp"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_link_var_tmp_only.read__private_tmp_vfs_linkdir_to_var_tmp_vfs_link_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64770,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64770)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64770\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:10",
+          "last": null,
+          "start": "2026-01-03 10:23:06"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_var_tmp_only",
+      "requested_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_link_var_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:08.666476-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64773) deny(1) file-read-metadata /private/tmp/vfs_linkdir/to_var_tmp",
+          "2026-01-03 10:23:08.696585-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_writer(64773) deny(1) file-read-metadata /private/tmp/vfs_linkdir/to_var_tmp"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_link_var_tmp_only.write__private_tmp_vfs_linkdir_to_var_tmp_vfs_link_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64773,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64773)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64773\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:10",
+          "last": null,
+          "start": "2026-01-03 10:23:06"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_var_tmp_only",
+      "requested_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_link_var_tmp_only:read_/private/var/tmp/vfs_link_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_link_var_tmp_only.read__private_var_tmp_vfs_link_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64776,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64776)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64776\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:10",
+          "last": null,
+          "start": "2026-01-03 10:23:06"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/var/tmp/vfs_link_probe",
+      "profile_id": "vfs_link_var_tmp_only",
+      "requested_path": "/private/var/tmp/vfs_link_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_link_var_tmp_only:write_/private/var/tmp/vfs_link_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_link_var_tmp_only.write__private_var_tmp_vfs_link_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64779,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64779)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64779\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:10",
+          "last": null,
+          "start": "2026-01-03 10:23:06"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/var/tmp/vfs_link_probe",
+      "profile_id": "vfs_link_var_tmp_only",
+      "requested_path": "/private/var/tmp/vfs_link_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_link_private_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:09.020443-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64782) deny(1) file-read-metadata /private/tmp/vfs_linkdir/to_var_tmp",
+          "2026-01-03 10:23:09.053905-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_reader(64782) deny(1) file-read-metadata /private/tmp/vfs_linkdir/to_var_tmp"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_link_private_tmp_only.read__private_tmp_vfs_linkdir_to_var_tmp_vfs_link_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64782,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64782)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64782\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:10",
+          "last": null,
+          "start": "2026-01-03 10:23:06"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_private_tmp_only",
+      "requested_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_link_private_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:09.136773-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64785) deny(1) file-read-metadata /private/tmp/vfs_linkdir/to_var_tmp",
+          "2026-01-03 10:23:09.169435-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_writer(64785) deny(1) file-read-metadata /private/tmp/vfs_linkdir/to_var_tmp"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_link_private_tmp_only.write__private_tmp_vfs_linkdir_to_var_tmp_vfs_link_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64785,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64785)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64785\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:11",
+          "last": null,
+          "start": "2026-01-03 10:23:07"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_private_tmp_only",
+      "requested_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_link_private_tmp_only:read_/private/var/tmp/vfs_link_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:09.251458-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64788) deny(1) file-read-data /private/var/tmp/vfs_link_probe"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_link_private_tmp_only.read__private_var_tmp_vfs_link_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64788,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64788)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64788\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:11",
+          "last": null,
+          "start": "2026-01-03 10:23:07"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/var/tmp/vfs_link_probe",
+      "profile_id": "vfs_link_private_tmp_only",
+      "requested_path": "/private/var/tmp/vfs_link_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_link_private_tmp_only:write_/private/var/tmp/vfs_link_probe",
+      "expected": "deny",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:09.362045-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64791) deny(1) file-write-data /private/var/tmp/vfs_link_probe"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_link_private_tmp_only.write__private_var_tmp_vfs_link_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64791,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64791)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64791\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:11",
+          "last": null,
+          "start": "2026-01-03 10:23:07"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/var/tmp/vfs_link_probe",
+      "profile_id": "vfs_link_private_tmp_only",
+      "requested_path": "/private/var/tmp/vfs_link_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:09.472562-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(64794) deny(1) file-read-metadata /private/tmp/vfs_linkdir/to_var_tmp",
+          "2026-01-03 10:23:09.502199-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_reader(64794) deny(1) file-read-metadata /private/tmp/vfs_linkdir/to_var_tmp"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_link_both.read__private_tmp_vfs_linkdir_to_var_tmp_vfs_link_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64794,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64794)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64794\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:11",
+          "last": null,
+          "start": "2026-01-03 10:23:07"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_both",
+      "requested_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+    },
+    {
+      "actual": "deny",
+      "expectation_id": "vfs_link_both:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:09.582465-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(64797) deny(1) file-read-metadata /private/tmp/vfs_linkdir/to_var_tmp",
+          "2026-01-03 10:23:09.612084-0800  localhost kernel[0]: (Sandbox) 2 duplicate reports for Sandbox: sandbox_writer(64797) deny(1) file-read-metadata /private/tmp/vfs_linkdir/to_var_tmp"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_link_both.write__private_tmp_vfs_linkdir_to_var_tmp_vfs_link_probe.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64797,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64797)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64797\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:11",
+          "last": null,
+          "start": "2026-01-03 10:23:07"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_both",
+      "requested_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_link_both:read_/private/var/tmp/vfs_link_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_link_both.read__private_var_tmp_vfs_link_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64800,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64800)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64800\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:11",
+          "last": null,
+          "start": "2026-01-03 10:23:07"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/var/tmp/vfs_link_probe",
+      "profile_id": "vfs_link_both",
+      "requested_path": "/private/var/tmp/vfs_link_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_link_both:write_/private/var/tmp/vfs_link_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_link_both.write__private_var_tmp_vfs_link_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64803,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64803)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64803\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:11",
+          "last": null,
+          "start": "2026-01-03 10:23:07"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/var/tmp/vfs_link_probe",
+      "profile_id": "vfs_link_both",
+      "requested_path": "/private/var/tmp/vfs_link_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_link_both_plus_metadata_to_var_tmp:lstat_/private/tmp/vfs_linkdir/to_var_tmp",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [
+          "2026-01-03 10:23:09.914527-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64806) deny(1) sysctl-read kern.maxfilesperproc",
+          "2026-01-03 10:23:09.915089-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64806) deny(1) file-read-data /private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.b45e4406-c756-4488-853e-c5a4d081adf4/book/api/runtime/native/metadata_runner",
+          "2026-01-03 10:23:09.915097-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64806) deny(1) file-read-metadata /private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.b45e4406-c756-4488-853e-c5a4d081adf4/book/api/runtime/native/metadata_runner",
+          "2026-01-03 10:23:09.915308-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64806) deny(1) mach-lookup com.apple.system.opendirectoryd.libinfo",
+          "2026-01-03 10:23:09.915340-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64806) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:09.915351-0800  localhost kernel[0]: (Sandbox) 1 duplicate report for Sandbox: metadata_runner(64806) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:09.915353-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64806) deny(1) file-read-metadata /Users/achyland",
+          "2026-01-03 10:23:09.915426-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64806) deny(1) mach-lookup com.apple.system.opendirectoryd.libinfo",
+          "2026-01-03 10:23:09.915451-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64806) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:09.915595-0800  localhost kernel[0]: (Sandbox) 1 duplicate report for Sandbox: metadata_runner(64806) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:09.915596-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64806) deny(1) mach-lookup com.apple.system.opendirectoryd.libinfo",
+          "2026-01-03 10:23:09.915625-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64806) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:09.915649-0800  localhost kernel[0]: (Sandbox) 1 duplicate report for Sandbox: metadata_runner(64806) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:09.915650-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64806) deny(1) mach-lookup com.apple.system.opendirectoryd.libinfo",
+          "2026-01-03 10:23:09.915671-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64806) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:09.915693-0800  localhost kernel[0]: (Sandbox) 1 duplicate report for Sandbox: metadata_runner(64806) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:09.915694-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64806) deny(1) mach-lookup com.apple.system.opendirectoryd.libinfo",
+          "2026-01-03 10:23:09.915713-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64806) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:09.915730-0800  localhost kernel[0]: (Sandbox) 1 duplicate report for Sandbox: metadata_runner(64806) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:09.915731-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64806) deny(1) mach-lookup com.apple.system.opendirectoryd.libinfo",
+          "2026-01-03 10:23:09.915750-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64806) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:09.915876-0800  localhost kernel[0]: (Sandbox) 1 duplicate report for Sandbox: metadata_runner(64806) deny(1) file-read-metadata /etc",
+          "2026-01-03 10:23:09.915877-0800  localhost kernel[0]: (Sandbox) Sandbox: metadata_runner(64806) deny(1) file-read-data /Library/Preferences/.GlobalPreferences.plist"
+        ],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_link_both_plus_metadata_to_var_tmp.lstat__private_tmp_vfs_linkdir_to_var_tmp.observer.json",
+        "mode": "show",
+        "observed_deny": true,
+        "pid": 64806,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: metadata_runner(64806)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64806\")))",
+        "process_name": "metadata_runner",
+        "window": {
+          "end": "2026-01-03 10:23:11",
+          "last": null,
+          "start": "2026-01-03 10:23:07"
+        }
+      },
+      "operation": "file-read-metadata",
+      "probe_name": "lstat_/private/tmp/vfs_linkdir/to_var_tmp",
+      "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+      "requested_path": "/private/tmp/vfs_linkdir/to_var_tmp"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_link_both_plus_metadata_to_var_tmp:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_link_both_plus_metadata_to_var_tmp.read__private_tmp_vfs_linkdir_to_var_tmp_vfs_link_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64809,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64809)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64809\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:11",
+          "last": null,
+          "start": "2026-01-03 10:23:07"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+      "requested_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_link_both_plus_metadata_to_var_tmp:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_link_both_plus_metadata_to_var_tmp.write__private_tmp_vfs_linkdir_to_var_tmp_vfs_link_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64812,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64812)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64812\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:12",
+          "last": null,
+          "start": "2026-01-03 10:23:08"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+      "requested_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_link_both_plus_metadata_to_var_tmp:read_/private/var/tmp/vfs_link_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_link_both_plus_metadata_to_var_tmp.read__private_var_tmp_vfs_link_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64815,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(64815)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64815\")))",
+        "process_name": "sandbox_reader",
+        "window": {
+          "end": "2026-01-03 10:23:12",
+          "last": null,
+          "start": "2026-01-03 10:23:08"
+        }
+      },
+      "operation": "file-read*",
+      "probe_name": "read_/private/var/tmp/vfs_link_probe",
+      "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+      "requested_path": "/private/var/tmp/vfs_link_probe"
+    },
+    {
+      "actual": "allow",
+      "expectation_id": "vfs_link_both_plus_metadata_to_var_tmp:write_/private/var/tmp/vfs_link_probe",
+      "expected": "allow",
+      "observer": {
+        "deny_lines": [],
+        "log_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/observer/vfs_link_both_plus_metadata_to_var_tmp.write__private_var_tmp_vfs_link_probe.observer.json",
+        "mode": "show",
+        "observed_deny": false,
+        "pid": 64818,
+        "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64818)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64818\")))",
+        "process_name": "sandbox_writer",
+        "window": {
+          "end": "2026-01-03 10:23:12",
+          "last": null,
+          "start": "2026-01-03 10:23:08"
+        }
+      },
+      "operation": "file-write*",
+      "probe_name": "write_/private/var/tmp/vfs_link_probe",
+      "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+      "requested_path": "/private/var/tmp/vfs_link_probe"
+    }
+  ],
   "schema_version": "vfs-canonicalization.deny_log_witnesses.v0.1",
   "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 }

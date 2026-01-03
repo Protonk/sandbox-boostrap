@@ -58,6 +58,7 @@
     "vfs_private_tmp_only",
     "vfs_both_paths",
     "vfs_private_tmp_only_openat",
+    "vfs_private_tmp_only_openat_dir_allowed",
     "vfs_var_tmp_alias_only",
     "vfs_var_tmp_private_only",
     "vfs_var_tmp_both",
@@ -125,6 +126,52 @@
     },
     "vfs_private_tmp_only_openat": {
       "sbpl": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_private_tmp_only_openat.sb",
+      "probe_generation": "manual",
+      "manual_probes": [
+        {
+          "name": "read_open_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow"
+        },
+        {
+          "name": "read_openat_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "syscall": "openat",
+          "expected": "deny"
+        },
+        {
+          "name": "read_open_/private/tmp/foo",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "allow"
+        },
+        {
+          "name": "read_openat_/private/tmp/foo",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "syscall": "openat",
+          "expected": "deny"
+        },
+        {
+          "name": "read_openat_rootrel_tmp/foo",
+          "operation": "file-read*",
+          "target": "tmp/foo",
+          "syscall": "openat_rootrel",
+          "expected": "allow"
+        },
+        {
+          "name": "read_openat_rootrel_private/tmp/foo",
+          "operation": "file-read*",
+          "target": "private/tmp/foo",
+          "syscall": "openat_rootrel",
+          "expected": "allow"
+        }
+      ]
+    },
+    "vfs_private_tmp_only_openat_dir_allowed": {
+      "sbpl": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_private_tmp_only_openat_dir_allowed.sb",
       "probe_generation": "manual",
       "manual_probes": [
         {

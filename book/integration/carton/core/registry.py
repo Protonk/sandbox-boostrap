@@ -321,6 +321,22 @@ def build_registry() -> Registry:
             runner=mapping_jobs.run_vfs_canonicalization,
         ),
         Job(
+            id="mappings.policygraph_node_fields",
+            kind="mapping",
+            description="Generate policygraph node field mapping summary",
+            inputs=[
+                "book/evidence/syncretic/policygraph/node-fields/policygraph_node_fields.json",
+                "book/evidence/syncretic/policygraph/node-fields/policygraph_node_arg16.json",
+                "book/evidence/syncretic/policygraph/node-fields/policygraph_node_unknowns.json",
+                "book/evidence/syncretic/policygraph/node-fields/policygraph_node_fields_receipt.json",
+                "book/evidence/syncretic/policygraph/node-fields/policygraph_node_fields.md",
+            ],
+            outputs=[
+                "book/integration/carton/bundle/relationships/mappings/policy/policygraph_node_fields.json",
+            ],
+            runner=mapping_jobs.run_policygraph_node_fields,
+        ),
+        Job(
             id="relationships.operation_coverage",
             kind="fixer",
             description="Build operation_coverage relationship",

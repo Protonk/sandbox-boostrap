@@ -1,9 +1,9 @@
 {
   "bundle": {
-    "artifact_index": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/a2feeb53-0dc2-4201-81e4-4bc24f35fed7/artifact_index.json",
-    "artifact_index_sha256": "81b9b9df73e71157ae70c6bf4a910182145acc0824c56ef43ecba49e3c7c4f82",
-    "bundle_dir": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/a2feeb53-0dc2-4201-81e4-4bc24f35fed7",
-    "run_id": "a2feeb53-0dc2-4201-81e4-4bc24f35fed7"
+    "artifact_index": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4/artifact_index.json",
+    "artifact_index_sha256": "970a3d78b5c99b4ae80b2319aa07be750459fc1a5463b2db93d5d5acc789c41e",
+    "bundle_dir": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/b45e4406-c756-4488-853e-c5a4d081adf4",
+    "run_id": "b45e4406-c756-4488-853e-c5a4d081adf4"
   },
   "profiles": {
     "vfs_both_paths": {
@@ -1596,6 +1596,115 @@
         "3": 4,
         "4": 17,
         "5": 28
+      }
+    },
+    "vfs_private_tmp_only_openat_dir_allowed": {
+      "anchors": [
+        {
+          "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/etc/hosts",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/etc/hosts",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/bar",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/foo",
+          "present": true,
+          "tags": [
+            0,
+            4,
+            6
+          ]
+        },
+        {
+          "path": "/private/tmp/nested/child",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/vfs_firmlink_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/var/tmp/canon",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/var/tmp/vfs_canon_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/var/tmp/vfs_link_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/tmp/bar",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/tmp/foo",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/tmp/nested/child",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/var/tmp/canon",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/var/tmp/vfs_canon_probe",
+          "present": false,
+          "tags": []
+        }
+      ],
+      "decoded_blob": null,
+      "decoded_blob_sha256": "0dafd6ff00ba445258de3055882933c0d8ac88254a2c9b83c99fbdcb7a6582b3",
+      "decoded_blob_source": "derive_compile_sbpl",
+      "literal_candidates": [
+        "/private/tmp",
+        "/private/tmp/foo"
+      ],
+      "node_count": 53,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_private_tmp_only_openat_dir_allowed.sb",
+      "profile_input_mode": "sbpl",
+      "tag_counts": {
+        "0": 3,
+        "4": 5,
+        "5": 15,
+        "6": 30
       }
     },
     "vfs_tmp_only": {

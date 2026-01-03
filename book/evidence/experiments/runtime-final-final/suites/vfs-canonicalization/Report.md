@@ -29,7 +29,7 @@ PYTHONPATH=. python book/evidence/experiments/runtime-final-final/suites/vfs-can
 ## Scope
 
 - **World:** `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
-- **Operations:** `file-read*`, `file-write*`, and a small `file-read-metadata` slice used to isolate symlink-component traversal requirements.
+- **Operations exercised:** `file-read*`, `file-write*`. Some profiles add a minimal `file-read-metadata` allowance to isolate traversal-time requirements (for example, “both spellings” profiles that still deny until a symlink component’s metadata read is permitted).
 - **Profile pattern:** per-family tri-profiles (alias-only, canonical-only, both) plus targeted “plus metadata” variants that add only the symlink-component `file-read-metadata` allowance needed to turn a deny into an allow.
 - **Path families covered:**
   - `/tmp/*` vs `/private/tmp/*` (plus control `/var/tmp/canon` vs `/private/var/tmp/canon`).
@@ -37,7 +37,7 @@ PYTHONPATH=. python book/evidence/experiments/runtime-final-final/suites/vfs-can
   - `/etc/hosts` vs `/private/etc/hosts` (read-only).
   - `/private/tmp/vfs_firmlink_probe` vs `/System/Volumes/Data/private/tmp/vfs_firmlink_probe`.
   - `/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe` vs `/private/var/tmp/vfs_link_probe` (intermediate symlink-in-path).
-  - `openat(2)` variants for the base `/tmp/foo` family (same profile rules; different syscall surface).
+  - `openat(2)` variants for the base `/tmp/foo` family (same profile rules; different syscall surface), including a “root-relative” `openat(2)` that avoids separately opening the parent directory.
 
 ## Evidence artifacts
 
@@ -53,6 +53,7 @@ Run-scoped bundle artifacts:
 Derived summaries (derived from the committed bundle):
 
 - `out/derived/runtime_results.json`: flattened summary of runtime outcomes with `observed_path_nofirmlink` when available from the sandboxed probe.
+- `out/derived/deny_log_witnesses.json`: flattened join of per-probe sandbox-log observer output (`out/<run_id>/observer/*.observer.json`) to `(profile_id, expectation_id)`.
 - `out/derived/decode_tmp_profiles.json`: structural decode summary (anchors, tag placement heuristics, normalized literal candidates). When the bundle does not contain `sb_build/*.sb.bin`, this script compiles the SBPL source at derive time (compile-stage only) and decodes the resulting blob bytes.
 - `out/derived/mismatch_summary.json`: coarse, human-readable classification for the base `/tmp` family only.
 
@@ -74,7 +75,7 @@ Two high-impact caveats:
 
 - **Denied scenario attempts have no sandboxed FD.** When `out/derived/runtime_results.json` shows an `observed_path` for a denied attempt, check `observed_path_source`. `unsandboxed_fd_path` indicates a baseline-lane (unsandboxed) witness, which is diagnostic and not decision-time evidence for the denial.
 - **FD spellings are diagnostic, not canonical truth.** In general, vnode→path reconstruction can be non-unique (hardlinks, multiple names) and process-relative (procroot variants). This suite does not treat `observed_path*` as “the string Seatbelt compared.”
-- **Deny-side “spelling” claims require a sandbox-originated witness channel.** This suite can only witness deny-side spellings indirectly unless it captures sandbox reporting output (unified logging / observer) for the denied attempt. Without that channel, deny-side spelling statements must remain labeled as inferred/hypothesis rather than “mapped.”
+- **Deny-side “spelling” claims require a sandbox-originated witness channel.** This suite treats `out/derived/deny_log_witnesses.json` (derived from `out/<run_id>/observer/*.observer.json`) as the primary deny-side witness channel. Without it, deny-side spelling statements must remain labeled as inferred/hypothesis rather than “mapped.”
 
 ## Structural decode caveat (compiled blobs and “anchor presence”)
 
@@ -116,8 +117,12 @@ These bullets summarize the behavior recorded in `out/derived/runtime_results.js
   - `vfs_link_both_plus_metadata_to_var_tmp` allows the symlinked-in-path request after adding only `(allow file-read-metadata (literal "/private/tmp/vfs_linkdir/to_var_tmp"))`.
 
 - **`openat(2)` (dirfd + relative leafname)**
-  - `vfs_private_tmp_only_openat` uses the same `file-read*` rules as a “canonical-only” `/private/tmp/foo` profile, but runs paired probes using `open(2)` and `openat(2)`.
-  - On this world, the `openat(2)` probes for `/tmp/foo` and `/private/tmp/foo` match the `open(2)` probes, and `fd_identity` agrees across all four (same `(st_dev, st_ino)`).
+  - `vfs_private_tmp_only_openat` shows that syscall surface can add additional authorization points: the leafname `openat(2)` variant is denied (for both `/tmp/foo` and `/private/tmp/foo`) because it separately opens the parent directory. The deny-side observer reports `deny(1) file-read-data /private/tmp` for the leafname probe.
+  - `vfs_private_tmp_only_openat_dir_allowed` adds only `(allow file-read-data (literal "/private/tmp"))`, and the same leafname `openat(2)` probes are then allowed (matching the `open(2)` and root-relative `openat(2)` variants).
+
+- **`SANDBOX_CHECK_CANONICAL` (oracle guardrail axis)**
+  - For `vfs_private_tmp_only`, `sandbox_check_by_audit_token` reports `raw=allow` and `canonical=allow` for `/private/tmp/foo`.
+  - For `/tmp/foo` (symlink component) and `/private/tmp/nested/../foo` (`..` traversal), `raw=allow` but `canonical=deny`, consistent with `SANDBOX_CHECK_CANONICAL` behaving as “reject-if-not-already-canonical,” not “canonicalize then check.”
 
 ## Interpretation (careful, host-bound)
 
@@ -145,5 +150,3 @@ This suite supports three narrow conclusions on this world for this operation su
   - `/tmp` and the `/private/tmp` Data-spelling family are runtime-backed.
   - `/var/tmp`, `/etc`, and intermediate symlink-in-path denials are explained as `file-read-metadata` denials on the symlink component (bounded by plus-metadata profiles and deny-side observer lines).
 - **Oracle callouts:** when `SANDBOX_LORE_SEATBELT_CALLOUT=1` is used, interpret `SANDBOX_CHECK_CANONICAL` as a **reject-if-not-already-canonical** flag (symlink/`..` in the input), not as “canonicalize then check.” Do not treat callout output as a path discovery mechanism.
-
-See `Plan.md` for the remaining experiments intended to turn the “partial” families into decision-bounded conclusions on this baseline.

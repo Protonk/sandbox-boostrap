@@ -70,3 +70,9 @@ This index covers artifacts under `book/integration/carton/bundle/relationships/
 | Artifact(s) | Generator / source | Inputs | Guardrails |
 | --- | --- | --- | --- |
 | `book/integration/carton/bundle/relationships/mappings/vfs_canonicalization/{packet_set.json,promotion_receipt.json,path_canonicalization_map.json}` | `book/integration/carton/mappings/vfs_canonicalization/generate_path_canonicalization_map.py` | `book/integration/carton/bundle/relationships/mappings/vfs_canonicalization/packet_set.json`<br>promotion packets referenced by that set under `book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/` | `book/integration/tests/graph/test_vfs_canonicalization_map_is_generated.py`<br>`book/integration/tests/runtime/test_vfs_canonicalization_outputs.py`<br>`book/integration/tests/runtime/test_vfs_canonicalization_structural.py` |
+
+## policy
+
+| Artifact(s) | Generator / source | Inputs | Guardrails |
+| --- | --- | --- | --- |
+| `book/integration/carton/bundle/relationships/mappings/policy/policygraph_node_fields.json` | `book/integration/carton/mappings/policy/generate_policygraph_node_fields.py` | `book/evidence/syncretic/policygraph/node-fields/{policygraph_node_fields.json,policygraph_node_arg16.json,policygraph_node_unknowns.json,policygraph_node_fields_receipt.json,policygraph_node_fields.md}` | `book/integration/tests/graph/test_mappings_guardrail.py` |

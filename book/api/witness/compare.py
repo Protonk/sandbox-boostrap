@@ -9,7 +9,7 @@ from book.api import exec_record, path_utils, tooling
 from book.api.profile.identity import baseline_world_id
 from book.api.runtime.contracts import schema as runtime_schema
 from book.api.runtime.execution import preflight as runtime_preflight
-from book.api.witness import outputs
+from book.api.witness import keepalive, outputs, sb_api_validator
 from book.api.witness.client import run_probe_request
 from book.api.witness.models import (
     ActionSpec,
@@ -19,6 +19,7 @@ from book.api.witness.models import (
     EntitlementAction,
     ProbeRequest,
     SbplAction,
+    SandboxCheckSpec,
 )
 from book.api.witness.paths import REPO_ROOT
 
@@ -115,6 +116,107 @@ def _write_result(payload: Dict[str, object], output_spec: Optional[outputs.Outp
     return outputs.write_json(target, payload, indent=output_spec.json_indent, sort_keys=output_spec.json_sort_keys)
 
 
+def _sandbox_check_error_record(*, world_id: str, mode: str, error: str) -> Dict[str, object]:
+    return {
+        "world_id": world_id,
+        "mode": mode,
+        "stage": "operation",
+        "lane": "oracle",
+        "error": error,
+    }
+
+
+def _sandbox_check_payload(
+    *,
+    world_id: str,
+    keepalive_record: Optional[Dict[str, object]],
+    validator: Dict[str, object],
+) -> Dict[str, object]:
+    payload: Dict[str, object] = {"world_id": world_id, "stage": "operation", "lane": "oracle"}
+    if keepalive_record is not None:
+        payload["keepalive"] = keepalive_record
+    payload["validator"] = validator
+    return payload
+
+
+def _run_sandbox_check_entitlements(
+    *,
+    action_id: str,
+    action: EntitlementAction,
+    spec: SandboxCheckSpec,
+    world_id: str,
+) -> Dict[str, object]:
+    plan_id = action.plan_id or f"witness:compare:{action_id}:sandbox_check"
+    try:
+        with keepalive.open_policywitness_session(
+            profile_id=action.profile_id or "",
+            plan_id=plan_id,
+            correlation_id=action.correlation_id,
+            wait_spec=None,
+        ) as handle:
+            if handle.record.wait_mode and handle.record.wait_path:
+                handle.trigger_wait()
+            pid = handle.record.pid
+            if pid is None:
+                return _sandbox_check_error_record(
+                    world_id=world_id,
+                    mode=keepalive.KEEPALIVE_MODE_POLICYWITNESS,
+                    error="missing_pid",
+                )
+            validator = sb_api_validator.run_sb_api_validator(
+                pid=pid,
+                operation=spec.operation,
+                filter_type=spec.filter_type,
+                filter_value=spec.filter_value,
+                extra=spec.extra,
+                timeout_s=spec.timeout_s,
+            )
+            return _sandbox_check_payload(
+                world_id=world_id,
+                keepalive_record=handle.record.to_json(),
+                validator=validator,
+            )
+    except Exception as exc:
+        return _sandbox_check_error_record(
+            world_id=world_id,
+            mode=keepalive.KEEPALIVE_MODE_POLICYWITNESS,
+            error=f"{type(exc).__name__}: {exc}",
+        )
+
+
+def _run_sandbox_check_hold_open(
+    *,
+    world_id: str,
+    mode: str,
+    spec: SandboxCheckSpec,
+    command_prefix: Sequence[str],
+) -> Dict[str, object]:
+    try:
+        with keepalive.spawn_hold_open(command_prefix=command_prefix) as handle:
+            pid = handle.record.pid
+            if pid is None:
+                return _sandbox_check_error_record(world_id=world_id, mode=mode, error="missing_pid")
+            validator = sb_api_validator.run_sb_api_validator(
+                pid=pid,
+                operation=spec.operation,
+                filter_type=spec.filter_type,
+                filter_value=spec.filter_value,
+                extra=spec.extra,
+                timeout_s=spec.timeout_s,
+            )
+            return _sandbox_check_payload(
+                world_id=world_id,
+                keepalive_record=handle.record.to_json(),
+                validator=validator,
+            )
+    except Exception as exc:
+        return _sandbox_check_error_record(
+            world_id=world_id,
+            mode=mode,
+            error=f"{type(exc).__name__}: {exc}",
+        )
+
+
 def _entitlement_request(action: EntitlementAction, *, action_id: str) -> ProbeRequest:
     plan_id = action.plan_id or f"witness:compare:{action_id}"
     return ProbeRequest(
@@ -166,5 +268,33 @@ def compare_action(
             payload["write_error"] = write_error
         results["none"] = payload
         limits.append("none: unsandboxed baseline (no policy apply)")
+
+    if action.sandbox_check:
+        sandbox_results: Dict[str, Dict[str, object]] = {}
+        if action.entitlements:
+            sandbox_results["entitlements"] = _run_sandbox_check_entitlements(
+                action_id=action.action_id,
+                action=action.entitlements,
+                spec=action.sandbox_check,
+                world_id=world_id,
+            )
+        if action.sbpl:
+            prefix = [*_sbpl_wrapper_cmd(action.sbpl), "--"]
+            sandbox_results["sbpl"] = _run_sandbox_check_hold_open(
+                world_id=world_id,
+                mode=keepalive.KEEPALIVE_MODE_HOLD_OPEN,
+                spec=action.sandbox_check,
+                command_prefix=prefix,
+            )
+        if action.none:
+            sandbox_results["none"] = _run_sandbox_check_hold_open(
+                world_id=world_id,
+                mode=keepalive.KEEPALIVE_MODE_HOLD_OPEN,
+                spec=action.sandbox_check,
+                command_prefix=[],
+            )
+        if sandbox_results:
+            results["sandbox_check"] = sandbox_results
+            limits.append("sandbox_check: sandbox_check() oracle lane (does not execute the operation)")
 
     return ComparisonReport(action_id=action.action_id, world_id=world_id, results=results, limits=limits)

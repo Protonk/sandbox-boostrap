@@ -1,0 +1,41 @@
+{
+  "data": {
+    "correlation_id": null,
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": "2026-01-03 10:22:59",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    ",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 1,
+    "observer_schema_version": 1,
+    "pid": 64520,
+    "plan_id": null,
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(64520)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"64520\")))",
+    "process_name": "sandbox_writer",
+    "row_id": "vfs_private_tmp_only:write_/private/tmp/nested/../foo",
+    "start": "2026-01-03 10:22:55",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767464577875,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

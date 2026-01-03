@@ -112,3 +112,32 @@ def test_op_table_mappings_and_metadata():
 
     alignment = load_json(base / artifacts["op_table_vocab_alignment"])
     assert isinstance(alignment, dict) and alignment.get("records"), "op_table_vocab_alignment should contain records"
+
+
+def test_policygraph_node_fields_mapping_present():
+    """Guardrail: policygraph node field mapping exists and is world-pinned."""
+    mapping = load_json(
+        ROOT
+        / "book"
+        / "integration"
+        / "carton"
+        / "bundle"
+        / "relationships"
+        / "mappings"
+        / "policy"
+        / "policygraph_node_fields.json"
+    )
+    meta = mapping.get("metadata") or {}
+    assert meta.get("world_id") == baseline_world()
+    assert meta.get("status") in {"ok", "partial"}
+    inputs = meta.get("inputs") or []
+    assert any(
+        path.endswith("book/evidence/syncretic/policygraph/node-fields/policygraph_node_fields.json")
+        for path in inputs
+    )
+    summary = mapping.get("summary") or {}
+    assert summary.get("record_size_bytes")
+    assert summary.get("field_count")
+    sources = mapping.get("sources") or {}
+    for key in ["fields", "arg16", "unknowns"]:
+        assert key in sources, f"missing source entry for {key}"

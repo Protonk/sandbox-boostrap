@@ -1,0 +1,12 @@
+(version 1)
+
+(deny default)
+
+;; Allow reads/writes only for canonical /private/tmp/foo.
+(allow file-read* (literal "/private/tmp/foo"))
+(allow file-write* (literal "/private/tmp/foo"))
+
+;; The openat(2) leafname probe opens the parent directory separately; on this
+;; baseline world the deny-side observer reports the failing check as:
+;;   deny(1) file-read-data /private/tmp
+(allow file-read-data (literal "/private/tmp"))
