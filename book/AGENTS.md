@@ -27,9 +27,9 @@ Paths and generated artifacts:
 - Checked-in JSON/IR must not embed absolute paths; emit repo-relative paths using `book.api.path_utils` (`to_repo_relative`, `relativize_command`).
 - Do not hand-edit shared/generated artifacts. Regenerate via the appropriate generator:
   - Concepts JSON: `cd book/graph && swift run`
-  - Mappings promotion: `python book/graph/mappings/run_promotion.py`
-  - CARTON fixers + manifest: `python -m book.integration.carton.tools.update`
-- CARTON refresh: `python -m book.integration.carton.tools.update` or `make -C book carton-refresh`
+  - Mappings promotion: `python -m book.integration.carton promote`
+  - CARTON fixers + manifest: `python -m book.integration.carton build`
+- CARTON refresh: `python -m book.integration.carton build` or `make -C book carton-refresh`
 
 ## Commands (supported entrypoints)
 
@@ -40,7 +40,7 @@ Common host-bound commands (Sonoma 14.4.1 baseline):
 - Decode/inspect blob: `python -m book.api.profile decode dump <blob.sb.bin> --summary`
 - Plan-based runtime run: `python -m book.api.runtime run --plan <plan.json> --channel launchd_clean --out <out_dir>`
 - Emit promotion packet: `python -m book.api.runtime emit-promotion --bundle <out_dir> --out <out_dir>/promotion_packet.json --require-promotable`
-- Promote runtime packets into mappings: `python book/graph/mappings/runtime/promote_from_packets.py --packets <packet.json>` (writes under `book/integration/carton/bundle/relationships/mappings/`)
+- Promote runtime packets into mappings: `python book/integration/carton/mappings/runtime/promote_from_packets.py --packets <packet.json>` (writes under `book/integration/carton/bundle/relationships/mappings/`)
 
 Host-neutral (still host-scoped artifacts; no live sandbox):
 - Validate concepts/IR: `python -m book.graph.concepts.validation --tag meta`
@@ -57,7 +57,7 @@ Pick the smallest surface that answers your question:
 
 Then read the nearest `AGENTS.md` in the subtree you touch:
 - API/tooling: `book/api/AGENTS.md`; CARTON fixer bundle: `book/integration/carton/README.md`.
-- Graph/concepts/mappings: `book/graph/AGENTS.md`; deeper routing in `book/graph/concepts/AGENTS.md`, `book/graph/mappings/AGENTS.md`, `book/graph/swift/AGENTS.md`.
+- Graph/concepts: `book/graph/AGENTS.md`; deeper routing in `book/graph/concepts/AGENTS.md`, `book/graph/swift/AGENTS.md`. Mapping generators: `book/integration/carton/mappings/AGENTS.md`.
 - Experiments: `book/evidence/experiments/AGENTS.md`; archived work in `book/evidence/experiments/archive/AGENTS.md`.
 - Dumps/artifacts: `book/dumps/AGENTS.md`.
 - Profiles: `book/profiles/AGENTS.md`.

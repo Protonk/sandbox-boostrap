@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Iterable, List, Optional
 
 from book.integration.carton import paths
-from book.integration.carton import spec as spec_mod
+from book.integration.carton.core import registry as registry_mod
 
 
 def _repo_root() -> Path:
@@ -15,10 +15,22 @@ def _repo_root() -> Path:
 
 
 def load_fixer_entries(*, repo_root: Optional[Path] = None) -> List[dict]:
-    root = repo_root or _repo_root()
-    spec_path = paths.ensure_absolute(paths.FIXERS_SPEC, repo_root_path=root)
-    spec = spec_mod.load_fixers_spec(spec_path)
-    return spec.get("fixers") or []
+    _ = repo_root or _repo_root()
+    registry = registry_mod.build_registry()
+    entries: List[dict] = []
+    for job in registry.jobs_by_kind("fixer"):
+        if not job.module or not job.function:
+            continue
+        entries.append(
+            {
+                "id": job.id,
+                "module": job.module,
+                "function": job.function,
+                "inputs": job.inputs,
+                "outputs": job.outputs,
+            }
+        )
+    return entries
 
 
 def _select_fixers(entries: List[dict], ids: Optional[Iterable[str]]) -> List[dict]:

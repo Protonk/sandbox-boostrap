@@ -5,8 +5,9 @@ Unified test/build driver for SANDBOX_LORE.
 This is intentionally colocated with the test suite (`book/integration/`) so the
 "how we run tests" harness lives next to the code it executes.
 
-Supported entrypoint:
+Supported entrypoints:
 - `make -C book test` (invokes this module via `python -m book.integration.ci`)
+- `python -m book.integration.ci field2_hunt` (field2-focused PASS_TO_PASS loop)
 
 This driver runs:
 1) pytest (Python guardrails)
@@ -15,6 +16,7 @@ This driver runs:
 
 from __future__ import annotations
 
+import argparse
 import os
 import subprocess
 import sys
@@ -46,12 +48,7 @@ def run_carton_validation() -> None:
     env = os.environ.copy()
     env["PYTHONPATH"] = str(repo_root)
 
-    cmd = [
-        sys.executable,
-        "-m",
-        "book.integration.carton.tools.update",
-        "--skip-promotion",
-    ]
+    cmd = [sys.executable, "-m", "book.integration.carton", "build"]
     print(f"[ci] carton: running {' '.join(cmd)}", flush=True)
     subprocess.check_call(cmd, cwd=repo_root, env=env)
 
@@ -73,7 +70,43 @@ def run_swift_build() -> None:
     subprocess.check_call(cmd, cwd=book_root / "graph", env=env)
 
 
-def main() -> None:
+def run_field2_hunt() -> None:
+    repo_root = _repo_root()
+    env = os.environ.copy()
+    env["PYTHONPATH"] = str(repo_root)
+
+    tests = [
+        "book/integration/tests/graph/test_field2_atlas.py",
+        "book/integration/tests/graph/test_field2_unknowns.py",
+        "book/integration/tests/graph/test_field2_progress_gate.py",
+        "book/integration/tests/graph/test_anchor_field2_alignment.py",
+        "book/integration/tests/graph/test_anchor_filter_alignment.py",
+        "book/integration/tests/graph/test_anchor_outputs.py",
+        "book/integration/tests/graph/test_mappings_guardrail.py::test_field2_inventory_present",
+        "book/integration/tests/graph/test_packet_consumers.py::test_packet_consumers_no_legacy_coupling",
+        "book/integration/tests/runtime/test_runtime_promotion_contracts.py",
+        "book/integration/tests/runtime/test_runtime_signatures_mapping.py",
+    ]
+
+    cmd = [sys.executable, "-m", "pytest", *tests]
+    print(f"[ci] field2_hunt: running {' '.join(cmd)}", flush=True)
+    subprocess.check_call(cmd, cwd=repo_root, env=env)
+
+
+def main(argv: list[str] | None = None) -> None:
+    parser = argparse.ArgumentParser(description="Run SANDBOX_LORE CI subsets.")
+    parser.add_argument(
+        "mode",
+        nargs="?",
+        default="all",
+        choices=["all", "field2_hunt"],
+        help="CI mode to run (default: all)",
+    )
+    args = parser.parse_args(argv)
+
+    if args.mode == "field2_hunt":
+        run_field2_hunt()
+        return
     run_carton_validation()
     run_python_harness()
     run_swift_build()

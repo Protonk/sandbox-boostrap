@@ -8,7 +8,7 @@ ROOT = path_utils.find_repo_root(Path(__file__))
 
 def test_carton_check_smoke(run_cmd):
     res = run_cmd(
-        [sys.executable, "-m", "book.integration.carton.tools.check"],
+        [sys.executable, "-m", "book.integration.carton", "check"],
         cwd=ROOT,
         check=True,
         label="carton check",

@@ -34,7 +34,7 @@ When in doubt:
 - New *code* that ingests or validates compiled profiles → `concepts/validation/`.
 - New *stable mappings* or “IR” that other code depends on → `book/integration/carton/bundle/relationships/mappings/` (generated from `book/integration/carton/mappings/`).
 - Experiment-specific scratch outputs stay under `book/evidence/experiments/*/out`, not here.
-- CARTON is the frozen, host-specific bundle (relationships/views/contracts + manifest); see `book/integration/carton/README.md` and use `python -m book.integration.carton.tools.check` / `python -m book.integration.carton.tools.diff` rather than ad-hoc JSON spelunking.
+- CARTON is the frozen, host-specific bundle (relationships/views/contracts + manifest); see `book/integration/carton/README.md` and use `python -m book.integration.carton check` / `python -m book.integration.carton diff` rather than ad-hoc JSON spelunking.
 
 For **anchor/field2 structure** on this Sonoma world, use this stack as your entrypoint:
 - Structural source (anchors + tags + `field2` per profile): `book/evidence/experiments/field2-final-final/probe-op-structure/Report.md` (structural only).

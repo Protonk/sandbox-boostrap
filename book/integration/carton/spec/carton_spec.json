@@ -8,98 +8,138 @@
       "path": "book/integration/carton/bundle/relationships/mappings/vocab/ops.json",
       "role": "mapping",
       "hash_mode": "semantic_json",
-      "checks": ["metadata_world_id"]
+      "checks": [
+        "metadata_world_id"
+      ]
     },
     {
       "id": "vocab.filters",
       "path": "book/integration/carton/bundle/relationships/mappings/vocab/filters.json",
       "role": "mapping",
       "hash_mode": "semantic_json",
-      "checks": ["metadata_world_id"]
+      "checks": [
+        "metadata_world_id"
+      ]
     },
     {
       "id": "system_profiles.digests",
       "path": "book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json",
       "role": "mapping",
       "hash_mode": "semantic_json",
-      "checks": ["metadata_world_id", "metadata_inputs"]
+      "checks": [
+        "metadata_world_id",
+        "metadata_inputs"
+      ]
     },
     {
       "id": "carton.relationships.operation_coverage",
       "path": "book/integration/carton/bundle/relationships/operation_coverage.json",
       "role": "mapping",
       "hash_mode": "semantic_json",
-      "checks": ["metadata_world_id", "metadata_inputs"]
+      "checks": [
+        "metadata_world_id",
+        "metadata_inputs"
+      ]
     },
     {
       "id": "carton.relationships.operation_system_profiles",
       "path": "book/integration/carton/bundle/relationships/operation_system_profiles.json",
       "role": "mapping",
       "hash_mode": "semantic_json",
-      "checks": ["metadata_world_id", "metadata_inputs"]
+      "checks": [
+        "metadata_world_id",
+        "metadata_inputs"
+      ]
     },
     {
       "id": "carton.relationships.profile_layer_ops",
       "path": "book/integration/carton/bundle/relationships/profile_layer_ops.json",
       "role": "mapping",
       "hash_mode": "semantic_json",
-      "checks": ["metadata_world_id", "metadata_inputs"]
+      "checks": [
+        "metadata_world_id",
+        "metadata_inputs"
+      ]
     },
     {
       "id": "carton.relationships.filter_usage",
       "path": "book/integration/carton/bundle/relationships/filter_usage.json",
       "role": "mapping",
       "hash_mode": "semantic_json",
-      "checks": ["metadata_world_id", "metadata_inputs"]
+      "checks": [
+        "metadata_world_id",
+        "metadata_inputs"
+      ]
     },
     {
       "id": "carton.relationships.anchor_field2",
       "path": "book/integration/carton/bundle/relationships/anchor_field2.json",
       "role": "mapping",
       "hash_mode": "semantic_json",
-      "checks": ["metadata_world_id", "metadata_inputs"]
+      "checks": [
+        "metadata_world_id",
+        "metadata_inputs"
+      ]
     },
     {
       "id": "carton.relationships.concept_sources",
       "path": "book/integration/carton/bundle/relationships/concept_sources.json",
       "role": "mapping",
       "hash_mode": "semantic_json",
-      "checks": ["metadata_world_id", "metadata_inputs"]
+      "checks": [
+        "metadata_world_id",
+        "metadata_inputs"
+      ]
     },
     {
       "id": "carton.views.operation_index",
       "path": "book/integration/carton/bundle/views/operation_index.json",
       "role": "view",
       "hash_mode": "semantic_json",
-      "checks": ["metadata_world_id", "metadata_inputs"]
+      "checks": [
+        "metadata_world_id",
+        "metadata_inputs"
+      ]
     },
     {
       "id": "carton.views.profile_layer_index",
       "path": "book/integration/carton/bundle/views/profile_layer_index.json",
       "role": "view",
       "hash_mode": "semantic_json",
-      "checks": ["metadata_world_id", "metadata_inputs"]
+      "checks": [
+        "metadata_world_id",
+        "metadata_inputs"
+      ]
     },
     {
       "id": "carton.views.filter_index",
       "path": "book/integration/carton/bundle/views/filter_index.json",
       "role": "view",
       "hash_mode": "semantic_json",
-      "checks": ["metadata_world_id", "metadata_inputs"]
+      "checks": [
+        "metadata_world_id",
+        "metadata_inputs"
+      ]
     },
     {
       "id": "carton.views.anchor_index",
       "path": "book/integration/carton/bundle/views/anchor_index.json",
       "role": "view",
       "hash_mode": "semantic_json",
-      "checks": ["metadata_world_id", "metadata_inputs"]
+      "checks": [
+        "metadata_world_id",
+        "metadata_inputs"
+      ]
     },
     {
       "id": "carton.views.concept_index",
       "path": "book/integration/carton/bundle/views/concept_index.json",
       "role": "view",
       "hash_mode": "semantic_json",
-      "checks": ["metadata_world_id", "metadata_inputs"]
+      "checks": [
+        "metadata_world_id",
+        "metadata_inputs"
+      ]
     },
     {
       "id": "validation.field2_ir",
@@ -118,46 +158,62 @@
       "path": "book/evidence/graph/concepts/validation/out/vocab_status.json",
       "role": "status",
       "hash_mode": "semantic_json",
-      "checks": ["inputs_field"]
+      "checks": [
+        "inputs_field"
+      ]
     },
     {
       "id": "validation.status",
       "path": "book/evidence/graph/concepts/validation/out/validation_status.json",
       "role": "status",
       "hash_mode": "semantic_json",
-      "checks": ["top_level_world_id"]
+      "checks": [
+        "top_level_world_id"
+      ]
     },
     {
       "id": "contracts.vocab",
       "path": "book/integration/carton/bundle/contracts/vocab.contract.json",
       "role": "derived",
       "hash_mode": "semantic_json",
-      "schema": "contracts_vocab.schema.json",
-      "checks": ["top_level_world_id", "inputs_field"]
+      "checks": [
+        "top_level_world_id",
+        "inputs_field"
+      ],
+      "schema": "contracts_vocab.schema.json"
     },
     {
       "id": "contracts.profiles",
       "path": "book/integration/carton/bundle/contracts/profiles.contract.json",
       "role": "derived",
       "hash_mode": "semantic_json",
-      "schema": "contracts_profiles.schema.json",
-      "checks": ["top_level_world_id", "inputs_field"]
+      "checks": [
+        "top_level_world_id",
+        "inputs_field"
+      ],
+      "schema": "contracts_profiles.schema.json"
     },
     {
       "id": "contracts.coverage",
       "path": "book/integration/carton/bundle/contracts/coverage.contract.json",
       "role": "derived",
       "hash_mode": "semantic_json",
-      "schema": "contracts_coverage.schema.json",
-      "checks": ["top_level_world_id", "inputs_field"]
+      "checks": [
+        "top_level_world_id",
+        "inputs_field"
+      ],
+      "schema": "contracts_coverage.schema.json"
     },
     {
       "id": "contracts.relationships",
       "path": "book/integration/carton/bundle/contracts/relationships.contract.json",
       "role": "derived",
       "hash_mode": "semantic_json",
-      "schema": "contracts_relationships.schema.json",
-      "checks": ["top_level_world_id", "inputs_field"]
+      "checks": [
+        "top_level_world_id",
+        "inputs_field"
+      ],
+      "schema": "contracts_relationships.schema.json"
     }
   ]
 }

@@ -28,11 +28,15 @@ def test_adversarial_artifacts_present_and_annotated():
     assert mismatch_summary.get("world_id") == world_id
     assert path_witnesses.get("world_id") == world_id
     assert set(expected_matrix.get("profiles", {})) == {
+        "adv:authorization_right",
+        "adv:file_mode",
         "adv:struct_flat",
         "adv:struct_nested",
+        "adv:ipc_posix_shm",
         "adv:path_edges",
         "adv:path_edges_private",
         "adv:path_alias",
+        "adv:path_canon_alt",
         "adv:mount_relative_path",
         "adv:mach_simple_allow",
         "adv:mach_simple_variants",
@@ -40,9 +44,9 @@ def test_adversarial_artifacts_present_and_annotated():
         "adv:mach_local_regex",
         "adv:net_outbound_allow",
         "adv:net_outbound_deny",
-        "adv:kext_bundle_query",
+        "adv:preference_domain",
         "adv:xattr",
-        "adv:file_mode",
+        "adv:xpc_service_name",
         "adv:flow_divert_require_all_tcp",
         "adv:flow_divert_partial_tcp",
     }

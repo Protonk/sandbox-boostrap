@@ -35,7 +35,7 @@ Smoke tag:
 
 Promotion contract:
 - Mapping generators must: (1) run the validation driver for relevant tags/IDs, (2) refuse to proceed on non-`ok` jobs, (3) read normalized validation IR only (not raw experiment out/), and (4) carry host/provenance (`host`, `source_jobs`) into outputs. See `book/integration/carton/mappings/run_promotion.py` and `book/integration/carton/mappings/runtime/generate_runtime_signatures.py` / `book/integration/carton/mappings/system_profiles/generate_digests_from_ir.py` for the pattern.
-- CARTON: the frozen IR/mapping bundle for Sonoma 14.4.1 lives under `book/integration/carton/bundle/` with its manifest at `book/integration/carton/bundle/CARTON.json`. After rerunning validation + mapping generators, refresh CARTON via `python -m book.integration.carton.tools.update` to rebuild relationships/views/contracts and the manifest. Schema checks assert CARTON and mapping provenance. CARTON is what the textbook and CI read; this validation directory is where you extend or regenerate the IR that feeds it.
+- CARTON: the frozen IR/mapping bundle for Sonoma 14.4.1 lives under `book/integration/carton/bundle/` with its manifest at `book/integration/carton/bundle/CARTON.json`. After rerunning validation + mapping generators, refresh CARTON via `python -m book.integration.carton build` to rebuild relationships/views/contracts and the manifest. Schema checks assert CARTON and mapping provenance. CARTON is what the textbook and CI read; this validation directory is where you extend or regenerate the IR that feeds it.
 
 Keep Swift-side validation non-fatal: extend the report rather than blocking generation when checks fail.
 

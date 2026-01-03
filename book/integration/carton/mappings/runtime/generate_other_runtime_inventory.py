@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Normalize hardened runtime inventory paths for the CARTON mapping layout."""
+"""Validate hardened runtime inventory paths for the CARTON mapping layout."""
 
 from __future__ import annotations
 
@@ -15,37 +15,38 @@ DEFAULT_SOURCE = (
 )
 DEFAULT_OUT = "book/integration/carton/bundle/relationships/mappings/runtime/other_runtime_inventory.json"
 
-REWRITE_PREFIXES = (
-    ("book/graph/mappings/", "book/integration/carton/mappings/"),
-)
+LEGACY_PREFIXES = ("book/graph/mappings/",)
 
 
-def _rewrite_path(path: str) -> str:
-    for old, new in REWRITE_PREFIXES:
-        if path.startswith(old):
-            return f"{new}{path[len(old):]}"
-    return path
-
-
-def _rewrite_paths(paths: Iterable[str]) -> list[str]:
-    return [_rewrite_path(p) if isinstance(p, str) else p for p in paths]
-
-
-def _rewrite_inventory(doc: dict) -> dict:
+def _iter_paths(doc: dict) -> Iterable[str]:
     for entry in doc.get("in_repo", []) or []:
-        paths = entry.get("paths")
-        if isinstance(paths, list):
-            entry["paths"] = _rewrite_paths(paths)
+        for path in entry.get("paths") or []:
+            if isinstance(path, str):
+                yield path
         for fentry in entry.get("files", []) or []:
             path = fentry.get("path")
             if isinstance(path, str):
-                fentry["path"] = _rewrite_path(path)
+                yield path
 
     for entry in doc.get("unclassified_hits", []) or []:
         path = entry.get("path")
         if isinstance(path, str):
-            entry["path"] = _rewrite_path(path)
-    return doc
+            yield path
+
+
+def _validate_inventory(doc: dict) -> None:
+    legacy_paths = []
+    for path in _iter_paths(doc):
+        for prefix in LEGACY_PREFIXES:
+            if path.startswith(prefix):
+                legacy_paths.append(path)
+                break
+    if legacy_paths:
+        sample = ", ".join(legacy_paths[:3])
+        raise SystemExit(
+            "inventory references legacy mapping paths; "
+            f"found {len(legacy_paths)} entries (sample: {sample})"
+        )
 
 
 def main(argv: list[str] | None = None) -> None:
@@ -69,7 +70,7 @@ def main(argv: list[str] | None = None) -> None:
     out_path = path_utils.ensure_absolute(args.out, repo_root=repo_root)
 
     doc = json.loads(source_path.read_text())
-    doc = _rewrite_inventory(doc)
+    _validate_inventory(doc)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(doc, indent=2, ensure_ascii=True) + "\n")

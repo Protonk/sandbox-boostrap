@@ -11,7 +11,7 @@ else
 PYTHON ?= $(VENV_PY)
 endif
 
-.PHONY: test ci validate swift clean build carton-refresh venv-check
+.PHONY: test ci validate swift clean build carton-refresh venv-check field2_hunt
 
 test: ci
 
@@ -38,3 +38,7 @@ swift:
 
 carton-refresh:
 	PYTHONPATH=$(REPO_ROOT) $(PYTHON) -m book.integration.carton.tools.update
+
+field2_hunt:
+	@echo "Running field2 hunt CI..."
+	PYTHONPATH=$(REPO_ROOT) $(PYTHON) -m book.integration.ci field2_hunt

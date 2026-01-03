@@ -21,9 +21,15 @@ The kernel’s Virtual File System (VFS) layer turns a *path string* into an *ob
 
 2. **Vnode → path reconstruction effects** (after you have an FD):
    - Once you successfully open a file, you hold an FD that refers to a vnode; the FD does not inherently preserve the caller’s original spelling.
-   - The kernel can reconstruct a printable path spelling for that vnode/FD, and multiple “valid” spellings can exist (for example, firmlink-translated vs “no firmlink” spellings).
+   - The kernel can reconstruct a printable path spelling for that vnode/FD, and multiple “valid” spellings can exist (for example, firmlink-translated vs “no firmlink” spellings such as `/System/Volumes/Data/...`). Treat alternate spellings as diagnostic evidence, not as automatically safe SBPL literals.
 
 SANDBOX_LORE historically called the combined phenomenon “VFS canonicalization.” That name is project-local; the more precise teaching framing is “path resolution + path reconstruction,” with the operational question being: *which spelling is the sandbox effectively comparing against on this host for a given operation and path family?*
+
+### Terminology note: “canonical spelling” vs `SANDBOX_CHECK_CANONICAL`
+
+This repo sometimes uses “canonical” informally to mean “the spelling that ends up being semantically live at runtime on this host” (for example, `/private/tmp/...` rather than `/tmp/...`).
+
+Separately, the `sandbox_check*` APIs support a flag commonly called `SANDBOX_CHECK_CANONICAL`. Public descriptions indicate this flag is **not** “canonicalize for me”; it is closer to “reject the check if the supplied path is not already canonical,” in particular if the path contains a symlink component or `..` traversal components. That makes it a useful *guardrail axis* in experiments, but it should not be treated as a mechanism for discovering the canonical spelling.
 
 ## Why SBPL path filters are sensitive to this
 
@@ -68,7 +74,17 @@ Important limits:
 - **Denied opens produce no FD**, so they produce no FD-path witness. The mapping generators in this repo refuse to infer canonicalization from denials.
 - A kernel “FD path spelling” is **not a proof** of the literal Seatbelt compared against; it is an observational witness of what the kernel reported for the opened object.
 
-### 4) The non-semantic mapping slice (`vfs_canonicalization`)
+### 4) `sandbox_check*` callouts (oracle lane)
+
+Some runtime probes also emit “seatbelt callout” markers: pre-syscall `sandbox_check*` decisions for a given operation + filter argument. These are useful for answering narrow questions like “what does `sandbox_check` say about this input string under this applied profile?” but they are **not syscall outcomes**, and they should not be silently promoted into semantics.
+
+Two practical implications for path-family work:
+
+- A callout’s `canonical` vs `raw` mode should be interpreted through the lens above: `SANDBOX_CHECK_CANONICAL` is best treated as “reject non-canonical inputs (symlinks / `..`)”, not as “canonicalize then check.”
+- Some public descriptions also suggest the “raw” check path may still perform internal symlink resolution; in that model, the canonical flag is a tightening constraint (“reject inputs that would require resolution or differ from their fully resolved form”), not a request to transform the input.
+- The common `NO_REPORT` flag is an observability/overhead knob (it suppresses expensive violation reporting); toggling it is not expected to yield a structured “compared path” return value. If you need deny-side spellings, treat logs as a separate witness channel and keep them explicitly labeled as diagnostic strings.
+
+### 5) The non-semantic mapping slice (`vfs_canonicalization`)
 
 The repo maintains a CARTON mapping slice derived from runtime promotion packets:
 
@@ -133,6 +149,7 @@ For each probe:
 - compare the profile’s literal/anchor presence (structural decode),
 - compare the runtime outcome (allow/deny),
 - and compare `requested_path` vs `observed_path` / `observed_path_nofirmlink` when an FD exists.
+- when available, compare `sandbox_check*` callouts (oracle lane) against syscall outcomes to understand where preflight checks agree/disagree with enforcement on this host.
 
 If alias-only fails while canonical-only succeeds and witnesses show alias→canonical spelling shifts, classify it as a resolution/reconstruction confounder for that family on this host (bounded to that operation surface).
 
@@ -140,19 +157,19 @@ If alias-only fails while canonical-only succeeds and witnesses show alias→can
 
 Because denied opens produce no FD, you need a separate witness route if you want “decision-time spelling” on denies. The best candidate to integrate is a **sandbox decision log witness** (for example, via SBPL `(debug deny)`), clearly labeled as “decision-log path spelling” (not FD-derived).
 
-If you add this channel, keep it separate from `path_witnesses.json` semantics and avoid claiming it is the internal compare string; treat it as a decision-time string witness that can still be wrong/ambiguous in edge cases.
+If you add this channel, keep it separate from `path_witnesses.json` semantics and avoid claiming it is the internal compare string; treat it as a decision-time string witness that can still be wrong/ambiguous in edge cases. Also treat “violation reporting” toggles (for example `NO_REPORT`) as potential confounders: they affect observability and cost, not the availability of a structured “compared path” return.
 
 ## Where to extend next (high-value questions turned into experiments)
 
 The following open questions are actionable: they can be answered by small, instrumented experiments on this host, producing promotable evidence.
 
-1. **`sandbox_check` “canonical” vs “raw” behavior:** The runtime harness already records `seatbelt-callout` markers that include `canonicalization: raw|canonical`. Determine whether “canonical” is purely lexical normalization, filesystem-backed resolution (symlink/firmlink), or a mix, by comparing callout decisions against actual syscall outcomes and FD witnesses for the same target.
+1. **Use `SANDBOX_CHECK_CANONICAL` as a guardrail axis:** Treat “canonical” callouts as “reject non-canonical input spellings (symlinks / `..`)”, then design probes where this splits cleanly (for example `/tmp/...` vs `/private/tmp/...`, and a controlled `..` path). Use that split to distinguish “denied because input is non-canonical” from “denied because the canonical spelling is disallowed.”
 
-2. **Decision reporting on denies:** If `sandbox_check*` can return a report (when `no_report=false`), test whether it includes a canonicalized path spelling on denies, and whether that spelling aligns with `F_GETPATH` or `F_GETPATH_NOFIRMLINK` when a corresponding allow case exists.
+2. **Deny-side spelling witnesses (explicit, labeled):** Add a captureable sandbox decision-log witness channel (for example SBPL `(debug deny)`), then test whether the logged path tends to be the resolved spelling (e.g., `/private/tmp/...` when requesting `/tmp/...`) and how stable that is across variants. Treat any logged spelling as diagnostic evidence, not ground truth of the internal compare string.
 
-3. **New witness channel for denies:** Integrate `(debug deny)` (or equivalent) into the runtime harness as a first-class artifact, then teach the derive step to emit a “deny-path witness” IR that can be joined to probe rows (without pretending it is FD-based).
+3. **Keep violation reporting out of the main lane:** If you experiment with `NO_REPORT` toggles, isolate it as its own lane/run because it can introduce overhead and side effects. Do not depend on it to provide a structured “post-canonicalization path” output.
 
-4. **Lexical normalization axes beyond symlink/firmlink:** Use controlled fixtures to probe whether the effective match domain collapses `.`/`..`, repeated slashes, trailing slashes, case differences, and Unicode normalization differences. Keep each axis isolated so the witness is interpretable.
+4. **Lexical normalization axes beyond symlink/firmlink:** Use controlled fixtures to probe whether the effective match domain collapses repeated slashes, trailing slashes, case differences, and Unicode normalization differences. Keep each axis isolated so the witness is interpretable. For `..` and symlink components specifically, use `SANDBOX_CHECK_CANONICAL` as a crisp negative control.
 
 ## Minimal witness record (copy/paste template)
 
@@ -169,4 +186,3 @@ claim:
     - <repo-relative path to committed bundle / promotion_packet.json / derived outputs>
   limits: <one line about what this does NOT prove>
 ```
-

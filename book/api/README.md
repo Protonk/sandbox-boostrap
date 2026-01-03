@@ -50,13 +50,13 @@ See `book/api/ghidra/README.md` for setup and workflow.
 
 Definition: Integration fixer bundle that freezes host-bound mappings into canonical relationships, views, and contracts.
 
-Role: Use the CARTON tools under `book/integration/carton/tools` to run fixers, rebuild the bundle manifest, and verify drift. The bundle outputs under `book/integration/carton/bundle/` are the authoritative relationships/views/contracts (manifest-pinned) surfaces; there is no CARTON query API in `book/api/`.
+Role: Use the CARTON CLI to run fixers, rebuild the bundle manifest, and verify drift. The bundle outputs under `book/integration/carton/bundle/` are the authoritative relationships/views/contracts (manifest-pinned) surfaces; there is no CARTON query API in `book/api/`.
 
 Example:
 ```sh
-python -m book.integration.carton.tools.update
-python -m book.integration.carton.tools.diff
-python -m book.integration.carton.tools.check
+python -m book.integration.carton build
+python -m book.integration.carton diff
+python -m book.integration.carton check
 ```
 
 ### runtime

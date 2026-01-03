@@ -389,3 +389,74 @@ If you want one practical refinement: promote sandbox denial logs (`(debug deny)
 [wa7]: https://man.freebsd.org/cgi/man.cgi?manpath=macOS+14.8&query=fcntl&sektion=2&utm_source=chatgpt.com "fcntl(2)"
 [wa8]: https://fergofrog.com/code/codebrowser/xnu/bsd/sys/vnode.h.html?utm_source=chatgpt.com "vnode.h source code [xnu/bsd/sys/vnode.h]"
 [wa9]: https://bdash.net.nz/posts/sandboxing-on-macos/ "Sandboxing on macOS // Mark Rowe"
+
+### Follow-up answers (Q6–Q7)
+
+#### 1) What does `SANDBOX_CHECK_CANONICAL` actually do?
+
+The best public, concrete description of `SANDBOX_CHECK_CANONICAL` (as used with `sandbox_check_by_audit_token(..., SANDBOX_FILTER_PATH | … | SANDBOX_CHECK_CANONICAL, path)`) is that it makes the check **fail if the supplied path is not already “canonical”**—specifically, *if the path contains a symbolic link component or `..` traversal components*. ([The Sequence][wa10])
+
+That implies it is **not just lexical prettification** (e.g., collapsing `//`), because detecting “contains a symbolic link” requires filesystem-backed knowledge (or an equivalent kernel-backed resolution / validation pass). In other words, it’s intended as a *safety/anti-confusion/anti-TOCTOU* option: “only accept already-canonical, non-symlink, non-traversal paths,” rather than “please canonicalize this for me and then check.”
+
+There’s also independent context from WebKit’s history around “canonical” relating to the idea that a path “contains no symlinks,” consistent with that interpretation. ([Chromium Git Repositories][wa11])
+
+##### Consequence for your `/tmp` example
+
+If `/tmp` is a symlink to `/private/tmp` (as on macOS), then:
+
+* `sandbox_check(... | SANDBOX_CHECK_CANONICAL, "/tmp/foo")` should be expected to **fail** (because the supplied spelling includes a symlink component), even if `/private/tmp/foo` would otherwise be allowed. ([The Sequence][wa10])
+* Therefore, it should **not** behave equivalently to `sandbox_check(... raw, "/private/tmp/foo")`.
+
+If you want to use the “canonical” flag in a way that has a chance to succeed, you generally need to pass the *already canonical* spelling (e.g., `/private/tmp/foo`) and ensure there are no symlink components anywhere in the path you pass.
+
+One more nuance: some researchers also note that the sandbox check logic “internally … will resolve symbolic links” in its normal flow. ([The Sequence][wa10]) That’s compatible with the above: the “canonical” flag can be understood as *tightening* the check to **reject** any input that would require such resolution (or that differs from its fully-resolved form), rather than simply performing resolution and continuing.
+
+---
+
+#### 2) What does `SANDBOX_CHECK_NO_REPORT` do, and will disabling it give you a structured “post-canonicalization path” report?
+
+Everything that’s publicly visible suggests:
+
+* `SANDBOX_CHECK_NO_REPORT` controls whether a *denied* `sandbox_check*` call produces a **sandbox violation report** (logging/telemetry/backtrace-style reporting), not whether the API returns a report object.
+* WebKit explicitly describes the failure case as generating “an expensive violation report” that can even “task_suspend” the process being checked, and uses `SANDBOX_CHECK_NO_REPORT` to suppress that. ([trac.webkit.org][wa12])
+* Levin’s “Hack in the (sand)Box” slides similarly describe `sandbox_check` as commonly used with `SANDBOX_CHECK_NO_REPORT` and “silent” (no user-mode output). ([NewOSXBook][wa13])
+
+On the API surface: a WebKit SPI header discussion shows `sandbox_check(...)` as returning an `int` and taking varargs for filters—there’s no extra out-parameter shown for a “report object” or “resolved path.” ([WebKit Bugzilla][wa14])
+
+##### So: if you flip `no_report=false`, do you get a structured report back?
+
+Based on the above, **no**: you should expect the call to still return only allow/deny, while the system may additionally emit a **violation report** via the sandbox reporting pipeline (e.g., unified logging / sandboxd-side reporting), with associated overhead. ([trac.webkit.org][wa12])
+
+##### Will that emitted report contain the “post-canonicalization spelling” it compared against?
+
+You can often *see a path string* in sandbox violation logs in general, but:
+
+* That string is not documented as “the exact string Seatbelt compared,” and it may be the argument after userland-side fixups, or it may be the originally supplied argument depending on where the failure occurred (e.g., “canonical” flag failing due to symlink/traversal validation may naturally report the *input*).
+* There is no strong, public guarantee (that I can cite) that the report will include a “post-canonicalization path,” nor that it will disambiguate firmlink vs no-firmlink domains.
+
+Given your specific question (F_GETPATH vs F_GETPATH_NOFIRMLINK domain): with current public sources, the safest operational stance is:
+
+* **Do not assume** toggling `no_report` will give you an authoritative “compared path” string in either domain.
+* Treat any logged path as a *diagnostic hint*, not ground truth, and continue to rely on your FD witness machinery for “what the kernel says this FD is,” since that is at least directly observable for allows.
+
+---
+
+#### Practical takeaway for your harness
+
+* Treat `SANDBOX_CHECK_CANONICAL` as “**reject non-canonical inputs** (symlinks / `..`)” rather than “canonicalize then check.” Your `/tmp` → `/private/tmp` case is exactly the kind of input this flag is meant to reject. ([The Sequence][wa10])
+* Treat `SANDBOX_CHECK_NO_REPORT` as “**suppress expensive violation reporting**.” Removing it is primarily about visibility in logs/telemetry and has real cost (and can affect the checked process). ([trac.webkit.org][wa12])
+* Do not plan on `sandbox_check*` to hand you a structured “post-canonicalization path spelling” on deny; the API contract visible in SPI discussions doesn’t expose that. ([WebKit Bugzilla][wa14])
+
+[wa10]: https://the-sequence.com/macos-audit-story-part2?utm_source=chatgpt.com "diskarbitrationd and storagekitd Audit Part 2"
+[wa11]: https://chromium.googlesource.com/external/github.com/WebKit/webkit/%2B/refs/heads/safari-612.1.29.14-branch/Source/WTF/ChangeLog "Source/WTF/ChangeLog - external/github.com/WebKit/webkit - Git at Google"
+[wa12]: https://trac.webkit.org/timeline?authors=&daysback=4&from=2021-05-11 "Timeline – WebKit"
+[wa13]: https://newosxbook.com/files/HITSB.pdf?utm_source=chatgpt.com "Hack in the (sand)Box"
+[wa14]: https://bugs.webkit.org/show_bug.cgi?id=151981 "151981 – Create a Sandbox SPI header"
+
+#### response
+
+This meaningfully changes how to interpret our existing `seatbelt-callout` “canonical” variants on this host: the canonical flag is best treated as a *rejection predicate* (“fail if the input path includes symlinks or `..`”), not as “canonicalize for me and then check.” On the Sonoma baseline, that implies `/tmp/...` is exactly the kind of spelling that a canonical-flagged check should reject even when the corresponding `/private/tmp/...` access would otherwise be allowed.
+
+Given that, the “canonical” callout path is still useful in experiments, but as a *guardrail axis*: it can help us distinguish “this was denied because the input spelling was non-canonical” from “this was denied because the canonical spelling is disallowed.” It is not a good route to discover the canonical spelling; that still needs FD-path witnesses (allows) or a separately captured decision-log witness (denies).
+
+On `NO_REPORT`, the take-away is to treat it as an observability/overhead knob (and potentially a confounder) rather than a way to extract structured “compared path” data. If we pursue deny-side path spellings, we should do it via an explicit, captureable log/witness channel (for example, SBPL `(debug deny)` or other sandbox decision logging) and keep it clearly labeled as “decision-log spelling,” not as “Seatbelt compared exactly this string.”

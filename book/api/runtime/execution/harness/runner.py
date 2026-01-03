@@ -67,6 +67,16 @@ FILTER_VOCAB_PATH = REPO_ROOT / "book" / "integration" / "carton" / "bundle" / "
 _FILTER_NAME_TO_ID: Dict[str, int] = {}
 ANCHOR_FILTER_MAP_PATH = REPO_ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "anchors" / "anchor_filter_map.json"
 _ANCHOR_FILTER_MAP: Dict[str, Dict[str, Any]] = {}
+# Sandbox-check filter types are not the same namespace as PolicyGraph filter IDs.
+_SANDBOX_CHECK_FILTER_NAME_TO_ID = {
+    "path": 1,
+    "global-name": 2,
+    "local-name": 3,
+    "right-name": 5,
+    "preference-domain": 6,
+    "xpc-service-name": 12,
+    "ipc-posix-name": 17,
+}
 
 # Use anchor_filter_map literals to infer a typed filter when plans omit one.
 _ANCHOR_FILTER_HINTS = {
@@ -195,7 +205,7 @@ def _xattr_probe_command(op: str, target: Optional[str]) -> List[str]:
 def _sandbox_check_command(op: Optional[str], target: Optional[str], probe: Dict[str, Any]) -> Optional[List[str]]:
     if not op or not target or not Path(PYTHON).exists():
         return None
-    filter_type, filter_name = _resolve_filter_type(probe, op)
+    filter_type, filter_name = _resolve_sandbox_check_filter_type(probe, op)
     if filter_type is None:
         return None
     filter_name_arg = filter_name or ""
@@ -553,6 +563,34 @@ def _resolve_filter_type(probe: Dict[str, Any], op: Optional[str]) -> tuple[Opti
                 return None, None
             _load_filter_vocab()
             return _FILTER_NAME_TO_ID.get(name), name
+    return None, None
+
+
+def _resolve_sandbox_check_filter_type(probe: Dict[str, Any], op: Optional[str]) -> tuple[Optional[int], Optional[str]]:
+    filter_type = probe.get("filter_type")
+    filter_name = probe.get("filter_name") if isinstance(probe.get("filter_name"), str) else None
+    if isinstance(filter_type, int):
+        if _is_disallowed_filter(None, filter_name):
+            return None, None
+        return filter_type, filter_name
+    if isinstance(filter_name, str):
+        if _is_disallowed_filter(None, filter_name):
+            return None, None
+        ftype = _SANDBOX_CHECK_FILTER_NAME_TO_ID.get(filter_name)
+        return ftype, filter_name
+    inferred = _infer_filter_name_from_anchor(probe, op, probe.get("target"))
+    if isinstance(inferred, str):
+        if _is_disallowed_filter(None, inferred):
+            return None, None
+        ftype = _SANDBOX_CHECK_FILTER_NAME_TO_ID.get(inferred)
+        return ftype, inferred
+    if op:
+        name = DEFAULT_FILTER_NAMES_BY_OP.get(op)
+        if name:
+            if _is_disallowed_filter(None, name):
+                return None, None
+            ftype = _SANDBOX_CHECK_FILTER_NAME_TO_ID.get(name)
+            return ftype, name
     return None, None
 
 
