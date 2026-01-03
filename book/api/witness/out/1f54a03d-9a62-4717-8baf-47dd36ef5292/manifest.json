@@ -1,0 +1,115 @@
+{
+  "frida": {
+    "attach_error": "frida_helper_error:AttachError:PermissionDeniedError: unable to access process with pid 16714 from the current user account",
+    "attach_meta": {
+      "attach_stage": "wait",
+      "keepalive": {
+        "error": null,
+        "events_path": "book/api/witness/out/keepalive/a36b54050ebd4ea7ac694652a5420755/events.jsonl",
+        "hook_id": "h-e3cd1b6fa93448a0a86d72ea08afa50e",
+        "hook_record": {
+          "error": "frida_helper_error:AttachError:PermissionDeniedError: unable to access process with pid 16714 from the current user account",
+          "events_path": null,
+          "gate_release": false,
+          "helper_path": "book/api/frida/native/attach_helper/frida_attach_helper",
+          "helper_pid": 16715,
+          "hook_id": "h-e3cd1b6fa93448a0a86d72ea08afa50e",
+          "kind": "frida",
+          "lane": "oracle",
+          "meta_path": null,
+          "stage": "operation",
+          "started_at_unix_s": 1767483123.507307,
+          "status": "error",
+          "target_id": "t-1024d42d1e004c66bbb3386bbc30072a"
+        },
+        "run_id": "a36b54050ebd4ea7ac694652a5420755",
+        "target_id": "t-1024d42d1e004c66bbb3386bbc30072a"
+      },
+      "pid": 16714,
+      "pid_candidates": [
+        16714
+      ],
+      "pid_error": null,
+      "pid_matches_service_pid": true,
+      "pid_source": "session_ready",
+      "run_id": "1f54a03d-9a62-4717-8baf-47dd36ef5292",
+      "service_pid": "16714",
+      "t0_ns": 1767483123467105000,
+      "wait_info": {
+        "session_ready": {
+          "correlation_id": "frida-testing:witness-frida.1f54a03d-9a62-4717-8baf-47dd36ef5292",
+          "event": "session_ready",
+          "message": "session opened",
+          "pid": 16714,
+          "plan_id": "frida-testing:witness-frida",
+          "service_bundle_id": "com.yourteam.policy-witness.ProbeService_minimal",
+          "service_name": "ProbeService_minimal",
+          "session_token": "70664544-B30C-4221-B95F-E3D859B75540",
+          "wait_mode": "fifo",
+          "wait_path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/policy-witness-session/wait.DBC91FC1-D703-480E-B13C-77D5B2A55F52.fifo"
+        },
+        "wait_mode": "fifo",
+        "wait_path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/policy-witness-session/wait.DBC91FC1-D703-480E-B13C-77D5B2A55F52.fifo",
+        "wait_ready": {
+          "correlation_id": "frida-testing:witness-frida.1f54a03d-9a62-4717-8baf-47dd36ef5292",
+          "event": "wait_ready",
+          "message": "wait configured",
+          "pid": 16714,
+          "plan_id": "frida-testing:witness-frida",
+          "service_bundle_id": "com.yourteam.policy-witness.ProbeService_minimal",
+          "service_name": "ProbeService_minimal",
+          "session_token": "70664544-B30C-4221-B95F-E3D859B75540",
+          "wait_mode": "fifo",
+          "wait_path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/policy-witness-session/wait.DBC91FC1-D703-480E-B13C-77D5B2A55F52.fifo"
+        },
+        "wait_timeout_ms": 30000
+      }
+    },
+    "events_path": "book/api/witness/out/1f54a03d-9a62-4717-8baf-47dd36ef5292/frida/events.jsonl",
+    "keepalive": {
+      "error": null,
+      "events_path": "book/api/witness/out/keepalive/a36b54050ebd4ea7ac694652a5420755/events.jsonl",
+      "hook_id": "h-e3cd1b6fa93448a0a86d72ea08afa50e",
+      "hook_record": {
+        "error": "frida_helper_error:AttachError:PermissionDeniedError: unable to access process with pid 16714 from the current user account",
+        "events_path": null,
+        "gate_release": false,
+        "helper_path": "book/api/frida/native/attach_helper/frida_attach_helper",
+        "helper_pid": 16715,
+        "hook_id": "h-e3cd1b6fa93448a0a86d72ea08afa50e",
+        "kind": "frida",
+        "lane": "oracle",
+        "meta_path": null,
+        "stage": "operation",
+        "started_at_unix_s": 1767483123.507307,
+        "status": "error",
+        "target_id": "t-1024d42d1e004c66bbb3386bbc30072a"
+      },
+      "run_id": "a36b54050ebd4ea7ac694652a5420755",
+      "target_id": "t-1024d42d1e004c66bbb3386bbc30072a"
+    },
+    "meta_path": null
+  },
+  "out_dir": "book/api/witness/out/1f54a03d-9a62-4717-8baf-47dd36ef5292",
+  "plan_id": "frida-testing:witness-frida",
+  "probe": {
+    "probe_args": [],
+    "probe_id": "capabilities_snapshot",
+    "profile_id": "minimal"
+  },
+  "row_id": "frida-testing:witness-frida.1f54a03d-9a62-4717-8baf-47dd36ef5292",
+  "run_id": "1f54a03d-9a62-4717-8baf-47dd36ef5292",
+  "schema_version": 1,
+  "selftest": {
+    "path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/pw_noaccess",
+    "prepare_error": "PermissionError: [Errno 13] Permission denied: '/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/pw_noaccess'",
+    "prepared": false,
+    "source": "capabilities_snapshot"
+  },
+  "witness": {
+    "capabilities_snapshot_path": "book/api/witness/out/1f54a03d-9a62-4717-8baf-47dd36ef5292/witness/capabilities_snapshot.json",
+    "log_path": "book/api/witness/out/1f54a03d-9a62-4717-8baf-47dd36ef5292/witness/logs/run_probe.log",
+    "run_probe_path": "book/api/witness/out/1f54a03d-9a62-4717-8baf-47dd36ef5292/witness/run_probe.json"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

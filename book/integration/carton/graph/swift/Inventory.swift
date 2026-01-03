@@ -7,6 +7,7 @@ public enum InventoryKind: String, Codable {
     case mapping
     case contract
     case test
+    case experiment
 }
 
 public enum InventoryEdgeKind: String, Codable {
@@ -87,6 +88,16 @@ func inventoryValidation(graph: InventoryGraph?) -> (errors: [String], warnings:
     var errors: [String] = []
     var warnings: [String] = []
 
+    let artifactByID = Dictionary(uniqueKeysWithValues: graph.artifacts.map { ($0.id, $0) })
+    for edge in graph.edges {
+        if artifactByID[edge.from] == nil {
+            errors.append("inventory edge missing source artifact: \(edge.from)")
+        }
+        if artifactByID[edge.to] == nil {
+            errors.append("inventory edge missing target artifact: \(edge.to)")
+        }
+    }
+
     let contractArtifacts = graph.artifacts.filter { $0.sensitivity == .contract }
     for artifact in contractArtifacts {
         let lower = artifact.path.lowercased()
@@ -107,6 +118,25 @@ func inventoryValidation(graph: InventoryGraph?) -> (errors: [String], warnings:
     }
     if graph.edges.isEmpty {
         warnings.append("inventory graph has no edges")
+    }
+
+    let experiments = graph.artifacts.filter { $0.kind == .experiment }
+    for experiment in experiments {
+        if experiment.path.contains("/archive/") {
+            warnings.append("experiment enrollment under archive: \(experiment.path)")
+        }
+        if experiment.path.hasSuffix("carton.enroll.json") == false {
+            warnings.append("experiment enrollment missing carton.enroll.json suffix: \(experiment.path)")
+        }
+        let declares = graph.edges.filter { $0.from == experiment.id && $0.kind == .declares }
+        if declares.isEmpty {
+            errors.append("experiment enrollment declares no evidence: \(experiment.path)")
+        }
+        for edge in declares {
+            if let target = artifactByID[edge.to], target.kind != .evidence {
+                warnings.append("experiment declares non-evidence: \(experiment.path) -> \(target.path)")
+            }
+        }
     }
 
     return (errors, warnings)

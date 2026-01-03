@@ -47,10 +47,10 @@ This is the canonical example of a field2-first view. It is intentionally narrow
 - Atlas (derived): `book/evidence/experiments/field2-final-final/field2-atlas/out/derived/<run_id>/atlas/{field2_atlas.json,summary.json}`
 - Delta (derived): `book/evidence/experiments/field2-final-final/field2-atlas/out/derived/<run_id>/atlas/mapping_delta.json`
 - Receipt: `book/evidence/experiments/field2-final-final/field2-atlas/out/derived/<run_id>/consumption_receipt.json`
-- Helpers: `atlas_static.py`, `atlas_runtime.py`, `atlas_build.py`; guardrail `book/integration/tests/graph/test_field2_atlas.py`.
+- Helpers: `book/tools/policy/ratchet/atlas_static.py`, `book/tools/policy/ratchet/atlas_runtime.py`, `book/tools/policy/ratchet/atlas_build.py`; guardrail `book/integration/tests/graph/test_field2_atlas.py`.
 - Promotion packet: promotion packet path (required for runtime exports and provenance).
 
 ## Next steps
 - If the path-edge mismatch remains after normalization controls, keep the mismatch packet updated with the explicit canonicalization-boundary reason.
 - Try a discriminating flow-divert control (alter domain/type/proto filter shape) so field2=2560 has a positive/negative contrast rather than an allow-only witness.
-- Keep the runtime corpus current via the standard harness + validation pipeline, then refresh `atlas_runtime.py` and `atlas_build.py`.
+- Keep the runtime corpus current via the standard harness + validation pipeline, then refresh `book/tools/policy/ratchet/atlas_runtime.py` and `book/tools/policy/ratchet/atlas_build.py`.

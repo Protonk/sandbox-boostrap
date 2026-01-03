@@ -52,6 +52,15 @@ This loop repeats. Do not treat “one run” as complete. Prefer several small 
   If you need to know what a job does, `--describe <job_id>` shows inputs/outputs and the intent; prefer `tag:golden` jobs for canonical IR.
   CARTON is the frozen IR/mapping contract bundle (`book/integration/carton/bundle/CARTON.json`). Add new experiments/outputs without mutating CARTON-listed files; instead, feed them through validation → IR → mappings and only then, if they are stable, propose updates to CARTON via contracts + manifest regeneration.
 
+* CARTON enrollment (lightweight commitment)  
+  Each active experiment with stable evidence should include `carton.enroll.json` at the experiment root. This is the uniform "I meant to do this" step that wires experiments into the CARTON inventory graph without pulling in the whole `out/` tree.
+  - Required fields: `schema_version`, `experiment_id` (path under `book/evidence/experiments/`), `world_id`, and a non-empty `evidence` list.
+  - Evidence entry modes: `file` (default), `glob` (pattern), `artifact_index` (path to artifact_index.json), `latest_artifact_index` (path to `out/LATEST` containing a run id).
+  - `consumes` is optional for listing tools/api/mappings/tests/evidence used by the experiment.
+  - Keep archive experiments unenrolled.
+  - If the experiment has no stable evidence yet, skip enrollment until it does.
+  - After updates, run `python -m book.integration.carton track` to refresh the inventory graph + manifest.
+
 * Keep experiments neutral and reproducible  
   Experiments should keep a stable layout, clear inputs and outputs, host/build tagging, and explicit links to concepts. Use Notes for process and exploration; keep Plans and Reports focused on what the experiment shows, not on your personality or preferences.
 

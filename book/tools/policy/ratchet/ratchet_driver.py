@@ -26,6 +26,8 @@ if str(REPO_ROOT) not in sys.path:
 
 from book.api import path_utils
 
+RATCHET_ROOT = Path(__file__).resolve().parent
+
 DEFAULT_MILESTONE = (
     REPO_ROOT
     / "book"
@@ -90,7 +92,7 @@ def widen_milestone(
     new_count = current_count + delta
     cmd = [
         sys.executable,
-        str(REPO_ROOT / "book" / "evidence" / "experiments" / "field2-final-final" / "milestone_freeze.py"),
+        str(RATCHET_ROOT / "milestone_freeze.py"),
         "--frontier",
         str(frontier_path),
         "--out",

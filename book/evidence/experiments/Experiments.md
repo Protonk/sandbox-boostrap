@@ -33,7 +33,7 @@ A good experiment has a clear shape and limited ambition:
 
 ## 3. Documentation expectations
 
-An experiment should be documented so that another agent can understand it and extend it without additional explanation. Each experiment uses the required scaffold: `Plan.md`, `Report.md`, `Notes.md`, and an `out/` directory for artifacts.
+An experiment should be documented so that another agent can understand it and extend it without additional explanation. Each experiment uses the required scaffold: `Plan.md`, `Report.md`, `Notes.md`, and an `out/` directory for artifacts. Active experiments with stable evidence should also include a `carton.enroll.json` file at the experiment root, listing the evidence files (or artifact indexes) CARTON should track.
 
 When an experiment is archived (moved under `book/evidence/experiments/archive/`), its `out/` directory is intentionally denuded/removed, and the scaffold is retained as historical provenance only.
 
@@ -76,6 +76,9 @@ Experiments move through a simple life-cycle as they are created, refined, and i
 
 * **Promotion or supersession**
   Stable experiments often produce outputs (artifacts, tools, or distilled insights) that are useful beyond the experiment itself. When that happens, the experiment should clearly mark which outputs appear stable and broadly reusable, and suggest that they be used as shared references in the wider book. Any artifact promoted into `book/integration/carton/bundle/relationships/mappings/*` must carry host metadata and have a guardrail test (e.g., in `book/tests/`). If a newer experiment replaces or sharpens an older one, that relationship should be noted so that readers can follow the chain.
+
+* **Enrollment (lightweight)**
+  When an experiment reaches a stable point, add or update `carton.enroll.json` to list its evidence. Prefer `artifact_index.json` or `out/LATEST` when available so enrollment stays simple while still pointing at real outputs. If an experiment has no stable evidence yet, skip enrollment until it does.
 
 * **Archival**
   Once an experiment’s useful outputs have been promoted into shared artifacts (`book/integration/carton/bundle/relationships/mappings/**`, `book/tools/**`, etc.) and the experiment directory is no longer a live dependency surface, the experiment may be migrated to `book/evidence/experiments/archive/`. Archived experiments are “dead”: keep only `Report.md`, `Notes.md` (optionally `Plan.md`) plus a curated `Examples.md` with small excerpts. Remove large dumps and runnable wrappers so agents do not treat `archive/` as a place to mine for live tooling. See `book/evidence/experiments/archive/AGENTS.md`.

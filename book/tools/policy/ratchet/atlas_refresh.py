@@ -12,13 +12,17 @@ import sys
 from pathlib import Path
 from typing import Any, Iterable
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve()
+for parent in REPO_ROOT.parents:
+    if (parent / "book").is_dir():
+        REPO_ROOT = parent
+        break
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-HERE = Path(__file__).resolve().parent
-if str(HERE) not in sys.path:
-    sys.path.insert(0, str(HERE))
+RATCHET_ROOT = Path(__file__).resolve().parent
+if str(RATCHET_ROOT) not in sys.path:
+    sys.path.insert(0, str(RATCHET_ROOT))
 
 from book.api import path_utils
 from book.api.runtime.analysis import packet_utils
@@ -27,11 +31,11 @@ import atlas_build
 import atlas_runtime
 import atlas_static
 
-FIELD2_ROOT = HERE.parent
+FIELD2_ROOT = REPO_ROOT / "book" / "evidence" / "experiments" / "field2-final-final"
 DEFAULT_MILESTONE = FIELD2_ROOT / "active_milestone.json"
 DEFAULT_DECISIONS = FIELD2_ROOT / "decisions.jsonl"
-FRONTIER_SCRIPT = FIELD2_ROOT / "frontier_build.py"
-TRANCHE_SCRIPT = FIELD2_ROOT / "tranche_select.py"
+FRONTIER_SCRIPT = RATCHET_ROOT / "frontier_build.py"
+TRANCHE_SCRIPT = RATCHET_ROOT / "tranche_select.py"
 
 
 def _load_json(path: Path) -> Any:

@@ -14,7 +14,11 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, Optional
 
 # Ensure repository root is on sys.path for `book` imports when run directly.
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve()
+for parent in REPO_ROOT.parents:
+    if (parent / "book").is_dir():
+        REPO_ROOT = parent
+        break
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
@@ -23,12 +27,13 @@ from book.api.runtime.analysis import packet_utils
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__).resolve())
-DEFAULT_SEEDS = Path(__file__).with_name("field2_seeds.json")
+FIELD2_ROOT = REPO_ROOT / "book" / "evidence" / "experiments" / "field2-final-final"
+DEFAULT_SEEDS = FIELD2_ROOT / "field2-atlas" / "field2_seeds.json"
 DEFAULT_RUNTIME_SIGNATURES = (
     REPO_ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "runtime_signatures.json"
 )
 DEFAULT_ANCHOR_MAP = REPO_ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "anchors" / "anchor_filter_map.json"
-DEFAULT_OUT_ROOT = Path(__file__).with_name("out") / "derived"
+DEFAULT_OUT_ROOT = FIELD2_ROOT / "field2-atlas" / "out" / "derived"
 REQUIRED_EXPORTS = ("runtime_events", "baseline_results", "run_manifest", "path_witnesses")
 RUNTIME_RESULTS_SCHEMA_VERSION = "field2-atlas.runtime_results.v0"
 CONSUMPTION_RECEIPT_SCHEMA_VERSION = "field2-atlas.consumption_receipt.v0"

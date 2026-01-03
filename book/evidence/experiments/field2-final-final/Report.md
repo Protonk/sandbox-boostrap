@@ -19,10 +19,10 @@ The experiment is organized as submodules under this root:
 - `bsd-airlock-highvals/` — high/opaque payload probes.
 
 ## Loop (frontier → tranche → packet → delta → promote/retire)
-This experiment runs as a single-claim loop. Userland-only evidence feeds a ranked frontier (`frontier_build.py`), a tranche selector picks exactly one field2 claim to decide (`tranche_select.py`), `sandbox_check()` provides a fast discriminator preflight, runtime-adversarial produces a promotion packet for the micro-suite, and packet-only consumers emit a mapping delta or an explicit retire decision. The loop does not accept partials as semantics: apply-stage failures remain blocked, and each cycle either changes a mapping surface or retires a claim with a witness trail.
+This experiment runs as a single-claim loop. Userland-only evidence feeds a ranked frontier (`book/tools/policy/ratchet/frontier_build.py`), a tranche selector picks exactly one field2 claim to decide (`book/tools/policy/ratchet/tranche_select.py`), `sandbox_check()` provides a fast discriminator preflight, runtime-adversarial produces a promotion packet for the micro-suite, and packet-only consumers emit a mapping delta or an explicit retire decision. The loop does not accept partials as semantics: apply-stage failures remain blocked, and each cycle either changes a mapping surface or retires a claim with a witness trail.
 
 ## Progress ratchet
-The loop is enforced by a progress gate (`book/integration/tests/graph/test_field2_progress_gate.py`) and a milestone ledger: `active_milestone.json` defines the current finite test list and `decisions.jsonl` records each decided claim with packet identity, lane attribution, and delta/retire evidence. `ratchet_driver.py` widens the milestone by excluding already-decided claims so the gate is forced red until new items are decided.
+The loop is enforced by a progress gate (`book/integration/tests/graph/test_field2_progress_gate.py`) and a milestone ledger: `active_milestone.json` defines the current finite test list and `decisions.jsonl` records each decided claim with packet identity, lane attribution, and delta/retire evidence. `book/tools/policy/ratchet/ratchet_driver.py` widens the milestone by excluding already-decided claims so the gate is forced red until new items are decided.
 
 ## Evidence paths (canonical)
 - Inventory: `book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json`.

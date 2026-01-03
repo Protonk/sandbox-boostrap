@@ -39,17 +39,16 @@ def test_runtime_promotion_contracts():
     atlas = (
         ROOT
         / "book"
-        / "evidence"
-        / "experiments"
-        / "field2-final-final"
-        / "field2-atlas"
+        / "tools"
+        / "policy"
+        / "ratchet"
         / "atlas_runtime.py"
     )
     atlas_text = atlas.read_text()
     if "packet_utils.resolve_packet_context" not in atlas_text:
-        failures.append("book/evidence/experiments/field2-final-final/field2-atlas/atlas_runtime.py missing packet-only resolver")
+        failures.append("book/tools/policy/ratchet/atlas_runtime.py missing packet-only resolver")
     if "allow-legacy" in atlas_text:
-        failures.append("book/evidence/experiments/field2-final-final/field2-atlas/atlas_runtime.py still mentions allow-legacy")
+        failures.append("book/tools/policy/ratchet/atlas_runtime.py still mentions allow-legacy")
 
     packet_set_path = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "packet_set.json"
     if not packet_set_path.exists():

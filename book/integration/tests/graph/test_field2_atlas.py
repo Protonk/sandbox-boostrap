@@ -43,10 +43,9 @@ def _run_atlas_build(tmp_path: Path, run_id: str) -> Path:
     script = (
         ROOT
         / "book"
-        / "evidence"
-        / "experiments"
-        / "field2-final-final"
-        / "field2-atlas"
+        / "tools"
+        / "policy"
+        / "ratchet"
         / "atlas_build.py"
     )
     subprocess.check_call(

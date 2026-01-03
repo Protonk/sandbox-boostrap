@@ -10,7 +10,7 @@ def test_field2_refresh_help(run_cmd):
     env = dict(os.environ)
     env["PYTHONPATH"] = "."
     res = run_cmd(
-        [sys.executable, "book/evidence/experiments/field2-final-final/field2-atlas/field2_refresh.py", "--help"],
+        [sys.executable, "book/tools/policy/ratchet/atlas_refresh.py", "--help"],
         env=env,
         check=True,
         label="field2 refresh help",
@@ -24,7 +24,7 @@ def test_field2_refresh_requires_packet(run_cmd):
     env = dict(os.environ)
     env["PYTHONPATH"] = "."
     res = run_cmd(
-        [sys.executable, "book/evidence/experiments/field2-final-final/field2-atlas/field2_refresh.py"],
+        [sys.executable, "book/tools/policy/ratchet/atlas_refresh.py"],
         env=env,
         check=False,
         label="field2 refresh missing packet",

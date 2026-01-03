@@ -8,18 +8,18 @@ The ratchet is a TDD-style control loop that keeps field2 atlas work advancing i
 - `book/evidence/experiments/field2-final-final/active_milestone.json` — the current finite test list.
 - `book/evidence/experiments/field2-final-final/decisions.jsonl` — append-only ledger of decided claims.
 - `book/integration/tests/graph/test_field2_progress_gate.py` — the progress-gate test (env-gated).
-- `book/evidence/experiments/field2-final-final/ratchet_driver.py` — widens the milestone and emits the next missing claim.
+- `book/tools/policy/ratchet/ratchet_driver.py` — widens the milestone and emits the next missing claim.
 
 ## Commands (canonical)
 ```sh
 # Refresh frontier ranking (excludes retired by default)
-python book/evidence/experiments/field2-final-final/frontier_build.py
+python book/tools/policy/ratchet/frontier_build.py
 
 # Freeze a milestone from the frontier (excluding decided claims)
-python book/evidence/experiments/field2-final-final/milestone_freeze.py --count 5
+python book/tools/policy/ratchet/milestone_freeze.py --count 5
 
 # Ratchet driver: widen milestone and emit next missing claim (non-zero exit)
-python book/evidence/experiments/field2-final-final/ratchet_driver.py --delta 5
+python book/tools/policy/ratchet/ratchet_driver.py --delta 5
 
 # Full test suite (baseline)
 make -C book test

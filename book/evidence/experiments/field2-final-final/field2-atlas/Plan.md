@@ -31,7 +31,7 @@ Build a field2-centric experiment that follows selected field2 IDs end-to-end ac
 1. **Seed curation (locked)**  
    Commit the fixed seed manifest (`field2_seeds.json`) with anchor/profile witnesses, target ops, and runtime candidates. Add a small helper to re-derive the seed slice from canonical mappings for drift detection (no mutation).
 2. **Static join builder**  
-   Implement `atlas_static.py` to emit `out/static/field2_records.jsonl` keyed by field2, joining tag IDs (from tag layouts + field2-filters inventory), filter metadata (vocab), anchors (anchor_filter_map + probe-op-structure hits), and system profile counts (field2-filters inventory). Mark coverage as `ok`/`partial` per source status.
+   Implement `book/tools/policy/ratchet/atlas_static.py` to emit `out/static/field2_records.jsonl` keyed by field2, joining tag IDs (from tag layouts + field2-filters inventory), filter metadata (vocab), anchors (anchor_filter_map + probe-op-structure hits), and system profile counts (field2-filters inventory). Mark coverage as `ok`/`partial` per source status.
 3. **Runtime consumption (packet-only)**  
    Consume a promotion packet to resolve runtime exports and emit derived results under `out/derived/<run_id>/runtime/field2_runtime_results.json`, stamped with `(run_id, artifact_index digest)` and a consumption receipt. If no plausible probe, record `runtime_candidate: none`. Treat EPERM/apply gates as `blocked` outcomes, not absence.
 4. **Atlas synthesis**  
@@ -39,7 +39,7 @@ Build a field2-centric experiment that follows selected field2 IDs end-to-end ac
 5. **Guardrails**  
    Add `book/integration/tests/graph/test_field2_atlas.py` to assert: seed manifest is non-empty, atlas covers every seed, at least one seed is runtime-attempted, and derived outputs are provenance-stamped from a promotion packet.
 6. **Frontier → tranche loop**  
-   Use `book/evidence/experiments/field2-final-final/frontier_build.py` to emit a ranked frontier from userland evidence, then `book/evidence/experiments/field2-final-final/tranche_select.py` to define the next single-claim tranche before running runtime-adversarial.
+   Use `book/tools/policy/ratchet/frontier_build.py` to emit a ranked frontier from userland evidence, then `book/tools/policy/ratchet/tranche_select.py` to define the next single-claim tranche before running runtime-adversarial.
 7. **Reporting**  
    Keep `Report.md` aligned with actual outputs; record failed probes or gaps in `Notes.md`.
 

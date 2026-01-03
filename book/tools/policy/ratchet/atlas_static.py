@@ -17,7 +17,11 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List
 
 # Ensure repository root is on sys.path for `book` imports when run directly.
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve()
+for parent in REPO_ROOT.parents:
+    if (parent / "book").is_dir():
+        REPO_ROOT = parent
+        break
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
@@ -25,7 +29,8 @@ from book.api import path_utils
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__).resolve())
-DEFAULT_SEEDS = Path(__file__).with_name("field2_seeds.json")
+FIELD2_ROOT = REPO_ROOT / "book" / "evidence" / "experiments" / "field2-final-final"
+DEFAULT_SEEDS = FIELD2_ROOT / "field2-atlas" / "field2_seeds.json"
 # Inputs are anchored in the outputs of sibling experiments/mappings:
 # - field2 inventory from field2-filters
 # - anchor_filter_map from anchor-filter-map (derived compatibility view; canonical is ctx-indexed)
@@ -41,7 +46,7 @@ DEFAULT_FIELD2_INVENTORY = (
     / "field2_inventory.json"
 )
 DEFAULT_ANCHOR_MAP = REPO_ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "anchors" / "anchor_filter_map.json"
-DEFAULT_OUTPUT = Path(__file__).with_name("out") / "static" / "field2_records.jsonl"
+DEFAULT_OUTPUT = FIELD2_ROOT / "field2-atlas" / "out" / "static" / "field2_records.jsonl"
 
 
 def load_json(path: Path) -> Any:

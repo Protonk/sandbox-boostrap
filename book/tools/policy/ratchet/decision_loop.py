@@ -48,7 +48,7 @@ DEFAULT_PACKET_OUT = (
     / "runtime-adversarial.promotion_packet.json"
 )
 INSIDE_TOOL = REPO_ROOT / "book" / "tools" / "inside" / "inside.py"
-FIELD2_REFRESH = FIELD2_ROOT / "field2-atlas" / "field2_refresh.py"
+FIELD2_REFRESH = RATCHET_ROOT / "atlas_refresh.py"
 DECISION_WITNESSES = RATCHET_ROOT / "decision_witnesses.py"
 
 

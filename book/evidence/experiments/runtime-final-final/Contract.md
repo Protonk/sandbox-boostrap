@@ -32,8 +32,8 @@ Any derived output must be bundle-derived and stamped with `(run_id, artifact_in
 
 ### field2-atlas (consumer)
 - invocation:
-  - `PYTHONPATH=$PWD python3 book/evidence/experiments/field2-final-final/field2-atlas/atlas_static.py`
-  - `PYTHONPATH=$PWD python3 book/evidence/experiments/field2-final-final/field2-atlas/atlas_build.py --packet book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json --out-root book/evidence/experiments/field2-final-final/field2-atlas/out/derived`
+  - `PYTHONPATH=$PWD python3 book/tools/policy/ratchet/atlas_static.py`
+  - `PYTHONPATH=$PWD python3 book/tools/policy/ratchet/atlas_build.py --packet book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json --out-root book/evidence/experiments/field2-final-final/field2-atlas/out/derived`
 - authoritative outputs: `field2-atlas/out/derived/<run_id>/...` with `consumption_receipt.json`
 
 ### graph-shape-vs-semantics (consumer)

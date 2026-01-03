@@ -34,9 +34,9 @@ Consolidate all field2-related work into a single experiment root, keep evidence
 ## Execution paths
 - Static pipeline: run the field2 validation job after refreshing local experiment outputs.
 - Runtime pipeline: run plan-based probes via `python -m book.api.runtime run --plan ... --channel launchd_clean` and consume promotion packets in atlas builders.
-- Atlas build: run `field2-atlas/atlas_build.py --packet <promotion_packet.json> --out-root <dir>`.
-- Frontier loop: run `frontier_build.py` to emit a ranked candidate queue, then `tranche_select.py` to pick the next single-claim tranche.
-- Progress ratchet: use `milestone_freeze.py` to snapshot the next milestone (excluding decided claims) and `ratchet_driver.py` to widen until the progress gate is red, then decide claims until it turns green.
+- Atlas build: run `book/tools/policy/ratchet/atlas_build.py --packet <promotion_packet.json> --out-root <dir>`.
+- Frontier loop: run `book/tools/policy/ratchet/frontier_build.py` to emit a ranked candidate queue, then `book/tools/policy/ratchet/tranche_select.py` to pick the next single-claim tranche.
+- Progress ratchet: use `book/tools/policy/ratchet/milestone_freeze.py` to snapshot the next milestone (excluding decided claims) and `book/tools/policy/ratchet/ratchet_driver.py` to widen until the progress gate is red, then decide claims until it turns green.
 
 ## Loop invariants
 - Use SBPL compile/decode outputs for seed discovery and unknown census.

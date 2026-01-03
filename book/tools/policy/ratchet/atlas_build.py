@@ -23,7 +23,11 @@ from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 # Ensure repository root is on sys.path for `book` imports when run directly.
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve()
+for parent in REPO_ROOT.parents:
+    if (parent / "book").is_dir():
+        REPO_ROOT = parent
+        break
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
@@ -34,9 +38,10 @@ import atlas_runtime
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__).resolve())
-STATIC_PATH = Path(__file__).with_name("out") / "static" / "field2_records.jsonl"
-SEEDS_PATH = Path(__file__).with_name("field2_seeds.json")
-DEFAULT_OUT_ROOT = Path(__file__).with_name("out") / "derived"
+FIELD2_ROOT = REPO_ROOT / "book" / "evidence" / "experiments" / "field2-final-final"
+STATIC_PATH = FIELD2_ROOT / "field2-atlas" / "out" / "static" / "field2_records.jsonl"
+SEEDS_PATH = FIELD2_ROOT / "field2-atlas" / "field2_seeds.json"
+DEFAULT_OUT_ROOT = FIELD2_ROOT / "field2-atlas" / "out" / "derived"
 ATLAS_SCHEMA_VERSION = "field2-atlas.atlas.v0"
 SUMMARY_SCHEMA_VERSION = "field2-atlas.summary.v0"
 DELTA_SCHEMA_VERSION = "field2-atlas.mapping_delta.v0"
