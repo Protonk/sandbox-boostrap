@@ -1,0 +1,245 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "op_to_scenarios": {
+    "file-read*": [
+      "bucket4:v1_read:read_/etc/hosts",
+      "bucket4:v1_read:read_/tmp/foo",
+      "bucket5:v11_read_subpath:read_/tmp/foo",
+      "bucket5:v11_read_subpath:read_/tmp/bar",
+      "bucket6:v12_runtime_probe:read_/private/tmp/foo",
+      "bucket6:v12_runtime_probe:read_/private/tmp/bar",
+      "allow_all|file-read*|/etc/hosts",
+      "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+      "metafilter_any|file-read*|/tmp/foo.txt",
+      "metafilter_any|file-read*|/tmp/bar.txt",
+      "metafilter_any|file-read*|/tmp/qux.txt",
+      "metafilter_any|file-read*|/tmp/baz.txt",
+      "runtime:strict_1:read_ok",
+      "runtime:strict_1:read_hosts",
+      "sys:airlock:read_/etc/hosts",
+      "sys:airlock:read_/tmp/foo",
+      "sys:bsd:read_/etc/hosts",
+      "sys:bsd:read_/tmp/foo",
+      "sys:blastdoor:read_/etc/hosts",
+      "sys:blastdoor:read_/tmp/foo",
+      "sys:cgpdfservice:read_/etc/hosts",
+      "sys:cgpdfservice:read_/tmp/foo",
+      "sys:cgpdfservice:read_/Library/Preferences/com.apple.timezone.auto.plist",
+      "sys:cgpdfservice:read_/var/db/timezone/zoneinfo/Etc/UTC",
+      "sys:cgpdfservice:read_/private/etc/localtime",
+      "appsandbox:baseline:read_/etc/hosts",
+      "appsandbox:baseline:read_/tmp/foo",
+      "appsandbox:net-client:read_/etc/hosts",
+      "appsandbox:net-client:read_/tmp/foo",
+      "appsandbox:downloads-rw:read_/etc/hosts",
+      "appsandbox:downloads-rw:read_/tmp/foo"
+    ],
+    "file-write*": [
+      "bucket4:v1_read:write_/etc/hosts",
+      "bucket5:v11_read_subpath:write_/tmp/foo",
+      "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
+      "metafilter_any|file-write*|/tmp/baz.txt",
+      "runtime:strict_1:write_ok",
+      "runtime:strict_1:write_hosts",
+      "sys:airlock:write_/etc/hosts",
+      "sys:airlock:write_/tmp/foo",
+      "sys:bsd:write_/etc/hosts",
+      "sys:bsd:write_/tmp/foo",
+      "sys:blastdoor:write_/etc/hosts",
+      "sys:blastdoor:write_/tmp/foo",
+      "sys:cgpdfservice:write_/etc/hosts",
+      "sys:cgpdfservice:write_/tmp/foo",
+      "appsandbox:baseline:write_/etc/hosts",
+      "appsandbox:baseline:write_/tmp/foo",
+      "appsandbox:net-client:write_/etc/hosts",
+      "appsandbox:net-client:write_/tmp/foo",
+      "appsandbox:downloads-rw:write_/etc/hosts",
+      "appsandbox:downloads-rw:write_/tmp/foo"
+    ],
+    "mach-lookup": [
+      "bucket6:v12_runtime_probe:mach_cfprefsd_agent",
+      "sys:blastdoor:mach_allow_logd",
+      "sys:blastdoor:mach_allow_trustd",
+      "sys:blastdoor:mach_deny_cfprefsd",
+      "sys:blastdoor:xpc_deny_trustd"
+    ]
+  },
+  "scenario_to_traces": {
+    "bucket4:v1_read:read_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/bucket4_v1_read_read__etc_hosts.jsonl"
+    ],
+    "bucket4:v1_read:write_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/bucket4_v1_read_write__etc_hosts.jsonl"
+    ],
+    "bucket4:v1_read:read_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/bucket4_v1_read_read__tmp_foo.jsonl"
+    ],
+    "bucket5:v11_read_subpath:read_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/bucket5_v11_read_subpath_read__tmp_foo.jsonl"
+    ],
+    "bucket5:v11_read_subpath:read_/tmp/bar": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/bucket5_v11_read_subpath_read__tmp_bar.jsonl"
+    ],
+    "bucket5:v11_read_subpath:write_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/bucket5_v11_read_subpath_write__tmp_foo.jsonl"
+    ],
+    "bucket6:v12_runtime_probe:read_/private/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/bucket6_v12_runtime_probe_read__private_tmp_foo.jsonl"
+    ],
+    "bucket6:v12_runtime_probe:read_/private/tmp/bar": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/bucket6_v12_runtime_probe_read__private_tmp_bar.jsonl"
+    ],
+    "bucket6:v12_runtime_probe:mach_cfprefsd_agent": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/bucket6_v12_runtime_probe_mach_cfprefsd_agent.jsonl"
+    ],
+    "allow_all|file-read*|/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/allow_all_file-read_etc_hosts.jsonl"
+    ],
+    "allow_all|file-read*|/tmp/sbpl_rt/read.txt": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/allow_all_file-read_tmp_sbpl_rt_read.txt.jsonl"
+    ],
+    "allow_all|file-write*|/tmp/sbpl_rt/write.txt": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/allow_all_file-write_tmp_sbpl_rt_write.txt.jsonl"
+    ],
+    "metafilter_any|file-read*|/tmp/foo.txt": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/metafilter_any_file-read_tmp_foo.txt.jsonl"
+    ],
+    "metafilter_any|file-read*|/tmp/bar.txt": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/metafilter_any_file-read_tmp_bar.txt.jsonl"
+    ],
+    "metafilter_any|file-read*|/tmp/qux.txt": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/metafilter_any_file-read_tmp_qux.txt.jsonl"
+    ],
+    "metafilter_any|file-read*|/tmp/baz.txt": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/metafilter_any_file-read_tmp_baz.txt.jsonl"
+    ],
+    "metafilter_any|file-write*|/tmp/baz.txt": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/metafilter_any_file-write_tmp_baz.txt.jsonl"
+    ],
+    "runtime:strict_1:read_ok": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/runtime_strict_1_read_ok.jsonl"
+    ],
+    "runtime:strict_1:write_ok": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/runtime_strict_1_write_ok.jsonl"
+    ],
+    "runtime:strict_1:read_hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/runtime_strict_1_read_hosts.jsonl"
+    ],
+    "runtime:strict_1:write_hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/runtime_strict_1_write_hosts.jsonl"
+    ],
+    "sys:airlock:read_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_airlock_read__etc_hosts.jsonl"
+    ],
+    "sys:airlock:write_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_airlock_write__etc_hosts.jsonl"
+    ],
+    "sys:airlock:read_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_airlock_read__tmp_foo.jsonl"
+    ],
+    "sys:airlock:write_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_airlock_write__tmp_foo.jsonl"
+    ],
+    "sys:bsd:read_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_bsd_read__etc_hosts.jsonl"
+    ],
+    "sys:bsd:write_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_bsd_write__etc_hosts.jsonl"
+    ],
+    "sys:bsd:read_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_bsd_read__tmp_foo.jsonl"
+    ],
+    "sys:bsd:write_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_bsd_write__tmp_foo.jsonl"
+    ],
+    "sys:blastdoor:read_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_blastdoor_read__etc_hosts.jsonl"
+    ],
+    "sys:blastdoor:write_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_blastdoor_write__etc_hosts.jsonl"
+    ],
+    "sys:blastdoor:read_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_blastdoor_read__tmp_foo.jsonl"
+    ],
+    "sys:blastdoor:write_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_blastdoor_write__tmp_foo.jsonl"
+    ],
+    "sys:blastdoor:mach_allow_logd": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_blastdoor_mach_allow_logd.jsonl"
+    ],
+    "sys:blastdoor:mach_allow_trustd": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_blastdoor_mach_allow_trustd.jsonl"
+    ],
+    "sys:blastdoor:mach_deny_cfprefsd": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_blastdoor_mach_deny_cfprefsd.jsonl"
+    ],
+    "sys:blastdoor:xpc_deny_trustd": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_blastdoor_xpc_deny_trustd.jsonl"
+    ],
+    "sys:cgpdfservice:read_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_cgpdfservice_read__etc_hosts.jsonl"
+    ],
+    "sys:cgpdfservice:write_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_cgpdfservice_write__etc_hosts.jsonl"
+    ],
+    "sys:cgpdfservice:read_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_cgpdfservice_read__tmp_foo.jsonl"
+    ],
+    "sys:cgpdfservice:write_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_cgpdfservice_write__tmp_foo.jsonl"
+    ],
+    "sys:cgpdfservice:read_/Library/Preferences/com.apple.timezone.auto.plist": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_cgpdfservice_read__Library_Preferences_com.apple.timezone.auto.plist.jsonl"
+    ],
+    "sys:cgpdfservice:read_/var/db/timezone/zoneinfo/Etc/UTC": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_cgpdfservice_read__var_db_timezone_zoneinfo_Etc_UTC.jsonl"
+    ],
+    "sys:cgpdfservice:read_/private/etc/localtime": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/sys_cgpdfservice_read__private_etc_localtime.jsonl"
+    ],
+    "appsandbox:baseline:read_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/appsandbox_baseline_read__etc_hosts.jsonl"
+    ],
+    "appsandbox:baseline:write_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/appsandbox_baseline_write__etc_hosts.jsonl"
+    ],
+    "appsandbox:baseline:read_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/appsandbox_baseline_read__tmp_foo.jsonl"
+    ],
+    "appsandbox:baseline:write_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/appsandbox_baseline_write__tmp_foo.jsonl"
+    ],
+    "appsandbox:net-client:read_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/appsandbox_net-client_read__etc_hosts.jsonl"
+    ],
+    "appsandbox:net-client:write_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/appsandbox_net-client_write__etc_hosts.jsonl"
+    ],
+    "appsandbox:net-client:read_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/appsandbox_net-client_read__tmp_foo.jsonl"
+    ],
+    "appsandbox:net-client:write_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/appsandbox_net-client_write__tmp_foo.jsonl"
+    ],
+    "appsandbox:downloads-rw:read_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/appsandbox_downloads-rw_read__etc_hosts.jsonl"
+    ],
+    "appsandbox:downloads-rw:write_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/appsandbox_downloads-rw_write__etc_hosts.jsonl"
+    ],
+    "appsandbox:downloads-rw:read_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/appsandbox_downloads-rw_read__tmp_foo.jsonl"
+    ],
+    "appsandbox:downloads-rw:write_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/runtime_mappings/traces/appsandbox_downloads-rw_write__tmp_foo.jsonl"
+    ]
+  }
+}

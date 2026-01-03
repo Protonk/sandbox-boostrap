@@ -1,1 +1,1 @@
-../../../api/frida/hooks/smoke.js
+../../../../../../api/frida/hooks/smoke.js

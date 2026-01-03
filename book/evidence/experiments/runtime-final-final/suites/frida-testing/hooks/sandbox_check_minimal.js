@@ -1,1 +1,1 @@
-../../../api/frida/hooks/sandbox_check_minimal.js
+../../../../../../api/frida/hooks/sandbox_check_minimal.js

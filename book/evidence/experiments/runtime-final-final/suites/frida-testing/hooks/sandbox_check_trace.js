@@ -1,1 +1,1 @@
-../../../api/frida/hooks/sandbox_check_trace.js
+../../../../../../api/frida/hooks/sandbox_check_trace.js

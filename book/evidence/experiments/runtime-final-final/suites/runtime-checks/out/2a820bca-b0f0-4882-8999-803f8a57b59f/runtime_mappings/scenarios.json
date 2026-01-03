@@ -1,0 +1,1967 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "phase_histograms": {
+    "overall": {
+      "total": 56,
+      "stages": {
+        "apply": 0,
+        "bootstrap": 0,
+        "preflight": 19,
+        "probe": 37
+      },
+      "blocked": {
+        "total": 19,
+        "by_stage": {
+          "preflight": 19
+        },
+        "by_kind": {
+          "preflight_apply_gate_signature": 19
+        }
+      },
+      "probe": {
+        "total": 37,
+        "allow": 16,
+        "deny": 21,
+        "mismatches": 3,
+        "unobserved": 0
+      }
+    },
+    "by_family": {
+      "bucket4": {
+        "total": 3,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 3
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 3,
+          "allow": 2,
+          "deny": 1,
+          "mismatches": 0,
+          "unobserved": 0
+        }
+      },
+      "bucket5": {
+        "total": 3,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 3
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 3,
+          "allow": 1,
+          "deny": 2,
+          "mismatches": 0,
+          "unobserved": 0
+        }
+      },
+      "bucket6": {
+        "total": 3,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 3
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 3,
+          "allow": 2,
+          "deny": 1,
+          "mismatches": 0,
+          "unobserved": 0
+        }
+      },
+      "runtime": {
+        "total": 12,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 12
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 12,
+          "allow": 8,
+          "deny": 4,
+          "mismatches": 0,
+          "unobserved": 0
+        }
+      },
+      "sys": {
+        "total": 23,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 19,
+          "probe": 4
+        },
+        "blocked": {
+          "total": 19,
+          "by_stage": {
+            "preflight": 19
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 19
+          }
+        },
+        "probe": {
+          "total": 4,
+          "allow": 0,
+          "deny": 4,
+          "mismatches": 0,
+          "unobserved": 0
+        }
+      },
+      "appsandbox": {
+        "total": 12,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 12
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 12,
+          "allow": 3,
+          "deny": 9,
+          "mismatches": 3,
+          "unobserved": 0
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "bucket4:v1_read:read_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "bucket4:v1_read",
+      "expectations": [
+        {
+          "expectation_id": "bucket4:v1_read:read_/etc/hosts",
+          "profile_id": "bucket4:v1_read",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "probe_name": "read_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "bucket4:v1_read:read_/etc/hosts"
+    },
+    "bucket4:v1_read:write_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "bucket4:v1_read",
+      "expectations": [
+        {
+          "expectation_id": "bucket4:v1_read:write_/etc/hosts",
+          "profile_id": "bucket4:v1_read",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "probe_name": "write_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "bucket4:v1_read:write_/etc/hosts"
+    },
+    "bucket4:v1_read:read_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "bucket4:v1_read",
+      "expectations": [
+        {
+          "expectation_id": "bucket4:v1_read:read_/tmp/foo",
+          "profile_id": "bucket4:v1_read",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "probe_name": "read_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "bucket4:v1_read:read_/tmp/foo"
+    },
+    "bucket5:v11_read_subpath:read_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "bucket5:v11_read_subpath",
+      "expectations": [
+        {
+          "expectation_id": "bucket5:v11_read_subpath:read_/tmp/foo",
+          "profile_id": "bucket5:v11_read_subpath",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "probe_name": "read_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "bucket5:v11_read_subpath:read_/tmp/foo"
+    },
+    "bucket5:v11_read_subpath:read_/tmp/bar": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "bucket5:v11_read_subpath",
+      "expectations": [
+        {
+          "expectation_id": "bucket5:v11_read_subpath:read_/tmp/bar",
+          "profile_id": "bucket5:v11_read_subpath",
+          "operation": "file-read*",
+          "target": "/tmp/bar",
+          "expected": "deny",
+          "probe_name": "read_/tmp/bar"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "bucket5:v11_read_subpath:read_/tmp/bar"
+    },
+    "bucket5:v11_read_subpath:write_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "bucket5:v11_read_subpath",
+      "expectations": [
+        {
+          "expectation_id": "bucket5:v11_read_subpath:write_/tmp/foo",
+          "profile_id": "bucket5:v11_read_subpath",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "probe_name": "write_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "bucket5:v11_read_subpath:write_/tmp/foo"
+    },
+    "bucket6:v12_runtime_probe:read_/private/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "bucket6:v12_runtime_probe",
+      "expectations": [
+        {
+          "expectation_id": "bucket6:v12_runtime_probe:read_/private/tmp/foo",
+          "profile_id": "bucket6:v12_runtime_probe",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "allow",
+          "probe_name": "read_/private/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "bucket6:v12_runtime_probe:read_/private/tmp/foo"
+    },
+    "bucket6:v12_runtime_probe:read_/private/tmp/bar": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "bucket6:v12_runtime_probe",
+      "expectations": [
+        {
+          "expectation_id": "bucket6:v12_runtime_probe:read_/private/tmp/bar",
+          "profile_id": "bucket6:v12_runtime_probe",
+          "operation": "file-read*",
+          "target": "/private/tmp/bar",
+          "expected": "deny",
+          "probe_name": "read_/private/tmp/bar"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "bucket6:v12_runtime_probe:read_/private/tmp/bar"
+    },
+    "bucket6:v12_runtime_probe:mach_cfprefsd_agent": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "bucket6:v12_runtime_probe",
+      "expectations": [
+        {
+          "expectation_id": "bucket6:v12_runtime_probe:mach_cfprefsd_agent",
+          "profile_id": "bucket6:v12_runtime_probe",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "probe_name": "mach_cfprefsd_agent"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "bucket6:v12_runtime_probe:mach_cfprefsd_agent"
+    },
+    "allow_all|file-read*|/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime:allow_all",
+      "expectations": [
+        {
+          "expectation_id": "allow_all|file-read*|/etc/hosts",
+          "profile_id": "runtime:allow_all",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "probe_name": "read_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "allow_all|file-read*|/etc/hosts"
+    },
+    "allow_all|file-read*|/tmp/sbpl_rt/read.txt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime:allow_all",
+      "expectations": [
+        {
+          "expectation_id": "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+          "profile_id": "runtime:allow_all",
+          "operation": "file-read*",
+          "target": "/tmp/sbpl_rt/read.txt",
+          "expected": "allow",
+          "probe_name": "read_/tmp/sbpl_rt/read.txt"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "allow_all|file-read*|/tmp/sbpl_rt/read.txt"
+    },
+    "allow_all|file-write*|/tmp/sbpl_rt/write.txt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime:allow_all",
+      "expectations": [
+        {
+          "expectation_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
+          "profile_id": "runtime:allow_all",
+          "operation": "file-write*",
+          "target": "/tmp/sbpl_rt/write.txt",
+          "expected": "allow",
+          "probe_name": "write_/tmp/sbpl_rt/write.txt"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt"
+    },
+    "metafilter_any|file-read*|/tmp/foo.txt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime:metafilter_any",
+      "expectations": [
+        {
+          "expectation_id": "metafilter_any|file-read*|/tmp/foo.txt",
+          "profile_id": "runtime:metafilter_any",
+          "operation": "file-read*",
+          "target": "/tmp/foo.txt",
+          "expected": "allow",
+          "probe_name": "read_foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "metafilter_any|file-read*|/tmp/foo.txt"
+    },
+    "metafilter_any|file-read*|/tmp/bar.txt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime:metafilter_any",
+      "expectations": [
+        {
+          "expectation_id": "metafilter_any|file-read*|/tmp/bar.txt",
+          "profile_id": "runtime:metafilter_any",
+          "operation": "file-read*",
+          "target": "/tmp/bar.txt",
+          "expected": "allow",
+          "probe_name": "read_bar"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "metafilter_any|file-read*|/tmp/bar.txt"
+    },
+    "metafilter_any|file-read*|/tmp/qux.txt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime:metafilter_any",
+      "expectations": [
+        {
+          "expectation_id": "metafilter_any|file-read*|/tmp/qux.txt",
+          "profile_id": "runtime:metafilter_any",
+          "operation": "file-read*",
+          "target": "/tmp/qux.txt",
+          "expected": "allow",
+          "probe_name": "read_other"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "metafilter_any|file-read*|/tmp/qux.txt"
+    },
+    "metafilter_any|file-read*|/tmp/baz.txt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime:metafilter_any",
+      "expectations": [
+        {
+          "expectation_id": "metafilter_any|file-read*|/tmp/baz.txt",
+          "profile_id": "runtime:metafilter_any",
+          "operation": "file-read*",
+          "target": "/tmp/baz.txt",
+          "expected": "deny",
+          "probe_name": "read_baz"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "metafilter_any|file-read*|/tmp/baz.txt"
+    },
+    "metafilter_any|file-write*|/tmp/baz.txt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime:metafilter_any",
+      "expectations": [
+        {
+          "expectation_id": "metafilter_any|file-write*|/tmp/baz.txt",
+          "profile_id": "runtime:metafilter_any",
+          "operation": "file-write*",
+          "target": "/tmp/baz.txt",
+          "expected": "deny",
+          "probe_name": "write_baz"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "metafilter_any|file-write*|/tmp/baz.txt"
+    },
+    "runtime:strict_1:read_ok": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime:strict_1",
+      "expectations": [
+        {
+          "expectation_id": "runtime:strict_1:read_ok",
+          "profile_id": "runtime:strict_1",
+          "operation": "file-read*",
+          "target": "/private/tmp/strict_ok/allow.txt",
+          "expected": "allow",
+          "probe_name": "read_ok"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime:strict_1:read_ok"
+    },
+    "runtime:strict_1:write_ok": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime:strict_1",
+      "expectations": [
+        {
+          "expectation_id": "runtime:strict_1:write_ok",
+          "profile_id": "runtime:strict_1",
+          "operation": "file-write*",
+          "target": "/private/tmp/strict_ok/allow.txt",
+          "expected": "allow",
+          "probe_name": "write_ok"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime:strict_1:write_ok"
+    },
+    "runtime:strict_1:read_hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime:strict_1",
+      "expectations": [
+        {
+          "expectation_id": "runtime:strict_1:read_hosts",
+          "profile_id": "runtime:strict_1",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "probe_name": "read_hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime:strict_1:read_hosts"
+    },
+    "runtime:strict_1:write_hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime:strict_1",
+      "expectations": [
+        {
+          "expectation_id": "runtime:strict_1:write_hosts",
+          "profile_id": "runtime:strict_1",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "probe_name": "write_hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime:strict_1:write_hosts"
+    },
+    "sys:airlock:read_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:airlock",
+      "expectations": [
+        {
+          "expectation_id": "sys:airlock:read_/etc/hosts",
+          "profile_id": "sys:airlock",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "probe_name": "read_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:airlock:read_/etc/hosts"
+    },
+    "sys:airlock:write_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:airlock",
+      "expectations": [
+        {
+          "expectation_id": "sys:airlock:write_/etc/hosts",
+          "profile_id": "sys:airlock",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "probe_name": "write_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:airlock:write_/etc/hosts"
+    },
+    "sys:airlock:read_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:airlock",
+      "expectations": [
+        {
+          "expectation_id": "sys:airlock:read_/tmp/foo",
+          "profile_id": "sys:airlock",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "probe_name": "read_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:airlock:read_/tmp/foo"
+    },
+    "sys:airlock:write_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:airlock",
+      "expectations": [
+        {
+          "expectation_id": "sys:airlock:write_/tmp/foo",
+          "profile_id": "sys:airlock",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "probe_name": "write_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:airlock:write_/tmp/foo"
+    },
+    "sys:bsd:read_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:bsd",
+      "expectations": [
+        {
+          "expectation_id": "sys:bsd:read_/etc/hosts",
+          "profile_id": "sys:bsd",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "probe_name": "read_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:bsd:read_/etc/hosts"
+    },
+    "sys:bsd:write_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:bsd",
+      "expectations": [
+        {
+          "expectation_id": "sys:bsd:write_/etc/hosts",
+          "profile_id": "sys:bsd",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "probe_name": "write_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:bsd:write_/etc/hosts"
+    },
+    "sys:bsd:read_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:bsd",
+      "expectations": [
+        {
+          "expectation_id": "sys:bsd:read_/tmp/foo",
+          "profile_id": "sys:bsd",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "probe_name": "read_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:bsd:read_/tmp/foo"
+    },
+    "sys:bsd:write_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:bsd",
+      "expectations": [
+        {
+          "expectation_id": "sys:bsd:write_/tmp/foo",
+          "profile_id": "sys:bsd",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "probe_name": "write_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:bsd:write_/tmp/foo"
+    },
+    "sys:blastdoor:read_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:blastdoor",
+      "expectations": [
+        {
+          "expectation_id": "sys:blastdoor:read_/etc/hosts",
+          "profile_id": "sys:blastdoor",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "probe_name": "read_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:blastdoor:read_/etc/hosts"
+    },
+    "sys:blastdoor:write_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:blastdoor",
+      "expectations": [
+        {
+          "expectation_id": "sys:blastdoor:write_/etc/hosts",
+          "profile_id": "sys:blastdoor",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "probe_name": "write_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:blastdoor:write_/etc/hosts"
+    },
+    "sys:blastdoor:read_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:blastdoor",
+      "expectations": [
+        {
+          "expectation_id": "sys:blastdoor:read_/tmp/foo",
+          "profile_id": "sys:blastdoor",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "probe_name": "read_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:blastdoor:read_/tmp/foo"
+    },
+    "sys:blastdoor:write_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:blastdoor",
+      "expectations": [
+        {
+          "expectation_id": "sys:blastdoor:write_/tmp/foo",
+          "profile_id": "sys:blastdoor",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "probe_name": "write_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:blastdoor:write_/tmp/foo"
+    },
+    "sys:blastdoor:mach_allow_logd": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:blastdoor",
+      "expectations": [
+        {
+          "expectation_id": "sys:blastdoor:mach_allow_logd",
+          "profile_id": "sys:blastdoor",
+          "operation": "mach-lookup",
+          "target": "com.apple.logd",
+          "expected": "allow",
+          "probe_name": "mach_allow_logd"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:blastdoor:mach_allow_logd"
+    },
+    "sys:blastdoor:mach_allow_trustd": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:blastdoor",
+      "expectations": [
+        {
+          "expectation_id": "sys:blastdoor:mach_allow_trustd",
+          "profile_id": "sys:blastdoor",
+          "operation": "mach-lookup",
+          "target": "com.apple.trustd.agent",
+          "expected": "allow",
+          "probe_name": "mach_allow_trustd"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:blastdoor:mach_allow_trustd"
+    },
+    "sys:blastdoor:mach_deny_cfprefsd": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:blastdoor",
+      "expectations": [
+        {
+          "expectation_id": "sys:blastdoor:mach_deny_cfprefsd",
+          "profile_id": "sys:blastdoor",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "deny",
+          "probe_name": "mach_deny_cfprefsd"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:blastdoor:mach_deny_cfprefsd"
+    },
+    "sys:blastdoor:xpc_deny_trustd": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:blastdoor",
+      "expectations": [
+        {
+          "expectation_id": "sys:blastdoor:xpc_deny_trustd",
+          "profile_id": "sys:blastdoor",
+          "operation": "mach-lookup",
+          "target": "com.apple.trustd.agent",
+          "expected": "deny",
+          "probe_name": "xpc_deny_trustd"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:blastdoor:xpc_deny_trustd"
+    },
+    "sys:cgpdfservice:read_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:cgpdfservice",
+      "expectations": [
+        {
+          "expectation_id": "sys:cgpdfservice:read_/etc/hosts",
+          "profile_id": "sys:cgpdfservice",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "probe_name": "read_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:cgpdfservice:read_/etc/hosts"
+    },
+    "sys:cgpdfservice:write_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:cgpdfservice",
+      "expectations": [
+        {
+          "expectation_id": "sys:cgpdfservice:write_/etc/hosts",
+          "profile_id": "sys:cgpdfservice",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "probe_name": "write_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:cgpdfservice:write_/etc/hosts"
+    },
+    "sys:cgpdfservice:read_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:cgpdfservice",
+      "expectations": [
+        {
+          "expectation_id": "sys:cgpdfservice:read_/tmp/foo",
+          "profile_id": "sys:cgpdfservice",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "probe_name": "read_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:cgpdfservice:read_/tmp/foo"
+    },
+    "sys:cgpdfservice:write_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:cgpdfservice",
+      "expectations": [
+        {
+          "expectation_id": "sys:cgpdfservice:write_/tmp/foo",
+          "profile_id": "sys:cgpdfservice",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "probe_name": "write_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:cgpdfservice:write_/tmp/foo"
+    },
+    "sys:cgpdfservice:read_/Library/Preferences/com.apple.timezone.auto.plist": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:cgpdfservice",
+      "expectations": [
+        {
+          "expectation_id": "sys:cgpdfservice:read_/Library/Preferences/com.apple.timezone.auto.plist",
+          "profile_id": "sys:cgpdfservice",
+          "operation": "file-read*",
+          "target": "/Library/Preferences/com.apple.timezone.auto.plist",
+          "expected": "deny",
+          "probe_name": "read_/Library/Preferences/com.apple.timezone.auto.plist"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:cgpdfservice:read_/Library/Preferences/com.apple.timezone.auto.plist"
+    },
+    "sys:cgpdfservice:read_/var/db/timezone/zoneinfo/Etc/UTC": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:cgpdfservice",
+      "expectations": [
+        {
+          "expectation_id": "sys:cgpdfservice:read_/var/db/timezone/zoneinfo/Etc/UTC",
+          "profile_id": "sys:cgpdfservice",
+          "operation": "file-read*",
+          "target": "/var/db/timezone/zoneinfo/Etc/UTC",
+          "expected": "deny",
+          "probe_name": "read_/var/db/timezone/zoneinfo/Etc/UTC"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:cgpdfservice:read_/var/db/timezone/zoneinfo/Etc/UTC"
+    },
+    "sys:cgpdfservice:read_/private/etc/localtime": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "sys:cgpdfservice",
+      "expectations": [
+        {
+          "expectation_id": "sys:cgpdfservice:read_/private/etc/localtime",
+          "profile_id": "sys:cgpdfservice",
+          "operation": "file-read*",
+          "target": "/private/etc/localtime",
+          "expected": "deny",
+          "probe_name": "read_/private/etc/localtime"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "sys:cgpdfservice:read_/private/etc/localtime"
+    },
+    "appsandbox:baseline:read_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "appsandbox:baseline",
+      "expectations": [
+        {
+          "expectation_id": "appsandbox:baseline:read_/etc/hosts",
+          "profile_id": "appsandbox:baseline",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "probe_name": "read_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "appsandbox:baseline:read_/etc/hosts"
+    },
+    "appsandbox:baseline:write_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "appsandbox:baseline",
+      "expectations": [
+        {
+          "expectation_id": "appsandbox:baseline:write_/etc/hosts",
+          "profile_id": "appsandbox:baseline",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "probe_name": "write_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "appsandbox:baseline:write_/etc/hosts"
+    },
+    "appsandbox:baseline:read_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "appsandbox:baseline",
+      "expectations": [
+        {
+          "expectation_id": "appsandbox:baseline:read_/tmp/foo",
+          "profile_id": "appsandbox:baseline",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "probe_name": "read_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "appsandbox:baseline:read_/tmp/foo",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "appsandbox:baseline:read_/tmp/foo"
+    },
+    "appsandbox:baseline:write_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "appsandbox:baseline",
+      "expectations": [
+        {
+          "expectation_id": "appsandbox:baseline:write_/tmp/foo",
+          "profile_id": "appsandbox:baseline",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "probe_name": "write_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "appsandbox:baseline:write_/tmp/foo"
+    },
+    "appsandbox:net-client:read_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "appsandbox:net-client",
+      "expectations": [
+        {
+          "expectation_id": "appsandbox:net-client:read_/etc/hosts",
+          "profile_id": "appsandbox:net-client",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "probe_name": "read_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "appsandbox:net-client:read_/etc/hosts"
+    },
+    "appsandbox:net-client:write_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "appsandbox:net-client",
+      "expectations": [
+        {
+          "expectation_id": "appsandbox:net-client:write_/etc/hosts",
+          "profile_id": "appsandbox:net-client",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "probe_name": "write_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "appsandbox:net-client:write_/etc/hosts"
+    },
+    "appsandbox:net-client:read_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "appsandbox:net-client",
+      "expectations": [
+        {
+          "expectation_id": "appsandbox:net-client:read_/tmp/foo",
+          "profile_id": "appsandbox:net-client",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "probe_name": "read_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "appsandbox:net-client:read_/tmp/foo",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "appsandbox:net-client:read_/tmp/foo"
+    },
+    "appsandbox:net-client:write_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "appsandbox:net-client",
+      "expectations": [
+        {
+          "expectation_id": "appsandbox:net-client:write_/tmp/foo",
+          "profile_id": "appsandbox:net-client",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "probe_name": "write_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "appsandbox:net-client:write_/tmp/foo"
+    },
+    "appsandbox:downloads-rw:read_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "appsandbox:downloads-rw",
+      "expectations": [
+        {
+          "expectation_id": "appsandbox:downloads-rw:read_/etc/hosts",
+          "profile_id": "appsandbox:downloads-rw",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "probe_name": "read_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "appsandbox:downloads-rw:read_/etc/hosts"
+    },
+    "appsandbox:downloads-rw:write_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "appsandbox:downloads-rw",
+      "expectations": [
+        {
+          "expectation_id": "appsandbox:downloads-rw:write_/etc/hosts",
+          "profile_id": "appsandbox:downloads-rw",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "probe_name": "write_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "appsandbox:downloads-rw:write_/etc/hosts"
+    },
+    "appsandbox:downloads-rw:read_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "appsandbox:downloads-rw",
+      "expectations": [
+        {
+          "expectation_id": "appsandbox:downloads-rw:read_/tmp/foo",
+          "profile_id": "appsandbox:downloads-rw",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "probe_name": "read_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "appsandbox:downloads-rw:read_/tmp/foo",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "appsandbox:downloads-rw:read_/tmp/foo"
+    },
+    "appsandbox:downloads-rw:write_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "appsandbox:downloads-rw",
+      "expectations": [
+        {
+          "expectation_id": "appsandbox:downloads-rw:write_/tmp/foo",
+          "profile_id": "appsandbox:downloads-rw",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "probe_name": "write_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "appsandbox:downloads-rw:write_/tmp/foo"
+    }
+  }
+}

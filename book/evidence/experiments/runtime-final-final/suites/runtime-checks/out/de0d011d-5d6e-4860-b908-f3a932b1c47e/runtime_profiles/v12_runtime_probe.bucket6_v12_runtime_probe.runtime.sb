@@ -1,0 +1,25 @@
+(version 1)
+(deny default)
+
+;; Base profile that yields the [6,…,5] op-table pattern:
+;; - file-read* filtered by subpath
+;; - mach-lookup for cfprefsd agent
+(allow file-read* (subpath "/tmp/foo"))
+(allow mach-lookup (global-name "com.apple.cfprefsd.agent"))
+
+;; Runtime harness needs to exec the probes themselves.
+;; Narrow process-exec allowances to the specific helpers used below.
+(allow process-exec
+  (literal "/bin/echo"))
+(allow process-exec
+  (literal "/usr/bin/python3"))
+(allow process-exec*)
+(allow file-read* (subpath "/System"))
+(allow file-read* (subpath "/usr"))
+(allow file-read* (subpath "/bin"))
+(allow file-read* (subpath "/sbin"))
+(allow file-read* (subpath "/dev"))
+(allow file-read-metadata (literal "/private"))
+(allow file-read-metadata (literal "/private/tmp"))
+(allow file-read-metadata (literal "/tmp"))
+(allow file-read* (subpath "/private/tmp/foo"))

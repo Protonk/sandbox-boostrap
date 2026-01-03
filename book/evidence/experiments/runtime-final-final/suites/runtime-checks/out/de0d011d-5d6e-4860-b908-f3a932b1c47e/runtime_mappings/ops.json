@@ -1,0 +1,241 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "op-level runtime summary"
+  },
+  "ops": {
+    "file-read*": {
+      "op_name": "file-read*",
+      "op_id": 21,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 22,
+      "matches": 19,
+      "mismatches": 3,
+      "probes_including_blocked": 31,
+      "blocked": {
+        "total": 9,
+        "by_stage": {
+          "apply": 9
+        },
+        "by_kind": {
+          "sandbox_init_failed": 9
+        }
+      },
+      "unobserved": 0,
+      "examples": [
+        {
+          "scenario_id": "bucket4:v1_read:read_/etc/hosts",
+          "expectation_id": "bucket4:v1_read:read_/etc/hosts",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "bucket4:v1_read:read_/tmp/foo",
+          "expectation_id": "bucket4:v1_read:read_/tmp/foo",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "bucket5:v11_read_subpath:read_/tmp/foo",
+          "expectation_id": "bucket5:v11_read_subpath:read_/tmp/foo",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "bucket5:v11_read_subpath:read_/tmp/bar",
+          "expectation_id": "bucket5:v11_read_subpath:read_/tmp/bar",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "bucket6:v12_runtime_probe:read_/private/tmp/foo",
+          "expectation_id": "bucket6:v12_runtime_probe:read_/private/tmp/foo",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "allow_all|file-read*|/etc/hosts",
+        "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+        "appsandbox:baseline:read_/etc/hosts",
+        "appsandbox:baseline:read_/tmp/foo",
+        "appsandbox:downloads-rw:read_/etc/hosts",
+        "appsandbox:downloads-rw:read_/tmp/foo",
+        "appsandbox:net-client:read_/etc/hosts",
+        "appsandbox:net-client:read_/tmp/foo",
+        "bucket4:v1_read:read_/etc/hosts",
+        "bucket4:v1_read:read_/tmp/foo",
+        "bucket5:v11_read_subpath:read_/tmp/bar",
+        "bucket5:v11_read_subpath:read_/tmp/foo",
+        "bucket6:v12_runtime_probe:read_/private/tmp/bar",
+        "bucket6:v12_runtime_probe:read_/private/tmp/foo",
+        "metafilter_any|file-read*|/tmp/bar.txt",
+        "metafilter_any|file-read*|/tmp/baz.txt",
+        "metafilter_any|file-read*|/tmp/foo.txt",
+        "metafilter_any|file-read*|/tmp/qux.txt",
+        "runtime:strict_1:read_hosts",
+        "runtime:strict_1:read_ok",
+        "sys:airlock:read_/etc/hosts",
+        "sys:airlock:read_/tmp/foo",
+        "sys:blastdoor:read_/etc/hosts",
+        "sys:blastdoor:read_/tmp/foo",
+        "sys:bsd:read_/etc/hosts",
+        "sys:bsd:read_/tmp/foo",
+        "sys:cgpdfservice:read_/Library/Preferences/com.apple.timezone.auto.plist",
+        "sys:cgpdfservice:read_/etc/hosts",
+        "sys:cgpdfservice:read_/private/etc/localtime",
+        "sys:cgpdfservice:read_/tmp/foo",
+        "sys:cgpdfservice:read_/var/db/timezone/zoneinfo/Etc/UTC"
+      ],
+      "mismatch_details": [
+        {
+          "scenario_id": "appsandbox:baseline:read_/tmp/foo",
+          "expectation_id": "appsandbox:baseline:read_/tmp/foo",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/foo"
+        },
+        {
+          "scenario_id": "appsandbox:net-client:read_/tmp/foo",
+          "expectation_id": "appsandbox:net-client:read_/tmp/foo",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/foo"
+        },
+        {
+          "scenario_id": "appsandbox:downloads-rw:read_/tmp/foo",
+          "expectation_id": "appsandbox:downloads-rw:read_/tmp/foo",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/foo"
+        }
+      ],
+      "coverage_status": "partial"
+    },
+    "file-write*": {
+      "op_name": "file-write*",
+      "op_id": 29,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 14,
+      "matches": 14,
+      "mismatches": 0,
+      "probes_including_blocked": 20,
+      "blocked": {
+        "total": 6,
+        "by_stage": {
+          "apply": 6
+        },
+        "by_kind": {
+          "sandbox_init_failed": 6
+        }
+      },
+      "unobserved": 0,
+      "examples": [
+        {
+          "scenario_id": "bucket4:v1_read:write_/etc/hosts",
+          "expectation_id": "bucket4:v1_read:write_/etc/hosts",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "bucket5:v11_read_subpath:write_/tmp/foo",
+          "expectation_id": "bucket5:v11_read_subpath:write_/tmp/foo",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
+          "expectation_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "metafilter_any|file-write*|/tmp/baz.txt",
+          "expectation_id": "metafilter_any|file-write*|/tmp/baz.txt",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "runtime:strict_1:write_ok",
+          "expectation_id": "runtime:strict_1:write_ok",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
+        "appsandbox:baseline:write_/etc/hosts",
+        "appsandbox:baseline:write_/tmp/foo",
+        "appsandbox:downloads-rw:write_/etc/hosts",
+        "appsandbox:downloads-rw:write_/tmp/foo",
+        "appsandbox:net-client:write_/etc/hosts",
+        "appsandbox:net-client:write_/tmp/foo",
+        "bucket4:v1_read:write_/etc/hosts",
+        "bucket5:v11_read_subpath:write_/tmp/foo",
+        "metafilter_any|file-write*|/tmp/baz.txt",
+        "runtime:strict_1:write_hosts",
+        "runtime:strict_1:write_ok",
+        "sys:airlock:write_/etc/hosts",
+        "sys:airlock:write_/tmp/foo",
+        "sys:blastdoor:write_/etc/hosts",
+        "sys:blastdoor:write_/tmp/foo",
+        "sys:bsd:write_/etc/hosts",
+        "sys:bsd:write_/tmp/foo",
+        "sys:cgpdfservice:write_/etc/hosts",
+        "sys:cgpdfservice:write_/tmp/foo"
+      ],
+      "coverage_status": "ok"
+    },
+    "mach-lookup": {
+      "op_name": "mach-lookup",
+      "op_id": 96,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 1,
+      "matches": 1,
+      "mismatches": 0,
+      "probes_including_blocked": 5,
+      "blocked": {
+        "total": 4,
+        "by_stage": {
+          "apply": 4
+        },
+        "by_kind": {
+          "sandbox_init_failed": 4
+        }
+      },
+      "unobserved": 0,
+      "examples": [
+        {
+          "scenario_id": "bucket6:v12_runtime_probe:mach_cfprefsd_agent",
+          "expectation_id": "bucket6:v12_runtime_probe:mach_cfprefsd_agent",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "bucket6:v12_runtime_probe:mach_cfprefsd_agent",
+        "sys:blastdoor:mach_allow_logd",
+        "sys:blastdoor:mach_allow_trustd",
+        "sys:blastdoor:mach_deny_cfprefsd",
+        "sys:blastdoor:xpc_deny_trustd"
+      ],
+      "coverage_status": "ok"
+    }
+  }
+}

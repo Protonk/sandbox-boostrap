@@ -1,0 +1,36 @@
+{
+  "schema_version": "runtime-tools.summary.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "2a820bca-b0f0-4882-8999-803f8a57b59f",
+  "status": "partial",
+  "plan_id": "runtime-checks.v1",
+  "plan_digest": "19d5c6d8a586e88f24a1743cfa80f2596aef1731dd3c45bfe55c71cb35c09a94",
+  "channel": "launchd_clean",
+  "lanes": {
+    "baseline": true,
+    "oracle": true,
+    "scenario": true
+  },
+  "profile_count": 13,
+  "scenario_count": 56,
+  "expected_profiles": [
+    "bucket4:v1_read",
+    "bucket5:v11_read_subpath",
+    "bucket6:v12_runtime_probe",
+    "runtime:allow_all",
+    "runtime:metafilter_any",
+    "runtime:strict_1",
+    "sys:airlock",
+    "sys:bsd",
+    "sys:blastdoor",
+    "sys:cgpdfservice",
+    "appsandbox:baseline",
+    "appsandbox:net-client",
+    "appsandbox:downloads-rw"
+  ],
+  "mismatch_counts": {
+    "preflight_blocked": 19,
+    "unexpected_deny": 3
+  },
+  "dry_run": false
+}

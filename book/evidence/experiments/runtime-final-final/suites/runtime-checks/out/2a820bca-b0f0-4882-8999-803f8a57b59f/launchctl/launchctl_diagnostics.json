@@ -1,0 +1,52 @@
+{
+  "label": "sandbox-lore.runtime.2a820bca-b0f0-4882-8999-803f8a57b59f",
+  "run_id": "2a820bca-b0f0-4882-8999-803f8a57b59f",
+  "domain": "gui/501",
+  "domain_reason": "gui_domain_available",
+  "session_types": null,
+  "plist_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/launchctl/sandbox-lore.runtime.2a820bca-b0f0-4882-8999-803f8a57b59f.plist",
+  "launchctl_cmds": [
+    {
+      "argv": [
+        "/bin/launchctl",
+        "print",
+        "gui/501"
+      ],
+      "rc": 0,
+      "stdout_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/launchctl/sandbox-lore.runtime.2a820bca-b0f0-4882-8999-803f8a57b59f.launchctl_print.gui_501.stdout.txt",
+      "stderr_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/launchctl/sandbox-lore.runtime.2a820bca-b0f0-4882-8999-803f8a57b59f.launchctl_print.gui_501.stderr.txt"
+    },
+    {
+      "argv": [
+        "/usr/bin/plutil",
+        "-lint",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.2a820bca-b0f0-4882-8999-803f8a57b59f/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/launchctl/sandbox-lore.runtime.2a820bca-b0f0-4882-8999-803f8a57b59f.plist"
+      ],
+      "rc": 0,
+      "stdout_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/launchctl/sandbox-lore.runtime.2a820bca-b0f0-4882-8999-803f8a57b59f.plutil_lint.stdout.txt",
+      "stderr_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/launchctl/sandbox-lore.runtime.2a820bca-b0f0-4882-8999-803f8a57b59f.plutil_lint.stderr.txt"
+    },
+    {
+      "argv": [
+        "/bin/launchctl",
+        "bootstrap",
+        "gui/501",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.2a820bca-b0f0-4882-8999-803f8a57b59f/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/launchctl/sandbox-lore.runtime.2a820bca-b0f0-4882-8999-803f8a57b59f.plist"
+      ],
+      "rc": 0,
+      "stdout_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/launchctl/sandbox-lore.runtime.2a820bca-b0f0-4882-8999-803f8a57b59f.bootstrap.stdout.txt",
+      "stderr_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/launchctl/sandbox-lore.runtime.2a820bca-b0f0-4882-8999-803f8a57b59f.bootstrap.stderr.txt"
+    },
+    {
+      "argv": [
+        "/bin/launchctl",
+        "bootout",
+        "gui/501",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.2a820bca-b0f0-4882-8999-803f8a57b59f/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/launchctl/sandbox-lore.runtime.2a820bca-b0f0-4882-8999-803f8a57b59f.plist"
+      ],
+      "rc": 0,
+      "stdout_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/launchctl/sandbox-lore.runtime.2a820bca-b0f0-4882-8999-803f8a57b59f.bootout.stdout.txt",
+      "stderr_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/2a820bca-b0f0-4882-8999-803f8a57b59f/launchctl/sandbox-lore.runtime.2a820bca-b0f0-4882-8999-803f8a57b59f.bootout.stderr.txt"
+    }
+  ]
+}
