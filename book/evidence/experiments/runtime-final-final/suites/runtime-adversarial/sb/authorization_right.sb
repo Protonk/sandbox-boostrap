@@ -5,3 +5,8 @@
   (right-name "system.preferences"))
 (deny authorization-right-obtain
   (right-name "system.preferences.privacy"))
+
+(allow authorization-right-obtain
+  (right-name "system.preferences.network"))
+(deny authorization-right-obtain
+  (right-name "system.preferences.network.privacy"))

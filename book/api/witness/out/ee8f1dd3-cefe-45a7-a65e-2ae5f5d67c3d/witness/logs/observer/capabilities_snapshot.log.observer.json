@@ -1,0 +1,41 @@
+{
+  "data": {
+    "correlation_id": "64084709-0B5B-497B-A33A-7AF75FF2CBF6",
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": "2026-01-03 11:25:02",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    ",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 1,
+    "observer_schema_version": 1,
+    "pid": 85359,
+    "plan_id": "frida-testing:witness-frida",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(85359)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"85359\")))",
+    "process_name": "ProbeService_minimal",
+    "row_id": "frida-testing:witness-frida.ee8f1dd3-cefe-45a7-a65e-2ae5f5d67c3d.capabilities_snapshot",
+    "start": "2026-01-03 11:24:58",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767468300829,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

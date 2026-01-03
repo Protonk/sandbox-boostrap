@@ -5,3 +5,8 @@
   (preference-domain "com.apple.TimeMachine"))
 (deny user-preference-read
   (preference-domain "com.apple.sandboxadversarial.fake"))
+
+(allow user-preference-read
+  (preference-domain "com.apple.SoftwareUpdate"))
+(deny user-preference-read
+  (preference-domain "com.apple.sandboxadversarial.fake2"))

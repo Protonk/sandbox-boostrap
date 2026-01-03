@@ -3,8 +3,8 @@
   "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
   "frontier": "book/evidence/experiments/field2-final-final/out/frontier.json",
   "selected": {
-    "field2": 65535,
-    "filter_name": null,
+    "field2": 32,
+    "filter_name": "kext-bundle-id",
     "status": "inventory_only",
     "sources": [
       "inventory"
@@ -14,22 +14,22 @@
     "anchor_count": 0,
     "anchors_sample": [],
     "inventory": {
-      "count": 2,
+      "count": 1,
       "profiles_sample": [
-        "probe:airlock_system_fcntl.sb"
+        "sys:airlock"
       ]
     },
     "unknown": {
       "count": 0,
       "profiles_sample": []
     },
-    "score": -6
+    "score": -3
   },
   "decision_needed": "Define one discriminating micro-suite and either promote a mapping delta or retire this field2 as opaque/blocked.",
   "fast_discriminator": {
     "tool": "sandbox_check",
     "operation": null,
-    "filter_name": null,
+    "filter_name": "kext-bundle-id",
     "argument": null,
     "notes": "Use sandbox_check as a preflight discriminator; operation-stage confirmation is still required."
   }

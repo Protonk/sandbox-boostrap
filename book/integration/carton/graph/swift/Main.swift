@@ -46,10 +46,14 @@ struct GraphChecks {
         } else {
             warnings.append("runtime expectations not found or unreadable")
         }
+        let inventoryPath = root.appendingPathComponent("book/integration/carton/bundle/relationships/inventory/inventory_graph.json").path
+        let inventoryCheck = inventoryValidation(graph: loadInventoryGraph(at: inventoryPath))
+        errors.append(contentsOf: inventoryCheck.errors)
+        warnings.append(contentsOf: inventoryCheck.warnings)
         let report = ValidationReport(
             errors: errors,
             warnings: warnings,
-            checked: ["concepts", "strategies", "runtime_expectations"]
+            checked: ["concepts", "strategies", "runtime_expectations", "inventory_graph"]
         )
         let reportPath = root.appendingPathComponent("book/evidence/graph/concepts/validation/validation_report.json").path
         writeValidationReport(report, to: reportPath)

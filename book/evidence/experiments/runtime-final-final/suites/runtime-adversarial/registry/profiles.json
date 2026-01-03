@@ -244,7 +244,9 @@
       "notes": "Discriminate ipc-posix-name via shm_open create.",
       "probe_refs": [
         "adv:ipc_posix_shm:allow-shm",
-        "adv:ipc_posix_shm:deny-shm"
+        "adv:ipc_posix_shm:deny-shm",
+        "adv:ipc_posix_shm:allow-shm-alt",
+        "adv:ipc_posix_shm:deny-shm-alt"
       ],
       "profile_id": "adv:ipc_posix_shm",
       "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/ipc_posix_shm.sb",
@@ -257,7 +259,9 @@
       "notes": "Right-name discriminator via sandbox_check probe.",
       "probe_refs": [
         "adv:authorization_right:allow-right",
-        "adv:authorization_right:deny-right"
+        "adv:authorization_right:deny-right",
+        "adv:authorization_right:allow-right-alt",
+        "adv:authorization_right:deny-right-alt"
       ],
       "profile_id": "adv:authorization_right",
       "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/authorization_right.sb",
@@ -270,7 +274,9 @@
       "notes": "Preference-domain discriminator via sandbox_check probe.",
       "probe_refs": [
         "adv:preference_domain:allow-domain",
-        "adv:preference_domain:deny-domain"
+        "adv:preference_domain:deny-domain",
+        "adv:preference_domain:allow-domain-alt",
+        "adv:preference_domain:deny-domain-alt"
       ],
       "profile_id": "adv:preference_domain",
       "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/preference_domain.sb",
@@ -283,7 +289,9 @@
       "notes": "XPC service discriminator via xpc_probe.",
       "probe_refs": [
         "adv:xpc_service_name:allow-cfprefsd-xpc",
-        "adv:xpc_service_name:deny-bogus-xpc"
+        "adv:xpc_service_name:deny-bogus-xpc",
+        "adv:xpc_service_name:allow-cfprefsd-xpc-alt",
+        "adv:xpc_service_name:deny-bogus-xpc-alt"
       ],
       "profile_id": "adv:xpc_service_name",
       "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/xpc_service_name.sb",

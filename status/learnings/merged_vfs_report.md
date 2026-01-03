@@ -1,188 +1,153 @@
-# Path Resolution, Vnode Path Spelling, and SBPL Path Filters (Sonoma baseline)
+# Path Resolution, Vnode Path Spellings, and SBPL Path Filters (Sonoma baseline)
 
 ## Scope (non-negotiable)
 
-This report is scoped to the fixed host baseline world:
+This report is scoped to one fixed host baseline world:
 
 - `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`
 
-It focuses on the filesystem operations used by the repo’s canonical path-family probes (`file-read*`, `file-write*`) and the path families covered by the focused VFS-canonicalization suite. It is not a general macOS or UNIX theory, and it does not claim universal Seatbelt semantics outside this baseline.
+It is intentionally narrow. It is a portable lesson about a common *class* of problems (path-based sandbox rules interacting with path resolution and path reconstruction), but every concrete claim about behavior is bounded to this host and to the operation surface exercised by the repo’s runtime suite:
 
-If you want the raw notes, citations, and discussion prompts that fed this report, use `status/learnings/vfs_links.md`. For the repo’s authoritative, host-bound experiment narrative, use `book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/Report.md`.
+- primary ops: `file-read*`, `file-write*`
+- supporting gatepoints observed in this suite: `file-read-metadata`, `file-read-data`
 
-## The core subtlety: one object, many spellings
+If you want raw discussion prompts/citations, use `status/learnings/vfs_links.md`. For the authoritative, host-bound experiment narrative and committed run bundles, use `book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/Report.md` (the directory name is local; the conceptual framing in this report is “lookup-time resolution + vnode path spellings”).
 
-The kernel’s Virtual File System (VFS) layer turns a *path string* into an *object* (a vnode) via name lookup. Two distinct mechanisms then create “path spelling surprises” for sandbox work:
+## The core issue: policy authored over spellings, enforcement over objects (plus traversal)
 
-1. **Name lookup / path resolution effects** (before you get an FD):
-   - Following symlinks (classic example: `/tmp` → `/private/tmp`).
-   - Traversing mounts and other filesystem redirections.
-   - On modern macOS, traversing the System/Data split presentation (firmlink-style translation).
+A pathname string is a *spelling*. The kernel’s Virtual File System (VFS) turns that spelling into an object (a vnode) via name lookup: traversing mounts, interpreting `.`/`..`, following symlinks, and applying macOS-specific directory translations (for example, System/Data volume presentation).
 
-2. **Vnode → path reconstruction effects** (after you have an FD):
-   - Once you successfully open a file, you hold an FD that refers to a vnode; the FD does not inherently preserve the caller’s original spelling.
-   - The kernel can reconstruct a printable path spelling for that vnode/FD, and multiple “valid” spellings can exist (for example, firmlink-translated vs “no firmlink” spellings such as `/System/Volumes/Data/...`). Treat alternate spellings as diagnostic evidence, not as automatically safe SBPL literals.
+SBPL profiles are authored over *strings* (literal spellings, prefixes, subpaths), but runtime behavior can be dominated by:
 
-SANDBOX_LORE historically called the combined phenomenon “VFS canonicalization.” That name is project-local; the more precise teaching framing is “path resolution + path reconstruction,” with the operational question being: *which spelling is the sandbox effectively comparing against on this host for a given operation and path family?*
+- lookup-time resolution (where the spelling can change before the final object is reached),
+- per-component gate checks during traversal (directories and symlink components can be separately authorized),
+- enforcement points where only a vnode is available (so the original user spelling is not necessarily a stable input to the policy engine).
 
-### Terminology note: “canonical spelling” vs `SANDBOX_CHECK_CANONICAL`
+This creates three “path spellings” that can legitimately diverge:
 
-This repo sometimes uses “canonical” informally to mean “the spelling that ends up being semantically live at runtime on this host” (for example, `/private/tmp/...` rather than `/tmp/...`).
+- `requested_path`: what userland passed to the syscall (caller-controlled)
+- a decision-time spelling or component spelling: what the sandbox associates with the particular check it is denying/allowing (kernel-derived)
+- `observed_path*`: kernel-reconstructed spellings for a successfully opened FD (`F_GETPATH`, and optionally `F_GETPATH_NOFIRMLINK`)
 
-Separately, the `sandbox_check*` APIs support a flag commonly called `SANDBOX_CHECK_CANONICAL`. Public descriptions indicate this flag is **not** “canonicalize for me”; it is closer to “reject the check if the supplied path is not already canonical,” in particular if the path contains a symlink component or `..` traversal components. That makes it a useful *guardrail axis* in experiments, but it should not be treated as a mechanism for discovering the canonical spelling.
+Critical constraint: **denied attempts often have no sandboxed FD**, so `F_GETPATH*` cannot witness deny-time spellings. If you want deny-side spelling evidence, you need a separate, sandbox-originated witness channel (for example, denial log lines).
 
-## Why SBPL path filters are sensitive to this
-
-SBPL path filters are written against strings (literal spellings, prefixes, subpaths). The compiled PolicyGraph structure preserves those spellings as anchors/literals; the structure does not automatically “collapse” aliases. Runtime enforcement, however, happens against the resolved object identity (vnode) and/or some kernel-derived spelling of that identity.
-
-Operationally, that produces the central mismatch class this repo cares about:
-
-- **Static:** “My profile mentions `/tmp/foo`.”
-- **Runtime:** “The request targets a vnode whose reconstructed spelling lives in `/private/tmp/foo`.”
-- **Outcome:** A profile that only embeds the alias spelling can fail, while a profile that embeds the canonical spelling succeeds.
-
-This is why path families can dominate runtime outcomes even when the rest of the policy and harness are stable: if a spelling never reaches the match domain, it is effectively “dead” for enforcement on that host.
-
-## Evidence surfaces in SANDBOX_LORE (what to trust, and what not to overclaim)
-
-This repo separates **structure** from **runtime evidence**, and it treats path spelling as a confounder unless backed by committed artifacts.
+## Evidence surfaces (what to trust, and what not to overclaim)
 
 ### 1) Structural (static) evidence
 
-Structural decoding tells you what anchors/literals the compiled PolicyGraph contains for a given SBPL profile. In the VFS-canonicalization suite, alias and canonical spellings remain distinct in structure: the graph does not collapse them.
+Structural decoding can tell you what anchors/literals exist in the compiled PolicyGraph structure for a profile. This is useful for “does the string exist in structure?” but it does not tell you which spelling will be semantically live at runtime on this host.
 
-Use the derived decode outputs produced by the suite (see the suite report for the specific artifacts it derives and guards).
+### 2) Allow-side witnesses (FD exists)
 
-### 2) Runtime bundles and promotability
+When the sandboxed probe successfully opens a file, it can emit kernel-reported spellings for that FD:
 
-Runtime evidence is produced by `book/api/runtime` and committed as run-scoped bundles (`out/<run_id>/...` with an `artifact_index.json` commit barrier). Decision-stage evidence is only promotable when run through the clean channel (`launchd_clean`) and the bundle passes the runtime contract’s gating.
+- `observed_path` via `F_GETPATH`
+- `observed_path_nofirmlink` via `F_GETPATH_NOFIRMLINK` (when supported)
+- optional `fd_identity` (best-effort object identity when enabled: `st_dev`, `st_ino`, mount identity via `fstatfs(2)`)
 
-This matters because “apply-stage failures” (for example `EPERM`) are usually staging/harness confounders, not policy denials. Keep stage/lane discipline when interpreting results.
+Important limitations:
 
-### 3) Path witnesses (`path_witnesses.json`)
+- vnode→path reconstruction can be non-unique (hardlinks / multiple names)
+- vnode→path reconstruction can be sensitive to rename/unlink races
+- vnode→path spellings can be process-relative (procroot-style effects)
 
-To study path spelling, the runtime service emits a dedicated IR: `path_witnesses.json` (see `book/api/runtime/SPEC.md`). Each record joins:
+Treat `F_GETPATH*` as a witness, not as proof of “the internal compare key.”
 
-- `requested_path` (what the probe asked for),
-- `observed_path` (kernel-reported FD spelling, usually via `F_GETPATH`, when an FD exists),
-- `observed_path_nofirmlink` (alternate spelling via `F_GETPATH_NOFIRMLINK`, when available),
-- a conservative `normalized_path` join key,
-- and small canonicalization flags (alias pair, no-firmlink differs).
+### 3) Deny-side witnesses (no FD exists)
 
-Important limits:
+When an operation is denied before the process receives an FD, `F_GETPATH*` cannot be used. On this host, the repo’s best deny-side spelling witness is a sandbox-originated denial log line captured during probe execution. The runtime harness can optionally collect these lines, and the suite derives them into:
 
-- **Denied opens produce no FD**, so they produce no FD-path witness. The mapping generators in this repo refuse to infer canonicalization from denials.
-- A kernel “FD path spelling” is **not a proof** of the literal Seatbelt compared against; it is an observational witness of what the kernel reported for the opened object.
+- `book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/derived/deny_log_witnesses.json`
+
+This is still a diagnostic string witness (not a formal proof of the internal compare key), but it is much closer to the decision pipeline than any post hoc reconstruction.
 
 ### 4) `sandbox_check*` callouts (oracle lane)
 
-Some runtime probes also emit “seatbelt callout” markers: pre-syscall `sandbox_check*` decisions for a given operation + filter argument. These are useful for answering narrow questions like “what does `sandbox_check` say about this input string under this applied profile?” but they are **not syscall outcomes**, and they should not be silently promoted into semantics.
+The runtime harness can optionally call `sandbox_check_by_audit_token` alongside syscall probes. On this host, `SANDBOX_CHECK_CANONICAL` behaves as a **strictness flag** (“reject if the supplied path is not already canonical,” notably symlink components and `..` traversal), not as “canonicalize then check.” Treat it as a guardrail axis, not a path-discovery mechanism.
 
-Two practical implications for path-family work:
+Also note: flags like `NO_REPORT` are observability/overhead knobs (suppresses expensive violation reporting). They should not be treated as a mechanism for obtaining a structured “post-canonicalization path” return value.
 
-- A callout’s `canonical` vs `raw` mode should be interpreted through the lens above: `SANDBOX_CHECK_CANONICAL` is best treated as “reject non-canonical inputs (symlinks / `..`)”, not as “canonicalize then check.”
-- Some public descriptions also suggest the “raw” check path may still perform internal symlink resolution; in that model, the canonical flag is a tightening constraint (“reject inputs that would require resolution or differ from their fully resolved form”), not a request to transform the input.
-- The common `NO_REPORT` flag is an observability/overhead knob (it suppresses expensive violation reporting); toggling it is not expected to yield a structured “compared path” return value. If you need deny-side spellings, treat logs as a separate witness channel and keep them explicitly labeled as diagnostic strings.
+## Host-bounded findings on this world (runtime-backed)
 
-### 5) The non-semantic mapping slice (`vfs_canonicalization`)
+These findings are bounded to the suite’s fixtures, the operation surface above, and committed bundles referenced by `book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/LATEST`.
+
+### A) `/tmp/*` requests behave as if `/private/tmp/*` is the semantically live spelling
+
+In the tri-profile pattern:
+
+- alias-only (`/tmp/*` literals) denies attempts spelled as both `/tmp/*` and `/private/tmp/*`
+- canonical-only (`/private/tmp/*` literals) allows attempts spelled as both `/tmp/*` and `/private/tmp/*`
+- both-spellings matches canonical-only (control)
+
+When a sandboxed FD exists for an allowed `/tmp/foo` request, `F_GETPATH` reports `/private/tmp/foo`. This is consistent with lookup-time resolution of `/tmp` into `/private/tmp` on this host, and it is the smallest “runtime confounder” model that fits the observed allow/deny outcomes for this family.
+
+### B) One FD can have multiple kernel spellings; Data-volume spellings are not effective SBPL literal keys in this suite
+
+For allowed opens, the suite often observes both:
+
+- `F_GETPATH` in a firmlink-translated namespace (for example `/private/tmp/...`)
+- `F_GETPATH_NOFIRMLINK` in a Data-volume namespace (for example `/System/Volumes/Data/private/tmp/...`)
+
+However, for the firmlink-focused probes in this suite:
+
+- a Data-only literal profile denies even a Data-volume-spelled request, and
+- a `/private/...`-only literal profile can allow a Data-volume-spelled request.
+
+Bounded interpretation: for these probes on this host, path evaluation behaves as if it is occurring in the firmlink-translated namespace, and Data-volume spellings should be treated as diagnostic witnesses rather than safe primary SBPL literals.
+
+### C) Traversal-component denials explain “both spellings allowed but still denied”
+
+The suite contains multiple cases where allowing the final file literal is not sufficient until a component traversal gate is satisfied (as witnessed by deny-side logs):
+
+- `/etc/hosts` can be denied with `file-read-metadata /etc` even when both `/etc/hosts` and `/private/etc/hosts` are allowed as `file-read*` literals; adding only `(allow file-read-metadata (literal "/etc"))` flips it to allow.
+- `/var/tmp/...` can be denied with `file-read-metadata /var` even when both `/var/tmp/...` and `/private/var/tmp/...` are allowed as `file-read*` literals; adding only `(allow file-read-metadata (literal "/var"))` flips it to allow.
+- an intermediate symlink-in-path request can be denied with `file-read-metadata` on the symlink component directory; adding only that literal flips it to allow.
+
+Bounded interpretation: these are component-level traversal checks, not “final file literal mismatch” failures. They are consistent with lookup-stage enforcement being decomposed into multiple checks on intermediate components.
+
+### D) Syscall surface matters: `openat(2)` via `dirfd` can introduce extra authorization points
+
+The suite’s `openat(2)` probes show a clean split:
+
+- An `openat` leafname pattern (`open(parent_dir)` then `openat(dirfd, leaf)`) is denied under a profile that allows only the file literal `/private/tmp/foo`, with a deny-side witness `file-read-data /private/tmp`.
+- A dedicated profile that adds only `(allow file-read-data (literal "/private/tmp"))` flips the same leafname `openat` probes to allow.
+- A root-relative `openat` variant (pre-open `"/"` outside the sandbox apply, then `openat(rootfd, "tmp/foo")`) matches the `open(2)` results.
+
+Bounded interpretation: “open the same file” is not a single authorization surface; decomposing the operation can add separately-authorized directory opens.
+
+## Practical takeaways (portable, but examples are host-bound)
+
+- Do not assume “two spellings that resolve to the same file” are interchangeable in SBPL. Prove it with tri-profiles on the host.
+- Treat `/System/Volumes/Data/...` spellings as diagnostic (kernel witnesses) unless you have direct host-specific evidence that they are effective SBPL match keys.
+- Expect component traversal gates (`file-read-metadata`) to matter when symlinks or directory aliases are present; allow the component explicitly if deny-side witnesses show it.
+- Model syscall shape: `open(2)` vs `openat(2)` via a separately-opened `dirfd` can require different allows, even for the same target file.
+
+## Repo-native workflow for experiments (portable recipe)
+
+Use the runtime plan system and run through the clean channel so results are promotable and comparable:
+
+- `python -m book.api.runtime run --plan book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/plan.json --channel launchd_clean --out book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out`
+
+To capture deny-side witnesses during a run, enable observer capture:
+
+- `SANDBOX_LORE_WITNESS_OBSERVER=1 WITNESS_OBSERVER_MODE=show python -m book.api.runtime run ...`
+
+Then derive the suite’s reviewable summaries:
+
+- `PYTHONPATH=. python book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/derive_outputs.py`
+
+Use `out/derived/runtime_results.json`, `out/derived/deny_log_witnesses.json`, and the run-scoped `out/<run_id>/path_witnesses.json` as the stable evidence interface. Treat raw stdout/stderr as debugging detail only.
+
+## Mapping slice (`vfs_canonicalization`)
 
 The repo maintains a CARTON mapping slice derived from runtime promotion packets:
 
 - `book/integration/carton/bundle/relationships/mappings/vfs_canonicalization/path_canonicalization_map.json`
 
-This mapping is intentionally conservative:
+This slice is intentionally conservative: it requires allow-side witness records and it refuses to infer behavior from denials (no sandboxed FD witness). Deny-side behavior is tracked separately via the deny-log witness artifacts above.
 
-- Only uses decision-stage promotable packets when available (clean channel).
-- Can fall back to baseline-only witnesses when promotability is unavailable, but still requires actual witness records.
-- Refuses to infer from denied probes (no FD, no witness).
+## Open questions (good next experiments)
 
-Treat it as “bounded observations of path spellings” for this world, not as a global semantic rule.
-
-## Host-bounded findings (what is “mapped” vs “partial”)
-
-The focused VFS-canonicalization suite exists because the `/tmp` family was a repeat confounder in runtime work on this host.
-
-On this baseline, the suite’s summary is:
-
-- **Mapped:** For the suite’s `file-read*`/`file-write*` probes, `/tmp/*` requests are observed (for successful opens) in the `/private/tmp/*` family, and runtime outcomes align with “the semantically live spelling is `/private/tmp/*`” for that family in this suite.
-- **Mapped:** For the firmlink spelling probes in the suite, the harness often observes a firmlink-translated spelling (`F_GETPATH`) and a no-firmlink spelling (`F_GETPATH_NOFIRMLINK`) for the same FD; the suite’s *effective* behavior still tracks the `/private/tmp/*` family for the operations it exercises.
-- **Partial / under exploration:** `/var/tmp` and `/etc` alias behavior, and “intermediate symlink path” behavior remain explicitly bounded and not promoted as broad invariants in the suite report.
-
-When writing new claims, keep them bounded to the exact operations, paths, and harness used by the committed bundle(s).
-
-## A practical experiment playbook (using repo-native tooling)
-
-This section is a concrete recipe for extending what the suite already does, using the same evidence discipline.
-
-### Step 1: Choose a path family + op surface
-
-Pick one “alias family” to isolate at a time (symlink alias, firmlink spelling, mount alias, etc.), and keep the operation surface fixed (start with `file-read*`/`file-write*` because the harness already emits path witnesses for these).
-
-Define:
-
-- alias spelling(s),
-- canonical spelling(s) you suspect,
-- a single target file per spelling (keep it minimal).
-
-### Step 2: Use the tri-profile pattern
-
-For each family, use three minimal profiles:
-
-- alias-only (mentions only the alias spelling),
-- canonical-only,
-- both.
-
-This is the smallest structure that can separate “string-only hypothesis” from “resolution/reconstruction hypothesis.”
-
-### Step 3: Run with bundle discipline (decision-stage when possible)
-
-Use the runtime plan system and run through the clean channel so the result is promotable and comparable:
-
-- `python -m book.api.runtime run --plan ... --channel launchd_clean --out ...`
-
-Then derive the suite’s outputs (runtime summaries + decode summaries) and treat the derived outputs as the stable, reviewable interface.
-
-### Step 4: Join structure ↔ runtime via witnesses
-
-For each probe:
-
-- compare the profile’s literal/anchor presence (structural decode),
-- compare the runtime outcome (allow/deny),
-- and compare `requested_path` vs `observed_path` / `observed_path_nofirmlink` when an FD exists.
-- when available, compare `sandbox_check*` callouts (oracle lane) against syscall outcomes to understand where preflight checks agree/disagree with enforcement on this host.
-
-If alias-only fails while canonical-only succeeds and witnesses show alias→canonical spelling shifts, classify it as a resolution/reconstruction confounder for that family on this host (bounded to that operation surface).
-
-### Step 5: Handle denied attempts explicitly (no FD witness)
-
-Because denied opens produce no FD, you need a separate witness route if you want “decision-time spelling” on denies. The best candidate to integrate is a **sandbox decision log witness** (for example, via SBPL `(debug deny)`), clearly labeled as “decision-log path spelling” (not FD-derived).
-
-If you add this channel, keep it separate from `path_witnesses.json` semantics and avoid claiming it is the internal compare string; treat it as a decision-time string witness that can still be wrong/ambiguous in edge cases. Also treat “violation reporting” toggles (for example `NO_REPORT`) as potential confounders: they affect observability and cost, not the availability of a structured “compared path” return.
-
-## Where to extend next (high-value questions turned into experiments)
-
-The following open questions are actionable: they can be answered by small, instrumented experiments on this host, producing promotable evidence.
-
-1. **Use `SANDBOX_CHECK_CANONICAL` as a guardrail axis:** Treat “canonical” callouts as “reject non-canonical input spellings (symlinks / `..`)”, then design probes where this splits cleanly (for example `/tmp/...` vs `/private/tmp/...`, and a controlled `..` path). Use that split to distinguish “denied because input is non-canonical” from “denied because the canonical spelling is disallowed.”
-
-2. **Deny-side spelling witnesses (explicit, labeled):** Add a captureable sandbox decision-log witness channel (for example SBPL `(debug deny)`), then test whether the logged path tends to be the resolved spelling (e.g., `/private/tmp/...` when requesting `/tmp/...`) and how stable that is across variants. Treat any logged spelling as diagnostic evidence, not ground truth of the internal compare string.
-
-3. **Keep violation reporting out of the main lane:** If you experiment with `NO_REPORT` toggles, isolate it as its own lane/run because it can introduce overhead and side effects. Do not depend on it to provide a structured “post-canonicalization path” output.
-
-4. **Lexical normalization axes beyond symlink/firmlink:** Use controlled fixtures to probe whether the effective match domain collapses repeated slashes, trailing slashes, case differences, and Unicode normalization differences. Keep each axis isolated so the witness is interpretable. For `..` and symlink components specifically, use `SANDBOX_CHECK_CANONICAL` as a crisp negative control.
-
-## Minimal witness record (copy/paste template)
-
-When writing up a new claim, keep it short, checkable, and host-scoped:
-
-```text
-claim:
-  world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
-  status: ok|partial|brittle|blocked
-  stage: compile|apply|bootstrap|operation
-  lane: scenario|baseline|oracle (runtime only)
-  command: <exact command or plan/scenario id>
-  evidence:
-    - <repo-relative path to committed bundle / promotion_packet.json / derived outputs>
-  limits: <one line about what this does NOT prove>
-```
+1. **Lexical normalization beyond symlinks/firmlinks:** repeated slashes, trailing slashes, case, Unicode normalization. Keep volume feature flags in mind: filesystem behavior can collapse distinctions before SBPL string matching becomes relevant.
+2. **Use `fd_identity` as a join spine everywhere:** verify whether alias and canonical spellings consistently hit the same `(st_dev, st_ino)` for the families where they appear interchangeable.
+3. **Hardlink and rename stress tests:** measure how often `F_GETPATH` spellings drift under rename/unlink, and whether deny-side logs behave differently.

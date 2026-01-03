@@ -1,0 +1,85 @@
+{
+  "command": [
+    "book/tools/witness/PolicyWitness.app/Contents/MacOS/policy-witness",
+    "xpc",
+    "session",
+    "--plan-id",
+    "frida-testing:witness-frida",
+    "--correlation-id",
+    "frida-testing:witness-frida.ee8f1dd3-cefe-45a7-a65e-2ae5f5d67c3d",
+    "--wait",
+    "fifo:auto",
+    "--wait-timeout-ms",
+    "15000",
+    "--profile",
+    "minimal"
+  ],
+  "correlation_id": "frida-testing:witness-frida.ee8f1dd3-cefe-45a7-a65e-2ae5f5d67c3d",
+  "error": "TypeError: Object of type PosixPath is not JSON serializable",
+  "exit_code": 0,
+  "hold_open_s": 1,
+  "log_path": "book/api/witness/out/ee8f1dd3-cefe-45a7-a65e-2ae5f5d67c3d/witness/logs/run_probe.log",
+  "log_write_error": null,
+  "plan_id": "frida-testing:witness-frida",
+  "probe_args": [],
+  "probe_finished_at_unix_s": null,
+  "probe_id": "capabilities_snapshot",
+  "probe_started_at_unix_s": null,
+  "row_id": "frida-testing:witness-frida.ee8f1dd3-cefe-45a7-a65e-2ae5f5d67c3d",
+  "session_ready": {
+    "data": {
+      "correlation_id": "frida-testing:witness-frida.ee8f1dd3-cefe-45a7-a65e-2ae5f5d67c3d",
+      "event": "session_ready",
+      "message": "session opened",
+      "pid": 85368,
+      "plan_id": "frida-testing:witness-frida",
+      "service_bundle_id": "com.yourteam.policy-witness.ProbeService_minimal",
+      "service_name": "ProbeService_minimal",
+      "session_token": "8D27C2E8-DD12-41EE-9E45-88D91469AEAB",
+      "wait_mode": "fifo",
+      "wait_path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/policy-witness-session/wait.13A16C9C-53C6-4C02-8794-E9123E431E88.fifo"
+    },
+    "generated_at_unix_ms": 1767468300918,
+    "kind": "xpc_session_event",
+    "result": {
+      "exit_code": 0,
+      "normalized_outcome": "ok",
+      "ok": true,
+      "rc": 0
+    },
+    "schema_version": 1
+  },
+  "stderr": "",
+  "stdout": "{\"data\":{\"correlation_id\":\"frida-testing:witness-frida.ee8f1dd3-cefe-45a7-a65e-2ae5f5d67c3d\",\"event\":\"session_ready\",\"message\":\"session opened\",\"pid\":85368,\"plan_id\":\"frida-testing:witness-frida\",\"service_bundle_id\":\"com.yourteam.policy-witness.ProbeService_minimal\",\"service_name\":\"ProbeService_minimal\",\"session_token\":\"8D27C2E8-DD12-41EE-9E45-88D91469AEAB\",\"wait_mode\":\"fifo\",\"wait_path\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.policy-witness.ProbeService_minimal\\/Data\\/tmp\\/policy-witness-session\\/wait.13A16C9C-53C6-4C02-8794-E9123E431E88.fifo\"},\"generated_at_unix_ms\":1767468300918,\"kind\":\"xpc_session_event\",\"result\":{\"exit_code\":0,\"normalized_outcome\":\"ok\",\"ok\":true,\"rc\":0},\"schema_version\":1}\n{\"data\":{\"correlation_id\":\"frida-testing:witness-frida.ee8f1dd3-cefe-45a7-a65e-2ae5f5d67c3d\",\"event\":\"wait_ready\",\"message\":\"wait configured\",\"pid\":85368,\"plan_id\":\"frida-testing:witness-frida\",\"service_bundle_id\":\"com.yourteam.policy-witness.ProbeService_minimal\",\"service_name\":\"ProbeService_minimal\",\"session_token\":\"8D27C2E8-DD12-41EE-9E45-88D91469AEAB\",\"wait_mode\":\"fifo\",\"wait_path\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.policy-witness.ProbeService_minimal\\/Data\\/tmp\\/policy-witness-session\\/wait.13A16C9C-53C6-4C02-8794-E9123E431E88.fifo\"},\"generated_at_unix_ms\":1767468300918,\"kind\":\"xpc_session_event\",\"result\":{\"exit_code\":0,\"normalized_outcome\":\"ok\",\"ok\":true,\"rc\":0},\"schema_version\":1}\n{\"data\":{\"correlation_id\":\"frida-testing:witness-frida.ee8f1dd3-cefe-45a7-a65e-2ae5f5d67c3d\",\"event\":\"session_closed\",\"message\":\"session closed\",\"pid\":85368,\"plan_id\":\"frida-testing:witness-frida\",\"service_bundle_id\":\"com.yourteam.policy-witness.ProbeService_minimal\",\"service_name\":\"ProbeService_minimal\",\"session_token\":\"8D27C2E8-DD12-41EE-9E45-88D91469AEAB\",\"wait_mode\":\"fifo\",\"wait_path\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.policy-witness.ProbeService_minimal\\/Data\\/tmp\\/policy-witness-session\\/wait.13A16C9C-53C6-4C02-8794-E9123E431E88.fifo\"},\"generated_at_unix_ms\":1767468300920,\"kind\":\"xpc_session_event\",\"result\":{\"exit_code\":0,\"normalized_outcome\":\"ok\",\"ok\":true,\"rc\":0},\"schema_version\":1}",
+  "stdout_json": null,
+  "stdout_jsonl_kinds": {
+    "xpc_session_event": 3
+  },
+  "trigger_delay_s": 0.0,
+  "trigger_events": [],
+  "wait_ready": {
+    "data": {
+      "correlation_id": "frida-testing:witness-frida.ee8f1dd3-cefe-45a7-a65e-2ae5f5d67c3d",
+      "event": "wait_ready",
+      "message": "wait configured",
+      "pid": 85368,
+      "plan_id": "frida-testing:witness-frida",
+      "service_bundle_id": "com.yourteam.policy-witness.ProbeService_minimal",
+      "service_name": "ProbeService_minimal",
+      "session_token": "8D27C2E8-DD12-41EE-9E45-88D91469AEAB",
+      "wait_mode": "fifo",
+      "wait_path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/policy-witness-session/wait.13A16C9C-53C6-4C02-8794-E9123E431E88.fifo"
+    },
+    "generated_at_unix_ms": 1767468300918,
+    "kind": "xpc_session_event",
+    "result": {
+      "exit_code": 0,
+      "normalized_outcome": "ok",
+      "ok": true,
+      "rc": 0
+    },
+    "schema_version": 1
+  },
+  "wait_spec": "fifo:auto",
+  "wait_timeout_ms": 15000
+}

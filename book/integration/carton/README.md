@@ -70,6 +70,10 @@ See `book/integration/carton/mappings/OWNERS.md` for a per-artifact map of gener
    ```sh
    python -m book.integration.carton fix
    ```
+5. Update the inventory graph + manifest (lightweight “I am sure” step):
+   ```sh
+   python -m book.integration.carton track
+   ```
 
 Manual (advanced) steps:
 - `python -m book.integration.carton promote`
@@ -79,6 +83,7 @@ Manual (advanced) steps:
 
 - `python -m book.integration.carton build`: full refresh (optional promotion, fixers, contracts, manifest, check). Use this after mapping inputs change or when you want a clean, end-to-end rebuild.
 - `python -m book.integration.carton fix`: rebuild relationships and views only. Use this when mapping JSON is already up to date but derived indices are stale.
+- `python -m book.integration.carton track`: refresh the inventory graph and manifest after tool/api/evidence changes.
 - `python -m book.integration.carton check`: validate world bindings, schema shapes, and contract drift. Use this to confirm a clean state without rewriting outputs.
 - `python -m book.integration.carton diff`: review drift between expected and current bundle outputs.
 - `make -C book test`: CI front door that runs the Swift graph build and CARTON refresh/check.

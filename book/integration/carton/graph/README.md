@@ -6,6 +6,7 @@ What it does (current):
 - Parses `book/substrate/Concepts.md` + `book/evidence/graph/concepts/CONCEPT_INVENTORY.md` + `book/integration/carton/Concept_map.md`.
 - Emits JSON: `book/evidence/graph/concepts/{concepts.json,concept_map.json,concept_text_map.json}`, `book/evidence/graph/concepts/validation/{strategies.json,validation_report.json}`.
 - Runs light validation (concept IDs referenced by strategies and runtime expectations exist) and writes `book/evidence/graph/concepts/validation/validation_report.json`.
+- Reads the CARTON inventory graph (`book/integration/carton/bundle/relationships/inventory/inventory_graph.json`) for typed validation hints.
 - Feeds stable mappings into CARTON fixers (see `book/integration/carton/bundle/CARTON.json`), the frozen CARTON bundle (relationships/views/contracts + manifest) used by the textbook and CI guardrails.
 - Encodes “always enforced” mapping invariants as Swift data structures; the Swift build fails if the host mappings drift (see `swift/`).
 

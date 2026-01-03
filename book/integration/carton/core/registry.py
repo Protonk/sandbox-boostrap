@@ -7,6 +7,7 @@ from typing import List
 from book.integration.carton.core.models import Artifact, Job, Registry
 from book.integration.carton.jobs import contracts as contracts_jobs
 from book.integration.carton.jobs import fixers as fixer_jobs
+from book.integration.carton.jobs import inventory as inventory_jobs
 from book.integration.carton.jobs import mappings as mapping_jobs
 from book.integration.carton.jobs import specs as specs_jobs
 
@@ -112,6 +113,13 @@ def build_registry() -> Registry:
             checks=["metadata_world_id", "metadata_inputs"],
         ),
         Artifact(
+            id="carton.inventory.graph",
+            path="book/integration/carton/bundle/relationships/inventory/inventory_graph.json",
+            role="mapping",
+            hash_mode="semantic_json",
+            checks=["metadata_world_id", "metadata_inputs"],
+        ),
+        Artifact(
             id="validation.field2_ir",
             path="book/evidence/graph/concepts/validation/out/experiments/field2/field2_ir.json",
             role="provenance",
@@ -183,6 +191,21 @@ def build_registry() -> Registry:
                 "book/integration/carton/spec/invariants.json",
             ],
             runner=specs_jobs.write_specs,
+            always_run=True,
+        ),
+        Job(
+            id="inventory.graph",
+            kind="meta",
+            description="Generate CARTON inventory graph",
+            inputs=[
+                "book/integration/carton/mappings/OWNERS.md",
+                "book/integration/carton/core/registry.py",
+                "book/integration/carton/inventory/graph.py",
+            ],
+            outputs=[
+                "book/integration/carton/bundle/relationships/inventory/inventory_graph.json",
+            ],
+            runner=inventory_jobs.run_inventory_graph,
             always_run=True,
         ),
         Job(
@@ -439,6 +462,7 @@ def build_registry() -> Registry:
             description="Build contracts and CARTON manifest",
             inputs=[
                 "book/integration/carton/spec/carton_spec.json",
+                "book/integration/carton/bundle/relationships/inventory/inventory_graph.json",
                 "book/integration/carton/bundle/relationships/operation_coverage.json",
                 "book/integration/carton/bundle/relationships/operation_system_profiles.json",
                 "book/integration/carton/bundle/relationships/profile_layer_ops.json",

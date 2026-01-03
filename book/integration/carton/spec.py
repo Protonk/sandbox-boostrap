@@ -6,9 +6,12 @@ import json
 from pathlib import Path
 from typing import Any, Dict
 
+import re
+
 from book.integration.carton import paths
 
 HASH_MODES = {"bytes", "semantic_json", "presence_only"}
+_CONTRACT_TOKEN_RE = re.compile(r"(?i)(?:^|/)[^/]*(spec\\.|schema\\.)")
 
 
 def _load_json(path: Path) -> Any:
@@ -76,6 +79,10 @@ def load_invariants(path: Path) -> Dict[str, Any]:
     if not isinstance(data, dict):
         raise ValueError("invariants.json must be a JSON object")
     return data
+
+
+def is_contract_path(path: str | Path) -> bool:
+    return bool(_CONTRACT_TOKEN_RE.search(str(path)))
 
 
 def default_carton_spec_path() -> Path:

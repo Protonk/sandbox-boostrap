@@ -148,19 +148,26 @@ def _run_sandbox_check_entitlements(
 ) -> Dict[str, object]:
     plan_id = action.plan_id or f"witness:compare:{action_id}:sandbox_check"
     try:
-        with keepalive.open_policywitness_session(
-            profile_id=action.profile_id or "",
-            plan_id=plan_id,
-            correlation_id=action.correlation_id,
-            wait_spec=None,
-        ) as handle:
-            if handle.record.wait_mode and handle.record.wait_path:
-                handle.trigger_wait()
-            pid = handle.record.pid
+        with keepalive.KeepaliveService(stage="operation", lane="oracle") as service:
+            result = service.client.start_target(
+                mode="policywitness",
+                profile_id=action.profile_id or "",
+                plan_id=plan_id,
+                correlation_id=action.correlation_id,
+                wait_spec=None,
+            )
+            target = result.get("target") if isinstance(result, dict) else None
+            if not isinstance(target, dict):
+                return _sandbox_check_error_record(
+                    world_id=world_id,
+                    mode="policywitness",
+                    error="missing_target_record",
+                )
+            pid = target.get("pid") if isinstance(target.get("pid"), int) else None
             if pid is None:
                 return _sandbox_check_error_record(
                     world_id=world_id,
-                    mode=keepalive.KEEPALIVE_MODE_POLICYWITNESS,
+                    mode=target.get("mode") or "policywitness",
                     error="missing_pid",
                 )
             validator = sb_api_validator.run_sb_api_validator(
@@ -171,15 +178,24 @@ def _run_sandbox_check_entitlements(
                 extra=spec.extra,
                 timeout_s=spec.timeout_s,
             )
+            target_id = target.get("target_id")
+            if isinstance(target_id, str):
+                service.client.release(target_id=target_id)
             return _sandbox_check_payload(
                 world_id=world_id,
-                keepalive_record=handle.record.to_json(),
+                keepalive_record=target,
                 validator=validator,
             )
+    except keepalive.KeepaliveError as exc:
+        return _sandbox_check_error_record(
+            world_id=world_id,
+            mode="policywitness",
+            error=f"{exc.code}: {exc.message}",
+        )
     except Exception as exc:
         return _sandbox_check_error_record(
             world_id=world_id,
-            mode=keepalive.KEEPALIVE_MODE_POLICYWITNESS,
+            mode="policywitness",
             error=f"{type(exc).__name__}: {exc}",
         )
 
@@ -192,8 +208,16 @@ def _run_sandbox_check_hold_open(
     command_prefix: Sequence[str],
 ) -> Dict[str, object]:
     try:
-        with keepalive.spawn_hold_open(command_prefix=command_prefix) as handle:
-            pid = handle.record.pid
+        with keepalive.KeepaliveService(stage="operation", lane="oracle") as service:
+            result = service.client.start_target(
+                mode="spawn",
+                command_prefix=list(command_prefix),
+                wait_spec="fifo:auto",
+            )
+            target = result.get("target") if isinstance(result, dict) else None
+            if not isinstance(target, dict):
+                return _sandbox_check_error_record(world_id=world_id, mode=mode, error="missing_target_record")
+            pid = target.get("pid") if isinstance(target.get("pid"), int) else None
             if pid is None:
                 return _sandbox_check_error_record(world_id=world_id, mode=mode, error="missing_pid")
             validator = sb_api_validator.run_sb_api_validator(
@@ -204,11 +228,20 @@ def _run_sandbox_check_hold_open(
                 extra=spec.extra,
                 timeout_s=spec.timeout_s,
             )
+            target_id = target.get("target_id")
+            if isinstance(target_id, str):
+                service.client.release(target_id=target_id)
             return _sandbox_check_payload(
                 world_id=world_id,
-                keepalive_record=handle.record.to_json(),
+                keepalive_record=target,
                 validator=validator,
             )
+    except keepalive.KeepaliveError as exc:
+        return _sandbox_check_error_record(
+            world_id=world_id,
+            mode=mode,
+            error=f"{exc.code}: {exc.message}",
+        )
     except Exception as exc:
         return _sandbox_check_error_record(
             world_id=world_id,
@@ -282,14 +315,14 @@ def compare_action(
             prefix = [*_sbpl_wrapper_cmd(action.sbpl), "--"]
             sandbox_results["sbpl"] = _run_sandbox_check_hold_open(
                 world_id=world_id,
-                mode=keepalive.KEEPALIVE_MODE_HOLD_OPEN,
+                mode="spawn",
                 spec=action.sandbox_check,
                 command_prefix=prefix,
             )
         if action.none:
             sandbox_results["none"] = _run_sandbox_check_hold_open(
                 world_id=world_id,
-                mode=keepalive.KEEPALIVE_MODE_HOLD_OPEN,
+                mode="spawn",
                 spec=action.sandbox_check,
                 command_prefix=[],
             )

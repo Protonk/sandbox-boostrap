@@ -9,12 +9,12 @@
   },
   "phase_histograms": {
     "overall": {
-      "total": 122,
+      "total": 140,
       "stages": {
         "apply": 0,
         "bootstrap": 0,
         "preflight": 4,
-        "probe": 118
+        "probe": 136
       },
       "blocked": {
         "total": 4,
@@ -26,10 +26,10 @@
         }
       },
       "probe": {
-        "total": 118,
-        "allow": 52,
-        "deny": 66,
-        "mismatches": 13,
+        "total": 136,
+        "allow": 45,
+        "deny": 91,
+        "mismatches": 30,
         "unobserved": 0
       }
     },
@@ -186,12 +186,12 @@
         }
       },
       "path_alias": {
-        "total": 2,
+        "total": 4,
         "stages": {
           "apply": 0,
           "bootstrap": 0,
           "preflight": 0,
-          "probe": 2
+          "probe": 4
         },
         "blocked": {
           "total": 0,
@@ -199,8 +199,8 @@
           "by_kind": {}
         },
         "probe": {
-          "total": 2,
-          "allow": 0,
+          "total": 4,
+          "allow": 2,
           "deny": 2,
           "mismatches": 2,
           "unobserved": 0
@@ -221,9 +221,9 @@
         },
         "probe": {
           "total": 19,
-          "allow": 8,
-          "deny": 11,
-          "mismatches": 4,
+          "allow": 0,
+          "deny": 19,
+          "mismatches": 12,
           "unobserved": 0
         }
       },
@@ -242,9 +242,9 @@
         },
         "probe": {
           "total": 16,
-          "allow": 8,
-          "deny": 8,
-          "mismatches": 0,
+          "allow": 0,
+          "deny": 16,
+          "mismatches": 8,
           "unobserved": 0
         }
       },
@@ -308,6 +308,90 @@
           "allow": 1,
           "deny": 1,
           "mismatches": 0,
+          "unobserved": 0
+        }
+      },
+      "ipc_posix": {
+        "total": 4,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 4
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 4,
+          "allow": 2,
+          "deny": 2,
+          "mismatches": 0,
+          "unobserved": 0
+        }
+      },
+      "authorization": {
+        "total": 4,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 4
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 4,
+          "allow": 2,
+          "deny": 2,
+          "mismatches": 0,
+          "unobserved": 0
+        }
+      },
+      "preferences": {
+        "total": 4,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 4
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 4,
+          "allow": 2,
+          "deny": 2,
+          "mismatches": 0,
+          "unobserved": 0
+        }
+      },
+      "xpc_service": {
+        "total": 4,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 4
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 4,
+          "allow": 1,
+          "deny": 3,
+          "mismatches": 1,
           "unobserved": 0
         }
       },
@@ -1839,7 +1923,7 @@
           "failure_kind": "probe_nonzero_exit",
           "mismatch_type": "unexpected_deny",
           "violation_summary": null,
-          "stderr": "open target: Operation not permitted\n"
+          "stderr": "open target: No such file or directory\n"
         }
       ],
       "impact": null,
@@ -1912,7 +1996,7 @@
           "failure_kind": "probe_nonzero_exit",
           "mismatch_type": "unexpected_deny",
           "violation_summary": null,
-          "stderr": "open target: Operation not permitted\n"
+          "stderr": "open target: No such file or directory\n"
         }
       ],
       "impact": null,
@@ -2015,7 +2099,7 @@
           "failure_kind": "probe_nonzero_exit",
           "mismatch_type": "unexpected_deny",
           "violation_summary": null,
-          "stderr": "open target: Operation not permitted\n"
+          "stderr": "open target: No such file or directory\n"
         }
       ],
       "impact": null,
@@ -2088,7 +2172,7 @@
           "failure_kind": "probe_nonzero_exit",
           "mismatch_type": "unexpected_deny",
           "violation_summary": null,
-          "stderr": "open target: Operation not permitted\n"
+          "stderr": "open target: No such file or directory\n"
         }
       ],
       "impact": null,
@@ -2139,8 +2223,8 @@
       ],
       "results": {
         "total": 1,
-        "matches": 1,
-        "mismatches": 0,
+        "matches": 0,
+        "mismatches": 1,
         "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
@@ -2148,9 +2232,22 @@
           "by_stage": {},
           "by_kind": {}
         },
-        "status": "ok"
+        "status": "brittle"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "adv:struct_flat:allow-ok-root",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
       "impact": null,
       "scenario_id": "adv:struct_flat:allow-ok-root"
     },
@@ -2169,8 +2266,8 @@
       ],
       "results": {
         "total": 1,
-        "matches": 1,
-        "mismatches": 0,
+        "matches": 0,
+        "mismatches": 1,
         "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
@@ -2178,9 +2275,22 @@
           "by_stage": {},
           "by_kind": {}
         },
-        "status": "ok"
+        "status": "brittle"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "adv:struct_flat:allow-ok-deep",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
       "impact": null,
       "scenario_id": "adv:struct_flat:allow-ok-deep"
     },
@@ -2259,8 +2369,8 @@
       ],
       "results": {
         "total": 1,
-        "matches": 1,
-        "mismatches": 0,
+        "matches": 0,
+        "mismatches": 1,
         "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
@@ -2268,9 +2378,22 @@
           "by_stage": {},
           "by_kind": {}
         },
-        "status": "ok"
+        "status": "brittle"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "adv:struct_flat:write-ok-root",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
       "impact": null,
       "scenario_id": "adv:struct_flat:write-ok-root"
     },
@@ -2289,8 +2412,8 @@
       ],
       "results": {
         "total": 1,
-        "matches": 1,
-        "mismatches": 0,
+        "matches": 0,
+        "mismatches": 1,
         "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
@@ -2298,9 +2421,22 @@
           "by_stage": {},
           "by_kind": {}
         },
-        "status": "ok"
+        "status": "brittle"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "adv:struct_flat:write-ok-deep",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
       "impact": null,
       "scenario_id": "adv:struct_flat:write-ok-deep"
     },
@@ -2379,8 +2515,8 @@
       ],
       "results": {
         "total": 1,
-        "matches": 1,
-        "mismatches": 0,
+        "matches": 0,
+        "mismatches": 1,
         "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
@@ -2388,9 +2524,22 @@
           "by_stage": {},
           "by_kind": {}
         },
-        "status": "ok"
+        "status": "brittle"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "adv:struct_nested:allow-ok-root",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
       "impact": null,
       "scenario_id": "adv:struct_nested:allow-ok-root"
     },
@@ -2409,8 +2558,8 @@
       ],
       "results": {
         "total": 1,
-        "matches": 1,
-        "mismatches": 0,
+        "matches": 0,
+        "mismatches": 1,
         "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
@@ -2418,9 +2567,22 @@
           "by_stage": {},
           "by_kind": {}
         },
-        "status": "ok"
+        "status": "brittle"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "adv:struct_nested:allow-ok-deep",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
       "impact": null,
       "scenario_id": "adv:struct_nested:allow-ok-deep"
     },
@@ -2499,8 +2661,8 @@
       ],
       "results": {
         "total": 1,
-        "matches": 1,
-        "mismatches": 0,
+        "matches": 0,
+        "mismatches": 1,
         "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
@@ -2508,9 +2670,22 @@
           "by_stage": {},
           "by_kind": {}
         },
-        "status": "ok"
+        "status": "brittle"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "adv:struct_nested:write-ok-root",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
       "impact": null,
       "scenario_id": "adv:struct_nested:write-ok-root"
     },
@@ -2529,8 +2704,8 @@
       ],
       "results": {
         "total": 1,
-        "matches": 1,
-        "mismatches": 0,
+        "matches": 0,
+        "mismatches": 1,
         "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
@@ -2538,9 +2713,22 @@
           "by_stage": {},
           "by_kind": {}
         },
-        "status": "ok"
+        "status": "brittle"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "adv:struct_nested:write-ok-deep",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
       "impact": null,
       "scenario_id": "adv:struct_nested:write-ok-deep"
     },
@@ -2619,8 +2807,8 @@
       ],
       "results": {
         "total": 1,
-        "matches": 1,
-        "mismatches": 0,
+        "matches": 0,
+        "mismatches": 1,
         "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
@@ -2628,9 +2816,22 @@
           "by_stage": {},
           "by_kind": {}
         },
-        "status": "ok"
+        "status": "brittle"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "adv:path_edges_private:allow-private",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/private/tmp/runtime-adv/edges/a",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
       "impact": null,
       "scenario_id": "adv:path_edges_private:allow-private"
     },
@@ -2649,8 +2850,8 @@
       ],
       "results": {
         "total": 1,
-        "matches": 1,
-        "mismatches": 0,
+        "matches": 0,
+        "mismatches": 1,
         "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
@@ -2658,9 +2859,22 @@
           "by_stage": {},
           "by_kind": {}
         },
-        "status": "ok"
+        "status": "brittle"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "adv:path_edges_private:allow-private-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
       "impact": null,
       "scenario_id": "adv:path_edges_private:allow-private-subpath"
     },
@@ -2679,8 +2893,8 @@
       ],
       "results": {
         "total": 1,
-        "matches": 1,
-        "mismatches": 0,
+        "matches": 0,
+        "mismatches": 1,
         "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
@@ -2688,9 +2902,22 @@
           "by_stage": {},
           "by_kind": {}
         },
-        "status": "ok"
+        "status": "brittle"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "adv:path_edges_private:allow-tmp",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/edges/a",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
       "impact": null,
       "scenario_id": "adv:path_edges_private:allow-tmp"
     },
@@ -2709,8 +2936,8 @@
       ],
       "results": {
         "total": 1,
-        "matches": 1,
-        "mismatches": 0,
+        "matches": 0,
+        "mismatches": 1,
         "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
@@ -2718,9 +2945,22 @@
           "by_stage": {},
           "by_kind": {}
         },
-        "status": "ok"
+        "status": "brittle"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "adv:path_edges_private:allow-tmp-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
       "impact": null,
       "scenario_id": "adv:path_edges_private:allow-tmp-subpath"
     },
@@ -2769,8 +3009,8 @@
       ],
       "results": {
         "total": 1,
-        "matches": 1,
-        "mismatches": 0,
+        "matches": 0,
+        "mismatches": 1,
         "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
@@ -2778,9 +3018,22 @@
           "by_stage": {},
           "by_kind": {}
         },
-        "status": "ok"
+        "status": "brittle"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "adv:path_edges_private:write-private",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/private/tmp/runtime-adv/edges/a",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
       "impact": null,
       "scenario_id": "adv:path_edges_private:write-private"
     },
@@ -2799,8 +3052,8 @@
       ],
       "results": {
         "total": 1,
-        "matches": 1,
-        "mismatches": 0,
+        "matches": 0,
+        "mismatches": 1,
         "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
@@ -2808,9 +3061,22 @@
           "by_stage": {},
           "by_kind": {}
         },
-        "status": "ok"
+        "status": "brittle"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "adv:path_edges_private:write-private-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
       "impact": null,
       "scenario_id": "adv:path_edges_private:write-private-subpath"
     },
@@ -2829,8 +3095,8 @@
       ],
       "results": {
         "total": 1,
-        "matches": 1,
-        "mismatches": 0,
+        "matches": 0,
+        "mismatches": 1,
         "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
@@ -2838,9 +3104,22 @@
           "by_stage": {},
           "by_kind": {}
         },
-        "status": "ok"
+        "status": "brittle"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "adv:path_edges_private:write-tmp",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/edges/a",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
       "impact": null,
       "scenario_id": "adv:path_edges_private:write-tmp"
     },
@@ -2859,8 +3138,8 @@
       ],
       "results": {
         "total": 1,
-        "matches": 1,
-        "mismatches": 0,
+        "matches": 0,
+        "mismatches": 1,
         "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
@@ -2868,9 +3147,22 @@
           "by_stage": {},
           "by_kind": {}
         },
-        "status": "ok"
+        "status": "brittle"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "adv:path_edges_private:write-tmp-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
       "impact": null,
       "scenario_id": "adv:path_edges_private:write-tmp-subpath"
     },
@@ -3143,6 +3435,559 @@
       "mismatches": [],
       "impact": null,
       "scenario_id": "adv:file_mode:deny-world"
+    },
+    "adv:ipc_posix_shm:allow-shm": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:ipc_posix_shm",
+      "expectations": [
+        {
+          "expectation_id": "adv:ipc_posix_shm:allow-shm",
+          "profile_id": "adv:ipc_posix_shm",
+          "operation": "ipc-posix-shm-write-create",
+          "target": "sbl.ipc.shm.allow",
+          "expected": "allow",
+          "probe_name": "allow-shm"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:ipc_posix_shm:allow-shm"
+    },
+    "adv:ipc_posix_shm:deny-shm": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:ipc_posix_shm",
+      "expectations": [
+        {
+          "expectation_id": "adv:ipc_posix_shm:deny-shm",
+          "profile_id": "adv:ipc_posix_shm",
+          "operation": "ipc-posix-shm-write-create",
+          "target": "sbl.ipc.shm.deny",
+          "expected": "deny",
+          "probe_name": "deny-shm"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:ipc_posix_shm:deny-shm"
+    },
+    "adv:ipc_posix_shm:allow-shm-alt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:ipc_posix_shm",
+      "expectations": [
+        {
+          "expectation_id": "adv:ipc_posix_shm:allow-shm-alt",
+          "profile_id": "adv:ipc_posix_shm",
+          "operation": "ipc-posix-shm-write-create",
+          "target": "sbl.ipc.shm.allow.alt",
+          "expected": "allow",
+          "probe_name": "allow-shm-alt"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:ipc_posix_shm:allow-shm-alt"
+    },
+    "adv:ipc_posix_shm:deny-shm-alt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:ipc_posix_shm",
+      "expectations": [
+        {
+          "expectation_id": "adv:ipc_posix_shm:deny-shm-alt",
+          "profile_id": "adv:ipc_posix_shm",
+          "operation": "ipc-posix-shm-write-create",
+          "target": "sbl.ipc.shm.deny.alt",
+          "expected": "deny",
+          "probe_name": "deny-shm-alt"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:ipc_posix_shm:deny-shm-alt"
+    },
+    "adv:authorization_right:allow-right": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:authorization_right",
+      "expectations": [
+        {
+          "expectation_id": "adv:authorization_right:allow-right",
+          "profile_id": "adv:authorization_right",
+          "operation": "authorization-right-obtain",
+          "target": "system.preferences",
+          "expected": "allow",
+          "probe_name": "allow-right"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:authorization_right:allow-right"
+    },
+    "adv:authorization_right:deny-right": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:authorization_right",
+      "expectations": [
+        {
+          "expectation_id": "adv:authorization_right:deny-right",
+          "profile_id": "adv:authorization_right",
+          "operation": "authorization-right-obtain",
+          "target": "system.preferences.privacy",
+          "expected": "deny",
+          "probe_name": "deny-right"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:authorization_right:deny-right"
+    },
+    "adv:authorization_right:allow-right-alt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:authorization_right",
+      "expectations": [
+        {
+          "expectation_id": "adv:authorization_right:allow-right-alt",
+          "profile_id": "adv:authorization_right",
+          "operation": "authorization-right-obtain",
+          "target": "system.preferences.network",
+          "expected": "allow",
+          "probe_name": "allow-right-alt"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:authorization_right:allow-right-alt"
+    },
+    "adv:authorization_right:deny-right-alt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:authorization_right",
+      "expectations": [
+        {
+          "expectation_id": "adv:authorization_right:deny-right-alt",
+          "profile_id": "adv:authorization_right",
+          "operation": "authorization-right-obtain",
+          "target": "system.preferences.network.privacy",
+          "expected": "deny",
+          "probe_name": "deny-right-alt"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:authorization_right:deny-right-alt"
+    },
+    "adv:preference_domain:allow-domain": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:preference_domain",
+      "expectations": [
+        {
+          "expectation_id": "adv:preference_domain:allow-domain",
+          "profile_id": "adv:preference_domain",
+          "operation": "user-preference-read",
+          "target": "com.apple.TimeMachine",
+          "expected": "allow",
+          "probe_name": "allow-domain"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:preference_domain:allow-domain"
+    },
+    "adv:preference_domain:deny-domain": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:preference_domain",
+      "expectations": [
+        {
+          "expectation_id": "adv:preference_domain:deny-domain",
+          "profile_id": "adv:preference_domain",
+          "operation": "user-preference-read",
+          "target": "com.apple.sandboxadversarial.fake",
+          "expected": "deny",
+          "probe_name": "deny-domain"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:preference_domain:deny-domain"
+    },
+    "adv:preference_domain:allow-domain-alt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:preference_domain",
+      "expectations": [
+        {
+          "expectation_id": "adv:preference_domain:allow-domain-alt",
+          "profile_id": "adv:preference_domain",
+          "operation": "user-preference-read",
+          "target": "com.apple.SoftwareUpdate",
+          "expected": "allow",
+          "probe_name": "allow-domain-alt"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:preference_domain:allow-domain-alt"
+    },
+    "adv:preference_domain:deny-domain-alt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:preference_domain",
+      "expectations": [
+        {
+          "expectation_id": "adv:preference_domain:deny-domain-alt",
+          "profile_id": "adv:preference_domain",
+          "operation": "user-preference-read",
+          "target": "com.apple.sandboxadversarial.fake2",
+          "expected": "deny",
+          "probe_name": "deny-domain-alt"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:preference_domain:deny-domain-alt"
+    },
+    "adv:xpc_service_name:allow-cfprefsd-xpc": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:xpc_service_name",
+      "expectations": [
+        {
+          "expectation_id": "adv:xpc_service_name:allow-cfprefsd-xpc",
+          "profile_id": "adv:xpc_service_name",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.xpc",
+          "expected": "allow",
+          "probe_name": "allow-cfprefsd-xpc"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "adv:xpc_service_name:allow-cfprefsd-xpc",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.xpc",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": "EPERM",
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "adv:xpc_service_name:allow-cfprefsd-xpc"
+    },
+    "adv:xpc_service_name:deny-bogus-xpc": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:xpc_service_name",
+      "expectations": [
+        {
+          "expectation_id": "adv:xpc_service_name:deny-bogus-xpc",
+          "profile_id": "adv:xpc_service_name",
+          "operation": "mach-lookup",
+          "target": "com.apple.sandboxadversarial.fake.xpc",
+          "expected": "deny",
+          "probe_name": "deny-bogus-xpc"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:xpc_service_name:deny-bogus-xpc"
+    },
+    "adv:xpc_service_name:allow-cfprefsd-xpc-alt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:xpc_service_name",
+      "expectations": [
+        {
+          "expectation_id": "adv:xpc_service_name:allow-cfprefsd-xpc-alt",
+          "profile_id": "adv:xpc_service_name",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.xpc.alt",
+          "expected": "allow",
+          "probe_name": "allow-cfprefsd-xpc-alt"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:xpc_service_name:allow-cfprefsd-xpc-alt"
+    },
+    "adv:xpc_service_name:deny-bogus-xpc-alt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:xpc_service_name",
+      "expectations": [
+        {
+          "expectation_id": "adv:xpc_service_name:deny-bogus-xpc-alt",
+          "profile_id": "adv:xpc_service_name",
+          "operation": "mach-lookup",
+          "target": "com.apple.sandboxadversarial.fake2.xpc",
+          "expected": "deny",
+          "probe_name": "deny-bogus-xpc-alt"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:xpc_service_name:deny-bogus-xpc-alt"
+    },
+    "adv:path_canon_alt:allow-private": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:path_canon_alt",
+      "expectations": [
+        {
+          "expectation_id": "adv:path_canon_alt:allow-private",
+          "profile_id": "adv:path_canon_alt",
+          "operation": "file-read*",
+          "target": "/private/tmp/strict_ok/allow.txt",
+          "expected": "allow",
+          "probe_name": "allow-private"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:path_canon_alt:allow-private"
+    },
+    "adv:path_canon_alt:allow-tmp": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:path_canon_alt",
+      "expectations": [
+        {
+          "expectation_id": "adv:path_canon_alt:allow-tmp",
+          "profile_id": "adv:path_canon_alt",
+          "operation": "file-read*",
+          "target": "/tmp/strict_ok/allow.txt",
+          "expected": "allow",
+          "probe_name": "allow-tmp"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:path_canon_alt:allow-tmp"
     },
     "hardened:mach_lookup:deny-cfprefsd": {
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",

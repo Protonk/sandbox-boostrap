@@ -4,37 +4,46 @@ import pytest
 
 from book.api.witness import keepalive
 from book.api.witness.paths import WITNESS_CLI, WITNESS_HOLD_OPEN
-from book.api.witness.protocol import WaitSpec
 
 
 @pytest.mark.system
 def test_keepalive_hold_open():
     assert WITNESS_HOLD_OPEN.exists(), "missing hold_open helper"
-    with keepalive.spawn_hold_open(wait_spec="fifo:auto", hold_open_timeout_s=5.0) as handle:
-        assert handle.record.pid
-        assert handle.record.mode == keepalive.KEEPALIVE_MODE_HOLD_OPEN
-        if handle.record.wait_mode and handle.record.wait_path:
-            assert handle.trigger_wait() is None
-        assert handle.is_alive() is True
+    with keepalive.KeepaliveService(stage="operation", lane="oracle") as service:
+        result = service.client.start_target(mode="spawn", wait_spec="fifo:auto", ready_timeout_s=5.0)
+        target = result.get("target")
+        assert isinstance(target, dict)
+        assert target.get("pid")
+        assert target.get("mode") == "spawn"
+        target_id = target.get("target_id")
+        assert isinstance(target_id, str)
+        status = service.client.status(target_id=target_id)
+        assert status["target"]["alive"] is True
+        if target.get("wait_mode") and target.get("wait_path"):
+            service.client.release(target_id=target_id)
 
 
 @pytest.mark.system
 def test_keepalive_policywitness_session():
     assert WITNESS_CLI.exists(), "missing PolicyWitness CLI (book/tools/witness/PolicyWitness.app)"
     try:
-        with keepalive.open_policywitness_session(
-            profile_id="minimal",
-            plan_id="test:keepalive",
-            wait_spec=WaitSpec.fifo_auto(),
-        ) as handle:
-            assert handle.record.pid
-            assert handle.record.mode == keepalive.KEEPALIVE_MODE_POLICYWITNESS
-            if handle.record.wait_mode and handle.record.wait_path:
-                assert handle.trigger_wait() is None
-            assert handle.is_alive() is True
-    except RuntimeError as exc:
-        details = exc.args[1] if len(exc.args) > 1 and isinstance(exc.args[1], dict) else {}
-        stdout = str(details.get("stdout") or "")
-        if "Sandbox restriction" in stdout or "failed at lookup with error 159" in stdout:
+        with keepalive.KeepaliveService(stage="operation", lane="oracle") as service:
+            result = service.client.start_target(
+                mode="policywitness",
+                profile_id="minimal",
+                plan_id="test:keepalive",
+                wait_spec="fifo:auto",
+            )
+            target = result.get("target")
+            assert isinstance(target, dict)
+            assert target.get("pid")
+            assert target.get("mode") == "policywitness"
+            target_id = target.get("target_id")
+            assert isinstance(target_id, str)
+            status = service.client.status(target_id=target_id)
+            assert status["target"]["alive"] is True
+            service.client.release(target_id=target_id)
+    except keepalive.KeepaliveError as exc:
+        if "Sandbox restriction" in exc.message or "failed at lookup with error 159" in exc.message:
             return
         raise

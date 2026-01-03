@@ -7,13 +7,14 @@ PolicyWitness app bundle: `book/tools/witness/PolicyWitness.app`
 ## Entry points
 - `book.api.witness.client.run_probe` / `run_probe_request` (one-shot probes via `xpc run`)
 - `book.api.witness.session.open_session` / `XpcSession` (`xpc session` control plane)
-- `book.api.witness.keepalive.open_keepalive` / `spawn_hold_open` / `open_policywitness_session` (keepalive connectors)
+- `book.api.witness.keepalive.KeepaliveService` / `KeepaliveClient` (keepalive daemon + control socket)
 - `book.api.witness.sb_api_validator.run_sb_api_validator` (sandbox_check oracle lane)
 - `book.api.witness.lifecycle.snapshot_from_probe` / `snapshot_from_session` (on-demand lifecycle snapshots)
 - `book.api.witness.enforcement.enforcement_detail` (minute enforcement detail from probe + observer)
 - `book.api.witness.compare.compare_action` (entitlements/SBPL/none baseline comparison)
 - `book.api.witness.outputs.OutputSpec` (output layout control)
 - `book.api.witness.frida` (PolicyWitness attach-first Frida harness)
+- `book.api.witness.keepalive` (keepalive daemon + hook-frida CLI)
 - `book.api.witness.client.list_profiles` / `list_services` / `show_profile` / `describe_service`
 
 ## Health check (recommended first step)
@@ -24,26 +25,25 @@ health = client.health_check()
 print(health["stdout_json"]["data"]["ok"])
 ```
 
-## Keepalive connectors
-Use these to get a stable PID without ad-hoc glue. Modes:
-
-- `policywitness_session`: keep a PolicyWitness XPC service alive (supports `keepalive` + wait barrier).
-- `spawn_hold_open`: start a minimal helper that blocks until signaled.
-- `pid_lease`: attach-only handle for an existing PID (no keepalive, just liveness checks).
+## Keepalive daemon
+Use a keepalive daemon to create/attach targets and optionally gate release on hooks.
+The daemon exposes a JSONL control socket and emits events to `events.jsonl`.
 
 PolicyWitness session example:
 
 ```py
 from book.api.witness import keepalive
 
-with keepalive.open_policywitness_session(
-    profile_id="minimal",
-    plan_id="witness:keepalive",
-    wait_spec="fifo:auto",
-    heartbeat_s=5.0,
-) as handle:
-    print(handle.record.pid)
-    handle.trigger_wait()
+with keepalive.KeepaliveService(stage="operation", lane="oracle") as service:
+    result = service.client.start_target(
+        mode="policywitness",
+        profile_id="minimal",
+        plan_id="witness:keepalive",
+        wait_spec="fifo:auto",
+    )
+    target = result["target"]
+    print(target["pid"])
+    service.client.release(target_id=target["target_id"])
 ```
 
 Spawn hold_open example (build with `book/api/witness/native/hold_open/build.sh` first):
@@ -51,9 +51,11 @@ Spawn hold_open example (build with `book/api/witness/native/hold_open/build.sh`
 ```py
 from book.api.witness import keepalive
 
-with keepalive.spawn_hold_open(wait_spec="fifo:auto") as handle:
-    print(handle.record.pid)
-    handle.trigger_wait()
+with keepalive.KeepaliveService(stage="operation", lane="oracle") as service:
+    result = service.client.start_target(mode="spawn", wait_spec="fifo:auto")
+    target = result["target"]
+    print(target["pid"])
+    service.client.release(target_id=target["target_id"])
 ```
 
 To run hold_open under another wrapper (for example SBPL apply), pass a prefix:
@@ -62,7 +64,35 @@ To run hold_open under another wrapper (for example SBPL apply), pass a prefix:
 from book.api.witness import keepalive
 
 prefix = ["book/tools/sbpl/wrapper/wrapper", "--sbpl", "path/to/profile.sb", "--"]
-handle = keepalive.spawn_hold_open(command_prefix=prefix)
+with keepalive.KeepaliveService(stage="operation", lane="oracle") as service:
+    result = service.client.start_target(mode="spawn", command_prefix=prefix, wait_spec="fifo:auto")
+    target = result["target"]
+    service.client.release(target_id=target["target_id"])
+```
+
+Standalone daemon (control socket):
+
+```sh
+python -m book.api.witness.keepalive serve \
+  --control-socket book/api/witness/out/keepalive/keepalive.sock \
+  --events book/api/witness/out/keepalive/events.jsonl
+```
+
+Hook Frida via keepalive (attach to an existing PID or spawn hold_open):
+
+```sh
+python -m book.api.witness.keepalive hook-frida \
+  --pid <pid> \
+  --script book/api/frida/hooks/smoke.js
+
+python -m book.api.witness.keepalive hook-frida \
+  --spawn-hold-open \
+  --script book/api/frida/hooks/smoke.js
+
+python -m book.api.witness.keepalive hook-frida \
+  --spawn-hold-open \
+  --script book/api/frida/hooks/smoke.js \
+  --helper
 ```
 
 ## CLI to API mapping (high level)
@@ -146,6 +176,9 @@ with session.open_session(profile_id="minimal", plan_id="witness:session", wait_
     post = sess.run_probe(probe_id="capabilities_snapshot", argv=[])
     print(post["result"]["normalized_outcome"])
 ```
+
+## Frida attach privilege plan
+See `book/api/witness/frida/ATTACH_PRIVILEGE.md` and `python -m book.api.witness.frida.preflight` for the expected attach privilege surface.
 
 ## Lifecycle + enforcement detail
 ```py

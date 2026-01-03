@@ -27,6 +27,10 @@ PolicyWitness attach-first runs use the same trace product contract, but are orc
 
 `python -m book.api.witness.frida --profile-id <profile_id> --probe-id <probe_id> --script book/api/frida/hooks/fs_open_selftest.js --out-dir book/api/witness/out`
 
+Add `--keepalive` to route Frida attach through the keepalive daemon (PolicyWitness session remains direct).
+Add `--frida-helper` to route the keepalive attach through the signed helper at `book/api/frida/native/attach_helper`.
+Attach privilege plan and preflight: `book/api/witness/frida/ATTACH_PRIVILEGE.md` and `python -m book.api.witness.frida.preflight`.
+
 Outputs (under the PolicyWitness run root):
 - `<out_dir>/<run_id>/frida/meta.json`
 - `<out_dir>/<run_id>/frida/events.jsonl`

@@ -3,5 +3,9 @@
 
 (allow mach-lookup
   (xpc-service-name "com.apple.cfprefsd.xpc"))
+(allow mach-lookup
+  (xpc-service-name "com.apple.cfprefsd.xpc.alt"))
 (deny mach-lookup
   (xpc-service-name "com.apple.sandboxadversarial.fake.xpc"))
+(deny mach-lookup
+  (xpc-service-name "com.apple.sandboxadversarial.fake2.xpc"))

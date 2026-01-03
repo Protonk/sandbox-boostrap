@@ -13,7 +13,8 @@ from typing import Dict, List, Optional, Sequence, Tuple
 
 from book.api import path_utils
 from book.api.witness import client as witness_client
-from book.api.witness import lifecycle, outputs
+from book.api.witness import keepalive, lifecycle, outputs
+from book.api.witness.paths import WITNESS_FRIDA_ATTACH_HELPER
 from book.api.witness.session import XpcSession
 from book.api.frida.capture import FridaCapture, now_ns
 from book.api.profile.identity import baseline_world_id
@@ -107,6 +108,17 @@ def add_arguments(ap: argparse.ArgumentParser) -> None:
         action="store_true",
         help="Do not create/chmod the selftest path",
     )
+    ap.add_argument(
+        "--keepalive",
+        action="store_true",
+        help="Use keepalive daemon for Frida attach (PolicyWitness session remains direct)",
+    )
+    ap.add_argument(
+        "--frida-helper",
+        action="store_true",
+        help="Use the signed Frida attach helper for keepalive attach",
+    )
+    ap.add_argument("--frida-helper-path", help="Override helper path")
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
@@ -116,6 +128,8 @@ def build_arg_parser() -> argparse.ArgumentParser:
 
 
 def run_from_args(args: argparse.Namespace) -> int:
+    if (args.frida_helper or args.frida_helper_path) and not args.keepalive:
+        raise SystemExit("--frida-helper requires --keepalive")
     repo_root = path_utils.find_repo_root()
     world_id = baseline_world_id(repo_root)
 
@@ -183,27 +197,53 @@ def run_from_args(args: argparse.Namespace) -> int:
 
     frida_capture: Optional[FridaCapture] = None
     frida_attach_error: Optional[str] = None
+    keepalive_service: Optional[keepalive.KeepaliveService] = None
+    keepalive_target_id: Optional[str] = None
+    keepalive_hook_id: Optional[str] = None
+    keepalive_hook_record: Optional[Dict[str, object]] = None
+    keepalive_error: Optional[str] = None
+    keepalive_events_path: Optional[str] = None
 
-    def attach_now(stage: str, info: Optional[Dict[str, object]] = None) -> None:
-        nonlocal frida_capture, frida_attach_error
-        attach_meta["attach_stage"] = stage
-        if info is not None:
-            if stage == "post-trigger":
-                attach_meta["trigger_info"] = info
-            else:
-                attach_meta["wait_info"] = info
-        if stage == "post-trigger" and args.post_trigger_attach_delay_s > 0:
-            time.sleep(args.post_trigger_attach_delay_s)
+    def _ensure_keepalive() -> Optional[keepalive.KeepaliveService]:
+        nonlocal keepalive_service, keepalive_error, keepalive_events_path
+        if keepalive_service is not None:
+            return keepalive_service
+        try:
+            keepalive_service = keepalive.KeepaliveService(stage="operation", lane="oracle")
+            keepalive_service.start()
+            keepalive_events_path = path_utils.to_repo_relative(
+                keepalive_service.config.events_path, repo_root
+            )
+            return keepalive_service
+        except keepalive.KeepaliveError as exc:
+            keepalive_error = f"{exc.code}: {exc.message}"
+        except Exception as exc:
+            keepalive_error = f"{type(exc).__name__}: {exc}"
+        return None
+
+    def _resolve_pid(session: XpcSession) -> Optional[int]:
+        session_pid = session.pid()
+        if session_pid is not None:
+            attach_meta["pid_source"] = "session_ready"
+            attach_meta["pid_candidates"] = [session_pid]
+            attach_meta["pid_error"] = None
+            attach_meta["pid"] = session_pid
+            return session_pid
         if not process_name:
             attach_meta["pid_error"] = "missing_process_name"
-            return
+            return None
         pid, candidates, pid_error = wait_for_pid(process_name, args.attach_timeout_s)
+        attach_meta["pid_source"] = "pgrep"
         attach_meta["pid_candidates"] = candidates
         attach_meta["pid_error"] = pid_error
         if pid is None:
             attach_meta["pid_error"] = attach_meta.get("pid_error") or "pid_not_found"
-            return
+            return None
         attach_meta["pid"] = pid
+        return pid
+
+    def _attach_with_frida(pid: int) -> None:
+        nonlocal frida_capture, frida_attach_error
         config_overlay: Dict[str, object] = {}
         config_overlay_source: Dict[str, object] = {"kind": "overlay"}
         if selftest_path:
@@ -224,15 +264,89 @@ def run_from_args(args: argparse.Namespace) -> int:
         )
         frida_attach_error = frida_capture.attach()
 
-    def on_wait_ready(wait_info: Dict[str, object]) -> None:
+    def _attach_with_keepalive(pid: int) -> None:
+        nonlocal frida_attach_error, keepalive_target_id, keepalive_hook_id, keepalive_hook_record, keepalive_error
+        service = _ensure_keepalive()
+        if service is None:
+            frida_attach_error = keepalive_error or "keepalive_start_failed"
+            return
+        try:
+            attach_res = service.client.attach_target(pid=pid)
+            target = attach_res.get("target") if isinstance(attach_res, dict) else None
+            if not isinstance(target, dict):
+                frida_attach_error = "keepalive_attach_missing_target"
+                return
+            keepalive_target_id = target.get("target_id")
+        except keepalive.KeepaliveError as exc:
+            frida_attach_error = f"KeepaliveError:{exc.code}:{exc.message}"
+            return
+
+        config_overlay: Dict[str, object] = {}
+        config_overlay_source: Dict[str, object] = {"kind": "overlay"}
+        if selftest_path:
+            config_overlay["selftest_path"] = selftest_path
+            if selftest_source:
+                config_overlay_source["source"] = selftest_source
+        config_path = None
+        if args.frida_config_path:
+            config_path = path_utils.to_repo_relative(args.frida_config_path, repo_root)
+        out_dir_arg = path_utils.to_repo_relative(frida_dir, repo_root)
+        helper_path = None
+        if args.frida_helper or args.frida_helper_path:
+            helper_path = args.frida_helper_path or str(WITNESS_FRIDA_ATTACH_HELPER)
+            helper_path = path_utils.to_repo_relative(helper_path, repo_root)
+        try:
+            hook_res = service.client.hook_target(
+                kind="frida",
+                target_id=keepalive_target_id,
+                run_id=run_id,
+                script_path=path_utils.to_repo_relative(script_path, repo_root),
+                config_json=args.frida_config,
+                config_path=config_path,
+                config_overlay=config_overlay,
+                out_dir=out_dir_arg,
+                helper_path=helper_path,
+                gate_release=False,
+            )
+            hook = hook_res.get("hook") if isinstance(hook_res, dict) else None
+            if not isinstance(hook, dict):
+                frida_attach_error = "keepalive_hook_missing_record"
+                return
+            keepalive_hook_record = hook
+            keepalive_hook_id = hook.get("hook_id")
+            if hook.get("status") != "ready":
+                frida_attach_error = hook.get("error") or "keepalive_hook_error"
+        except keepalive.KeepaliveError as exc:
+            frida_attach_error = f"KeepaliveError:{exc.code}:{exc.message}"
+
+    def attach_now(session: XpcSession, stage: str, info: Optional[Dict[str, object]] = None) -> None:
+        nonlocal frida_attach_error
+        attach_meta["attach_stage"] = stage
+        if info is not None:
+            if stage == "post-trigger":
+                attach_meta["trigger_info"] = info
+            else:
+                attach_meta["wait_info"] = info
+        if stage == "post-trigger" and args.post_trigger_attach_delay_s > 0:
+            time.sleep(args.post_trigger_attach_delay_s)
+        pid = _resolve_pid(session)
+        if pid is None:
+            frida_attach_error = attach_meta.get("pid_error") or "pid_not_found"
+            return
+        if args.keepalive:
+            _attach_with_keepalive(pid)
+        else:
+            _attach_with_frida(pid)
+
+    def on_wait_ready(session: XpcSession, wait_info: Dict[str, object]) -> None:
         if args.attach_stage == "wait":
-            attach_now("wait", wait_info)
+            attach_now(session, "wait", wait_info)
         else:
             attach_meta["wait_info"] = wait_info
 
-    def on_trigger(trigger_info: Dict[str, object]) -> None:
+    def on_trigger(session: XpcSession, trigger_info: Dict[str, object]) -> None:
         if args.attach_stage == "post-trigger":
-            attach_now("post-trigger", trigger_info)
+            attach_now(session, "post-trigger", trigger_info)
 
     log_path = logs_dir / "run_probe.log"
     wait_timeout_ms = max(max(args.attach_seconds, 0) * 1000, 15000)
@@ -258,13 +372,14 @@ def run_from_args(args: argparse.Namespace) -> int:
                 "session_ready": session.session_ready.get("data") if isinstance(session.session_ready, dict) else None,
                 "wait_ready": session.wait_ready.get("data") if isinstance(session.wait_ready, dict) else None,
             }
-            on_wait_ready(wait_info)
+            on_wait_ready(session, wait_info)
             if args.trigger_delay_s > 0:
                 time.sleep(args.trigger_delay_s)
             trigger_at = time.time()
             trigger_error = session.trigger_wait(nonblocking=False, timeout_s=2.0)
             trigger_events.append({"kind": "primary", "at_unix_s": trigger_at, "error": trigger_error})
             on_trigger(
+                session,
                 {
                     "wait_path": wait_info["wait_path"],
                     "wait_mode": wait_info["wait_mode"],
@@ -333,12 +448,40 @@ def run_from_args(args: argparse.Namespace) -> int:
         if process_name is None:
             process_name = details.get("process_name")
 
+    if keepalive_service is not None:
+        attach_meta["keepalive"] = {
+            "run_id": keepalive_service.config.run_id,
+            "events_path": keepalive_events_path,
+            "target_id": keepalive_target_id,
+            "hook_id": keepalive_hook_id,
+            "hook_record": keepalive_hook_record,
+            "error": keepalive_error,
+        }
+
     if frida_capture is not None:
         attach_meta["service_pid"] = service_pid
         if service_pid is not None and "pid" in attach_meta:
             attach_meta["pid_matches_service_pid"] = str(service_pid) == str(attach_meta["pid"])
         frida_capture.finalize_meta(world_id=world_id, attach_meta=attach_meta)
         frida_capture.close()
+    elif keepalive_service is not None and keepalive_hook_id is not None:
+        attach_meta["service_pid"] = service_pid
+        if service_pid is not None and "pid" in attach_meta:
+            attach_meta["pid_matches_service_pid"] = str(service_pid) == str(attach_meta["pid"])
+        if keepalive_hook_record and keepalive_hook_record.get("status") == "ready":
+            try:
+                keepalive_service.client.hook_finalize(hook_id=keepalive_hook_id, attach_meta=attach_meta)
+            except keepalive.KeepaliveError as exc:
+                keepalive_error = f"{exc.code}: {exc.message}"
+                frida_attach_error = frida_attach_error or keepalive_error
+
+    if keepalive_service is not None and keepalive_target_id is not None:
+        try:
+            keepalive_service.client.release(target_id=keepalive_target_id)
+        except keepalive.KeepaliveError as exc:
+            keepalive_error = keepalive_error or f"{exc.code}: {exc.message}"
+    if keepalive_service is not None:
+        keepalive_service.close()
 
     manifest = {
         "schema_version": 1,
@@ -374,6 +517,18 @@ def run_from_args(args: argparse.Namespace) -> int:
             ),
             "attach_error": frida_attach_error,
             "attach_meta": attach_meta,
+            "keepalive": (
+                {
+                    "run_id": keepalive_service.config.run_id,
+                    "events_path": keepalive_events_path,
+                    "target_id": keepalive_target_id,
+                    "hook_id": keepalive_hook_id,
+                    "hook_record": keepalive_hook_record,
+                    "error": keepalive_error,
+                }
+                if keepalive_service is not None
+                else None
+            ),
         },
         "selftest": {
             "path": selftest_path,
@@ -388,6 +543,8 @@ def run_from_args(args: argparse.Namespace) -> int:
         or frida_attach_error.startswith("ConfigError:")
         or frida_attach_error.startswith("ConfigureError:")
         or frida_attach_error.startswith("FridaImportError:")
+        or frida_attach_error.startswith("KeepaliveError:")
+        or frida_attach_error.startswith("keepalive_")
     ):
         return 1
     return 0

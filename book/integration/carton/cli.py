@@ -47,7 +47,7 @@ def _resolve_jobs(
     promote: bool,
     explicit_ids: Optional[Iterable[str]] = None,
 ) -> List[str]:
-    job_ids: List[str] = ["specs.write"]
+    job_ids: List[str] = registry.job_ids(kinds=["meta"])
     if explicit_ids:
         job_ids.extend(explicit_ids)
         return job_ids
@@ -77,7 +77,7 @@ def cmd_fix(args: argparse.Namespace) -> None:
     repo_root = _repo_root()
     registry = registry_mod.build_registry()
     pipeline = pipeline_mod.Pipeline(registry, repo_root)
-    job_ids = ["specs.write"]
+    job_ids = registry.job_ids(kinds=["meta"])
     if args.jobs:
         job_ids.extend(_parse_csv(args.jobs))
     else:
@@ -161,6 +161,16 @@ def cmd_swift(args: argparse.Namespace) -> None:
     graph_jobs.run_swift_run(repo_root)
 
 
+def cmd_track(args: argparse.Namespace) -> None:
+    repo_root = _repo_root()
+    registry = registry_mod.build_registry()
+    pipeline = pipeline_mod.Pipeline(registry, repo_root)
+    job_ids = registry.job_ids(kinds=["meta"]) + ["contracts.manifest"]
+    pipeline.run_jobs(job_ids, changed_only=not args.no_changed_only)
+    if not args.skip_check:
+        _run_check(repo_root)
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="CARTON pipeline CLI")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -220,6 +230,11 @@ def build_parser() -> argparse.ArgumentParser:
     swift.add_argument("--run", action="store_true", help="run the Swift graph tool")
     swift.add_argument("--build", action="store_true", help="build the Swift graph tool")
     swift.set_defaults(func=cmd_swift)
+
+    track = subparsers.add_parser("track", help="Update inventory graph and CARTON manifest")
+    track.add_argument("--no-changed-only", action="store_true", help="run all jobs even if outputs look fresh")
+    track.add_argument("--skip-check", action="store_true", help="skip CARTON check at end")
+    track.set_defaults(func=cmd_track)
 
     return parser
 

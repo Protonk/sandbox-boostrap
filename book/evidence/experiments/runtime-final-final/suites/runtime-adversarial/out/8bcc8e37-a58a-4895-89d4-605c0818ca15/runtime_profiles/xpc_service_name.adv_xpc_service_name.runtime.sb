@@ -1,0 +1,20 @@
+(version 1)
+(allow default)
+
+(allow mach-lookup
+  (xpc-service-name "com.apple.cfprefsd.xpc"))
+(allow mach-lookup
+  (xpc-service-name "com.apple.cfprefsd.xpc.alt"))
+(deny mach-lookup
+  (xpc-service-name "com.apple.sandboxadversarial.fake.xpc"))
+(deny mach-lookup
+  (xpc-service-name "com.apple.sandboxadversarial.fake2.xpc"))
+(allow process-exec*)
+(allow file-read* (subpath "/System"))
+(allow file-read* (subpath "/usr"))
+(allow file-read* (subpath "/bin"))
+(allow file-read* (subpath "/sbin"))
+(allow file-read* (subpath "/dev"))
+(allow file-read-metadata (literal "/private"))
+(allow file-read-metadata (literal "/private/tmp"))
+(allow file-read-metadata (literal "/tmp"))

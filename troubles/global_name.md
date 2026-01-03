@@ -624,10 +624,429 @@ Unit 2 does not contradict that: it changes the premise by denying `mach-lookup`
 
 ## Second opinion
 
+Initial suspicions (before re-check):
 - Potential conflation: Unit 1 uses `bootstrap_look_up` success/failure to infer allow/deny. That result can encode service existence (for example, `BOOTSTRAP_UNKNOWN_SERVICE`) rather than a sandbox policy denial, so the resolve-side AA/BB relationship may not be a `global-name` policy witness.
 - Equivalence definition mismatch: the report defines equivalence in terms of a sandbox decision, but Unit 1’s resolve check observes an operational lookup result, not a `sandbox_check` decision; those are not the same kind of evidence.
 - Top-line answer overreach: the brief answer states “AA allowed, BB denied for both,” but for resolve in Unit 1 that may mean “lookup succeeded/failed,” not “sandbox allowed/denied.” This should be qualified or re-verified with a decision witness.
 - Implicit service-presence assumption: Unit 1’s resolve-side denial can be explained by absence of the BB service, independent of sandbox policy, which makes the equivalence claim fragile if service availability changes.
+
+Verification run (launchd-clean, decision vs existence):
+
+- Evidence bundle:
+  - `book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/second_opinion/3d9f98fd-e035-4b29-a2f0-5ce3d1c80def/mach_name_second_opinion.c`
+  - `book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/second_opinion/3d9f98fd-e035-4b29-a2f0-5ce3d1c80def/equiv.stdout.txt`
+  - `book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/second_opinion/3d9f98fd-e035-4b29-a2f0-5ce3d1c80def/lookup.stdout.txt`
+  - `book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/second_opinion/3d9f98fd-e035-4b29-a2f0-5ce3d1c80def/equiv.plist`
+  - `book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/second_opinion/3d9f98fd-e035-4b29-a2f0-5ce3d1c80def/lookup.plist`
+
+Script used (exact):
+
+```sh
+set -euo pipefail
+RUN_ID="$(uuidgen | tr 'A-Z' 'a-z')"
+STAGE="/private/tmp/sandbox_lore_second_opinion_${RUN_ID}"
+OUT_DIR="book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/second_opinion/${RUN_ID}"
+mkdir -p "$STAGE" "$OUT_DIR"
+cat >"$STAGE/mach_name_second_opinion.c" <<'C'
+#include <errno.h>
+#include <mach/mach.h>
+#include <servers/bootstrap.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+enum sandbox_filter_type {
+  SANDBOX_FILTER_NONE = 0,
+  SANDBOX_FILTER_PATH = 1,
+  SANDBOX_FILTER_GLOBAL_NAME = 2,
+  SANDBOX_FILTER_LOCAL_NAME = 3,
+  SANDBOX_FILTER_APPLEEVENT_DESTINATION = 4,
+  SANDBOX_FILTER_RIGHT_NAME = 5,
+  SANDBOX_FILTER_PREFERENCE_DOMAIN = 6,
+  SANDBOX_FILTER_KEXT_BUNDLE_ID = 7,
+  SANDBOX_FILTER_INFO_TYPE = 8,
+  SANDBOX_FILTER_NOTIFICATION = 9
+};
+
+extern int sandbox_check(pid_t pid, const char *operation, enum sandbox_filter_type type, ...);
+extern int sandbox_init_with_parameters(const char *profile, uint64_t flags,
+                                       const char *const parameters[], char **errorbuf);
+extern void sandbox_free_error(char *errorbuf);
+
+static int apply_profile(const char *profile) {
+  const char *params[] = { NULL };
+  char *err = NULL;
+  int rc = sandbox_init_with_parameters(profile, /* SANDBOX_STRING */ 0x0000, params, &err);
+  if (rc != 0) {
+    fprintf(stderr, "sandbox_init_with_parameters failed rc=%d err=%s\n", rc, err ? err : "(null)");
+    if (err) sandbox_free_error(err);
+    return rc;
+  }
+  if (err) sandbox_free_error(err);
+  return 0;
+}
+
+static void do_check(const char *op, const char *name) {
+  errno = 0;
+  int rc = sandbox_check(getpid(), op, SANDBOX_FILTER_GLOBAL_NAME, name);
+  int e = errno;
+  printf("sandbox_check op=%s name=\"%s\" rc=%d errno=%d (%s)\n", op, name, rc, e, strerror(e));
+}
+
+static void do_bootstrap_lookup(const char *name) {
+  mach_port_t bootstrap = MACH_PORT_NULL;
+  if (task_get_special_port(mach_task_self(), TASK_BOOTSTRAP_PORT, &bootstrap) != KERN_SUCCESS) {
+    fprintf(stderr, "task_get_special_port failed\n");
+    return;
+  }
+  mach_port_t port = MACH_PORT_NULL;
+  kern_return_t kr = bootstrap_look_up(bootstrap, name, &port);
+  if (kr == KERN_SUCCESS) {
+    mach_port_deallocate(mach_task_self(), port);
+  }
+  const char *present = "null";
+  if (kr == KERN_SUCCESS) {
+    present = "true";
+  } else if (kr == BOOTSTRAP_UNKNOWN_SERVICE) {
+    present = "false";
+  }
+  printf("bootstrap_look_up name=\"%s\" kr=%d service_present=%s\n", name, kr, present);
+}
+
+static int run_equiv(void) {
+  const char *aa = "com.sandboxlore.secondopinion.equiv";
+  char bb[256];
+  snprintf(bb, sizeof(bb), "%s.%d", aa, (int)getpid());
+
+  char profile[512];
+  snprintf(profile, sizeof(profile),
+           "(version 1)\n"
+           "(deny default)\n"
+           "(allow mach-register (global-name \"%s\"))\n"
+           "(allow mach-lookup (global-name \"%s\"))\n",
+           aa, aa);
+
+  int rc = apply_profile(profile);
+  if (rc != 0) {
+    return rc;
+  }
+
+  printf("mode=equiv pid=%d\n", (int)getpid());
+  printf("AA=%s\n", aa);
+  printf("BB=%s\n", bb);
+  do_check("mach-register", aa);
+  do_check("mach-register", bb);
+  do_check("mach-lookup", aa);
+  do_check("mach-lookup", bb);
+  return 0;
+}
+
+static int run_lookup(void) {
+  char aa[256];
+  snprintf(aa, sizeof(aa), "com.sandboxlore.secondopinion.lookup.%d", (int)getpid());
+
+  char profile[512];
+  snprintf(profile, sizeof(profile),
+           "(version 1)\n"
+           "(deny default)\n"
+           "(allow mach-lookup (global-name \"%s\"))\n",
+           aa);
+
+  int rc = apply_profile(profile);
+  if (rc != 0) {
+    return rc;
+  }
+
+  printf("mode=lookup pid=%d\n", (int)getpid());
+  printf("AA=%s\n", aa);
+  do_check("mach-lookup", aa);
+  do_bootstrap_lookup(aa);
+  return 0;
+}
+
+int main(int argc, char *argv[]) {
+  if (argc != 2) {
+    fprintf(stderr, "Usage: %s <equiv|lookup>\n", argv[0]);
+    return 64;
+  }
+  if (strcmp(argv[1], "equiv") == 0) {
+    return run_equiv();
+  }
+  if (strcmp(argv[1], "lookup") == 0) {
+    return run_lookup();
+  }
+  fprintf(stderr, "unknown mode: %s\n", argv[1]);
+  return 64;
+}
+C
+cc -Wall -Wextra -O2 "$STAGE/mach_name_second_opinion.c" -o "$STAGE/mach_name_second_opinion"
+
+run_job() {
+  local mode="$1"
+  local label="sandbox-lore.second-opinion.${RUN_ID}.${mode}"
+  local plist="$STAGE/${label}.plist"
+  local out="$STAGE/${mode}.stdout.txt"
+  local err="$STAGE/${mode}.stderr.txt"
+  cat >"$plist" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>${label}</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>${STAGE}/mach_name_second_opinion</string>
+    <string>${mode}</string>
+  </array>
+  <key>RunAtLoad</key><true/>
+  <key>WorkingDirectory</key><string>${STAGE}</string>
+  <key>StandardOutPath</key><string>${out}</string>
+  <key>StandardErrorPath</key><string>${err}</string>
+</dict>
+</plist>
+EOF
+  plutil -lint "$plist" >/dev/null
+  local uid_num
+  uid_num="$(id -u)"
+  launchctl bootstrap "gui/${uid_num}" "$plist"
+  for _ in $(seq 1 40); do
+    if [ -s "$out" ] || [ -s "$err" ]; then
+      break
+    fi
+    sleep 0.25
+  done
+  launchctl bootout "gui/${uid_num}" "$plist" >/dev/null 2>&1 || true
+  cp "$plist" "$OUT_DIR/${mode}.plist"
+  cp "$out" "$OUT_DIR/${mode}.stdout.txt" || true
+  cp "$err" "$OUT_DIR/${mode}.stderr.txt" || true
+}
+
+run_job equiv
+run_job lookup
+
+cp "$STAGE/mach_name_second_opinion.c" "$OUT_DIR/mach_name_second_opinion.c"
+printf "%s\n" "$OUT_DIR"
+```
+
+Observed output (equiv decision witness):
+
+```text
+mode=equiv pid=78837
+AA=com.sandboxlore.secondopinion.equiv
+BB=com.sandboxlore.secondopinion.equiv.78837
+sandbox_check op=mach-register name="com.sandboxlore.secondopinion.equiv" rc=0 errno=0 (Undefined error: 0)
+sandbox_check op=mach-register name="com.sandboxlore.secondopinion.equiv.78837" rc=1 errno=0 (Undefined error: 0)
+sandbox_check op=mach-lookup name="com.sandboxlore.secondopinion.equiv" rc=0 errno=0 (Undefined error: 0)
+sandbox_check op=mach-lookup name="com.sandboxlore.secondopinion.equiv.78837" rc=1 errno=0 (Undefined error: 0)
+```
+
+Observed output (lookup existence confound):
+
+```text
+mode=lookup pid=78855
+AA=com.sandboxlore.secondopinion.lookup.78855
+sandbox_check op=mach-lookup name="com.sandboxlore.secondopinion.lookup.78855" rc=0 errno=0 (Undefined error: 0)
+bootstrap_look_up name="com.sandboxlore.secondopinion.lookup.78855" kr=1102 service_present=false
+```
+
+Reasoning:
+- The equiv run uses `sandbox_check` for both ops under the same AA-allow profile; it shows AA allowed and BB denied for both `mach-register` and `mach-lookup`. That is the decision-level equivalence the original question asks about.
+- The lookup run shows `sandbox_check` allowing a unique AA for resolve while `bootstrap_look_up` returns `BOOTSTRAP_UNKNOWN_SERVICE` (`kr=1102`) because the service is not registered. This demonstrates that a `bootstrap_look_up` failure can reflect service absence rather than sandbox policy, confirming the conflation risk in Unit 1’s resolve-side witness.
+
+Syscall-level publish witness (bootstrap_register):
+
+- Evidence bundle:
+  - `book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/second_opinion/67efb8e1-387e-4c0d-99b5-954b8898685d/mach_name_register_witness.c`
+  - `book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/second_opinion/67efb8e1-387e-4c0d-99b5-954b8898685d/nosandbox.stdout.txt`
+  - `book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/second_opinion/67efb8e1-387e-4c0d-99b5-954b8898685d/sandbox.stdout.txt`
+  - `book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/second_opinion/67efb8e1-387e-4c0d-99b5-954b8898685d/nosandbox.plist`
+  - `book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/second_opinion/67efb8e1-387e-4c0d-99b5-954b8898685d/sandbox.plist`
+
+Script used (exact):
+
+```sh
+set -euo pipefail
+RUN_ID="67efb8e1-387e-4c0d-99b5-954b8898685d"
+STAGE="/private/tmp/sandbox_lore_register_witness_${RUN_ID}"
+OUT_DIR="book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/second_opinion/${RUN_ID}"
+mkdir -p "$STAGE" "$OUT_DIR"
+cat >"$STAGE/mach_name_register_witness.c" <<'C'
+#include <errno.h>
+#include <mach/mach.h>
+#include <servers/bootstrap.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+extern int sandbox_init_with_parameters(const char *profile, uint64_t flags,
+                                       const char *const parameters[], char **errorbuf);
+extern void sandbox_free_error(char *errorbuf);
+
+static int apply_profile_for(const char *aa) {
+  char profile[512];
+  snprintf(profile, sizeof(profile),
+           "(version 1)\n"
+           "(deny default)\n"
+           "(allow mach-bootstrap)\n"
+           "(allow mach-task-special-port-get)\n"
+           "(allow mach-register (global-name \"%s\"))\n",
+           aa);
+
+  const char *params[] = { NULL };
+  char *err = NULL;
+  int rc = sandbox_init_with_parameters(profile, /* SANDBOX_STRING */ 0x0000, params, &err);
+  if (rc != 0) {
+    fprintf(stderr, "sandbox_init_with_parameters failed rc=%d err=%s\n",
+            rc, err ? err : "(null)");
+    if (err) sandbox_free_error(err);
+    return rc;
+  }
+  if (err) sandbox_free_error(err);
+  return 0;
+}
+
+static void print_kr(const char *label, kern_return_t kr) {
+  const char *msg = bootstrap_strerror(kr);
+  printf("%s kr=%d (%s)\n", label, kr, msg ? msg : "(null)");
+}
+
+static void do_register(const char *name) {
+  name_t service_name = {0};
+  if (strlen(name) >= sizeof(service_name)) {
+    fprintf(stderr, "name too long: %s\n", name);
+    return;
+  }
+  snprintf(service_name, sizeof(service_name), "%s", name);
+
+  mach_port_t port = MACH_PORT_NULL;
+  kern_return_t kr = mach_port_allocate(mach_task_self(), MACH_PORT_RIGHT_RECEIVE, &port);
+  if (kr != KERN_SUCCESS) {
+    print_kr("mach_port_allocate", kr);
+    return;
+  }
+
+  kr = mach_port_insert_right(mach_task_self(), port, port, MACH_MSG_TYPE_MAKE_SEND);
+  if (kr != KERN_SUCCESS) {
+    print_kr("mach_port_insert_right", kr);
+    mach_port_deallocate(mach_task_self(), port);
+    return;
+  }
+
+  kr = bootstrap_register(bootstrap_port, service_name, port);
+  printf("bootstrap_register name=\"%s\" ", name);
+  print_kr("", kr);
+
+  mach_port_deallocate(mach_task_self(), port);
+}
+
+static void usage(const char *prog) {
+  fprintf(stderr, "Usage: %s <sandbox|nosandbox>\n", prog);
+}
+
+int main(int argc, char *argv[]) {
+  if (argc != 2) {
+    usage(argv[0]);
+    return 64;
+  }
+
+  const char *mode = argv[1];
+  const char *aa = "com.sandboxlore.registerwitness";
+  char bb[256];
+  snprintf(bb, sizeof(bb), "%s.%d", aa, (int)getpid());
+
+  if (strcmp(mode, "sandbox") == 0) {
+    int rc = apply_profile_for(aa);
+    if (rc != 0) {
+      return rc;
+    }
+  } else if (strcmp(mode, "nosandbox") != 0) {
+    usage(argv[0]);
+    return 64;
+  }
+
+  printf("mode=%s pid=%d\n", mode, (int)getpid());
+  printf("AA=%s\n", aa);
+  printf("BB=%s\n", bb);
+
+  do_register(aa);
+  do_register(bb);
+
+  return 0;
+}
+C
+cc -Wall -Wextra -O2 "$STAGE/mach_name_register_witness.c" -o "$STAGE/mach_name_register_witness" -lsandbox
+
+run_job() {
+  local mode="$1"
+  local label="sandbox-lore.register-witness.${RUN_ID}.${mode}"
+  local plist="$STAGE/${label}.plist"
+  local out="$STAGE/${mode}.stdout.txt"
+  local err="$STAGE/${mode}.stderr.txt"
+  cat >"$plist" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>${label}</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>${STAGE}/mach_name_register_witness</string>
+    <string>${mode}</string>
+  </array>
+  <key>RunAtLoad</key><true/>
+  <key>WorkingDirectory</key><string>${STAGE}</string>
+  <key>StandardOutPath</key><string>${out}</string>
+  <key>StandardErrorPath</key><string>${err}</string>
+</dict>
+</plist>
+EOF
+  plutil -lint "$plist" >/dev/null
+  local uid_num
+  uid_num="$(id -u)"
+  launchctl bootstrap "gui/${uid_num}" "$plist"
+  for _ in $(seq 1 40); do
+    if [ -s "$out" ] || [ -s "$err" ]; then
+      break
+    fi
+    sleep 0.25
+  done
+  launchctl bootout "gui/${uid_num}" "$plist" >/dev/null 2>&1 || true
+  cp "$plist" "$OUT_DIR/${mode}.plist"
+  cp "$out" "$OUT_DIR/${mode}.stdout.txt" || true
+  cp "$err" "$OUT_DIR/${mode}.stderr.txt" || true
+}
+
+run_job nosandbox
+run_job sandbox
+
+cp "$STAGE/mach_name_register_witness.c" "$OUT_DIR/mach_name_register_witness.c"
+```
+
+Observed output (nosandbox control):
+
+```text
+mode=nosandbox pid=83716
+AA=com.sandboxlore.registerwitness
+BB=com.sandboxlore.registerwitness.83716
+bootstrap_register name="com.sandboxlore.registerwitness"  kr=0 (Success)
+bootstrap_register name="com.sandboxlore.registerwitness.83716"  kr=0 (Success)
+```
+
+Observed output (sandbox, AA allowed for publish):
+
+```text
+mode=sandbox pid=83729
+AA=com.sandboxlore.registerwitness
+BB=com.sandboxlore.registerwitness.83729
+bootstrap_register name="com.sandboxlore.registerwitness"  kr=0 (Success)
+bootstrap_register name="com.sandboxlore.registerwitness.83729"  kr=1100 (Permission denied)
+```
+
+Reasoning:
+- The nosandbox control shows `bootstrap_register` succeeds for both AA and BB in this process context, so the syscall path itself is viable here.
+- Under the deny-default SBPL that allows only `mach-register` for AA, the syscall-level publish succeeds for AA and fails for BB (`BOOTSTRAP_NOT_PRIVILEGED`), matching the decision-level AA/BB split. This provides a publish witness that does not rely on `sandbox_check`.
 
 ## Status
 

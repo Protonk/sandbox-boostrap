@@ -16,12 +16,12 @@
       "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json"
     ],
     "input_hashes": {
-      "book/integration/carton/bundle/relationships/mappings/runtime_cuts/ops.json": "bb525e35e9151502f2e1235de589ca44ba62e664adddd464ce01dcc85ed851f2",
-      "book/integration/carton/bundle/relationships/mappings/runtime_cuts/scenarios.json": "1b5ec4b2a451fc6b5da5e228e817ae48f6cbdf126ed436115fd3abe5069518ed",
+      "book/integration/carton/bundle/relationships/mappings/runtime_cuts/ops.json": "5361b578c5f33be8d8c223846d7f41be49e50db8e4f69a7b82d770fe375774ba",
+      "book/integration/carton/bundle/relationships/mappings/runtime_cuts/scenarios.json": "c935621703046a676a7b1c7e0c35a0ef989b92cf4d5b1ebc432537f02ba9459b",
       "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json": "4ec5c6896c24d62ea07ec2d93ec6200c4ede1de2ecfeb7cbc498992d4e04400c",
       "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "d8de1b9c7e9b47af05310ca92ae9b79fe33d74e3da16f10139f88d41aaa8a7b6",
-      "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json": "e373601ca57196f27968623a20bed2900b19b3496e54bd8d8517c7da6dd9f01f",
-      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json": "030a6d8b2d5806627e980a90ca7f56d51cb6c52a908ce05881b9c1dd12694136",
+      "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json": "9f53946183806350ea6adf5e3242695f3019a8c240ca36e485760e6d083b8df0",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/58fd21aa-6dea-49c8-a15a-e0a700158708/run_manifest.json": "95e51c0767ac2be22242ea5327caec9a7c94c3e34c4184cb1a0a5fe861adbbbe",
       "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json": "6097736ae37724d1aaf63f0aed6e11bbc039385b68bde03316de4e5d9da6216f",
       "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "c3a436fe061545ba76f0bb1cbccca9c9060a5fb6e8d577488d6fc8fffb8c04f7",
       "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json": "8854b68b6d7050694c6deecff384b92867fa8df497599a01ec757caab4321560",
@@ -52,12 +52,80 @@
         "expectation_id": "adv:path_edges:allow-tmp"
       },
       {
+        "op_name": "file-read*",
+        "expectation_id": "adv:path_edges_private:allow-private"
+      },
+      {
+        "op_name": "file-read*",
+        "expectation_id": "adv:path_edges_private:allow-private-subpath"
+      },
+      {
+        "op_name": "file-read*",
+        "expectation_id": "adv:path_edges_private:allow-tmp"
+      },
+      {
+        "op_name": "file-read*",
+        "expectation_id": "adv:path_edges_private:allow-tmp-subpath"
+      },
+      {
+        "op_name": "file-read*",
+        "expectation_id": "adv:struct_flat:allow-ok-deep"
+      },
+      {
+        "op_name": "file-read*",
+        "expectation_id": "adv:struct_flat:allow-ok-root"
+      },
+      {
+        "op_name": "file-read*",
+        "expectation_id": "adv:struct_nested:allow-ok-deep"
+      },
+      {
+        "op_name": "file-read*",
+        "expectation_id": "adv:struct_nested:allow-ok-root"
+      },
+      {
         "op_name": "file-write*",
         "expectation_id": "adv:path_edges:write-subpath"
       },
       {
         "op_name": "file-write*",
         "expectation_id": "adv:path_edges:write-tmp"
+      },
+      {
+        "op_name": "file-write*",
+        "expectation_id": "adv:path_edges_private:write-private"
+      },
+      {
+        "op_name": "file-write*",
+        "expectation_id": "adv:path_edges_private:write-private-subpath"
+      },
+      {
+        "op_name": "file-write*",
+        "expectation_id": "adv:path_edges_private:write-tmp"
+      },
+      {
+        "op_name": "file-write*",
+        "expectation_id": "adv:path_edges_private:write-tmp-subpath"
+      },
+      {
+        "op_name": "file-write*",
+        "expectation_id": "adv:struct_flat:write-ok-deep"
+      },
+      {
+        "op_name": "file-write*",
+        "expectation_id": "adv:struct_flat:write-ok-root"
+      },
+      {
+        "op_name": "file-write*",
+        "expectation_id": "adv:struct_nested:write-ok-deep"
+      },
+      {
+        "op_name": "file-write*",
+        "expectation_id": "adv:struct_nested:write-ok-root"
+      },
+      {
+        "op_name": "mach-lookup",
+        "expectation_id": "adv:xpc_service_name:allow-cfprefsd-xpc"
       },
       {
         "op_name": "mach-lookup",
@@ -89,8 +157,8 @@
       }
     ],
     "mismatch_summary": {
-      "total_mismatches": 13,
-      "total_disallowed_mismatches": 13,
+      "total_mismatches": 30,
+      "total_disallowed_mismatches": 30,
       "tags": {}
     },
     "provenance": {
@@ -111,12 +179,12 @@
           "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json"
         ],
         "input_hashes": {
-          "book/integration/carton/bundle/relationships/mappings/runtime_cuts/ops.json": "bb525e35e9151502f2e1235de589ca44ba62e664adddd464ce01dcc85ed851f2",
-          "book/integration/carton/bundle/relationships/mappings/runtime_cuts/scenarios.json": "1b5ec4b2a451fc6b5da5e228e817ae48f6cbdf126ed436115fd3abe5069518ed",
+          "book/integration/carton/bundle/relationships/mappings/runtime_cuts/ops.json": "5361b578c5f33be8d8c223846d7f41be49e50db8e4f69a7b82d770fe375774ba",
+          "book/integration/carton/bundle/relationships/mappings/runtime_cuts/scenarios.json": "c935621703046a676a7b1c7e0c35a0ef989b92cf4d5b1ebc432537f02ba9459b",
           "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json": "4ec5c6896c24d62ea07ec2d93ec6200c4ede1de2ecfeb7cbc498992d4e04400c",
           "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "d8de1b9c7e9b47af05310ca92ae9b79fe33d74e3da16f10139f88d41aaa8a7b6",
-          "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json": "e373601ca57196f27968623a20bed2900b19b3496e54bd8d8517c7da6dd9f01f",
-          "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json": "030a6d8b2d5806627e980a90ca7f56d51cb6c52a908ce05881b9c1dd12694136",
+          "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json": "9f53946183806350ea6adf5e3242695f3019a8c240ca36e485760e6d083b8df0",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/58fd21aa-6dea-49c8-a15a-e0a700158708/run_manifest.json": "95e51c0767ac2be22242ea5327caec9a7c94c3e34c4184cb1a0a5fe861adbbbe",
           "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json": "6097736ae37724d1aaf63f0aed6e11bbc039385b68bde03316de4e5d9da6216f",
           "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "c3a436fe061545ba76f0bb1cbccca9c9060a5fb6e8d577488d6fc8fffb8c04f7",
           "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json": "8854b68b6d7050694c6deecff384b92867fa8df497599a01ec757caab4321560",
@@ -127,21 +195,21 @@
         "run_provenance": {
           "run_ids": [
             "1e641b64-6267-47df-b1c3-b320aa90e675",
-            "738fc3d0-1d12-4608-9a97-90addfbc8d4c",
+            "58fd21aa-6dea-49c8-a15a-e0a700158708",
             "62456e46-0901-4345-b02d-f96becc33310",
             "fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
             "83c8343f-44ca-452a-be49-470fb0b5fd3d"
           ],
           "manifests": [
             "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json",
-            "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json",
+            "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/58fd21aa-6dea-49c8-a15a-e0a700158708/run_manifest.json",
             "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
             "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
             "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
           ],
           "repo_root_contexts": [
             "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675",
-            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.738fc3d0-1d12-4608-9a97-90addfbc8d4c",
+            ".",
             "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.62456e46-0901-4345-b02d-f96becc33310",
             "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
             "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.83c8343f-44ca-452a-be49-470fb0b5fd3d"
@@ -160,6 +228,8 @@
         "adv:mount_relative_path:deny-outside",
         "adv:path_alias:alias-private",
         "adv:path_alias:alias-tmp",
+        "adv:path_canon_alt:allow-private",
+        "adv:path_canon_alt:allow-tmp",
         "adv:path_edges:allow-subpath",
         "adv:path_edges:allow-subpath-normalized",
         "adv:path_edges:allow-tmp",
@@ -196,18 +266,26 @@
         "sys:bsd:read_/tmp/foo"
       ],
       "counts": {
-        "runtime_signatures": 40
+        "runtime_signatures": 42
       },
       "status": "partial",
       "mismatches": [
         "adv:path_alias:alias-private",
         "adv:path_alias:alias-tmp",
         "adv:path_edges:allow-subpath",
-        "adv:path_edges:allow-tmp"
+        "adv:path_edges:allow-tmp",
+        "adv:path_edges_private:allow-private",
+        "adv:path_edges_private:allow-private-subpath",
+        "adv:path_edges_private:allow-tmp",
+        "adv:path_edges_private:allow-tmp-subpath",
+        "adv:struct_flat:allow-ok-deep",
+        "adv:struct_flat:allow-ok-root",
+        "adv:struct_nested:allow-ok-deep",
+        "adv:struct_nested:allow-ok-root"
       ],
       "mismatch_summary": {
-        "total_mismatches": 4,
-        "total_disallowed_mismatches": 4,
+        "total_mismatches": 12,
+        "total_disallowed_mismatches": 12,
         "tags": {}
       }
     },
@@ -248,11 +326,19 @@
       "status": "partial",
       "mismatches": [
         "adv:path_edges:write-subpath",
-        "adv:path_edges:write-tmp"
+        "adv:path_edges:write-tmp",
+        "adv:path_edges_private:write-private",
+        "adv:path_edges_private:write-private-subpath",
+        "adv:path_edges_private:write-tmp",
+        "adv:path_edges_private:write-tmp-subpath",
+        "adv:struct_flat:write-ok-deep",
+        "adv:struct_flat:write-ok-root",
+        "adv:struct_nested:write-ok-deep",
+        "adv:struct_nested:write-ok-root"
       ],
       "mismatch_summary": {
-        "total_mismatches": 2,
-        "total_disallowed_mismatches": 2,
+        "total_mismatches": 10,
+        "total_disallowed_mismatches": 10,
         "tags": {}
       }
     },
@@ -290,6 +376,10 @@
         "adv:mach_simple_allow:deny-bogus",
         "adv:mach_simple_variants:allow-cfprefsd",
         "adv:mach_simple_variants:deny-bogus",
+        "adv:xpc_service_name:allow-cfprefsd-xpc",
+        "adv:xpc_service_name:allow-cfprefsd-xpc-alt",
+        "adv:xpc_service_name:deny-bogus-xpc",
+        "adv:xpc_service_name:deny-bogus-xpc-alt",
         "anchor-filter-map:cfprefsd:C1_deny_global",
         "anchor-filter-map:cfprefsd:C2_deny_local",
         "anchor-filter-map:cfprefsd:N1_deny_default",
@@ -303,17 +393,18 @@
         "hardened:mach_lookup_allow:allow-cfprefsd"
       ],
       "counts": {
-        "runtime_signatures": 19
+        "runtime_signatures": 23
       },
       "status": "partial",
       "mismatches": [
+        "adv:xpc_service_name:allow-cfprefsd-xpc",
         "anchor-filter-map:cfprefsd:C2_deny_local",
         "anchor-filter-map:cfprefsd:S2_allow_local",
         "hardened:mach_lookup:deny-cfprefsd"
       ],
       "mismatch_summary": {
-        "total_mismatches": 3,
-        "total_disallowed_mismatches": 3,
+        "total_mismatches": 4,
+        "total_disallowed_mismatches": 4,
         "tags": {}
       }
     },
@@ -342,6 +433,63 @@
       ],
       "counts": {
         "runtime_signatures": 2
+      },
+      "status": "ok",
+      "mismatches": [],
+      "mismatch_summary": {
+        "total_mismatches": 0,
+        "total_disallowed_mismatches": 0,
+        "tags": {}
+      }
+    },
+    "ipc-posix-shm-write-create": {
+      "op_id": 78,
+      "runtime_signatures": [
+        "adv:ipc_posix_shm:allow-shm",
+        "adv:ipc_posix_shm:allow-shm-alt",
+        "adv:ipc_posix_shm:deny-shm",
+        "adv:ipc_posix_shm:deny-shm-alt"
+      ],
+      "counts": {
+        "runtime_signatures": 4
+      },
+      "status": "ok",
+      "mismatches": [],
+      "mismatch_summary": {
+        "total_mismatches": 0,
+        "total_disallowed_mismatches": 0,
+        "tags": {}
+      }
+    },
+    "authorization-right-obtain": {
+      "op_id": 2,
+      "runtime_signatures": [
+        "adv:authorization_right:allow-right",
+        "adv:authorization_right:allow-right-alt",
+        "adv:authorization_right:deny-right",
+        "adv:authorization_right:deny-right-alt"
+      ],
+      "counts": {
+        "runtime_signatures": 4
+      },
+      "status": "ok",
+      "mismatches": [],
+      "mismatch_summary": {
+        "total_mismatches": 0,
+        "total_disallowed_mismatches": 0,
+        "tags": {}
+      }
+    },
+    "user-preference-read": {
+      "op_id": 185,
+      "runtime_signatures": [
+        "adv:preference_domain:allow-domain",
+        "adv:preference_domain:allow-domain-alt",
+        "adv:preference_domain:deny-domain",
+        "adv:preference_domain:deny-domain-alt"
+      ],
+      "counts": {
+        "runtime_signatures": 4
       },
       "status": "ok",
       "mismatches": [],

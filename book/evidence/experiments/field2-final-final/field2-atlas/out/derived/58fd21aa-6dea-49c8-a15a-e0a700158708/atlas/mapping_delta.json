@@ -1,0 +1,74 @@
+{
+  "proposals": [
+    {
+      "candidate_after": {
+        "probe_name": "allow-tmp",
+        "profile_id": "adv:path_canon_alt",
+        "scenario_id": "adv:path_canon_alt:allow-tmp"
+      },
+      "candidate_before": {
+        "probe_name": "allow-tmp",
+        "profile_id": "adv:path_edges_private",
+        "scenario_id": "adv:path_edges_private:allow-tmp"
+      },
+      "decision": {
+        "actual": "allow",
+        "expected": "allow",
+        "failure_kind": null,
+        "failure_stage": null,
+        "operation": "file-read*",
+        "runtime_status": "success",
+        "source": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/58fd21aa-6dea-49c8-a15a-e0a700158708/runtime_events.normalized.json",
+        "target": "/tmp/strict_ok/allow.txt"
+      },
+      "field2": 0,
+      "filter_name": "path",
+      "status": "decided"
+    },
+    {
+      "candidate_after": {
+        "probe_name": "allow-cfprefsd-xpc-alt",
+        "profile_id": "adv:xpc_service_name",
+        "scenario_id": "adv:xpc_service_name:allow-cfprefsd-xpc-alt"
+      },
+      "candidate_before": {
+        "probe_name": "allow-cfprefsd-xpc",
+        "profile_id": "adv:xpc_service_name",
+        "scenario_id": "adv:xpc_service_name:allow-cfprefsd-xpc"
+      },
+      "decision": {
+        "actual": "allow",
+        "expected": "allow",
+        "failure_kind": null,
+        "failure_stage": null,
+        "operation": "mach-lookup",
+        "runtime_status": "success",
+        "source": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/58fd21aa-6dea-49c8-a15a-e0a700158708/runtime_events.normalized.json",
+        "target": "com.apple.cfprefsd.xpc.alt"
+      },
+      "field2": 49,
+      "filter_name": "xpc-service-name",
+      "status": "decided"
+    }
+  ],
+  "provenance": {
+    "artifact_index": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/58fd21aa-6dea-49c8-a15a-e0a700158708/artifact_index.json",
+    "artifact_index_sha256": "be0283cf10d9612cda41bde783f62d4fc15da3a130bd0388983cbda3fff180cf",
+    "bundle_dir": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/58fd21aa-6dea-49c8-a15a-e0a700158708",
+    "consumption_receipt": "book/evidence/experiments/field2-final-final/field2-atlas/out/derived/58fd21aa-6dea-49c8-a15a-e0a700158708/consumption_receipt.json",
+    "exports": {
+      "baseline_results": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/58fd21aa-6dea-49c8-a15a-e0a700158708/baseline_results.json",
+      "path_witnesses": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/58fd21aa-6dea-49c8-a15a-e0a700158708/path_witnesses.json",
+      "run_manifest": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/58fd21aa-6dea-49c8-a15a-e0a700158708/run_manifest.json",
+      "runtime_events": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/58fd21aa-6dea-49c8-a15a-e0a700158708/runtime_events.normalized.json"
+    },
+    "packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+    "run_id": "58fd21aa-6dea-49c8-a15a-e0a700158708"
+  },
+  "schema_version": "field2-atlas.mapping_delta.v0",
+  "source_artifacts": {
+    "runtime_events": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/58fd21aa-6dea-49c8-a15a-e0a700158708/runtime_events.normalized.json"
+  },
+  "unresolved": [],
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

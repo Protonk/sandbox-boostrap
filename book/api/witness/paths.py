@@ -24,3 +24,8 @@ WITNESS_EVIDENCE_PROFILES = WITNESS_EVIDENCE / "profiles.json"
 WITNESS_EVIDENCE_SYMBOLS = WITNESS_EVIDENCE / "symbols.json"
 WITNESS_HOLD_OPEN = REPO_ROOT / "book" / "api" / "witness" / "native" / "hold_open" / "hold_open"
 WITNESS_SB_API_VALIDATOR = REPO_ROOT / "book" / "api" / "witness" / "native" / "sb_api_validator" / "sb_api_validator"
+WITNESS_FRIDA_ATTACH_HELPER = REPO_ROOT / "book" / "api" / "frida" / "native" / "attach_helper" / "frida_attach_helper"
+WITNESS_FRIDA_ATTACH_HELPER_ENTITLEMENTS = (
+    REPO_ROOT / "book" / "api" / "frida" / "native" / "attach_helper" / "entitlements.plist"
+)
+WITNESS_KEEPALIVE_OUT = REPO_ROOT / "book" / "api" / "witness" / "out" / "keepalive"

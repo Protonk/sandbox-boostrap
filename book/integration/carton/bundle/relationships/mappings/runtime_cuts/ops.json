@@ -12,10 +12,10 @@
       "op_name": "file-read*",
       "op_id": 21,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-      "probes": 38,
-      "matches": 34,
-      "mismatches": 4,
-      "probes_including_blocked": 40,
+      "probes": 40,
+      "matches": 28,
+      "mismatches": 12,
+      "probes_including_blocked": 42,
       "blocked": {
         "total": 2,
         "by_stage": {
@@ -70,6 +70,8 @@
         "adv:mount_relative_path:deny-outside",
         "adv:path_alias:alias-private",
         "adv:path_alias:alias-tmp",
+        "adv:path_canon_alt:allow-private",
+        "adv:path_canon_alt:allow-tmp",
         "adv:path_edges:allow-subpath",
         "adv:path_edges:allow-subpath-normalized",
         "adv:path_edges:allow-tmp",
@@ -133,6 +135,62 @@
           "expected": "allow",
           "actual": "deny",
           "target": "/tmp/runtime-adv/edges/okdir/item.txt"
+        },
+        {
+          "scenario_id": "adv:struct_flat:allow-ok-root",
+          "expectation_id": "adv:struct_flat:allow-ok-root",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/runtime-adv/struct/ok/allowed.txt"
+        },
+        {
+          "scenario_id": "adv:struct_flat:allow-ok-deep",
+          "expectation_id": "adv:struct_flat:allow-ok-deep",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt"
+        },
+        {
+          "scenario_id": "adv:struct_nested:allow-ok-root",
+          "expectation_id": "adv:struct_nested:allow-ok-root",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/runtime-adv/struct/ok/allowed.txt"
+        },
+        {
+          "scenario_id": "adv:struct_nested:allow-ok-deep",
+          "expectation_id": "adv:struct_nested:allow-ok-deep",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt"
+        },
+        {
+          "scenario_id": "adv:path_edges_private:allow-private",
+          "expectation_id": "adv:path_edges_private:allow-private",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/private/tmp/runtime-adv/edges/a"
+        },
+        {
+          "scenario_id": "adv:path_edges_private:allow-private-subpath",
+          "expectation_id": "adv:path_edges_private:allow-private-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/private/tmp/runtime-adv/edges/okdir/item.txt"
+        },
+        {
+          "scenario_id": "adv:path_edges_private:allow-tmp",
+          "expectation_id": "adv:path_edges_private:allow-tmp",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/runtime-adv/edges/a"
+        },
+        {
+          "scenario_id": "adv:path_edges_private:allow-tmp-subpath",
+          "expectation_id": "adv:path_edges_private:allow-tmp-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/runtime-adv/edges/okdir/item.txt"
         }
       ],
       "coverage_status": "partial"
@@ -142,8 +200,8 @@
       "op_id": 29,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
       "probes": 25,
-      "matches": 23,
-      "mismatches": 2,
+      "matches": 15,
+      "mismatches": 10,
       "probes_including_blocked": 27,
       "blocked": {
         "total": 2,
@@ -235,6 +293,62 @@
           "expected": "allow",
           "actual": "deny",
           "target": "/tmp/runtime-adv/edges/okdir/item.txt"
+        },
+        {
+          "scenario_id": "adv:struct_flat:write-ok-root",
+          "expectation_id": "adv:struct_flat:write-ok-root",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/runtime-adv/struct/ok/allowed.txt"
+        },
+        {
+          "scenario_id": "adv:struct_flat:write-ok-deep",
+          "expectation_id": "adv:struct_flat:write-ok-deep",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt"
+        },
+        {
+          "scenario_id": "adv:struct_nested:write-ok-root",
+          "expectation_id": "adv:struct_nested:write-ok-root",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/runtime-adv/struct/ok/allowed.txt"
+        },
+        {
+          "scenario_id": "adv:struct_nested:write-ok-deep",
+          "expectation_id": "adv:struct_nested:write-ok-deep",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt"
+        },
+        {
+          "scenario_id": "adv:path_edges_private:write-private",
+          "expectation_id": "adv:path_edges_private:write-private",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/private/tmp/runtime-adv/edges/a"
+        },
+        {
+          "scenario_id": "adv:path_edges_private:write-private-subpath",
+          "expectation_id": "adv:path_edges_private:write-private-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/private/tmp/runtime-adv/edges/okdir/item.txt"
+        },
+        {
+          "scenario_id": "adv:path_edges_private:write-tmp",
+          "expectation_id": "adv:path_edges_private:write-tmp",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/runtime-adv/edges/a"
+        },
+        {
+          "scenario_id": "adv:path_edges_private:write-tmp-subpath",
+          "expectation_id": "adv:path_edges_private:write-tmp-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/runtime-adv/edges/okdir/item.txt"
         }
       ],
       "coverage_status": "partial"
@@ -306,10 +420,10 @@
       "op_name": "mach-lookup",
       "op_id": 96,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-      "probes": 19,
-      "matches": 16,
-      "mismatches": 3,
-      "probes_including_blocked": 19,
+      "probes": 23,
+      "matches": 19,
+      "mismatches": 4,
+      "probes_including_blocked": 23,
       "blocked": {
         "total": 0,
         "by_stage": {},
@@ -362,6 +476,10 @@
         "adv:mach_simple_allow:deny-bogus",
         "adv:mach_simple_variants:allow-cfprefsd",
         "adv:mach_simple_variants:deny-bogus",
+        "adv:xpc_service_name:allow-cfprefsd-xpc",
+        "adv:xpc_service_name:allow-cfprefsd-xpc-alt",
+        "adv:xpc_service_name:deny-bogus-xpc",
+        "adv:xpc_service_name:deny-bogus-xpc-alt",
         "anchor-filter-map:cfprefsd:C1_deny_global",
         "anchor-filter-map:cfprefsd:C2_deny_local",
         "anchor-filter-map:cfprefsd:N1_deny_default",
@@ -375,6 +493,13 @@
         "hardened:mach_lookup_allow:allow-cfprefsd"
       ],
       "mismatch_details": [
+        {
+          "scenario_id": "adv:xpc_service_name:allow-cfprefsd-xpc",
+          "expectation_id": "adv:xpc_service_name:allow-cfprefsd-xpc",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "com.apple.cfprefsd.xpc"
+        },
         {
           "scenario_id": "hardened:mach_lookup:deny-cfprefsd",
           "expectation_id": "hardened:mach_lookup:deny-cfprefsd",
@@ -468,6 +593,162 @@
       "scenarios": [
         "adv:xattr:allow-foo-write",
         "adv:xattr:deny-bar-write"
+      ],
+      "coverage_status": "ok"
+    },
+    "ipc-posix-shm-write-create": {
+      "op_name": "ipc-posix-shm-write-create",
+      "op_id": 78,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 4,
+      "matches": 4,
+      "mismatches": 0,
+      "probes_including_blocked": 4,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "unobserved": 0,
+      "examples": [
+        {
+          "scenario_id": "adv:ipc_posix_shm:allow-shm",
+          "expectation_id": "adv:ipc_posix_shm:allow-shm",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:ipc_posix_shm:deny-shm",
+          "expectation_id": "adv:ipc_posix_shm:deny-shm",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:ipc_posix_shm:allow-shm-alt",
+          "expectation_id": "adv:ipc_posix_shm:allow-shm-alt",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:ipc_posix_shm:deny-shm-alt",
+          "expectation_id": "adv:ipc_posix_shm:deny-shm-alt",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "adv:ipc_posix_shm:allow-shm",
+        "adv:ipc_posix_shm:allow-shm-alt",
+        "adv:ipc_posix_shm:deny-shm",
+        "adv:ipc_posix_shm:deny-shm-alt"
+      ],
+      "coverage_status": "ok"
+    },
+    "authorization-right-obtain": {
+      "op_name": "authorization-right-obtain",
+      "op_id": 2,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 4,
+      "matches": 4,
+      "mismatches": 0,
+      "probes_including_blocked": 4,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "unobserved": 0,
+      "examples": [
+        {
+          "scenario_id": "adv:authorization_right:allow-right",
+          "expectation_id": "adv:authorization_right:allow-right",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:authorization_right:deny-right",
+          "expectation_id": "adv:authorization_right:deny-right",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:authorization_right:allow-right-alt",
+          "expectation_id": "adv:authorization_right:allow-right-alt",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:authorization_right:deny-right-alt",
+          "expectation_id": "adv:authorization_right:deny-right-alt",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "adv:authorization_right:allow-right",
+        "adv:authorization_right:allow-right-alt",
+        "adv:authorization_right:deny-right",
+        "adv:authorization_right:deny-right-alt"
+      ],
+      "coverage_status": "ok"
+    },
+    "user-preference-read": {
+      "op_name": "user-preference-read",
+      "op_id": 185,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 4,
+      "matches": 4,
+      "mismatches": 0,
+      "probes_including_blocked": 4,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "unobserved": 0,
+      "examples": [
+        {
+          "scenario_id": "adv:preference_domain:allow-domain",
+          "expectation_id": "adv:preference_domain:allow-domain",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:preference_domain:deny-domain",
+          "expectation_id": "adv:preference_domain:deny-domain",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:preference_domain:allow-domain-alt",
+          "expectation_id": "adv:preference_domain:allow-domain-alt",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:preference_domain:deny-domain-alt",
+          "expectation_id": "adv:preference_domain:deny-domain-alt",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "adv:preference_domain:allow-domain",
+        "adv:preference_domain:allow-domain-alt",
+        "adv:preference_domain:deny-domain",
+        "adv:preference_domain:deny-domain-alt"
       ],
       "coverage_status": "ok"
     },

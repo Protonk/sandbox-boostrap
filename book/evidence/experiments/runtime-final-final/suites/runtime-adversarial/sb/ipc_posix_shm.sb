@@ -10,6 +10,15 @@
 (allow ipc-posix-shm-write-unlink
   (ipc-posix-name "sbl.ipc.shm.allow"))
 
+(allow ipc-posix-shm-write-create
+  (ipc-posix-name "sbl.ipc.shm.allow.alt"))
+(allow ipc-posix-shm-write-data
+  (ipc-posix-name "sbl.ipc.shm.allow.alt"))
+(allow ipc-posix-shm-read-data
+  (ipc-posix-name "sbl.ipc.shm.allow.alt"))
+(allow ipc-posix-shm-write-unlink
+  (ipc-posix-name "sbl.ipc.shm.allow.alt"))
+
 (deny ipc-posix-shm-write-create
   (ipc-posix-name "sbl.ipc.shm.deny"))
 (deny ipc-posix-shm-write-data
@@ -18,3 +27,12 @@
   (ipc-posix-name "sbl.ipc.shm.deny"))
 (deny ipc-posix-shm-write-unlink
   (ipc-posix-name "sbl.ipc.shm.deny"))
+
+(deny ipc-posix-shm-write-create
+  (ipc-posix-name "sbl.ipc.shm.deny.alt"))
+(deny ipc-posix-shm-write-data
+  (ipc-posix-name "sbl.ipc.shm.deny.alt"))
+(deny ipc-posix-shm-read-data
+  (ipc-posix-name "sbl.ipc.shm.deny.alt"))
+(deny ipc-posix-shm-write-unlink
+  (ipc-posix-name "sbl.ipc.shm.deny.alt"))

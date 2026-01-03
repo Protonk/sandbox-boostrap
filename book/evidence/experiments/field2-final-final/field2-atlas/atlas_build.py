@@ -45,6 +45,10 @@ ALT_CANDIDATES = {
     0: {"profile_id": "adv:path_canon_alt", "probe_name": "allow-tmp"},
     1: {"profile_id": "adv:path_edges_private", "probe_name": "allow-tmp-subpath"},
     2: {"profile_id": "adv:xattr", "probe_name": "allow-foo-read"},
+    4: {"profile_id": "adv:ipc_posix_shm", "probe_name": "allow-shm-alt"},
+    26: {"profile_id": "adv:authorization_right", "probe_name": "allow-right-alt"},
+    27: {"profile_id": "adv:preference_domain", "probe_name": "allow-domain-alt"},
+    49: {"profile_id": "adv:xpc_service_name", "probe_name": "allow-cfprefsd-xpc-alt"},
 }
 
 

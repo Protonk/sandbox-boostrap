@@ -1,0 +1,128 @@
+== select-mach-filter ==
+    ("com.apple.security.files.user-selected.read-only"
+     "com.apple.security.documents.user-selected.read"
+     "com.apple.security.files.user-selected.read")
+    ("com.apple.security.files.user-selected.read-write"
+     "com.apple.security.documents.user-selected.read-write")))
+(import "system.sb")
+(import "appsandbox-common.sb")
+(allow system-audit system-sched mach-task-name process-fork lsopen)
+(define (select-mach-filter filter with-star without-star)
+  (if (end-with-star? filter)
+    (with-star (strip-last-char filter))
+    (without-star filter)))
+(define (bundle-id-can-register-service bundle-id service-filter)
+  (if (and (param "application_bundle_id")
+           (equal? (param "application_bundle_id") bundle-id))
+    (let ((mach-filter
+            (select-mach-filter
+              service-filter
+              global-name-prefix
+              global-name)))
+      (allow mach-register mach-filter))))
+(if (and (param "application_bundle_id")
+         (%string-prefix? "com.apple." (param "application_bundle_id")))
+  (allow mach-register (with report) (with telemetry)))
+(with-filter (process-path "/usr/sbin/screencapture")
+  (allow mach-register (global-name "com.apple.screencapture.interactive")))
+(allow mach-register (local-name-prefix ""))
+(bundle-id-can-register-service
+  "com.busymac.busycontacts"
+  "BusyContacts Protocol 1.0")
+(bundle-id-can-register-service "com.blackpixel.kaleidoscope" "KSDOConnection")
+(bundle-id-can-register-service
+  "com.amazon.Kindle"
+  "com.amazon.KindleForMac-*")
+(bundle-id-can-register-service
+  "com.microsoft.OneDrive-mac"
+  "com.microsoft.SkyDrive*")
+(when (entitlement "com.apple.developer.storage.fileutil")
+      (allow system-kext-query)
+      (allow system-socket
+             (require-all (socket-domain AF_SYSTEM) (socket-protocol 2)))
+
+== app group global-name-prefix ==
+           file-mount
+           file-unmount
+           network-bind
+           network-outbound
+           (application-group-regex suite "/"))
+    (read-write-and-issue-extensions (application-group-regex suite "/"))
+    (allow file-read*
+           process-exec
+           (subpath
+             (string-append
+               "/Library/Application Support/AppStore/GroupContent/"
+               suite)))
+    (deny file-write-create
+          (require-all
+            (require-not (vnode-type DIRECTORY))
+            (application-group-literal suite "/Library")))
+    (allow mach-lookup
+           mach-register
+           (global-name-prefix (string-append suite ".")))
+    (allow ipc-posix* (ipc-posix-name-prefix (string-append suite "/")))))
+(appsandbox-extensions)
+(webkit-support)
+(when (entitlement "com.apple.security.device.camera") (webkit-camera-support))
+(when (or (entitlement "com.apple.security.device.audio-input")
+          (entitlement "com.apple.security.device.microphone"))
+      (webkit-microphone-support))
+(webkit-xpc-services)
+(allow authorization-right-obtain
+       (right-name "system.burn")
+       (right-name-regex
+         "^system\\.volume\\.(external|optical|removable)\\.unmount$")
+       (right-name "system.volume.optical.mount"))
+(allow iokit-open-user-client (iokit-user-client-class "SCSITaskUserClient"))
+(allow mach-lookup
+       (global-name "com.apple.DiscRecording:registrar")
+       (global-name "com.apple.SUISMessaging"))
+(allow file-read*
+       file-write*
+       (require-all
+         (require-not (vnode-type SYMLINK))
+         (require-any
+
+== temporary-exception adapters ==
+           (lambda (value)
+             (if (and (pair? value) (string? (car value)))
+               (allow appleevent-send (appleevent-destination (car value)))))
+           entitlement-value))))
+(sandbox-array-entitlement
+  "com.apple.security.temporary-exception.mach-lookup.global-name"
+  (lambda (name) (allow mach-lookup (global-name name))))
+(sandbox-array-entitlement
+  "com.apple.security.temporary-exception.mach-lookup.global-name"
+  (lambda (name)
+    (if (equal? name "com.apple.photolibraryd")
+      (allow mach-lookup (global-name "com.apple.photos.service")))))
+(sandbox-array-entitlement
+  "com.apple.security.temporary-exception.mach-lookup.local-name"
+  (lambda (name) (allow mach-lookup (local-name name))))
+(sandbox-array-entitlement
+  "com.apple.security.temporary-exception.mach-register.global-name"
+  (lambda (name)
+    (when (and (param "application_bundle_id")
+               (or (%string-prefix?
+                     "com.apple."
+                     (param "application_bundle_id"))
+                   (not (%string-prefix? "com.apple." name))))
+          (let ((mach-filter
+                  (select-mach-filter name global-name-prefix global-name)))
+            (allow mach-register mach-filter)))))
+(sandbox-array-entitlement
+  "com.apple.security.temporary-exception.mach-register.local-name"
+  (lambda (name) (allow mach-register (local-name name))))
+(sandbox-array-entitlement
+  "com.apple.security.temporary-exception.files.home-relative-path.read-only"
+  (lambda (path)
+    (let ((filter (select-filter path home-subpath home-literal)))
+      (read-only-and-issue-extensions filter)
+      (allow process-exec filter))))
+(sandbox-array-entitlement
+  "com.apple.security.temporary-exception.files.home-relative-path.read-write"
+  (lambda (path)
+    (let ((filter (select-filter path home-subpath home-literal)))
+      (allow file-link process-exec filter)
+      (read-write-and-issue-extensions filter))))

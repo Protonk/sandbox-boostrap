@@ -1,0 +1,32 @@
+{
+  "schema_version": "field2-decision-policy.v0",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "defaults": {
+    "min_clean_witnesses": 1,
+    "noisy_runtime_retry_budget": 1,
+    "require_inside": true,
+    "inside_accept": {
+      "harness_constrained": false,
+      "min_confidence": "medium"
+    },
+    "require_preflight": true,
+    "preflight_accept": [
+      "no_known_apply_gate_signature"
+    ],
+    "blocked_failure_stages": [
+      "apply",
+      "bootstrap",
+      "preflight"
+    ]
+  },
+  "claim_overrides": {
+    "field2=49": {
+      "driver_min_clean": {
+        "sandbox_check_probe": 1
+      },
+      "optional_drivers": [
+        "xpc_probe"
+      ]
+    }
+  }
+}

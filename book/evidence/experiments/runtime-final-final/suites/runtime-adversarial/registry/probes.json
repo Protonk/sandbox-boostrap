@@ -1503,6 +1503,7 @@
         "allow_default",
         "deny_default"
       ],
+      "driver": "sandbox_check_probe",
       "expected": "allow",
       "expected_predicates": [
         "sbl.ipc.shm.allow"
@@ -1528,6 +1529,7 @@
         "allow_default",
         "deny_default"
       ],
+      "driver": "sandbox_check_probe",
       "expected": "deny",
       "expected_predicates": [
         "sbl.ipc.shm.deny"
@@ -1544,6 +1546,58 @@
         "scenario": true
       },
       "target": "sbl.ipc.shm.deny",
+      "filter_name": "ipc-posix-name"
+    },
+    "adv:ipc_posix_shm:allow-shm-alt": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "driver": "sandbox_check_probe",
+      "expected": "allow",
+      "expected_predicates": [
+        "sbl.ipc.shm.allow.alt"
+      ],
+      "expected_primary_ops": [
+        "ipc-posix-shm-write-create"
+      ],
+      "name": "allow-shm-alt",
+      "operation": "ipc-posix-shm-write-create",
+      "probe_id": "adv:ipc_posix_shm:allow-shm-alt",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "sbl.ipc.shm.allow.alt",
+      "filter_name": "ipc-posix-name"
+    },
+    "adv:ipc_posix_shm:deny-shm-alt": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "driver": "sandbox_check_probe",
+      "expected": "deny",
+      "expected_predicates": [
+        "sbl.ipc.shm.deny.alt"
+      ],
+      "expected_primary_ops": [
+        "ipc-posix-shm-write-create"
+      ],
+      "name": "deny-shm-alt",
+      "operation": "ipc-posix-shm-write-create",
+      "probe_id": "adv:ipc_posix_shm:deny-shm-alt",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "sbl.ipc.shm.deny.alt",
       "filter_name": "ipc-posix-name"
     },
     "adv:authorization_right:allow-right": {
@@ -1598,6 +1652,58 @@
       "target": "system.preferences.privacy",
       "filter_name": "right-name"
     },
+    "adv:authorization_right:allow-right-alt": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "driver": "sandbox_check_probe",
+      "expected": "allow",
+      "expected_predicates": [
+        "system.preferences.network"
+      ],
+      "expected_primary_ops": [
+        "authorization-right-obtain"
+      ],
+      "name": "allow-right-alt",
+      "operation": "authorization-right-obtain",
+      "probe_id": "adv:authorization_right:allow-right-alt",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "system.preferences.network",
+      "filter_name": "right-name"
+    },
+    "adv:authorization_right:deny-right-alt": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "driver": "sandbox_check_probe",
+      "expected": "deny",
+      "expected_predicates": [
+        "system.preferences.network.privacy"
+      ],
+      "expected_primary_ops": [
+        "authorization-right-obtain"
+      ],
+      "name": "deny-right-alt",
+      "operation": "authorization-right-obtain",
+      "probe_id": "adv:authorization_right:deny-right-alt",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "system.preferences.network.privacy",
+      "filter_name": "right-name"
+    },
     "adv:preference_domain:allow-domain": {
       "capabilities_required": [],
       "controls_supported": [
@@ -1650,6 +1756,58 @@
       "target": "com.apple.sandboxadversarial.fake",
       "filter_name": "preference-domain"
     },
+    "adv:preference_domain:allow-domain-alt": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "driver": "sandbox_check_probe",
+      "expected": "allow",
+      "expected_predicates": [
+        "com.apple.SoftwareUpdate"
+      ],
+      "expected_primary_ops": [
+        "user-preference-read"
+      ],
+      "name": "allow-domain-alt",
+      "operation": "user-preference-read",
+      "probe_id": "adv:preference_domain:allow-domain-alt",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "com.apple.SoftwareUpdate",
+      "filter_name": "preference-domain"
+    },
+    "adv:preference_domain:deny-domain-alt": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "driver": "sandbox_check_probe",
+      "expected": "deny",
+      "expected_predicates": [
+        "com.apple.sandboxadversarial.fake2"
+      ],
+      "expected_primary_ops": [
+        "user-preference-read"
+      ],
+      "name": "deny-domain-alt",
+      "operation": "user-preference-read",
+      "probe_id": "adv:preference_domain:deny-domain-alt",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "com.apple.sandboxadversarial.fake2",
+      "filter_name": "preference-domain"
+    },
     "adv:xpc_service_name:allow-cfprefsd-xpc": {
       "capabilities_required": [],
       "controls_supported": [
@@ -1700,6 +1858,58 @@
         "scenario": true
       },
       "target": "com.apple.sandboxadversarial.fake.xpc",
+      "filter_name": "xpc-service-name"
+    },
+    "adv:xpc_service_name:allow-cfprefsd-xpc-alt": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "driver": "sandbox_check_probe",
+      "expected": "allow",
+      "expected_predicates": [
+        "com.apple.cfprefsd.xpc.alt"
+      ],
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "name": "allow-cfprefsd-xpc-alt",
+      "operation": "mach-lookup",
+      "probe_id": "adv:xpc_service_name:allow-cfprefsd-xpc-alt",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "com.apple.cfprefsd.xpc.alt",
+      "filter_name": "xpc-service-name"
+    },
+    "adv:xpc_service_name:deny-bogus-xpc-alt": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "driver": "sandbox_check_probe",
+      "expected": "deny",
+      "expected_predicates": [
+        "com.apple.sandboxadversarial.fake2.xpc"
+      ],
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "name": "deny-bogus-xpc-alt",
+      "operation": "mach-lookup",
+      "probe_id": "adv:xpc_service_name:deny-bogus-xpc-alt",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "com.apple.sandboxadversarial.fake2.xpc",
       "filter_name": "xpc-service-name"
     },
     "adv:path_canon_alt:allow-private": {

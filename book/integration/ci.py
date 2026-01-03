@@ -80,6 +80,7 @@ def run_field2_hunt() -> None:
         "book/integration/tests/graph/test_field2_atlas.py",
         "book/integration/tests/graph/test_field2_unknowns.py",
         "book/integration/tests/graph/test_field2_progress_gate.py",
+        "book/integration/tests/graph/test_field2_decision_gate.py",
         "book/integration/tests/graph/test_anchor_field2_alignment.py",
         "book/integration/tests/graph/test_anchor_filter_alignment.py",
         "book/integration/tests/graph/test_anchor_outputs.py",
