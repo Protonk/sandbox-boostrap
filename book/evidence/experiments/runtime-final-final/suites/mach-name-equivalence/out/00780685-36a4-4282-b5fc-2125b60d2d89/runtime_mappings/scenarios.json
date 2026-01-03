@@ -1,0 +1,178 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "phase_histograms": {
+    "overall": {
+      "total": 4,
+      "stages": {
+        "apply": 0,
+        "bootstrap": 0,
+        "preflight": 0,
+        "probe": 4
+      },
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "probe": {
+        "total": 0,
+        "allow": 0,
+        "deny": 0,
+        "mismatches": 0,
+        "unobserved": 4
+      }
+    },
+    "by_family": {
+      "mach-name-equivalence": {
+        "total": 4,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 4
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 0,
+          "allow": 0,
+          "deny": 0,
+          "mismatches": 0,
+          "unobserved": 4
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "mach-name-equivalence:lookup:allow-aa": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "mach-name-equivalence",
+      "expectations": [
+        {
+          "expectation_id": "mach-name-equivalence:lookup:allow-aa",
+          "profile_id": "mach-name-equivalence",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "probe_name": "lookup-allow-aa"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "mach-name-equivalence:lookup:allow-aa"
+    },
+    "mach-name-equivalence:lookup:deny-bb": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "mach-name-equivalence",
+      "expectations": [
+        {
+          "expectation_id": "mach-name-equivalence:lookup:deny-bb",
+          "profile_id": "mach-name-equivalence",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent.sandboxlore",
+          "expected": "deny",
+          "probe_name": "lookup-deny-bb"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "mach-name-equivalence:lookup:deny-bb"
+    },
+    "mach-name-equivalence:register:allow-aa": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "mach-name-equivalence",
+      "expectations": [
+        {
+          "expectation_id": "mach-name-equivalence:register:allow-aa",
+          "profile_id": "mach-name-equivalence",
+          "operation": "mach-register",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "probe_name": "register-allow-aa"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "mach-name-equivalence:register:allow-aa"
+    },
+    "mach-name-equivalence:register:deny-bb": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "mach-name-equivalence",
+      "expectations": [
+        {
+          "expectation_id": "mach-name-equivalence:register:deny-bb",
+          "profile_id": "mach-name-equivalence",
+          "operation": "mach-register",
+          "target": "com.apple.cfprefsd.agent.sandboxlore",
+          "expected": "deny",
+          "probe_name": "register-deny-bb"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "mach-name-equivalence:register:deny-bb"
+    }
+  }
+}

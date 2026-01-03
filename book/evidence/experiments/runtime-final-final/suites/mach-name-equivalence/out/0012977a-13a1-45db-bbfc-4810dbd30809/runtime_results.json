@@ -1,0 +1,269 @@
+{
+  "mach-name-equivalence": {
+    "status": "ok",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/0012977a-13a1-45db-bbfc-4810dbd30809/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/sb/mach_name_equivalence.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/0012977a-13a1-45db-bbfc-4810dbd30809/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "lookup-allow-aa",
+        "expectation_id": "mach-name-equivalence:lookup:allow-aa",
+        "operation": "mach-lookup",
+        "path": "com.apple.cfprefsd.agent",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": null,
+          "failure_kind": null,
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "command": [
+          "book/api/runtime/native/probes/sandbox_check_self_apply_probe",
+          "book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/0012977a-13a1-45db-bbfc-4810dbd30809/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb",
+          "mach-lookup",
+          "2",
+          "com.apple.cfprefsd.agent",
+          "global-name"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.0012977a-13a1-45db-bbfc-4810dbd30809/book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/0012977a-13a1-45db-bbfc-4810dbd30809/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb\",\"pid\":86646}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.0012977a-13a1-45db-bbfc-4810dbd30809/book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/0012977a-13a1-45db-bbfc-4810dbd30809/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb\",\"pid\":86646}\n",
+        "probe_details": {
+          "operation": "mach-lookup",
+          "filter_type": 2,
+          "argument": "com.apple.cfprefsd.agent",
+          "filter_name": "global-name",
+          "rc": 0,
+          "decision": "allow"
+        },
+        "cmd_started_at_unix_s": 1767436246.120241,
+        "cmd_finished_at_unix_s": 1767436246.3658948,
+        "cmd_duration_s": 0.24565386772155762,
+        "decision_source": "probe_details"
+      },
+      {
+        "name": "lookup-deny-bb",
+        "expectation_id": "mach-name-equivalence:lookup:deny-bb",
+        "operation": "mach-lookup",
+        "path": "com.apple.cfprefsd.agent.sandboxlore",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "book/api/runtime/native/probes/sandbox_check_self_apply_probe",
+          "book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/0012977a-13a1-45db-bbfc-4810dbd30809/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb",
+          "mach-lookup",
+          "2",
+          "com.apple.cfprefsd.agent.sandboxlore",
+          "global-name"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.0012977a-13a1-45db-bbfc-4810dbd30809/book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/0012977a-13a1-45db-bbfc-4810dbd30809/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb\",\"pid\":86647}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.0012977a-13a1-45db-bbfc-4810dbd30809/book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/0012977a-13a1-45db-bbfc-4810dbd30809/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb\",\"pid\":86647}\n",
+        "probe_details": {
+          "operation": "mach-lookup",
+          "filter_type": 2,
+          "argument": "com.apple.cfprefsd.agent.sandboxlore",
+          "filter_name": "global-name",
+          "rc": 1,
+          "decision": "deny"
+        },
+        "cmd_started_at_unix_s": 1767436246.3675,
+        "cmd_finished_at_unix_s": 1767436246.386005,
+        "cmd_duration_s": 0.018504858016967773,
+        "decision_source": "probe_details"
+      },
+      {
+        "name": "register-allow-aa",
+        "expectation_id": "mach-name-equivalence:register:allow-aa",
+        "operation": "mach-register",
+        "path": "com.apple.cfprefsd.agent",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": null,
+          "failure_kind": null,
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "command": [
+          "book/api/runtime/native/probes/sandbox_check_self_apply_probe",
+          "book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/0012977a-13a1-45db-bbfc-4810dbd30809/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb",
+          "mach-register",
+          "2",
+          "com.apple.cfprefsd.agent",
+          "global-name"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.0012977a-13a1-45db-bbfc-4810dbd30809/book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/0012977a-13a1-45db-bbfc-4810dbd30809/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb\",\"pid\":86648}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.0012977a-13a1-45db-bbfc-4810dbd30809/book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/0012977a-13a1-45db-bbfc-4810dbd30809/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb\",\"pid\":86648}\n",
+        "probe_details": {
+          "operation": "mach-register",
+          "filter_type": 2,
+          "argument": "com.apple.cfprefsd.agent",
+          "filter_name": "global-name",
+          "rc": 0,
+          "decision": "allow"
+        },
+        "cmd_started_at_unix_s": 1767436246.386972,
+        "cmd_finished_at_unix_s": 1767436246.4006348,
+        "cmd_duration_s": 0.01366281509399414,
+        "decision_source": "probe_details"
+      },
+      {
+        "name": "register-deny-bb",
+        "expectation_id": "mach-name-equivalence:register:deny-bb",
+        "operation": "mach-register",
+        "path": "com.apple.cfprefsd.agent.sandboxlore",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "book/api/runtime/native/probes/sandbox_check_self_apply_probe",
+          "book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/0012977a-13a1-45db-bbfc-4810dbd30809/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb",
+          "mach-register",
+          "2",
+          "com.apple.cfprefsd.agent.sandboxlore",
+          "global-name"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.0012977a-13a1-45db-bbfc-4810dbd30809/book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/0012977a-13a1-45db-bbfc-4810dbd30809/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb\",\"pid\":86649}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.0012977a-13a1-45db-bbfc-4810dbd30809/book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/0012977a-13a1-45db-bbfc-4810dbd30809/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb\",\"pid\":86649}\n",
+        "probe_details": {
+          "operation": "mach-register",
+          "filter_type": 2,
+          "argument": "com.apple.cfprefsd.agent.sandboxlore",
+          "filter_name": "global-name",
+          "rc": 1,
+          "decision": "deny"
+        },
+        "cmd_started_at_unix_s": 1767436246.401385,
+        "cmd_finished_at_unix_s": 1767436246.412181,
+        "cmd_duration_s": 0.010795831680297852,
+        "decision_source": "probe_details"
+      }
+    ],
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "0012977a-13a1-45db-bbfc-4810dbd30809"
+  }
+}

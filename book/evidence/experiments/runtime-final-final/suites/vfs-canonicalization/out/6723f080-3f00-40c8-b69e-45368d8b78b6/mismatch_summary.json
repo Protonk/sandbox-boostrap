@@ -1,0 +1,21 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "generated_by": "book/api/runtime/execution/workflow.py",
+  "mismatches": [
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_etc_alias_only",
+      "expectation_id": "vfs_etc_alias_only:read_/etc/hosts",
+      "operation": "file-read*",
+      "path": "/etc/hosts",
+      "expected": "allow",
+      "actual": "deny",
+      "mismatch_type": "unexpected_deny",
+      "violation_summary": null,
+      "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.6723f080-3f00-40c8-b69e-45368d8b78b6/book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/6723f080-3f00-40c8-b69e-45368d8b78b6/runtime_profiles/vfs_etc_alias_only.vfs_etc_alias_only.runtime.sb\",\"pid\":59734}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.6723f080-3f00-40c8-b69e-45368d8b78b6/book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/6723f080-3f00-40c8-b69e-45368d8b78b6/runtime_profiles/vfs_etc_alias_only.vfs_etc_alias_only.runtime.sb\",\"pid\":59734}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-read-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/etc/hosts\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-read-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1610612736,\"varargs_count\":1,\"argument\":\"/etc/hosts\",\"canonicalization\":\"canonical\",\"canonical_flag_used\":true,\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nopen target: Operation not permitted\n"
+    }
+  ],
+  "counts": {
+    "unexpected_deny": 1
+  }
+}

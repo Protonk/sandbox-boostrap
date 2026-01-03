@@ -1,5 +1,16 @@
 #!/usr/bin/env python3
-"""Derive VFS canonicalization summaries from a committed runtime bundle."""
+"""Derive VFS canonicalization summaries from a committed runtime bundle.
+
+This script emits derived summaries under `out/derived/` for a single committed
+run bundle (`artifact_index.json` present).
+
+Note on structural decode inputs:
+- Older bundles include `out/<run_id>/sb_build/*.sb.bin` compiled blobs, which
+  can be decoded directly.
+- Newer runtime bundles may run SBPL in text mode without persisting compiled
+  blobs. In that case, this script compiles the SBPL source at derive time
+  (compile-stage only; no apply/operation) and decodes the resulting blob bytes.
+"""
 
 from __future__ import annotations
 
@@ -11,6 +22,7 @@ from typing import Any, Dict, List
 
 from book.api import path_utils
 from book.api.profile import decoder
+from book.api.profile.compile import compile_sbpl_file
 from book.api.runtime.bundles import reader as bundle_reader
 from book.api.runtime.plans import builder as runtime_plan_builder
 from book.api.runtime.execution import service as runtime_service
@@ -109,12 +121,29 @@ def _decode_profiles(run_dir: Path, bundle_meta: dict[str, Any]) -> dict[str, An
 
     profiles_out: Dict[str, Any] = {}
     for profile_id, rec in (matrix.get("profiles") or {}).items():
-        # Structural decode must operate on the compiled SBPL blob produced by the runtime bundle,
-        # not on the SBPL source path from expected_matrix.json.
-        blob_path = run_dir / "sb_build" / f"{profile_id}.sb.bin"
-        if not blob_path.exists():
-            raise FileNotFoundError(f"missing compiled blob for {profile_id}: {blob_path}")
-        data = blob_path.read_bytes()
+        input_ref = rec.get("blob")
+        if not isinstance(input_ref, str) or not input_ref:
+            continue
+        input_path = path_utils.ensure_absolute(Path(input_ref), repo_root=REPO_ROOT)
+        input_mode = rec.get("mode")
+
+        sb_build_blob = run_dir / "sb_build" / f"{profile_id}.sb.bin"
+        decode_source = None
+        decode_blob_ref = None
+        if sb_build_blob.exists():
+            data = sb_build_blob.read_bytes()
+            decode_source = "bundle_sb_build"
+            decode_blob_ref = path_utils.to_repo_relative(sb_build_blob, repo_root=REPO_ROOT)
+        elif isinstance(input_mode, str) and input_mode == "blob":
+            data = input_path.read_bytes()
+            decode_source = "bundle_blob_input"
+            decode_blob_ref = path_utils.to_repo_relative(input_path, repo_root=REPO_ROOT)
+        else:
+            compiled = compile_sbpl_file(input_path)
+            data = compiled.blob
+            decode_source = "derive_compile_sbpl"
+            decode_blob_ref = None
+
         dec = decoder.decode_profile_dict(data)
         literal_set: set[str] = set()
         for lit in dec.get("literal_strings") or []:
@@ -138,7 +167,11 @@ def _decode_profiles(run_dir: Path, bundle_meta: dict[str, Any]) -> dict[str, An
                 }
             )
         profiles_out[profile_id] = {
-            "compiled_blob": path_utils.to_repo_relative(blob_path, repo_root=REPO_ROOT),
+            "profile_input": path_utils.to_repo_relative(input_path, repo_root=REPO_ROOT),
+            "profile_input_mode": input_mode,
+            "decoded_blob_source": decode_source,
+            "decoded_blob": decode_blob_ref,
+            "decoded_blob_sha256": hashlib.sha256(data).hexdigest(),
             "anchors": anchors_info,
             "literal_candidates": sorted(literal_set),
             "node_count": dec.get("node_count"),

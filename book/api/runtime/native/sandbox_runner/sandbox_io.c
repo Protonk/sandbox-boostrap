@@ -131,6 +131,53 @@ static void emit_fd_identity(int fd) {
     }
 }
 
+static char *dup_trim_trailing_slashes(const char *path) {
+    if (!path) {
+        return NULL;
+    }
+    char *dup = strdup(path);
+    if (!dup) {
+        return NULL;
+    }
+    size_t len = strlen(dup);
+    while (len > 1 && dup[len - 1] == '/') {
+        dup[len - 1] = '\0';
+        len--;
+    }
+    return dup;
+}
+
+static int split_parent_basename(const char *path, char **dir_out, const char **base_out) {
+    if (!dir_out || !base_out) {
+        return -1;
+    }
+    *dir_out = NULL;
+    *base_out = NULL;
+    char *trimmed = dup_trim_trailing_slashes(path);
+    if (!trimmed) {
+        return -1;
+    }
+    char *slash = strrchr(trimmed, '/');
+    if (!slash) {
+        free(trimmed);
+        return -1;
+    }
+    const char *base = slash + 1;
+    if (base[0] == '\0') {
+        free(trimmed);
+        return -1;
+    }
+    if (slash == trimmed) {
+        // "/foo" -> dir "/", base "foo"
+        slash[1] = '\0';
+    } else {
+        *slash = '\0';
+    }
+    *dir_out = trimmed;
+    *base_out = base;
+    return 0;
+}
+
 int sandbox_io_read(const char *profile_path, const char *target_path) {
     int rc = apply_profile(profile_path);
     if (rc != 0) {
@@ -176,6 +223,103 @@ int sandbox_io_write(const char *profile_path, const char *target_path) {
         perror("open target");
         return 2;
     }
+    emit_fd_paths(fd);
+    emit_fd_identity(fd);
+    const char *line = "runtime-check\n";
+    ssize_t nw = write(fd, line, strlen(line));
+    if (nw < 0) {
+        perror("write");
+        close(fd);
+        return 3;
+    }
+    close(fd);
+    return 0;
+}
+
+int sandbox_io_read_openat(const char *profile_path, const char *target_path) {
+    int rc = apply_profile(profile_path);
+    if (rc != 0) {
+        return rc;
+    }
+
+    maybe_precreate_target(target_path);
+
+    char *dir_path = NULL;
+    const char *leaf = NULL;
+    if (split_parent_basename(target_path, &dir_path, &leaf) != 0) {
+        fprintf(stderr, "invalid target path for openat: %s\n", target_path ? target_path : "(null)");
+        free(dir_path);
+        return 64; /* EX_USAGE */
+    }
+
+    sbl_maybe_seatbelt_callout_from_env("pre_syscall");
+    int dirfd = open(dir_path, O_RDONLY | O_DIRECTORY);
+    if (dirfd < 0) {
+        perror("open dir");
+        free(dir_path);
+        return 2;
+    }
+    int fd = openat(dirfd, leaf, O_RDONLY);
+    if (fd < 0) {
+        perror("openat target");
+        close(dirfd);
+        free(dir_path);
+        return 2;
+    }
+    close(dirfd);
+    free(dir_path);
+
+    emit_fd_paths(fd);
+    emit_fd_identity(fd);
+    char buf[4096];
+    ssize_t nr;
+    while ((nr = read(fd, buf, sizeof(buf))) > 0) {
+        if (write(STDOUT_FILENO, buf, (size_t)nr) < 0) {
+            perror("write");
+            close(fd);
+            return 3;
+        }
+    }
+    if (nr < 0) {
+        perror("read");
+        close(fd);
+        return 4;
+    }
+    close(fd);
+    return 0;
+}
+
+int sandbox_io_write_openat(const char *profile_path, const char *target_path) {
+    int rc = apply_profile(profile_path);
+    if (rc != 0) {
+        return rc;
+    }
+
+    char *dir_path = NULL;
+    const char *leaf = NULL;
+    if (split_parent_basename(target_path, &dir_path, &leaf) != 0) {
+        fprintf(stderr, "invalid target path for openat: %s\n", target_path ? target_path : "(null)");
+        free(dir_path);
+        return 64; /* EX_USAGE */
+    }
+
+    sbl_maybe_seatbelt_callout_from_env("pre_syscall");
+    int dirfd = open(dir_path, O_RDONLY | O_DIRECTORY);
+    if (dirfd < 0) {
+        perror("open dir");
+        free(dir_path);
+        return 2;
+    }
+    int fd = openat(dirfd, leaf, O_WRONLY | O_CREAT | O_APPEND, 0644);
+    if (fd < 0) {
+        perror("openat target");
+        close(dirfd);
+        free(dir_path);
+        return 2;
+    }
+    close(dirfd);
+    free(dir_path);
+
     emit_fd_paths(fd);
     emit_fd_identity(fd);
     const char *line = "runtime-check\n";

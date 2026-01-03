@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "source_jobs": [],
+    "notes": "op-level runtime summary"
+  },
+  "ops": {
+    "mach-lookup": {
+      "op_name": "mach-lookup",
+      "op_id": 96,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 2,
+      "matches": 2,
+      "mismatches": 0,
+      "probes_including_blocked": 2,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "unobserved": 0,
+      "examples": [
+        {
+          "scenario_id": "mach-name-equivalence:lookup:allow-aa",
+          "expectation_id": "mach-name-equivalence:lookup:allow-aa",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "mach-name-equivalence:lookup:deny-bb",
+          "expectation_id": "mach-name-equivalence:lookup:deny-bb",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "mach-name-equivalence:lookup:allow-aa",
+        "mach-name-equivalence:lookup:deny-bb"
+      ],
+      "coverage_status": "ok"
+    },
+    "mach-register": {
+      "op_name": "mach-register",
+      "op_id": 100,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 2,
+      "matches": 2,
+      "mismatches": 0,
+      "probes_including_blocked": 2,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "unobserved": 0,
+      "examples": [
+        {
+          "scenario_id": "mach-name-equivalence:register:allow-aa",
+          "expectation_id": "mach-name-equivalence:register:allow-aa",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "mach-name-equivalence:register:deny-bb",
+          "expectation_id": "mach-name-equivalence:register:deny-bb",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "mach-name-equivalence:register:allow-aa",
+        "mach-name-equivalence:register:deny-bb"
+      ],
+      "coverage_status": "ok"
+    }
+  }
+}

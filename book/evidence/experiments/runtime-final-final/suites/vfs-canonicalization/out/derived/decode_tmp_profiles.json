@@ -1,9 +1,9 @@
 {
   "bundle": {
-    "artifact_index": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/artifact_index.json",
-    "artifact_index_sha256": "25becd335a1f1e1c572fa89965fbd156e486388bb97d1578828a8639272aee78",
-    "bundle_dir": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885",
-    "run_id": "e4d250ee-3120-4b2c-b706-fbd5a5ee6885"
+    "artifact_index": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/a927bfcd-b787-4fc4-9a36-d9b6e77f839c/artifact_index.json",
+    "artifact_index_sha256": "f3fbd91e0bb4fb88514c0a181f9082eb475def05cbe2fdc65e9234ab580ebe24",
+    "bundle_dir": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/a927bfcd-b787-4fc4-9a36-d9b6e77f839c",
+    "run_id": "a927bfcd-b787-4fc4-9a36-d9b6e77f839c"
   },
   "profiles": {
     "vfs_both_paths": {
@@ -108,7 +108,9 @@
           "tags": []
         }
       ],
-      "compiled_blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/sb_build/vfs_both_paths.sb.bin",
+      "decoded_blob": null,
+      "decoded_blob_sha256": "2d92121a53b511acaa158530c8155857fb78b2698f07ff7d3f28606a3fb4282e",
+      "decoded_blob_source": "derive_compile_sbpl",
       "literal_candidates": [
         "/bar",
         "/foo",
@@ -124,6 +126,8 @@
         "var/tmp/canon"
       ],
       "node_count": 53,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_both_paths.sb",
+      "profile_input_mode": "sbpl",
       "tag_counts": {
         "0": 3,
         "1": 1,
@@ -225,11 +229,15 @@
           "tags": []
         }
       ],
-      "compiled_blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/sb_build/vfs_etc_alias_only.sb.bin",
+      "decoded_blob": null,
+      "decoded_blob_sha256": "261399933bcf44dde7a7969448d571f0e807bc15f32abe4e11485a01fa03303e",
+      "decoded_blob_source": "derive_compile_sbpl",
       "literal_candidates": [
         "/etc/hosts"
       ],
       "node_count": 52,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_etc_alias_only.sb",
+      "profile_input_mode": "sbpl",
       "tag_counts": {
         "0": 2,
         "1": 1,
@@ -335,7 +343,9 @@
           "tags": []
         }
       ],
-      "compiled_blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/sb_build/vfs_etc_both.sb.bin",
+      "decoded_blob": null,
+      "decoded_blob_sha256": "6dbca71c79357b08148385510b0932c9e13f14563f0ef1a26445e08b566829da",
+      "decoded_blob_source": "derive_compile_sbpl",
       "literal_candidates": [
         "/etc/hosts",
         "/private/etc/hosts",
@@ -343,12 +353,130 @@
         "private/etc/hosts"
       ],
       "node_count": 53,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_etc_both.sb",
+      "profile_input_mode": "sbpl",
       "tag_counts": {
         "0": 3,
         "1": 1,
         "3": 1,
         "4": 17,
         "5": 31
+      }
+    },
+    "vfs_etc_both_plus_metadata_etc": {
+      "anchors": [
+        {
+          "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/etc/hosts",
+          "present": true,
+          "tags": [
+            0,
+            4,
+            6
+          ]
+        },
+        {
+          "path": "/private/etc/hosts",
+          "present": true,
+          "tags": [
+            0,
+            4,
+            6
+          ]
+        },
+        {
+          "path": "/private/tmp/bar",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/foo",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/nested/child",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/vfs_firmlink_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/var/tmp/canon",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/var/tmp/vfs_canon_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/var/tmp/vfs_link_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/tmp/bar",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/tmp/foo",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/tmp/nested/child",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/var/tmp/canon",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/var/tmp/vfs_canon_probe",
+          "present": false,
+          "tags": []
+        }
+      ],
+      "decoded_blob": null,
+      "decoded_blob_sha256": "3a67f154f92f590f332d5fef6b54d7a0fe76db25eb15ad251d2b6ae23b388eca",
+      "decoded_blob_source": "derive_compile_sbpl",
+      "literal_candidates": [
+        "/etc",
+        "/etc/hosts",
+        "/private/etc/hosts",
+        "etc/hosts",
+        "private/etc/hosts"
+      ],
+      "node_count": 53,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_etc_both_plus_metadata_etc.sb",
+      "profile_input_mode": "sbpl",
+      "tag_counts": {
+        "0": 3,
+        "4": 2,
+        "5": 15,
+        "6": 33
       }
     },
     "vfs_etc_private_only": {
@@ -444,11 +572,15 @@
           "tags": []
         }
       ],
-      "compiled_blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/sb_build/vfs_etc_private_only.sb.bin",
+      "decoded_blob": null,
+      "decoded_blob_sha256": "7e50b5bde88cca62900b5841b110f810c328fad2e93d72e865af9bbdbcb9fe51",
+      "decoded_blob_source": "derive_compile_sbpl",
       "literal_candidates": [
         "/private/etc/hosts"
       ],
       "node_count": 52,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_etc_private_only.sb",
+      "profile_input_mode": "sbpl",
       "tag_counts": {
         "0": 2,
         "1": 1,
@@ -550,7 +682,9 @@
           "tags": []
         }
       ],
-      "compiled_blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/sb_build/vfs_firmlink_both.sb.bin",
+      "decoded_blob": null,
+      "decoded_blob_sha256": "eb54f1498587751be2329bcd228e834e355eb469645a4084f8f3b7027f0b5fda",
+      "decoded_blob_source": "derive_compile_sbpl",
       "literal_candidates": [
         "/private/tmp/vfs_firmlink_probe",
         "/system/volumes/data/private/tmp/vfs_firmlink_probe",
@@ -558,6 +692,8 @@
         "system/volumes/data/private/tmp/vfs_firmlink_probe"
       ],
       "node_count": 53,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_firmlink_both.sb",
+      "profile_input_mode": "sbpl",
       "tag_counts": {
         "0": 3,
         "1": 1,
@@ -654,11 +790,15 @@
           "tags": []
         }
       ],
-      "compiled_blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/sb_build/vfs_firmlink_data_only.sb.bin",
+      "decoded_blob": null,
+      "decoded_blob_sha256": "1b5984466dc175b5762cfb70d4f5877d4cb6d06926e4ad1037218518c31e2817",
+      "decoded_blob_source": "derive_compile_sbpl",
       "literal_candidates": [
         "/system/volumes/data/private/tmp/vfs_firmlink_probe"
       ],
       "node_count": 52,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_firmlink_data_only.sb",
+      "profile_input_mode": "sbpl",
       "tag_counts": {
         "0": 2,
         "1": 1,
@@ -760,11 +900,15 @@
           "tags": []
         }
       ],
-      "compiled_blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/sb_build/vfs_firmlink_private_only.sb.bin",
+      "decoded_blob": null,
+      "decoded_blob_sha256": "719aaf198b48ea15d30dffb4fbbabb3d7b9048fb9337cc8a11d6fe7a583aedb7",
+      "decoded_blob_source": "derive_compile_sbpl",
       "literal_candidates": [
         "/private/tmp/vfs_firmlink_probe"
       ],
       "node_count": 52,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_firmlink_private_only.sb",
+      "profile_input_mode": "sbpl",
       "tag_counts": {
         "0": 2,
         "1": 1,
@@ -865,7 +1009,9 @@
           "tags": []
         }
       ],
-      "compiled_blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/sb_build/vfs_link_both.sb.bin",
+      "decoded_blob": null,
+      "decoded_blob_sha256": "301effc2b71bada5c32debecdd12dfe70ec3571a5d6e9c349f7efb6f2d4f474e",
+      "decoded_blob_source": "derive_compile_sbpl",
       "literal_candidates": [
         "/private/",
         "/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
@@ -874,12 +1020,127 @@
         "var/tmp/vfs_link_probe"
       ],
       "node_count": 52,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_link_both.sb",
+      "profile_input_mode": "sbpl",
       "tag_counts": {
         "0": 2,
         "1": 1,
         "3": 4,
         "4": 17,
         "5": 28
+      }
+    },
+    "vfs_link_both_plus_metadata_to_var_tmp": {
+      "anchors": [
+        {
+          "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/etc/hosts",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/etc/hosts",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/bar",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/foo",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/nested/child",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/vfs_firmlink_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "present": true,
+          "tags": []
+        },
+        {
+          "path": "/private/var/tmp/canon",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/var/tmp/vfs_canon_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/var/tmp/vfs_link_probe",
+          "present": true,
+          "tags": [
+            0,
+            4,
+            6
+          ]
+        },
+        {
+          "path": "/tmp/bar",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/tmp/foo",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/tmp/nested/child",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/var/tmp/canon",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/var/tmp/vfs_canon_probe",
+          "present": false,
+          "tags": []
+        }
+      ],
+      "decoded_blob": null,
+      "decoded_blob_sha256": "bf73a814a0bbd580e89f639ee818be9ac4ee1ba9d71f3647352890060e019881",
+      "decoded_blob_source": "derive_compile_sbpl",
+      "literal_candidates": [
+        "/private/",
+        "/private/tmp/vfs_linkdir/to_var_tmp",
+        "/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "/var/tmp/vfs_link_probe",
+        "tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "var/tmp/vfs_link_probe"
+      ],
+      "node_count": 53,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_link_both_plus_metadata_to_var_tmp.sb",
+      "profile_input_mode": "sbpl",
+      "tag_counts": {
+        "0": 3,
+        "4": 5,
+        "5": 15,
+        "6": 30
       }
     },
     "vfs_link_private_tmp_only": {
@@ -975,11 +1236,15 @@
           "tags": []
         }
       ],
-      "compiled_blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/sb_build/vfs_link_private_tmp_only.sb.bin",
+      "decoded_blob": null,
+      "decoded_blob_sha256": "d974bc90cde76199e68500e81904bfad593cdb964fe55cc85dbc9c08dc301456",
+      "decoded_blob_source": "derive_compile_sbpl",
       "literal_candidates": [
         "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
       ],
       "node_count": 52,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_link_private_tmp_only.sb",
+      "profile_input_mode": "sbpl",
       "tag_counts": {
         "0": 2,
         "1": 1,
@@ -1081,11 +1346,15 @@
           "tags": []
         }
       ],
-      "compiled_blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/sb_build/vfs_link_var_tmp_only.sb.bin",
+      "decoded_blob": null,
+      "decoded_blob_sha256": "00d9eb1b3ffcb438407b8d78b8bae460961b0cfa514e2651cf285dc4e238261d",
+      "decoded_blob_source": "derive_compile_sbpl",
       "literal_candidates": [
         "/private/var/tmp/vfs_link_probe"
       ],
       "node_count": 52,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_link_var_tmp_only.sb",
+      "profile_input_mode": "sbpl",
       "tag_counts": {
         "0": 2,
         "1": 1,
@@ -1192,7 +1461,9 @@
           "tags": []
         }
       ],
-      "compiled_blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/sb_build/vfs_private_tmp_only.sb.bin",
+      "decoded_blob": null,
+      "decoded_blob_sha256": "7cb0207521fe67ec3a592d1f0650fff1c959e905f12af69b55b44d5eb969dc76",
+      "decoded_blob_source": "derive_compile_sbpl",
       "literal_candidates": [
         "/bar",
         "/foo",
@@ -1207,6 +1478,118 @@
         "var/tmp/canon"
       ],
       "node_count": 52,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_private_tmp_only.sb",
+      "profile_input_mode": "sbpl",
+      "tag_counts": {
+        "0": 2,
+        "1": 1,
+        "3": 4,
+        "4": 17,
+        "5": 28
+      }
+    },
+    "vfs_private_tmp_only_openat": {
+      "anchors": [
+        {
+          "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/etc/hosts",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/etc/hosts",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/bar",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/foo",
+          "present": true,
+          "tags": [
+            0,
+            1,
+            4,
+            5
+          ]
+        },
+        {
+          "path": "/private/tmp/nested/child",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/vfs_firmlink_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/var/tmp/canon",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/var/tmp/vfs_canon_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/var/tmp/vfs_link_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/tmp/bar",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/tmp/foo",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/tmp/nested/child",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/var/tmp/canon",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/var/tmp/vfs_canon_probe",
+          "present": false,
+          "tags": []
+        }
+      ],
+      "decoded_blob": null,
+      "decoded_blob_sha256": "3df3087dd3a24e49f0896c73d8f783fde3cd895fcfd00f92f3066e68c2255c2a",
+      "decoded_blob_source": "derive_compile_sbpl",
+      "literal_candidates": [
+        "/private/tmp/foo"
+      ],
+      "node_count": 52,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_private_tmp_only_openat.sb",
+      "profile_input_mode": "sbpl",
       "tag_counts": {
         "0": 2,
         "1": 1,
@@ -1311,7 +1694,9 @@
           "tags": []
         }
       ],
-      "compiled_blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/sb_build/vfs_tmp_only.sb.bin",
+      "decoded_blob": null,
+      "decoded_blob_sha256": "1edb89e797412c6703110836546ca885d6919d1167c3f2f17f68add8f18dd3e2",
+      "decoded_blob_source": "derive_compile_sbpl",
       "literal_candidates": [
         "/bar",
         "/foo",
@@ -1325,6 +1710,8 @@
         "var/tmp/canon"
       ],
       "node_count": 53,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_tmp_only.sb",
+      "profile_input_mode": "sbpl",
       "tag_counts": {
         "0": 3,
         "1": 1,
@@ -1426,11 +1813,15 @@
           ]
         }
       ],
-      "compiled_blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/sb_build/vfs_var_tmp_alias_only.sb.bin",
+      "decoded_blob": null,
+      "decoded_blob_sha256": "f98701740da6ee870003bf0ee9a092bf99c8118c445401d2e7224d1b76f5ee58",
+      "decoded_blob_source": "derive_compile_sbpl",
       "literal_candidates": [
         "/var/tmp/vfs_canon_probe"
       ],
       "node_count": 52,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_alias_only.sb",
+      "profile_input_mode": "sbpl",
       "tag_counts": {
         "0": 2,
         "1": 1,
@@ -1536,7 +1927,9 @@
           ]
         }
       ],
-      "compiled_blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/sb_build/vfs_var_tmp_both.sb.bin",
+      "decoded_blob": null,
+      "decoded_blob_sha256": "f8a411cf76b7bc93e1d3b31e82ba08b4763e73cb3d6f5a646242bee68b9228d3",
+      "decoded_blob_source": "derive_compile_sbpl",
       "literal_candidates": [
         "/private/var/tmp/vfs_canon_probe",
         "/var/tmp/vfs_canon_probe",
@@ -1544,12 +1937,130 @@
         "var/tmp/vfs_canon_probe"
       ],
       "node_count": 53,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_both.sb",
+      "profile_input_mode": "sbpl",
       "tag_counts": {
         "0": 3,
         "1": 1,
         "3": 4,
         "4": 17,
         "5": 28
+      }
+    },
+    "vfs_var_tmp_both_plus_metadata_var": {
+      "anchors": [
+        {
+          "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/etc/hosts",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/etc/hosts",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/bar",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/foo",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/nested/child",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/vfs_firmlink_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/var/tmp/canon",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/private/var/tmp/vfs_canon_probe",
+          "present": true,
+          "tags": [
+            0,
+            4,
+            6
+          ]
+        },
+        {
+          "path": "/private/var/tmp/vfs_link_probe",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/tmp/bar",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/tmp/foo",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/tmp/nested/child",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/var/tmp/canon",
+          "present": false,
+          "tags": []
+        },
+        {
+          "path": "/var/tmp/vfs_canon_probe",
+          "present": true,
+          "tags": [
+            0,
+            4,
+            6
+          ]
+        }
+      ],
+      "decoded_blob": null,
+      "decoded_blob_sha256": "1f2ffbcb5cc512b412ad4c91f54b5dce8efc243a9ba122b4a8ea207a1f3d2086",
+      "decoded_blob_source": "derive_compile_sbpl",
+      "literal_candidates": [
+        "/private/var/tmp/vfs_canon_probe",
+        "/var",
+        "/var/tmp/vfs_canon_probe",
+        "private/var/tmp/vfs_canon_probe",
+        "var/tmp/vfs_canon_probe"
+      ],
+      "node_count": 53,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_both_plus_metadata_var.sb",
+      "profile_input_mode": "sbpl",
+      "tag_counts": {
+        "0": 3,
+        "4": 5,
+        "5": 15,
+        "6": 30
       }
     },
     "vfs_var_tmp_data_only": {
@@ -1640,11 +2151,15 @@
           "tags": []
         }
       ],
-      "compiled_blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/sb_build/vfs_var_tmp_data_only.sb.bin",
+      "decoded_blob": null,
+      "decoded_blob_sha256": "fdd11c2e462df1312ab3218430eeafa205e8bafb5d35af88aaef7229cb94f2be",
+      "decoded_blob_source": "derive_compile_sbpl",
       "literal_candidates": [
         "/system/volumes/data/private/var/tmp/vfs_canon_probe"
       ],
       "node_count": 52,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_data_only.sb",
+      "profile_input_mode": "sbpl",
       "tag_counts": {
         "0": 2,
         "1": 1,
@@ -1746,11 +2261,15 @@
           "tags": []
         }
       ],
-      "compiled_blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/sb_build/vfs_var_tmp_private_only.sb.bin",
+      "decoded_blob": null,
+      "decoded_blob_sha256": "a4d9694067a16364b0b7066838156c7f0d8d14a02b96eab5d4b4da8f4f89fd6e",
+      "decoded_blob_source": "derive_compile_sbpl",
       "literal_candidates": [
         "/private/var/tmp/vfs_canon_probe"
       ],
       "node_count": 52,
+      "profile_input": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_private_only.sb",
+      "profile_input_mode": "sbpl",
       "tag_counts": {
         "0": 2,
         "1": 1,

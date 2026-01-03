@@ -1,0 +1,494 @@
+[
+  {
+    "actual": "allow",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/probes/sandbox_mach_probe",
+      "book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/775d1303-74cf-403c-85a4-fd80cc02edde/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb",
+      "com.apple.cfprefsd.agent"
+    ],
+    "expectation_id": "mach-name-equivalence:lookup:allow-aa",
+    "expected": "allow",
+    "intended_op_witnessed": true,
+    "match": true,
+    "operation": "mach-lookup",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "allow",
+      "platform_policy": {
+        "decision": "unknown",
+        "error": null,
+        "exit_code": null,
+        "source": "baseline_missing",
+        "status": null
+      },
+      "process_policy": {
+        "decision": "allow",
+        "failure_kind": null,
+        "failure_stage": null,
+        "status": "success"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/775d1303-74cf-403c-85a4-fd80cc02edde/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_details": {
+      "kr": 0,
+      "operation": "mach-lookup",
+      "service_present": true
+    },
+    "probe_name": "lookup-allow-aa",
+    "profile_id": "mach-name-equivalence",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": false,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "775d1303-74cf-403c-85a4-fd80cc02edde",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_mach_probe",
+      "entrypoint_path": "book/api/runtime/native/probes/sandbox_mach_probe",
+      "entrypoint_sha256": "767e9776f49969fca1829cfe946615ae4075e228163336bb0964cb3b1dbe8a0d",
+      "preexisting_sandbox_suspected": false,
+      "tool_build_id": "767e9776f49969fca1829cfe946615ae4075e228163336bb0964cb3b1dbe8a0d"
+    },
+    "runtime_status": "success",
+    "sandbox_check_prepass": {
+      "api": "sandbox_check",
+      "argument": "com.apple.cfprefsd.agent",
+      "canonical_flag_reason": "not_requested",
+      "canonical_flag_used": false,
+      "canonicalization": "raw",
+      "decision": "deny",
+      "errno": 0,
+      "filter_type": 5,
+      "filter_type_name": "global-name",
+      "no_report": true,
+      "no_report_reason": null,
+      "operation": "mach-lookup",
+      "rc": 1,
+      "stage": "pre_syscall",
+      "token_mach_kr": 0,
+      "token_status": "pid"
+    },
+    "scenario_id": "mach-name-equivalence:lookup:allow-aa",
+    "seatbelt_callouts": [
+      {
+        "api": "sandbox_check",
+        "argument": "com.apple.cfprefsd.agent",
+        "canonical_flag_reason": "not_requested",
+        "canonical_flag_used": false,
+        "canonicalization": "raw",
+        "check_type": 1073741829,
+        "decision": "deny",
+        "errno": 0,
+        "filter_type": 5,
+        "filter_type_name": "global-name",
+        "marker_schema_version": 2,
+        "no_report": true,
+        "no_report_reason": null,
+        "operation": "mach-lookup",
+        "rc": 1,
+        "stage": "pre_syscall",
+        "token_mach_kr": 0,
+        "token_status": "pid",
+        "tool": "seatbelt-callout",
+        "varargs_count": 1
+      }
+    ],
+    "stderr": "",
+    "stdout": "{\"kr\":0}\n",
+    "target": "com.apple.cfprefsd.agent",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "actual": "deny",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/probes/sandbox_mach_probe",
+      "book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/775d1303-74cf-403c-85a4-fd80cc02edde/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb",
+      "com.apple.cfprefsd.agent.sandboxlore"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "mach-name-equivalence:lookup:deny-bb",
+    "expected": "deny",
+    "failure_kind": "probe_nonzero_exit",
+    "failure_stage": "probe",
+    "intended_op_witnessed": true,
+    "match": true,
+    "operation": "mach-lookup",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "unknown",
+        "error": null,
+        "exit_code": null,
+        "source": "baseline_missing",
+        "status": null
+      },
+      "process_policy": {
+        "decision": "deny",
+        "failure_kind": "probe_nonzero_exit",
+        "failure_stage": "probe",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/775d1303-74cf-403c-85a4-fd80cc02edde/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_details": {
+      "kr": 1100,
+      "operation": "mach-lookup",
+      "service_present": null
+    },
+    "probe_name": "lookup-deny-bb",
+    "profile_id": "mach-name-equivalence",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": false,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "775d1303-74cf-403c-85a4-fd80cc02edde",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_mach_probe",
+      "entrypoint_path": "book/api/runtime/native/probes/sandbox_mach_probe",
+      "entrypoint_sha256": "767e9776f49969fca1829cfe946615ae4075e228163336bb0964cb3b1dbe8a0d",
+      "preexisting_sandbox_suspected": false,
+      "tool_build_id": "767e9776f49969fca1829cfe946615ae4075e228163336bb0964cb3b1dbe8a0d"
+    },
+    "runtime_status": "errno",
+    "sandbox_check_prepass": {
+      "api": "sandbox_check",
+      "argument": "com.apple.cfprefsd.agent.sandboxlore",
+      "canonical_flag_reason": "not_requested",
+      "canonical_flag_used": false,
+      "canonicalization": "raw",
+      "decision": "deny",
+      "errno": 0,
+      "filter_type": 5,
+      "filter_type_name": "global-name",
+      "no_report": true,
+      "no_report_reason": null,
+      "operation": "mach-lookup",
+      "rc": 1,
+      "stage": "pre_syscall",
+      "token_mach_kr": 0,
+      "token_status": "pid"
+    },
+    "scenario_id": "mach-name-equivalence:lookup:deny-bb",
+    "seatbelt_callouts": [
+      {
+        "api": "sandbox_check",
+        "argument": "com.apple.cfprefsd.agent.sandboxlore",
+        "canonical_flag_reason": "not_requested",
+        "canonical_flag_used": false,
+        "canonicalization": "raw",
+        "check_type": 1073741829,
+        "decision": "deny",
+        "errno": 0,
+        "filter_type": 5,
+        "filter_type_name": "global-name",
+        "marker_schema_version": 2,
+        "no_report": true,
+        "no_report_reason": null,
+        "operation": "mach-lookup",
+        "rc": 1,
+        "stage": "pre_syscall",
+        "token_mach_kr": 0,
+        "token_status": "pid",
+        "tool": "seatbelt-callout",
+        "varargs_count": 1
+      }
+    ],
+    "stderr": "",
+    "stdout": "{\"kr\":1100}\n",
+    "target": "com.apple.cfprefsd.agent.sandboxlore",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "actual": "allow",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/probes/sandbox_check_self_apply_probe",
+      "book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/775d1303-74cf-403c-85a4-fd80cc02edde/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb",
+      "mach-register",
+      "2",
+      "com.apple.cfprefsd.agent",
+      "global-name"
+    ],
+    "expectation_id": "mach-name-equivalence:register:allow-aa",
+    "expected": "allow",
+    "intended_op_witnessed": true,
+    "match": true,
+    "operation": "mach-register",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "allow",
+      "platform_policy": {
+        "decision": "unknown",
+        "error": null,
+        "exit_code": null,
+        "source": "baseline_missing",
+        "status": null
+      },
+      "process_policy": {
+        "decision": "allow",
+        "failure_kind": null,
+        "failure_stage": null,
+        "status": "success"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/775d1303-74cf-403c-85a4-fd80cc02edde/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_details": {
+      "argument": "com.apple.cfprefsd.agent",
+      "decision": "allow",
+      "filter_name": "global-name",
+      "filter_type": 2,
+      "operation": "mach-register",
+      "rc": 0
+    },
+    "probe_name": "register-allow-aa",
+    "profile_id": "mach-name-equivalence",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "775d1303-74cf-403c-85a4-fd80cc02edde",
+    "runtime_status": "success",
+    "sandbox_check_prepass": {
+      "api": "sandbox_check",
+      "argument": "com.apple.cfprefsd.agent",
+      "canonical_flag_reason": "not_requested",
+      "canonical_flag_used": false,
+      "canonicalization": "raw",
+      "decision": "allow",
+      "errno": 0,
+      "filter_type": 2,
+      "filter_type_name": "unknown",
+      "no_report": true,
+      "no_report_reason": null,
+      "operation": "mach-register",
+      "rc": 0,
+      "stage": "pre_syscall",
+      "token_mach_kr": 0,
+      "token_status": "pid"
+    },
+    "scenario_id": "mach-name-equivalence:register:allow-aa",
+    "seatbelt_callouts": [
+      {
+        "api": "sandbox_check",
+        "argument": "com.apple.cfprefsd.agent",
+        "canonical_flag_reason": "not_requested",
+        "canonical_flag_used": false,
+        "canonicalization": "raw",
+        "check_type": 1073741826,
+        "decision": "allow",
+        "errno": 0,
+        "filter_type": 2,
+        "filter_type_name": "unknown",
+        "marker_schema_version": 2,
+        "no_report": true,
+        "no_report_reason": null,
+        "operation": "mach-register",
+        "rc": 0,
+        "stage": "pre_syscall",
+        "token_mach_kr": 0,
+        "token_status": "pid",
+        "tool": "seatbelt-callout",
+        "varargs_count": 1
+      }
+    ],
+    "stderr": "",
+    "stdout": "",
+    "target": "com.apple.cfprefsd.agent",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "actual": "deny",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/probes/sandbox_check_self_apply_probe",
+      "book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/775d1303-74cf-403c-85a4-fd80cc02edde/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb",
+      "mach-register",
+      "2",
+      "com.apple.cfprefsd.agent.sandboxlore",
+      "global-name"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "mach-name-equivalence:register:deny-bb",
+    "expected": "deny",
+    "failure_kind": "probe_nonzero_exit",
+    "failure_stage": "probe",
+    "intended_op_witnessed": true,
+    "match": true,
+    "operation": "mach-register",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "unknown",
+        "error": null,
+        "exit_code": null,
+        "source": "baseline_missing",
+        "status": null
+      },
+      "process_policy": {
+        "decision": "deny",
+        "failure_kind": "probe_nonzero_exit",
+        "failure_stage": "probe",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/775d1303-74cf-403c-85a4-fd80cc02edde/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_details": {
+      "argument": "com.apple.cfprefsd.agent.sandboxlore",
+      "decision": "deny",
+      "filter_name": "global-name",
+      "filter_type": 2,
+      "operation": "mach-register",
+      "rc": 1
+    },
+    "probe_name": "register-deny-bb",
+    "profile_id": "mach-name-equivalence",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "775d1303-74cf-403c-85a4-fd80cc02edde",
+    "runtime_status": "errno",
+    "sandbox_check_prepass": {
+      "api": "sandbox_check",
+      "argument": "com.apple.cfprefsd.agent.sandboxlore",
+      "canonical_flag_reason": "not_requested",
+      "canonical_flag_used": false,
+      "canonicalization": "raw",
+      "decision": "deny",
+      "errno": 0,
+      "filter_type": 2,
+      "filter_type_name": "unknown",
+      "no_report": true,
+      "no_report_reason": null,
+      "operation": "mach-register",
+      "rc": 1,
+      "stage": "pre_syscall",
+      "token_mach_kr": 0,
+      "token_status": "pid"
+    },
+    "scenario_id": "mach-name-equivalence:register:deny-bb",
+    "seatbelt_callouts": [
+      {
+        "api": "sandbox_check",
+        "argument": "com.apple.cfprefsd.agent.sandboxlore",
+        "canonical_flag_reason": "not_requested",
+        "canonical_flag_used": false,
+        "canonicalization": "raw",
+        "check_type": 1073741826,
+        "decision": "deny",
+        "errno": 0,
+        "filter_type": 2,
+        "filter_type_name": "unknown",
+        "marker_schema_version": 2,
+        "no_report": true,
+        "no_report_reason": null,
+        "operation": "mach-register",
+        "rc": 1,
+        "stage": "pre_syscall",
+        "token_mach_kr": 0,
+        "token_status": "pid",
+        "tool": "seatbelt-callout",
+        "varargs_count": 1
+      }
+    ],
+    "stderr": "",
+    "stdout": "",
+    "target": "com.apple.cfprefsd.agent.sandboxlore",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  }
+]

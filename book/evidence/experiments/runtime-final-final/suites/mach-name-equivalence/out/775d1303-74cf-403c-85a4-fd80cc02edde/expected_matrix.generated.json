@@ -1,0 +1,49 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "mach-name-equivalence": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/sb/mach_name_equivalence.sb",
+      "mode": "sbpl",
+      "family": "mach-name-equivalence",
+      "semantic_group": "mach:global-name-allow",
+      "probes": [
+        {
+          "name": "lookup-allow-aa",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "expectation_id": "mach-name-equivalence:lookup:allow-aa",
+          "driver": "sandbox_mach_probe",
+          "filter_name": "global-name"
+        },
+        {
+          "name": "lookup-deny-bb",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent.sandboxlore",
+          "expected": "deny",
+          "expectation_id": "mach-name-equivalence:lookup:deny-bb",
+          "driver": "sandbox_mach_probe",
+          "filter_name": "global-name"
+        },
+        {
+          "name": "register-allow-aa",
+          "operation": "mach-register",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "expectation_id": "mach-name-equivalence:register:allow-aa",
+          "driver": "sandbox_check_probe",
+          "filter_name": "global-name"
+        },
+        {
+          "name": "register-deny-bb",
+          "operation": "mach-register",
+          "target": "com.apple.cfprefsd.agent.sandboxlore",
+          "expected": "deny",
+          "expectation_id": "mach-name-equivalence:register:deny-bb",
+          "driver": "sandbox_check_probe",
+          "filter_name": "global-name"
+        }
+      ]
+    }
+  }
+}

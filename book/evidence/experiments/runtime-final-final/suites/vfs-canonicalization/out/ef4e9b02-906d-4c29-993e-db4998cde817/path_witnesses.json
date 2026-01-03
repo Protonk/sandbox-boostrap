@@ -1,0 +1,63 @@
+{
+  "schema_version": "runtime-tools.path_witnesses.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "ef4e9b02-906d-4c29-993e-db4998cde817",
+  "plan_id": "vfs-canonicalization.v1",
+  "records": [
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "scenario_id": "baseline:vfs_var_tmp_alias_only:read_/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "requested_path": "/var/tmp/vfs_canon_probe",
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/var/tmp/vfs_canon_probe",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/var/tmp/vfs_canon_probe"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "scenario_id": "vfs_var_tmp_alias_only:read_/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "requested_path": "/var/tmp/vfs_canon_probe",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/var/tmp/vfs_canon_probe",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/ef4e9b02-906d-4c29-993e-db4998cde817/runtime_profiles/vfs_var_tmp_alias_only.vfs_var_tmp_alias_only.runtime.sb",
+        "/var/tmp/vfs_canon_probe"
+      ]
+    }
+  ]
+}

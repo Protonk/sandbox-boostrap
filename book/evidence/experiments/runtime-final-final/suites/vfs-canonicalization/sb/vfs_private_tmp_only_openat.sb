@@ -1,0 +1,8 @@
+(version 1)
+
+(deny default)
+
+;; Allow reads/writes only for canonical /private/tmp/foo.
+(allow file-read* (literal "/private/tmp/foo"))
+(allow file-write* (literal "/private/tmp/foo"))
+

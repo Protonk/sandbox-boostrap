@@ -1,0 +1,43 @@
+{
+  "schema_version": "runtime-tools.summary.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "8219d563-fbe7-463c-b46a-1c7c2fed5ce1",
+  "status": "partial",
+  "plan_id": "vfs-canonicalization.v1",
+  "plan_digest": "e98badac8eeafb1fe5bd476ddce0022946e5c66aabd05d49adf0efaaebce2fac",
+  "channel": "launchd_clean",
+  "lanes": {
+    "baseline": true,
+    "scenario": true,
+    "oracle": true
+  },
+  "profile_count": 20,
+  "scenario_count": 119,
+  "expected_profiles": [
+    "vfs_tmp_only",
+    "vfs_private_tmp_only",
+    "vfs_both_paths",
+    "vfs_private_tmp_only_openat",
+    "vfs_var_tmp_alias_only",
+    "vfs_var_tmp_private_only",
+    "vfs_var_tmp_both",
+    "vfs_var_tmp_both_plus_metadata_var",
+    "vfs_var_tmp_data_only",
+    "vfs_etc_alias_only",
+    "vfs_etc_private_only",
+    "vfs_etc_both",
+    "vfs_etc_both_plus_metadata_etc",
+    "vfs_firmlink_private_only",
+    "vfs_firmlink_data_only",
+    "vfs_firmlink_both",
+    "vfs_link_var_tmp_only",
+    "vfs_link_private_tmp_only",
+    "vfs_link_both",
+    "vfs_link_both_plus_metadata_to_var_tmp"
+  ],
+  "mismatch_counts": {
+    "unexpected_deny": 17,
+    "unexpected_allow": 6
+  },
+  "dry_run": false
+}

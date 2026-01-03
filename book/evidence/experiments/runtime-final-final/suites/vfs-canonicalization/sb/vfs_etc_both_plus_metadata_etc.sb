@@ -1,0 +1,11 @@
+(version 1)
+
+(deny default)
+
+;; Allow symlink metadata on the /etc component (symlink object traversal).
+(allow file-read-metadata (literal "/etc"))
+
+;; Allow reads for both /etc/hosts and /private/etc/hosts.
+(allow file-read* (literal "/etc/hosts"))
+(allow file-read* (literal "/private/etc/hosts"))
+

@@ -32,11 +32,15 @@ SANDBOX_RUNNER_DIR = REPO_ROOT / "book" / "api" / "runtime" / "native" / "sandbo
 RUNNER = SANDBOX_RUNNER_DIR / "sandbox_runner"
 READER = SANDBOX_RUNNER_DIR / "sandbox_reader"
 WRITER = SANDBOX_RUNNER_DIR / "sandbox_writer"
+OPENAT_READER = SANDBOX_RUNNER_DIR / "sandbox_openat_reader"
+OPENAT_WRITER = SANDBOX_RUNNER_DIR / "sandbox_openat_writer"
 METADATA_RUNNER_DIR = REPO_ROOT / "book" / "api" / "runtime" / "native" / "metadata_runner"
 METADATA_RUNNER = METADATA_RUNNER_DIR / "metadata_runner"
 WRAPPER = REPO_ROOT / "book" / "tools" / "sbpl" / "wrapper" / "wrapper"
 PROBE_DIR = REPO_ROOT / "book" / "api" / "runtime" / "native" / "probes"
 MACH_PROBE = PROBE_DIR / "mach_probe"
+SANDBOX_CHECK_PROBE = PROBE_DIR / "sandbox_check_probe"
+SANDBOX_CHECK_SELF_APPLY_PROBE = PROBE_DIR / "sandbox_check_self_apply_probe"
 SANDBOX_MACH_PROBE = PROBE_DIR / "sandbox_mach_probe"
 IOKIT_PROBE = PROBE_DIR / "iokit_probe"
 SANDBOX_IOKIT_PROBE = PROBE_DIR / "sandbox_iokit_probe"
@@ -212,42 +216,15 @@ def _xattr_probe_command(op: str, target: Optional[str]) -> List[str]:
 
 
 def _sandbox_check_command(op: Optional[str], target: Optional[str], probe: Dict[str, Any]) -> Optional[List[str]]:
-    if not op or not target or not Path(PYTHON).exists():
+    if not op or not target or not SANDBOX_CHECK_PROBE.exists():
         return None
     filter_type, filter_name = _resolve_sandbox_check_filter_type(probe, op)
     if filter_type is None:
         return None
-    filter_name_arg = filter_name or ""
-    script = (
-        "import ctypes, ctypes.util, json, os, sys\n"
-        "op = sys.argv[1]\n"
-        "filter_type = int(sys.argv[2])\n"
-        "arg = sys.argv[3]\n"
-        "filter_name = sys.argv[4] if len(sys.argv) > 4 and sys.argv[4] else None\n"
-        "details = {'operation': op, 'filter_type': filter_type, 'argument': arg}\n"
-        "if filter_name:\n"
-        "    details['filter_name'] = filter_name\n"
-        "try:\n"
-        "    lib_path = ctypes.util.find_library('system_sandbox')\n"
-        "    if not lib_path:\n"
-        "        raise RuntimeError('libsystem_sandbox not found')\n"
-        "    lib = ctypes.CDLL(lib_path, use_errno=True)\n"
-        "    fn = lib.sandbox_check\n"
-        "    fn.restype = ctypes.c_int\n"
-        "    fn.argtypes = [ctypes.c_int, ctypes.c_char_p, ctypes.c_int, ctypes.c_char_p]\n"
-        "    rc = fn(os.getpid(), op.encode(), filter_type, arg.encode())\n"
-        "    err = ctypes.get_errno()\n"
-        "    details['rc'] = int(rc)\n"
-        "    if rc == -1:\n"
-        "        details['errno'] = int(err)\n"
-        "    details['decision'] = 'allow' if rc == 0 else 'deny'\n"
-        "except Exception as exc:\n"
-        "    details['decision'] = 'deny'\n"
-        "    details['error'] = str(exc)\n"
-        "print('SBL_PROBE_DETAILS ' + json.dumps(details))\n"
-        "sys.exit(0 if details.get('decision') == 'allow' else 1)\n"
-    )
-    return [PYTHON, "-c", script, op, str(filter_type), target, filter_name_arg]
+    cmd = [str(SANDBOX_CHECK_PROBE), op, str(filter_type), target]
+    if filter_name:
+        cmd.append(filter_name)
+    return cmd
 
 
 def _ipc_posix_shm_command(target: Optional[str]) -> List[str]:
@@ -1056,9 +1033,20 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
     file_probe_used = False
     driver = probe.get("driver")
     if driver == "sandbox_check_probe":
-        cmd = _sandbox_check_command(op, target, probe)
-        if cmd is None:
-            return {"error": "sandbox_check_probe missing op/target/filter"}
+        if not op or not target:
+            return {"error": "sandbox_check_probe missing op/target"}
+        filter_type, filter_name = _resolve_sandbox_check_filter_type(probe, op)
+        if filter_type is None:
+            return {"error": "sandbox_check_probe missing filter_type"}
+        if not blob_mode and SANDBOX_CHECK_SELF_APPLY_PROBE.exists():
+            cmd = [str(SANDBOX_CHECK_SELF_APPLY_PROBE), str(profile), op, str(filter_type), target]
+            if filter_name:
+                cmd.append(filter_name)
+            self_apply_mode = True
+        else:
+            cmd = _sandbox_check_command(op, target, probe)
+            if cmd is None:
+                return {"error": "sandbox_check_probe missing tool"}
     elif op == "ipc-posix-shm-write-create":
         cmd = _ipc_posix_shm_command(target)
     elif op == "file-read-metadata":
@@ -1090,9 +1078,18 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
             file_probe_used = True
         # In blob mode, the wrapper applies the compiled profile; use /bin/cat
         # as the in-sandbox probe so we don't re-run sandbox_init on a .sb.bin.
-        elif not blob_mode and READER.exists():
-            cmd = [str(READER), str(profile), target]
-            reader_mode = True
+        elif not blob_mode:
+            syscall = probe.get("syscall")
+            if syscall == "openat":
+                if not OPENAT_READER.exists():
+                    return {"error": "sandbox_openat_reader missing"}
+                cmd = [str(OPENAT_READER), str(profile), target]
+                reader_mode = True
+            elif READER.exists():
+                cmd = [str(READER), str(profile), target]
+                reader_mode = True
+            else:
+                cmd = [CAT, target]
         else:
             cmd = [CAT, target]
     elif op in {"file-write*", "file-write-data"}:
@@ -1120,9 +1117,18 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
                 file_probe_used = True
             # Same rule as file-read*: avoid sandbox_init-on-binary by using /bin/sh
             # inside the blob-applied wrapper process.
-            elif not blob_mode and WRITER.exists():
-                cmd = [str(WRITER), str(profile), target]
-                writer_mode = True
+            elif not blob_mode:
+                syscall = probe.get("syscall")
+                if syscall == "openat":
+                    if not OPENAT_WRITER.exists():
+                        return {"error": "sandbox_openat_writer missing"}
+                    cmd = [str(OPENAT_WRITER), str(profile), target]
+                    writer_mode = True
+                elif WRITER.exists():
+                    cmd = [str(WRITER), str(profile), target]
+                    writer_mode = True
+                else:
+                    cmd = [SH, "-c", f"echo runtime-check >> '{target}'"]
             else:
                 cmd = [SH, "-c", f"echo runtime-check >> '{target}'"]
     elif op == "file-test-existence":

@@ -1,0 +1,20 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "vfs_etc_alias_only": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_etc_alias_only.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "vfs_etc_alias_only:read_/etc/hosts"
+        }
+      ]
+    }
+  }
+}

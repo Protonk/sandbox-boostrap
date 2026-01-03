@@ -1,0 +1,49 @@
+{
+  "schema_version": "runtime-tools.run_manifest.v0.1",
+  "run_id": "ef4e9b02-906d-4c29-993e-db4998cde817",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "channel": "launchd_clean",
+  "plan_id": "vfs-canonicalization.v1",
+  "plan_digest": "d09381028f946dfd692a4b19703e7459e1040440832b5f7648d4d0ac40f26735",
+  "dry_run": false,
+  "stage_used": true,
+  "stage_root": ".",
+  "repo_root_context": ".",
+  "staged_output_root": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out",
+  "output_root": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/ef4e9b02-906d-4c29-993e-db4998cde817",
+  "apply_preflight": {
+    "path": "apply_preflight.json",
+    "record": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "run_id": "ef4e9b02-906d-4c29-993e-db4998cde817",
+      "profile": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/apply_preflight_allow.sb",
+      "runner": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "sandbox_check_self": {
+        "source": "sandbox_check",
+        "error": "libsystem_sandbox not found"
+      },
+      "status": "ok",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_runner",
+        "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/apply_preflight_allow.sb",
+        "--",
+        "/usr/bin/true"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "apply_report": {
+        "api": "sandbox_init",
+        "rc": 0,
+        "errno": 0,
+        "errbuf": null,
+        "err_class": "ok",
+        "err_class_source": "none"
+      },
+      "apply_marker_pid": 59923,
+      "apply_ok": true,
+      "failure_stage": null,
+      "schema_version": "runtime-tools.apply_preflight.v0.1"
+    }
+  }
+}

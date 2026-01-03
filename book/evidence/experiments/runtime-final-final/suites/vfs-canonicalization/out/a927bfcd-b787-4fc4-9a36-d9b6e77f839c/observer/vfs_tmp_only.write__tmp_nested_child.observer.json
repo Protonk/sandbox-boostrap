@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": null,
+    "deny_lines": [
+      "2026-01-03 02:26:20.264909-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(83251) deny(1) file-write-data /private/tmp/nested/child"
+    ],
+    "duration_ms": null,
+    "end": "2026-01-03 02:26:22",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2026-01-03 02:26:20.264909-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_writer(83251) deny(1) file-write-data /private/tmp/nested/child",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 2,
+    "observer_schema_version": 1,
+    "pid": 83251,
+    "plan_id": null,
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_writer(83251)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"83251\")))",
+    "process_name": "sandbox_writer",
+    "row_id": "vfs_tmp_only:write_/tmp/nested/child",
+    "start": "2026-01-03 02:26:18",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767435980363,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

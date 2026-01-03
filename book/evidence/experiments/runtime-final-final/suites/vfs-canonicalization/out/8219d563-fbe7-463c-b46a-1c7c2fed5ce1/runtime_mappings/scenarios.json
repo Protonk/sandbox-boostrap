@@ -1,0 +1,3927 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "phase_histograms": {
+    "overall": {
+      "total": 119,
+      "stages": {
+        "apply": 0,
+        "bootstrap": 0,
+        "preflight": 0,
+        "probe": 119
+      },
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "probe": {
+        "total": 119,
+        "allow": 64,
+        "deny": 55,
+        "mismatches": 23,
+        "unobserved": 0
+      }
+    },
+    "by_family": {
+      "vfs": {
+        "total": 119,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 119
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 119,
+          "allow": 64,
+          "deny": 55,
+          "mismatches": 23,
+          "unobserved": 0
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "vfs_tmp_only:read_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_tmp_only:read_/tmp/foo",
+          "profile_id": "vfs_tmp_only",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "probe_name": "read_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_tmp_only:read_/tmp/foo"
+    },
+    "vfs_tmp_only:read_/private/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_tmp_only:read_/private/tmp/foo",
+          "profile_id": "vfs_tmp_only",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "deny",
+          "probe_name": "read_/private/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_tmp_only:read_/private/tmp/foo"
+    },
+    "vfs_tmp_only:write_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_tmp_only:write_/tmp/foo",
+          "profile_id": "vfs_tmp_only",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "probe_name": "write_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_tmp_only:write_/tmp/foo"
+    },
+    "vfs_tmp_only:write_/private/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_tmp_only:write_/private/tmp/foo",
+          "profile_id": "vfs_tmp_only",
+          "operation": "file-write*",
+          "target": "/private/tmp/foo",
+          "expected": "deny",
+          "probe_name": "write_/private/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_tmp_only:write_/private/tmp/foo"
+    },
+    "vfs_tmp_only:read_/tmp/bar": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_tmp_only:read_/tmp/bar",
+          "profile_id": "vfs_tmp_only",
+          "operation": "file-read*",
+          "target": "/tmp/bar",
+          "expected": "deny",
+          "probe_name": "read_/tmp/bar"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_tmp_only:read_/tmp/bar"
+    },
+    "vfs_tmp_only:read_/private/tmp/bar": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_tmp_only:read_/private/tmp/bar",
+          "profile_id": "vfs_tmp_only",
+          "operation": "file-read*",
+          "target": "/private/tmp/bar",
+          "expected": "deny",
+          "probe_name": "read_/private/tmp/bar"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_tmp_only:read_/private/tmp/bar"
+    },
+    "vfs_tmp_only:write_/tmp/bar": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_tmp_only:write_/tmp/bar",
+          "profile_id": "vfs_tmp_only",
+          "operation": "file-write*",
+          "target": "/tmp/bar",
+          "expected": "deny",
+          "probe_name": "write_/tmp/bar"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_tmp_only:write_/tmp/bar"
+    },
+    "vfs_tmp_only:write_/private/tmp/bar": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_tmp_only:write_/private/tmp/bar",
+          "profile_id": "vfs_tmp_only",
+          "operation": "file-write*",
+          "target": "/private/tmp/bar",
+          "expected": "deny",
+          "probe_name": "write_/private/tmp/bar"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_tmp_only:write_/private/tmp/bar"
+    },
+    "vfs_tmp_only:read_/tmp/nested/child": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_tmp_only:read_/tmp/nested/child",
+          "profile_id": "vfs_tmp_only",
+          "operation": "file-read*",
+          "target": "/tmp/nested/child",
+          "expected": "deny",
+          "probe_name": "read_/tmp/nested/child"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_tmp_only:read_/tmp/nested/child"
+    },
+    "vfs_tmp_only:read_/private/tmp/nested/child": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_tmp_only:read_/private/tmp/nested/child",
+          "profile_id": "vfs_tmp_only",
+          "operation": "file-read*",
+          "target": "/private/tmp/nested/child",
+          "expected": "deny",
+          "probe_name": "read_/private/tmp/nested/child"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_tmp_only:read_/private/tmp/nested/child"
+    },
+    "vfs_tmp_only:write_/tmp/nested/child": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_tmp_only:write_/tmp/nested/child",
+          "profile_id": "vfs_tmp_only",
+          "operation": "file-write*",
+          "target": "/tmp/nested/child",
+          "expected": "deny",
+          "probe_name": "write_/tmp/nested/child"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_tmp_only:write_/tmp/nested/child"
+    },
+    "vfs_tmp_only:write_/private/tmp/nested/child": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_tmp_only:write_/private/tmp/nested/child",
+          "profile_id": "vfs_tmp_only",
+          "operation": "file-write*",
+          "target": "/private/tmp/nested/child",
+          "expected": "deny",
+          "probe_name": "write_/private/tmp/nested/child"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_tmp_only:write_/private/tmp/nested/child"
+    },
+    "vfs_tmp_only:read_/var/tmp/canon": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_tmp_only:read_/var/tmp/canon",
+          "profile_id": "vfs_tmp_only",
+          "operation": "file-read*",
+          "target": "/var/tmp/canon",
+          "expected": "deny",
+          "probe_name": "read_/var/tmp/canon"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_tmp_only:read_/var/tmp/canon"
+    },
+    "vfs_tmp_only:read_/private/var/tmp/canon": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_tmp_only:read_/private/var/tmp/canon",
+          "profile_id": "vfs_tmp_only",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/canon",
+          "expected": "deny",
+          "probe_name": "read_/private/var/tmp/canon"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_tmp_only:read_/private/var/tmp/canon"
+    },
+    "vfs_tmp_only:write_/var/tmp/canon": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_tmp_only:write_/var/tmp/canon",
+          "profile_id": "vfs_tmp_only",
+          "operation": "file-write*",
+          "target": "/var/tmp/canon",
+          "expected": "deny",
+          "probe_name": "write_/var/tmp/canon"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_tmp_only:write_/var/tmp/canon"
+    },
+    "vfs_tmp_only:write_/private/var/tmp/canon": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_tmp_only:write_/private/var/tmp/canon",
+          "profile_id": "vfs_tmp_only",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/canon",
+          "expected": "deny",
+          "probe_name": "write_/private/var/tmp/canon"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_tmp_only:write_/private/var/tmp/canon"
+    },
+    "vfs_private_tmp_only:read_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only:read_/tmp/foo",
+          "profile_id": "vfs_private_tmp_only",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "probe_name": "read_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only:read_/tmp/foo"
+    },
+    "vfs_private_tmp_only:read_/private/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only:read_/private/tmp/foo",
+          "profile_id": "vfs_private_tmp_only",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "allow",
+          "probe_name": "read_/private/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only:read_/private/tmp/foo"
+    },
+    "vfs_private_tmp_only:write_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only:write_/tmp/foo",
+          "profile_id": "vfs_private_tmp_only",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "probe_name": "write_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only:write_/tmp/foo"
+    },
+    "vfs_private_tmp_only:write_/private/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only:write_/private/tmp/foo",
+          "profile_id": "vfs_private_tmp_only",
+          "operation": "file-write*",
+          "target": "/private/tmp/foo",
+          "expected": "allow",
+          "probe_name": "write_/private/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only:write_/private/tmp/foo"
+    },
+    "vfs_private_tmp_only:read_/tmp/bar": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only:read_/tmp/bar",
+          "profile_id": "vfs_private_tmp_only",
+          "operation": "file-read*",
+          "target": "/tmp/bar",
+          "expected": "allow",
+          "probe_name": "read_/tmp/bar"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only:read_/tmp/bar"
+    },
+    "vfs_private_tmp_only:read_/private/tmp/bar": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only:read_/private/tmp/bar",
+          "profile_id": "vfs_private_tmp_only",
+          "operation": "file-read*",
+          "target": "/private/tmp/bar",
+          "expected": "allow",
+          "probe_name": "read_/private/tmp/bar"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only:read_/private/tmp/bar"
+    },
+    "vfs_private_tmp_only:write_/tmp/bar": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only:write_/tmp/bar",
+          "profile_id": "vfs_private_tmp_only",
+          "operation": "file-write*",
+          "target": "/tmp/bar",
+          "expected": "allow",
+          "probe_name": "write_/tmp/bar"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only:write_/tmp/bar"
+    },
+    "vfs_private_tmp_only:write_/private/tmp/bar": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only:write_/private/tmp/bar",
+          "profile_id": "vfs_private_tmp_only",
+          "operation": "file-write*",
+          "target": "/private/tmp/bar",
+          "expected": "allow",
+          "probe_name": "write_/private/tmp/bar"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only:write_/private/tmp/bar"
+    },
+    "vfs_private_tmp_only:read_/tmp/nested/child": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only:read_/tmp/nested/child",
+          "profile_id": "vfs_private_tmp_only",
+          "operation": "file-read*",
+          "target": "/tmp/nested/child",
+          "expected": "allow",
+          "probe_name": "read_/tmp/nested/child"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only:read_/tmp/nested/child"
+    },
+    "vfs_private_tmp_only:read_/private/tmp/nested/child": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only:read_/private/tmp/nested/child",
+          "profile_id": "vfs_private_tmp_only",
+          "operation": "file-read*",
+          "target": "/private/tmp/nested/child",
+          "expected": "allow",
+          "probe_name": "read_/private/tmp/nested/child"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only:read_/private/tmp/nested/child"
+    },
+    "vfs_private_tmp_only:write_/tmp/nested/child": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only:write_/tmp/nested/child",
+          "profile_id": "vfs_private_tmp_only",
+          "operation": "file-write*",
+          "target": "/tmp/nested/child",
+          "expected": "allow",
+          "probe_name": "write_/tmp/nested/child"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only:write_/tmp/nested/child"
+    },
+    "vfs_private_tmp_only:write_/private/tmp/nested/child": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only:write_/private/tmp/nested/child",
+          "profile_id": "vfs_private_tmp_only",
+          "operation": "file-write*",
+          "target": "/private/tmp/nested/child",
+          "expected": "allow",
+          "probe_name": "write_/private/tmp/nested/child"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only:write_/private/tmp/nested/child"
+    },
+    "vfs_private_tmp_only:read_/var/tmp/canon": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only:read_/var/tmp/canon",
+          "profile_id": "vfs_private_tmp_only",
+          "operation": "file-read*",
+          "target": "/var/tmp/canon",
+          "expected": "deny",
+          "probe_name": "read_/var/tmp/canon"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only:read_/var/tmp/canon"
+    },
+    "vfs_private_tmp_only:read_/private/var/tmp/canon": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only:read_/private/var/tmp/canon",
+          "profile_id": "vfs_private_tmp_only",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/canon",
+          "expected": "allow",
+          "probe_name": "read_/private/var/tmp/canon"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only:read_/private/var/tmp/canon"
+    },
+    "vfs_private_tmp_only:write_/var/tmp/canon": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only:write_/var/tmp/canon",
+          "profile_id": "vfs_private_tmp_only",
+          "operation": "file-write*",
+          "target": "/var/tmp/canon",
+          "expected": "deny",
+          "probe_name": "write_/var/tmp/canon"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only:write_/var/tmp/canon"
+    },
+    "vfs_private_tmp_only:write_/private/var/tmp/canon": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only:write_/private/var/tmp/canon",
+          "profile_id": "vfs_private_tmp_only",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/canon",
+          "expected": "allow",
+          "probe_name": "write_/private/var/tmp/canon"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only:write_/private/var/tmp/canon"
+    },
+    "vfs_both_paths:read_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_both_paths",
+      "expectations": [
+        {
+          "expectation_id": "vfs_both_paths:read_/tmp/foo",
+          "profile_id": "vfs_both_paths",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "probe_name": "read_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_both_paths:read_/tmp/foo"
+    },
+    "vfs_both_paths:read_/private/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_both_paths",
+      "expectations": [
+        {
+          "expectation_id": "vfs_both_paths:read_/private/tmp/foo",
+          "profile_id": "vfs_both_paths",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "allow",
+          "probe_name": "read_/private/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_both_paths:read_/private/tmp/foo"
+    },
+    "vfs_both_paths:write_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_both_paths",
+      "expectations": [
+        {
+          "expectation_id": "vfs_both_paths:write_/tmp/foo",
+          "profile_id": "vfs_both_paths",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "probe_name": "write_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_both_paths:write_/tmp/foo"
+    },
+    "vfs_both_paths:write_/private/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_both_paths",
+      "expectations": [
+        {
+          "expectation_id": "vfs_both_paths:write_/private/tmp/foo",
+          "profile_id": "vfs_both_paths",
+          "operation": "file-write*",
+          "target": "/private/tmp/foo",
+          "expected": "allow",
+          "probe_name": "write_/private/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_both_paths:write_/private/tmp/foo"
+    },
+    "vfs_both_paths:read_/tmp/bar": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_both_paths",
+      "expectations": [
+        {
+          "expectation_id": "vfs_both_paths:read_/tmp/bar",
+          "profile_id": "vfs_both_paths",
+          "operation": "file-read*",
+          "target": "/tmp/bar",
+          "expected": "allow",
+          "probe_name": "read_/tmp/bar"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_both_paths:read_/tmp/bar"
+    },
+    "vfs_both_paths:read_/private/tmp/bar": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_both_paths",
+      "expectations": [
+        {
+          "expectation_id": "vfs_both_paths:read_/private/tmp/bar",
+          "profile_id": "vfs_both_paths",
+          "operation": "file-read*",
+          "target": "/private/tmp/bar",
+          "expected": "allow",
+          "probe_name": "read_/private/tmp/bar"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_both_paths:read_/private/tmp/bar"
+    },
+    "vfs_both_paths:write_/tmp/bar": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_both_paths",
+      "expectations": [
+        {
+          "expectation_id": "vfs_both_paths:write_/tmp/bar",
+          "profile_id": "vfs_both_paths",
+          "operation": "file-write*",
+          "target": "/tmp/bar",
+          "expected": "allow",
+          "probe_name": "write_/tmp/bar"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_both_paths:write_/tmp/bar"
+    },
+    "vfs_both_paths:write_/private/tmp/bar": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_both_paths",
+      "expectations": [
+        {
+          "expectation_id": "vfs_both_paths:write_/private/tmp/bar",
+          "profile_id": "vfs_both_paths",
+          "operation": "file-write*",
+          "target": "/private/tmp/bar",
+          "expected": "allow",
+          "probe_name": "write_/private/tmp/bar"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_both_paths:write_/private/tmp/bar"
+    },
+    "vfs_both_paths:read_/tmp/nested/child": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_both_paths",
+      "expectations": [
+        {
+          "expectation_id": "vfs_both_paths:read_/tmp/nested/child",
+          "profile_id": "vfs_both_paths",
+          "operation": "file-read*",
+          "target": "/tmp/nested/child",
+          "expected": "allow",
+          "probe_name": "read_/tmp/nested/child"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_both_paths:read_/tmp/nested/child"
+    },
+    "vfs_both_paths:read_/private/tmp/nested/child": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_both_paths",
+      "expectations": [
+        {
+          "expectation_id": "vfs_both_paths:read_/private/tmp/nested/child",
+          "profile_id": "vfs_both_paths",
+          "operation": "file-read*",
+          "target": "/private/tmp/nested/child",
+          "expected": "allow",
+          "probe_name": "read_/private/tmp/nested/child"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_both_paths:read_/private/tmp/nested/child"
+    },
+    "vfs_both_paths:write_/tmp/nested/child": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_both_paths",
+      "expectations": [
+        {
+          "expectation_id": "vfs_both_paths:write_/tmp/nested/child",
+          "profile_id": "vfs_both_paths",
+          "operation": "file-write*",
+          "target": "/tmp/nested/child",
+          "expected": "allow",
+          "probe_name": "write_/tmp/nested/child"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_both_paths:write_/tmp/nested/child"
+    },
+    "vfs_both_paths:write_/private/tmp/nested/child": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_both_paths",
+      "expectations": [
+        {
+          "expectation_id": "vfs_both_paths:write_/private/tmp/nested/child",
+          "profile_id": "vfs_both_paths",
+          "operation": "file-write*",
+          "target": "/private/tmp/nested/child",
+          "expected": "allow",
+          "probe_name": "write_/private/tmp/nested/child"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_both_paths:write_/private/tmp/nested/child"
+    },
+    "vfs_both_paths:read_/var/tmp/canon": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_both_paths",
+      "expectations": [
+        {
+          "expectation_id": "vfs_both_paths:read_/var/tmp/canon",
+          "profile_id": "vfs_both_paths",
+          "operation": "file-read*",
+          "target": "/var/tmp/canon",
+          "expected": "deny",
+          "probe_name": "read_/var/tmp/canon"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_both_paths:read_/var/tmp/canon"
+    },
+    "vfs_both_paths:read_/private/var/tmp/canon": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_both_paths",
+      "expectations": [
+        {
+          "expectation_id": "vfs_both_paths:read_/private/var/tmp/canon",
+          "profile_id": "vfs_both_paths",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/canon",
+          "expected": "allow",
+          "probe_name": "read_/private/var/tmp/canon"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_both_paths:read_/private/var/tmp/canon"
+    },
+    "vfs_both_paths:write_/var/tmp/canon": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_both_paths",
+      "expectations": [
+        {
+          "expectation_id": "vfs_both_paths:write_/var/tmp/canon",
+          "profile_id": "vfs_both_paths",
+          "operation": "file-write*",
+          "target": "/var/tmp/canon",
+          "expected": "deny",
+          "probe_name": "write_/var/tmp/canon"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_both_paths:write_/var/tmp/canon"
+    },
+    "vfs_both_paths:write_/private/var/tmp/canon": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_both_paths",
+      "expectations": [
+        {
+          "expectation_id": "vfs_both_paths:write_/private/var/tmp/canon",
+          "profile_id": "vfs_both_paths",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/canon",
+          "expected": "allow",
+          "probe_name": "write_/private/var/tmp/canon"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_both_paths:write_/private/var/tmp/canon"
+    },
+    "vfs_private_tmp_only_openat:read_open_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only_openat",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only_openat:read_open_/tmp/foo",
+          "profile_id": "vfs_private_tmp_only_openat",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "probe_name": "read_open_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only_openat:read_open_/tmp/foo"
+    },
+    "vfs_private_tmp_only_openat:read_openat_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only_openat",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only_openat:read_openat_/tmp/foo",
+          "profile_id": "vfs_private_tmp_only_openat",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "probe_name": "read_openat_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only_openat:read_openat_/tmp/foo"
+    },
+    "vfs_private_tmp_only_openat:read_open_/private/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only_openat",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only_openat:read_open_/private/tmp/foo",
+          "profile_id": "vfs_private_tmp_only_openat",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "allow",
+          "probe_name": "read_open_/private/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only_openat:read_open_/private/tmp/foo"
+    },
+    "vfs_private_tmp_only_openat:read_openat_/private/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_private_tmp_only_openat",
+      "expectations": [
+        {
+          "expectation_id": "vfs_private_tmp_only_openat:read_openat_/private/tmp/foo",
+          "profile_id": "vfs_private_tmp_only_openat",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "allow",
+          "probe_name": "read_openat_/private/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_private_tmp_only_openat:read_openat_/private/tmp/foo"
+    },
+    "vfs_var_tmp_alias_only:read_/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_alias_only:read_/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_alias_only",
+          "operation": "file-read*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "probe_name": "read_/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_var_tmp_alias_only:read_/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_alias_only:read_/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_alias_only:write_/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_alias_only:write_/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_alias_only",
+          "operation": "file-write*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "probe_name": "write_/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_var_tmp_alias_only:write_/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_alias_only:write_/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_alias_only:read_/private/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_alias_only:read_/private/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_alias_only",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "probe_name": "read_/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_alias_only:read_/private/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_alias_only:write_/private/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_alias_only:write_/private/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_alias_only",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "probe_name": "write_/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_alias_only:write_/private/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_alias_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_alias_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_alias_only",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "probe_name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_alias_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_alias_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_alias_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_alias_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_alias_only",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "probe_name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_alias_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_private_only:read_/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_private_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_private_only:read_/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_private_only",
+          "operation": "file-read*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "probe_name": "read_/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_private_only:read_/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_private_only:write_/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_private_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_private_only:write_/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_private_only",
+          "operation": "file-write*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "probe_name": "write_/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_private_only:write_/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_private_only:read_/private/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_private_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_private_only:read_/private/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_private_only",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "probe_name": "read_/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_private_only:read_/private/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_private_only:write_/private/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_private_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_private_only:write_/private/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_private_only",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "probe_name": "write_/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_private_only:write_/private/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_private_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_private_only",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "probe_name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "actual": "allow",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "failure_stage": null,
+          "failure_kind": null,
+          "mismatch_type": "unexpected_allow",
+          "violation_summary": null,
+          "stderr": "F_GETPATH:/private/var/tmp/vfs_canon_probe\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/var/tmp/vfs_canon_probe\nFD_IDENTITY:1\nFSTAT_ST_DEV:16777230\nFSTAT_ST_INO:113181447\nFSTATFS_FSTYPENAME:apfs\nFSTATFS_MNTONNAME:/System/Volumes/Data\nFSTATFS_FSID0:16777230\nFSTATFS_FSID1:26\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_private_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_private_only",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "probe_name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "actual": "allow",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "failure_stage": null,
+          "failure_kind": null,
+          "mismatch_type": "unexpected_allow",
+          "violation_summary": null,
+          "stderr": "F_GETPATH:/private/var/tmp/vfs_canon_probe\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/var/tmp/vfs_canon_probe\nFD_IDENTITY:1\nFSTAT_ST_DEV:16777230\nFSTAT_ST_INO:113181447\nFSTATFS_FSTYPENAME:apfs\nFSTATFS_MNTONNAME:/System/Volumes/Data\nFSTATFS_FSID0:16777230\nFSTATFS_FSID1:26\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_both:read_/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_both",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_both:read_/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_both",
+          "operation": "file-read*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "probe_name": "read_/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_var_tmp_both:read_/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_both:read_/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_both:write_/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_both",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_both:write_/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_both",
+          "operation": "file-write*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "probe_name": "write_/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_var_tmp_both:write_/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_both:write_/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_both:read_/private/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_both",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_both:read_/private/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_both",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "probe_name": "read_/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_both:read_/private/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_both:write_/private/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_both",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_both:write_/private/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_both",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "probe_name": "write_/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_both:write_/private/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_both:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_both",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_both:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_both",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "probe_name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_var_tmp_both:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "actual": "allow",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "failure_stage": null,
+          "failure_kind": null,
+          "mismatch_type": "unexpected_allow",
+          "violation_summary": null,
+          "stderr": "F_GETPATH:/private/var/tmp/vfs_canon_probe\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/var/tmp/vfs_canon_probe\nFD_IDENTITY:1\nFSTAT_ST_DEV:16777230\nFSTAT_ST_INO:113181447\nFSTATFS_FSTYPENAME:apfs\nFSTATFS_MNTONNAME:/System/Volumes/Data\nFSTATFS_FSID0:16777230\nFSTATFS_FSID1:26\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_both:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_both:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_both",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_both:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_both",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "probe_name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_var_tmp_both:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "actual": "allow",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "failure_stage": null,
+          "failure_kind": null,
+          "mismatch_type": "unexpected_allow",
+          "violation_summary": null,
+          "stderr": "F_GETPATH:/private/var/tmp/vfs_canon_probe\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/var/tmp/vfs_canon_probe\nFD_IDENTITY:1\nFSTAT_ST_DEV:16777230\nFSTAT_ST_INO:113181447\nFSTATFS_FSTYPENAME:apfs\nFSTATFS_MNTONNAME:/System/Volumes/Data\nFSTATFS_FSID0:16777230\nFSTATFS_FSID1:26\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_both:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_both_plus_metadata_var:lstat_/var": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_both_plus_metadata_var:lstat_/var",
+          "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+          "operation": "file-read-metadata",
+          "target": "/var",
+          "expected": "allow",
+          "probe_name": "lstat_/var"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_both_plus_metadata_var:lstat_/var"
+    },
+    "vfs_var_tmp_both_plus_metadata_var:read_/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_both_plus_metadata_var:read_/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+          "operation": "file-read*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "probe_name": "read_/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_both_plus_metadata_var:read_/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_both_plus_metadata_var:write_/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_both_plus_metadata_var:write_/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+          "operation": "file-write*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "probe_name": "write_/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_both_plus_metadata_var:write_/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_both_plus_metadata_var:read_/private/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_both_plus_metadata_var:read_/private/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "probe_name": "read_/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_both_plus_metadata_var:read_/private/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_both_plus_metadata_var:write_/private/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_both_plus_metadata_var:write_/private/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_both_plus_metadata_var",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "probe_name": "write_/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_both_plus_metadata_var:write_/private/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_data_only:read_/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_data_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_data_only:read_/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_data_only",
+          "operation": "file-read*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "probe_name": "read_/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_data_only:read_/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_data_only:write_/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_data_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_data_only:write_/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_data_only",
+          "operation": "file-write*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "probe_name": "write_/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_data_only:write_/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_data_only:read_/private/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_data_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_data_only:read_/private/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_data_only",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "probe_name": "read_/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_data_only:read_/private/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_data_only:write_/private/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_data_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_data_only:write_/private/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_data_only",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "probe_name": "write_/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_data_only:write_/private/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_data_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_data_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_data_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_data_only",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "probe_name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_var_tmp_data_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_data_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+    },
+    "vfs_var_tmp_data_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_var_tmp_data_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_var_tmp_data_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "profile_id": "vfs_var_tmp_data_only",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "probe_name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_var_tmp_data_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_var_tmp_data_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+    },
+    "vfs_etc_alias_only:read_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_etc_alias_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_etc_alias_only:read_/etc/hosts",
+          "profile_id": "vfs_etc_alias_only",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "probe_name": "read_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_etc_alias_only:read_/etc/hosts",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_etc_alias_only:read_/etc/hosts"
+    },
+    "vfs_etc_alias_only:read_/private/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_etc_alias_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_etc_alias_only:read_/private/etc/hosts",
+          "profile_id": "vfs_etc_alias_only",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "deny",
+          "probe_name": "read_/private/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_etc_alias_only:read_/private/etc/hosts"
+    },
+    "vfs_etc_private_only:read_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_etc_private_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_etc_private_only:read_/etc/hosts",
+          "profile_id": "vfs_etc_private_only",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "probe_name": "read_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_etc_private_only:read_/etc/hosts"
+    },
+    "vfs_etc_private_only:read_/private/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_etc_private_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_etc_private_only:read_/private/etc/hosts",
+          "profile_id": "vfs_etc_private_only",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "allow",
+          "probe_name": "read_/private/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_etc_private_only:read_/private/etc/hosts"
+    },
+    "vfs_etc_both:read_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_etc_both",
+      "expectations": [
+        {
+          "expectation_id": "vfs_etc_both:read_/etc/hosts",
+          "profile_id": "vfs_etc_both",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "probe_name": "read_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_etc_both:read_/etc/hosts",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_etc_both:read_/etc/hosts"
+    },
+    "vfs_etc_both:read_/private/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_etc_both",
+      "expectations": [
+        {
+          "expectation_id": "vfs_etc_both:read_/private/etc/hosts",
+          "profile_id": "vfs_etc_both",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "allow",
+          "probe_name": "read_/private/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_etc_both:read_/private/etc/hosts"
+    },
+    "vfs_etc_both_plus_metadata_etc:lstat_/etc": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_etc_both_plus_metadata_etc",
+      "expectations": [
+        {
+          "expectation_id": "vfs_etc_both_plus_metadata_etc:lstat_/etc",
+          "profile_id": "vfs_etc_both_plus_metadata_etc",
+          "operation": "file-read-metadata",
+          "target": "/etc",
+          "expected": "allow",
+          "probe_name": "lstat_/etc"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_etc_both_plus_metadata_etc:lstat_/etc"
+    },
+    "vfs_etc_both_plus_metadata_etc:read_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_etc_both_plus_metadata_etc",
+      "expectations": [
+        {
+          "expectation_id": "vfs_etc_both_plus_metadata_etc:read_/etc/hosts",
+          "profile_id": "vfs_etc_both_plus_metadata_etc",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "probe_name": "read_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_etc_both_plus_metadata_etc:read_/etc/hosts"
+    },
+    "vfs_etc_both_plus_metadata_etc:read_/private/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_etc_both_plus_metadata_etc",
+      "expectations": [
+        {
+          "expectation_id": "vfs_etc_both_plus_metadata_etc:read_/private/etc/hosts",
+          "profile_id": "vfs_etc_both_plus_metadata_etc",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "allow",
+          "probe_name": "read_/private/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_etc_both_plus_metadata_etc:read_/private/etc/hosts"
+    },
+    "vfs_firmlink_private_only:read_/private/tmp/vfs_firmlink_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_firmlink_private_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_firmlink_private_only:read_/private/tmp/vfs_firmlink_probe",
+          "profile_id": "vfs_firmlink_private_only",
+          "operation": "file-read*",
+          "target": "/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "probe_name": "read_/private/tmp/vfs_firmlink_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_firmlink_private_only:read_/private/tmp/vfs_firmlink_probe"
+    },
+    "vfs_firmlink_private_only:write_/private/tmp/vfs_firmlink_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_firmlink_private_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_firmlink_private_only:write_/private/tmp/vfs_firmlink_probe",
+          "profile_id": "vfs_firmlink_private_only",
+          "operation": "file-write*",
+          "target": "/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "probe_name": "write_/private/tmp/vfs_firmlink_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_firmlink_private_only:write_/private/tmp/vfs_firmlink_probe"
+    },
+    "vfs_firmlink_private_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_firmlink_private_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_firmlink_private_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "profile_id": "vfs_firmlink_private_only",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "deny",
+          "probe_name": "read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_firmlink_private_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "deny",
+          "actual": "allow",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "failure_stage": null,
+          "failure_kind": null,
+          "mismatch_type": "unexpected_allow",
+          "violation_summary": null,
+          "stderr": "F_GETPATH:/private/tmp/vfs_firmlink_probe\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/tmp/vfs_firmlink_probe\nFD_IDENTITY:1\nFSTAT_ST_DEV:16777230\nFSTAT_ST_INO:117970109\nFSTATFS_FSTYPENAME:apfs\nFSTATFS_MNTONNAME:/System/Volumes/Data\nFSTATFS_FSID0:16777230\nFSTATFS_FSID1:26\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_firmlink_private_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+    },
+    "vfs_firmlink_private_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_firmlink_private_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_firmlink_private_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "profile_id": "vfs_firmlink_private_only",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "deny",
+          "probe_name": "write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_firmlink_private_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "deny",
+          "actual": "allow",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "failure_stage": null,
+          "failure_kind": null,
+          "mismatch_type": "unexpected_allow",
+          "violation_summary": null,
+          "stderr": "F_GETPATH:/private/tmp/vfs_firmlink_probe\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/tmp/vfs_firmlink_probe\nFD_IDENTITY:1\nFSTAT_ST_DEV:16777230\nFSTAT_ST_INO:117970109\nFSTATFS_FSTYPENAME:apfs\nFSTATFS_MNTONNAME:/System/Volumes/Data\nFSTATFS_FSID0:16777230\nFSTATFS_FSID1:26\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_firmlink_private_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+    },
+    "vfs_firmlink_data_only:read_/private/tmp/vfs_firmlink_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_firmlink_data_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_firmlink_data_only:read_/private/tmp/vfs_firmlink_probe",
+          "profile_id": "vfs_firmlink_data_only",
+          "operation": "file-read*",
+          "target": "/private/tmp/vfs_firmlink_probe",
+          "expected": "deny",
+          "probe_name": "read_/private/tmp/vfs_firmlink_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_firmlink_data_only:read_/private/tmp/vfs_firmlink_probe"
+    },
+    "vfs_firmlink_data_only:write_/private/tmp/vfs_firmlink_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_firmlink_data_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_firmlink_data_only:write_/private/tmp/vfs_firmlink_probe",
+          "profile_id": "vfs_firmlink_data_only",
+          "operation": "file-write*",
+          "target": "/private/tmp/vfs_firmlink_probe",
+          "expected": "deny",
+          "probe_name": "write_/private/tmp/vfs_firmlink_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_firmlink_data_only:write_/private/tmp/vfs_firmlink_probe"
+    },
+    "vfs_firmlink_data_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_firmlink_data_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_firmlink_data_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "profile_id": "vfs_firmlink_data_only",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "probe_name": "read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_firmlink_data_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_firmlink_data_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+    },
+    "vfs_firmlink_data_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_firmlink_data_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_firmlink_data_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "profile_id": "vfs_firmlink_data_only",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "probe_name": "write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_firmlink_data_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_firmlink_data_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+    },
+    "vfs_firmlink_both:read_/private/tmp/vfs_firmlink_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_firmlink_both",
+      "expectations": [
+        {
+          "expectation_id": "vfs_firmlink_both:read_/private/tmp/vfs_firmlink_probe",
+          "profile_id": "vfs_firmlink_both",
+          "operation": "file-read*",
+          "target": "/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "probe_name": "read_/private/tmp/vfs_firmlink_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_firmlink_both:read_/private/tmp/vfs_firmlink_probe"
+    },
+    "vfs_firmlink_both:write_/private/tmp/vfs_firmlink_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_firmlink_both",
+      "expectations": [
+        {
+          "expectation_id": "vfs_firmlink_both:write_/private/tmp/vfs_firmlink_probe",
+          "profile_id": "vfs_firmlink_both",
+          "operation": "file-write*",
+          "target": "/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "probe_name": "write_/private/tmp/vfs_firmlink_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_firmlink_both:write_/private/tmp/vfs_firmlink_probe"
+    },
+    "vfs_firmlink_both:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_firmlink_both",
+      "expectations": [
+        {
+          "expectation_id": "vfs_firmlink_both:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "profile_id": "vfs_firmlink_both",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "probe_name": "read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_firmlink_both:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+    },
+    "vfs_firmlink_both:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_firmlink_both",
+      "expectations": [
+        {
+          "expectation_id": "vfs_firmlink_both:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "profile_id": "vfs_firmlink_both",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "probe_name": "write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_firmlink_both:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+    },
+    "vfs_link_var_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_link_var_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_link_var_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "profile_id": "vfs_link_var_tmp_only",
+          "operation": "file-read*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "deny",
+          "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_link_var_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+    },
+    "vfs_link_var_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_link_var_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_link_var_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "profile_id": "vfs_link_var_tmp_only",
+          "operation": "file-write*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "deny",
+          "probe_name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_link_var_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+    },
+    "vfs_link_var_tmp_only:read_/private/var/tmp/vfs_link_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_link_var_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_link_var_tmp_only:read_/private/var/tmp/vfs_link_probe",
+          "profile_id": "vfs_link_var_tmp_only",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "allow",
+          "probe_name": "read_/private/var/tmp/vfs_link_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_link_var_tmp_only:read_/private/var/tmp/vfs_link_probe"
+    },
+    "vfs_link_var_tmp_only:write_/private/var/tmp/vfs_link_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_link_var_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_link_var_tmp_only:write_/private/var/tmp/vfs_link_probe",
+          "profile_id": "vfs_link_var_tmp_only",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "allow",
+          "probe_name": "write_/private/var/tmp/vfs_link_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_link_var_tmp_only:write_/private/var/tmp/vfs_link_probe"
+    },
+    "vfs_link_private_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_link_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_link_private_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "profile_id": "vfs_link_private_tmp_only",
+          "operation": "file-read*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_link_private_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_link_private_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+    },
+    "vfs_link_private_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_link_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_link_private_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "profile_id": "vfs_link_private_tmp_only",
+          "operation": "file-write*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "probe_name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_link_private_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_link_private_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+    },
+    "vfs_link_private_tmp_only:read_/private/var/tmp/vfs_link_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_link_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_link_private_tmp_only:read_/private/var/tmp/vfs_link_probe",
+          "profile_id": "vfs_link_private_tmp_only",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "deny",
+          "probe_name": "read_/private/var/tmp/vfs_link_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_link_private_tmp_only:read_/private/var/tmp/vfs_link_probe"
+    },
+    "vfs_link_private_tmp_only:write_/private/var/tmp/vfs_link_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_link_private_tmp_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_link_private_tmp_only:write_/private/var/tmp/vfs_link_probe",
+          "profile_id": "vfs_link_private_tmp_only",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "deny",
+          "probe_name": "write_/private/var/tmp/vfs_link_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_link_private_tmp_only:write_/private/var/tmp/vfs_link_probe"
+    },
+    "vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_link_both",
+      "expectations": [
+        {
+          "expectation_id": "vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "profile_id": "vfs_link_both",
+          "operation": "file-read*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+    },
+    "vfs_link_both:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_link_both",
+      "expectations": [
+        {
+          "expectation_id": "vfs_link_both:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "profile_id": "vfs_link_both",
+          "operation": "file-write*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "probe_name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_link_both:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_link_both:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+    },
+    "vfs_link_both:read_/private/var/tmp/vfs_link_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_link_both",
+      "expectations": [
+        {
+          "expectation_id": "vfs_link_both:read_/private/var/tmp/vfs_link_probe",
+          "profile_id": "vfs_link_both",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "allow",
+          "probe_name": "read_/private/var/tmp/vfs_link_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_link_both:read_/private/var/tmp/vfs_link_probe"
+    },
+    "vfs_link_both:write_/private/var/tmp/vfs_link_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_link_both",
+      "expectations": [
+        {
+          "expectation_id": "vfs_link_both:write_/private/var/tmp/vfs_link_probe",
+          "profile_id": "vfs_link_both",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "allow",
+          "probe_name": "write_/private/var/tmp/vfs_link_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_link_both:write_/private/var/tmp/vfs_link_probe"
+    },
+    "vfs_link_both_plus_metadata_to_var_tmp:lstat_/private/tmp/vfs_linkdir/to_var_tmp": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+      "expectations": [
+        {
+          "expectation_id": "vfs_link_both_plus_metadata_to_var_tmp:lstat_/private/tmp/vfs_linkdir/to_var_tmp",
+          "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+          "operation": "file-read-metadata",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp",
+          "expected": "allow",
+          "probe_name": "lstat_/private/tmp/vfs_linkdir/to_var_tmp"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_link_both_plus_metadata_to_var_tmp:lstat_/private/tmp/vfs_linkdir/to_var_tmp",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read-metadata",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_link_both_plus_metadata_to_var_tmp:lstat_/private/tmp/vfs_linkdir/to_var_tmp"
+    },
+    "vfs_link_both_plus_metadata_to_var_tmp:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+      "expectations": [
+        {
+          "expectation_id": "vfs_link_both_plus_metadata_to_var_tmp:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+          "operation": "file-read*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_link_both_plus_metadata_to_var_tmp:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_link_both_plus_metadata_to_var_tmp:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+    },
+    "vfs_link_both_plus_metadata_to_var_tmp:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+      "expectations": [
+        {
+          "expectation_id": "vfs_link_both_plus_metadata_to_var_tmp:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+          "operation": "file-write*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "probe_name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "vfs_link_both_plus_metadata_to_var_tmp:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "vfs_link_both_plus_metadata_to_var_tmp:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+    },
+    "vfs_link_both_plus_metadata_to_var_tmp:read_/private/var/tmp/vfs_link_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+      "expectations": [
+        {
+          "expectation_id": "vfs_link_both_plus_metadata_to_var_tmp:read_/private/var/tmp/vfs_link_probe",
+          "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "allow",
+          "probe_name": "read_/private/var/tmp/vfs_link_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_link_both_plus_metadata_to_var_tmp:read_/private/var/tmp/vfs_link_probe"
+    },
+    "vfs_link_both_plus_metadata_to_var_tmp:write_/private/var/tmp/vfs_link_probe": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+      "expectations": [
+        {
+          "expectation_id": "vfs_link_both_plus_metadata_to_var_tmp:write_/private/var/tmp/vfs_link_probe",
+          "profile_id": "vfs_link_both_plus_metadata_to_var_tmp",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "allow",
+          "probe_name": "write_/private/var/tmp/vfs_link_probe"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_link_both_plus_metadata_to_var_tmp:write_/private/var/tmp/vfs_link_probe"
+    }
+  }
+}
