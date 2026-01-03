@@ -23,6 +23,12 @@ Safety and boundaries:
 - Do not copy from `book/dumps/ghidra/private/aapl-restricted`.
 - Do not hide harness/decoder/apply failures; treat them as first-class evidence.
 
+Working tree / git policy (dirty tree is normal):
+- Assume the working tree may be intentionally dirty; do not try to "clean up" unrelated diffs.
+- Never run destructive git commands (`git restore`, `git checkout`, `git reset`, `git clean`, `git stash`, `git commit`, etc.) unless the user explicitly asks.
+- If `git status` shows unrelated changes, report that fact and proceed only with requested edits.
+- Do not request escalated permissions to write `.git/` unless explicitly instructed by the user.
+
 Paths and generated artifacts:
 - Checked-in JSON/IR must not embed absolute paths; emit repo-relative paths using `book.api.path_utils` (`to_repo_relative`, `relativize_command`).
 - Do not hand-edit shared/generated artifacts. Regenerate via the appropriate generator:

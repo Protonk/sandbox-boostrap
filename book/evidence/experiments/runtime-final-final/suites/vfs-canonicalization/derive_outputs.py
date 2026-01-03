@@ -35,6 +35,7 @@ DERIVED_ROOT = OUT_ROOT / "derived"
 TEMPLATE_ID = "vfs-canonicalization"
 
 RUNTIME_SUMMARY_SCHEMA = "vfs-canonicalization.runtime_summary.v0.1"
+DENY_WITNESS_SCHEMA = "vfs-canonicalization.deny_log_witnesses.v0.1"
 DECODE_SCHEMA = "vfs-canonicalization.decode_profiles.v0.1"
 MISMATCH_SCHEMA = "vfs-canonicalization.mismatch_summary.v0.1"
 
@@ -190,6 +191,8 @@ def _summarize_runtime(run_dir: Path, bundle_meta: dict[str, Any]) -> dict[str, 
     events = _load_json(run_dir / "runtime_events.normalized.json")
     witness_doc = _load_json(run_dir / "path_witnesses.json")
 
+    allowed_ops = {"file-read*", "file-write*"}
+
     witness_map: Dict[tuple[str, str, str], Dict[str, Any]] = {}
     for rec in witness_doc.get("records") or []:
         if rec.get("lane") != "scenario":
@@ -205,6 +208,8 @@ def _summarize_runtime(run_dir: Path, bundle_meta: dict[str, Any]) -> dict[str, 
         record = dict(event)
         profile_id = record.get("profile_id")
         operation = record.get("operation")
+        if operation not in allowed_ops:
+            continue
         requested_path = record.get("requested_path") or record.get("target")
         witness = None
         if profile_id and operation and requested_path:
@@ -224,6 +229,66 @@ def _summarize_runtime(run_dir: Path, bundle_meta: dict[str, Any]) -> dict[str, 
     return {
         "schema_version": RUNTIME_SUMMARY_SCHEMA,
         "world_id": (witness_doc.get("world_id") or (events[0].get("world_id") if events else None)),
+        "bundle": bundle_meta,
+        "records": records,
+    }
+
+def _aggregate_deny_witnesses(run_dir: Path, bundle_meta: dict[str, Any]) -> dict[str, Any]:
+    runtime_results = _load_json(run_dir / "runtime_results.json")
+    run_manifest = _load_json(run_dir / "run_manifest.json")
+    records: List[Dict[str, Any]] = []
+
+    for profile_id, profile in (runtime_results or {}).items():
+        if not isinstance(profile_id, str) or not isinstance(profile, dict):
+            continue
+        probes = profile.get("probes") or []
+        if not isinstance(probes, list):
+            continue
+        for probe in probes:
+            if not isinstance(probe, dict):
+                continue
+            rr = probe.get("runtime_result") if isinstance(probe.get("runtime_result"), dict) else {}
+            observer = rr.get("observer") if isinstance(rr.get("observer"), dict) else None
+            if not observer:
+                continue
+            log_path = observer.get("log_path")
+            if not isinstance(log_path, str) or not log_path:
+                continue
+            report_path = path_utils.ensure_absolute(Path(log_path), repo_root=REPO_ROOT)
+            report = _load_json(report_path) if report_path.exists() else None
+            data = report.get("data") if isinstance(report, dict) else None
+            deny_lines = data.get("deny_lines") if isinstance(data, dict) else None
+            if not isinstance(deny_lines, list):
+                deny_lines = []
+            records.append(
+                {
+                    "profile_id": profile_id,
+                    "expectation_id": probe.get("expectation_id"),
+                    "probe_name": probe.get("name"),
+                    "operation": probe.get("operation"),
+                    "requested_path": probe.get("path"),
+                    "expected": probe.get("expected"),
+                    "actual": probe.get("actual"),
+                    "observer": {
+                        "log_path": log_path,
+                        "observed_deny": data.get("observed_deny") if isinstance(data, dict) else None,
+                        "deny_lines": deny_lines,
+                        "pid": data.get("pid") if isinstance(data, dict) else None,
+                        "process_name": data.get("process_name") if isinstance(data, dict) else None,
+                        "mode": data.get("mode") if isinstance(data, dict) else None,
+                        "predicate": data.get("predicate") if isinstance(data, dict) else None,
+                        "window": {
+                            "start": data.get("start") if isinstance(data, dict) else None,
+                            "end": data.get("end") if isinstance(data, dict) else None,
+                            "last": data.get("last") if isinstance(data, dict) else None,
+                        },
+                    },
+                }
+            )
+
+    return {
+        "schema_version": DENY_WITNESS_SCHEMA,
+        "world_id": run_manifest.get("world_id"),
         "bundle": bundle_meta,
         "records": records,
     }
@@ -268,11 +333,13 @@ def main() -> int:
     runtime_summary = _summarize_runtime(run_dir, bundle_meta)
     decode_summary = _decode_profiles(run_dir, bundle_meta)
     mismatch_summary = _mismatch_summary(runtime_summary.get("world_id"), bundle_meta)
+    deny_witnesses = _aggregate_deny_witnesses(run_dir, bundle_meta)
 
     out_dir = path_utils.ensure_absolute(args.out_dir, repo_root=REPO_ROOT)
     _write_json(out_dir / "runtime_results.json", runtime_summary)
     _write_json(out_dir / "decode_tmp_profiles.json", decode_summary)
     _write_json(out_dir / "mismatch_summary.json", mismatch_summary)
+    _write_json(out_dir / "deny_log_witnesses.json", deny_witnesses)
 
     return 0
 

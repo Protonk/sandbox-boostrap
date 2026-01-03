@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": null,
+    "deny_lines": [
+      "2026-01-03 08:14:18.636367-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(12473) deny(1) file-read-data /private/tmp/vfs_firmlink_probe"
+    ],
+    "duration_ms": null,
+    "end": "2026-01-03 08:14:20",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2026-01-03 08:14:18.636367-0800  localhost kernel[0]: (Sandbox) Sandbox: sandbox_reader(12473) deny(1) file-read-data /private/tmp/vfs_firmlink_probe",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 2,
+    "observer_schema_version": 1,
+    "pid": 12473,
+    "plan_id": null,
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: sandbox_reader(12473)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"12473\")))",
+    "process_name": "sandbox_reader",
+    "row_id": "vfs_firmlink_data_only:read_/private/tmp/vfs_firmlink_probe",
+    "start": "2026-01-03 08:14:16",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767456858719,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

@@ -34,6 +34,8 @@ READER = SANDBOX_RUNNER_DIR / "sandbox_reader"
 WRITER = SANDBOX_RUNNER_DIR / "sandbox_writer"
 OPENAT_READER = SANDBOX_RUNNER_DIR / "sandbox_openat_reader"
 OPENAT_WRITER = SANDBOX_RUNNER_DIR / "sandbox_openat_writer"
+OPENAT_ROOTREL_READER = SANDBOX_RUNNER_DIR / "sandbox_openat_rootrel_reader"
+OPENAT_ROOTREL_WRITER = SANDBOX_RUNNER_DIR / "sandbox_openat_rootrel_writer"
 METADATA_RUNNER_DIR = REPO_ROOT / "book" / "api" / "runtime" / "native" / "metadata_runner"
 METADATA_RUNNER = METADATA_RUNNER_DIR / "metadata_runner"
 WRAPPER = REPO_ROOT / "book" / "tools" / "sbpl" / "wrapper" / "wrapper"
@@ -1085,6 +1087,11 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
                     return {"error": "sandbox_openat_reader missing"}
                 cmd = [str(OPENAT_READER), str(profile), target]
                 reader_mode = True
+            elif syscall == "openat_rootrel":
+                if not OPENAT_ROOTREL_READER.exists():
+                    return {"error": "sandbox_openat_rootrel_reader missing"}
+                cmd = [str(OPENAT_ROOTREL_READER), str(profile), target]
+                reader_mode = True
             elif READER.exists():
                 cmd = [str(READER), str(profile), target]
                 reader_mode = True
@@ -1123,6 +1130,11 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
                     if not OPENAT_WRITER.exists():
                         return {"error": "sandbox_openat_writer missing"}
                     cmd = [str(OPENAT_WRITER), str(profile), target]
+                    writer_mode = True
+                elif syscall == "openat_rootrel":
+                    if not OPENAT_ROOTREL_WRITER.exists():
+                        return {"error": "sandbox_openat_rootrel_writer missing"}
+                    cmd = [str(OPENAT_ROOTREL_WRITER), str(profile), target]
                     writer_mode = True
                 elif WRITER.exists():
                     cmd = [str(WRITER), str(profile), target]

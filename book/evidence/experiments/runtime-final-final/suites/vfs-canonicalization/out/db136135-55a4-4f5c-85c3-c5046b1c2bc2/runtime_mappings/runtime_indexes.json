@@ -1,0 +1,528 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "op_to_scenarios": {
+    "file-read*": [
+      "vfs_tmp_only:read_/tmp/foo",
+      "vfs_tmp_only:read_/private/tmp/foo",
+      "vfs_tmp_only:read_/tmp/bar",
+      "vfs_tmp_only:read_/private/tmp/bar",
+      "vfs_tmp_only:read_/tmp/nested/child",
+      "vfs_tmp_only:read_/private/tmp/nested/child",
+      "vfs_tmp_only:read_/var/tmp/canon",
+      "vfs_tmp_only:read_/private/var/tmp/canon",
+      "vfs_private_tmp_only:read_/tmp/foo",
+      "vfs_private_tmp_only:read_/private/tmp/foo",
+      "vfs_private_tmp_only:read_/tmp/bar",
+      "vfs_private_tmp_only:read_/private/tmp/bar",
+      "vfs_private_tmp_only:read_/tmp/nested/child",
+      "vfs_private_tmp_only:read_/private/tmp/nested/child",
+      "vfs_private_tmp_only:read_/var/tmp/canon",
+      "vfs_private_tmp_only:read_/private/var/tmp/canon",
+      "vfs_private_tmp_only:read_/private/tmp/nested/../foo",
+      "vfs_both_paths:read_/tmp/foo",
+      "vfs_both_paths:read_/private/tmp/foo",
+      "vfs_both_paths:read_/tmp/bar",
+      "vfs_both_paths:read_/private/tmp/bar",
+      "vfs_both_paths:read_/tmp/nested/child",
+      "vfs_both_paths:read_/private/tmp/nested/child",
+      "vfs_both_paths:read_/var/tmp/canon",
+      "vfs_both_paths:read_/private/var/tmp/canon",
+      "vfs_private_tmp_only_openat:read_open_/tmp/foo",
+      "vfs_private_tmp_only_openat:read_openat_/tmp/foo",
+      "vfs_private_tmp_only_openat:read_open_/private/tmp/foo",
+      "vfs_private_tmp_only_openat:read_openat_/private/tmp/foo",
+      "vfs_private_tmp_only_openat:read_openat_rootrel_tmp/foo",
+      "vfs_private_tmp_only_openat:read_openat_rootrel_private/tmp/foo",
+      "vfs_var_tmp_alias_only:read_/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_alias_only:read_/private/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_alias_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_private_only:read_/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_private_only:read_/private/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_both:read_/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_both:read_/private/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_both:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_both_plus_metadata_var:read_/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_both_plus_metadata_var:read_/private/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_data_only:read_/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_data_only:read_/private/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_data_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "vfs_etc_alias_only:read_/etc/hosts",
+      "vfs_etc_alias_only:read_/private/etc/hosts",
+      "vfs_etc_private_only:read_/etc/hosts",
+      "vfs_etc_private_only:read_/private/etc/hosts",
+      "vfs_etc_both:read_/etc/hosts",
+      "vfs_etc_both:read_/private/etc/hosts",
+      "vfs_etc_both:read_openat_rootrel_etc/hosts",
+      "vfs_etc_both:read_openat_rootrel_private/etc/hosts",
+      "vfs_etc_both_plus_metadata_etc:read_openat_rootrel_etc/hosts",
+      "vfs_etc_both_plus_metadata_etc:read_openat_rootrel_private/etc/hosts",
+      "vfs_etc_both_plus_metadata_etc:read_/etc/hosts",
+      "vfs_etc_both_plus_metadata_etc:read_/private/etc/hosts",
+      "vfs_firmlink_private_only:read_/private/tmp/vfs_firmlink_probe",
+      "vfs_firmlink_private_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "vfs_firmlink_data_only:read_/private/tmp/vfs_firmlink_probe",
+      "vfs_firmlink_data_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "vfs_firmlink_both:read_/private/tmp/vfs_firmlink_probe",
+      "vfs_firmlink_both:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "vfs_link_var_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "vfs_link_var_tmp_only:read_/private/var/tmp/vfs_link_probe",
+      "vfs_link_private_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "vfs_link_private_tmp_only:read_/private/var/tmp/vfs_link_probe",
+      "vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "vfs_link_both:read_/private/var/tmp/vfs_link_probe",
+      "vfs_link_both_plus_metadata_to_var_tmp:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "vfs_link_both_plus_metadata_to_var_tmp:read_/private/var/tmp/vfs_link_probe"
+    ],
+    "file-write*": [
+      "vfs_tmp_only:write_/tmp/foo",
+      "vfs_tmp_only:write_/private/tmp/foo",
+      "vfs_tmp_only:write_/tmp/bar",
+      "vfs_tmp_only:write_/private/tmp/bar",
+      "vfs_tmp_only:write_/tmp/nested/child",
+      "vfs_tmp_only:write_/private/tmp/nested/child",
+      "vfs_tmp_only:write_/var/tmp/canon",
+      "vfs_tmp_only:write_/private/var/tmp/canon",
+      "vfs_private_tmp_only:write_/tmp/foo",
+      "vfs_private_tmp_only:write_/private/tmp/foo",
+      "vfs_private_tmp_only:write_/tmp/bar",
+      "vfs_private_tmp_only:write_/private/tmp/bar",
+      "vfs_private_tmp_only:write_/tmp/nested/child",
+      "vfs_private_tmp_only:write_/private/tmp/nested/child",
+      "vfs_private_tmp_only:write_/var/tmp/canon",
+      "vfs_private_tmp_only:write_/private/var/tmp/canon",
+      "vfs_private_tmp_only:write_/private/tmp/nested/../foo",
+      "vfs_both_paths:write_/tmp/foo",
+      "vfs_both_paths:write_/private/tmp/foo",
+      "vfs_both_paths:write_/tmp/bar",
+      "vfs_both_paths:write_/private/tmp/bar",
+      "vfs_both_paths:write_/tmp/nested/child",
+      "vfs_both_paths:write_/private/tmp/nested/child",
+      "vfs_both_paths:write_/var/tmp/canon",
+      "vfs_both_paths:write_/private/var/tmp/canon",
+      "vfs_var_tmp_alias_only:write_/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_alias_only:write_/private/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_alias_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_private_only:write_/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_private_only:write_/private/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_both:write_/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_both:write_/private/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_both:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_both_plus_metadata_var:write_/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_both_plus_metadata_var:write_/private/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_data_only:write_/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_data_only:write_/private/var/tmp/vfs_canon_probe",
+      "vfs_var_tmp_data_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "vfs_firmlink_private_only:write_/private/tmp/vfs_firmlink_probe",
+      "vfs_firmlink_private_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "vfs_firmlink_data_only:write_/private/tmp/vfs_firmlink_probe",
+      "vfs_firmlink_data_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "vfs_firmlink_both:write_/private/tmp/vfs_firmlink_probe",
+      "vfs_firmlink_both:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+      "vfs_link_var_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "vfs_link_var_tmp_only:write_/private/var/tmp/vfs_link_probe",
+      "vfs_link_private_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "vfs_link_private_tmp_only:write_/private/var/tmp/vfs_link_probe",
+      "vfs_link_both:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "vfs_link_both:write_/private/var/tmp/vfs_link_probe",
+      "vfs_link_both_plus_metadata_to_var_tmp:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "vfs_link_both_plus_metadata_to_var_tmp:write_/private/var/tmp/vfs_link_probe"
+    ],
+    "file-read-metadata": [
+      "vfs_var_tmp_both_plus_metadata_var:lstat_/var",
+      "vfs_etc_both_plus_metadata_etc:lstat_/etc",
+      "vfs_link_both_plus_metadata_to_var_tmp:lstat_/private/tmp/vfs_linkdir/to_var_tmp"
+    ]
+  },
+  "scenario_to_traces": {
+    "vfs_tmp_only:read_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_tmp_only_read__tmp_foo.jsonl"
+    ],
+    "vfs_tmp_only:read_/private/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_tmp_only_read__private_tmp_foo.jsonl"
+    ],
+    "vfs_tmp_only:write_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_tmp_only_write__tmp_foo.jsonl"
+    ],
+    "vfs_tmp_only:write_/private/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_tmp_only_write__private_tmp_foo.jsonl"
+    ],
+    "vfs_tmp_only:read_/tmp/bar": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_tmp_only_read__tmp_bar.jsonl"
+    ],
+    "vfs_tmp_only:read_/private/tmp/bar": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_tmp_only_read__private_tmp_bar.jsonl"
+    ],
+    "vfs_tmp_only:write_/tmp/bar": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_tmp_only_write__tmp_bar.jsonl"
+    ],
+    "vfs_tmp_only:write_/private/tmp/bar": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_tmp_only_write__private_tmp_bar.jsonl"
+    ],
+    "vfs_tmp_only:read_/tmp/nested/child": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_tmp_only_read__tmp_nested_child.jsonl"
+    ],
+    "vfs_tmp_only:read_/private/tmp/nested/child": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_tmp_only_read__private_tmp_nested_child.jsonl"
+    ],
+    "vfs_tmp_only:write_/tmp/nested/child": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_tmp_only_write__tmp_nested_child.jsonl"
+    ],
+    "vfs_tmp_only:write_/private/tmp/nested/child": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_tmp_only_write__private_tmp_nested_child.jsonl"
+    ],
+    "vfs_tmp_only:read_/var/tmp/canon": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_tmp_only_read__var_tmp_canon.jsonl"
+    ],
+    "vfs_tmp_only:read_/private/var/tmp/canon": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_tmp_only_read__private_var_tmp_canon.jsonl"
+    ],
+    "vfs_tmp_only:write_/var/tmp/canon": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_tmp_only_write__var_tmp_canon.jsonl"
+    ],
+    "vfs_tmp_only:write_/private/var/tmp/canon": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_tmp_only_write__private_var_tmp_canon.jsonl"
+    ],
+    "vfs_private_tmp_only:read_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_read__tmp_foo.jsonl"
+    ],
+    "vfs_private_tmp_only:read_/private/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_read__private_tmp_foo.jsonl"
+    ],
+    "vfs_private_tmp_only:write_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_write__tmp_foo.jsonl"
+    ],
+    "vfs_private_tmp_only:write_/private/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_write__private_tmp_foo.jsonl"
+    ],
+    "vfs_private_tmp_only:read_/tmp/bar": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_read__tmp_bar.jsonl"
+    ],
+    "vfs_private_tmp_only:read_/private/tmp/bar": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_read__private_tmp_bar.jsonl"
+    ],
+    "vfs_private_tmp_only:write_/tmp/bar": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_write__tmp_bar.jsonl"
+    ],
+    "vfs_private_tmp_only:write_/private/tmp/bar": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_write__private_tmp_bar.jsonl"
+    ],
+    "vfs_private_tmp_only:read_/tmp/nested/child": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_read__tmp_nested_child.jsonl"
+    ],
+    "vfs_private_tmp_only:read_/private/tmp/nested/child": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_read__private_tmp_nested_child.jsonl"
+    ],
+    "vfs_private_tmp_only:write_/tmp/nested/child": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_write__tmp_nested_child.jsonl"
+    ],
+    "vfs_private_tmp_only:write_/private/tmp/nested/child": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_write__private_tmp_nested_child.jsonl"
+    ],
+    "vfs_private_tmp_only:read_/var/tmp/canon": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_read__var_tmp_canon.jsonl"
+    ],
+    "vfs_private_tmp_only:read_/private/var/tmp/canon": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_read__private_var_tmp_canon.jsonl"
+    ],
+    "vfs_private_tmp_only:write_/var/tmp/canon": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_write__var_tmp_canon.jsonl"
+    ],
+    "vfs_private_tmp_only:write_/private/var/tmp/canon": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_write__private_var_tmp_canon.jsonl"
+    ],
+    "vfs_private_tmp_only:read_/private/tmp/nested/../foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_read__private_tmp_nested_.._foo.jsonl"
+    ],
+    "vfs_private_tmp_only:write_/private/tmp/nested/../foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_write__private_tmp_nested_.._foo.jsonl"
+    ],
+    "vfs_both_paths:read_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_both_paths_read__tmp_foo.jsonl"
+    ],
+    "vfs_both_paths:read_/private/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_both_paths_read__private_tmp_foo.jsonl"
+    ],
+    "vfs_both_paths:write_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_both_paths_write__tmp_foo.jsonl"
+    ],
+    "vfs_both_paths:write_/private/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_both_paths_write__private_tmp_foo.jsonl"
+    ],
+    "vfs_both_paths:read_/tmp/bar": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_both_paths_read__tmp_bar.jsonl"
+    ],
+    "vfs_both_paths:read_/private/tmp/bar": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_both_paths_read__private_tmp_bar.jsonl"
+    ],
+    "vfs_both_paths:write_/tmp/bar": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_both_paths_write__tmp_bar.jsonl"
+    ],
+    "vfs_both_paths:write_/private/tmp/bar": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_both_paths_write__private_tmp_bar.jsonl"
+    ],
+    "vfs_both_paths:read_/tmp/nested/child": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_both_paths_read__tmp_nested_child.jsonl"
+    ],
+    "vfs_both_paths:read_/private/tmp/nested/child": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_both_paths_read__private_tmp_nested_child.jsonl"
+    ],
+    "vfs_both_paths:write_/tmp/nested/child": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_both_paths_write__tmp_nested_child.jsonl"
+    ],
+    "vfs_both_paths:write_/private/tmp/nested/child": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_both_paths_write__private_tmp_nested_child.jsonl"
+    ],
+    "vfs_both_paths:read_/var/tmp/canon": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_both_paths_read__var_tmp_canon.jsonl"
+    ],
+    "vfs_both_paths:read_/private/var/tmp/canon": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_both_paths_read__private_var_tmp_canon.jsonl"
+    ],
+    "vfs_both_paths:write_/var/tmp/canon": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_both_paths_write__var_tmp_canon.jsonl"
+    ],
+    "vfs_both_paths:write_/private/var/tmp/canon": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_both_paths_write__private_var_tmp_canon.jsonl"
+    ],
+    "vfs_private_tmp_only_openat:read_open_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_openat_read_open__tmp_foo.jsonl"
+    ],
+    "vfs_private_tmp_only_openat:read_openat_/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_openat_read_openat__tmp_foo.jsonl"
+    ],
+    "vfs_private_tmp_only_openat:read_open_/private/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_openat_read_open__private_tmp_foo.jsonl"
+    ],
+    "vfs_private_tmp_only_openat:read_openat_/private/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_openat_read_openat__private_tmp_foo.jsonl"
+    ],
+    "vfs_private_tmp_only_openat:read_openat_rootrel_tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_openat_read_openat_rootrel_tmp_foo.jsonl"
+    ],
+    "vfs_private_tmp_only_openat:read_openat_rootrel_private/tmp/foo": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_private_tmp_only_openat_read_openat_rootrel_private_tmp_foo.jsonl"
+    ],
+    "vfs_var_tmp_alias_only:read_/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_alias_only_read__var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_alias_only:write_/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_alias_only_write__var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_alias_only:read_/private/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_alias_only_read__private_var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_alias_only:write_/private/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_alias_only_write__private_var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_alias_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_alias_only_read__System_Volumes_Data_private_var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_alias_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_alias_only_write__System_Volumes_Data_private_var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_private_only:read_/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_private_only_read__var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_private_only:write_/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_private_only_write__var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_private_only:read_/private/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_private_only_read__private_var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_private_only:write_/private/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_private_only_write__private_var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_private_only_read__System_Volumes_Data_private_var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_private_only_write__System_Volumes_Data_private_var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_both:read_/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_both_read__var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_both:write_/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_both_write__var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_both:read_/private/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_both_read__private_var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_both:write_/private/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_both_write__private_var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_both:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_both_read__System_Volumes_Data_private_var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_both:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_both_write__System_Volumes_Data_private_var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_both_plus_metadata_var:lstat_/var": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_both_plus_metadata_var_lstat__var.jsonl"
+    ],
+    "vfs_var_tmp_both_plus_metadata_var:read_/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_both_plus_metadata_var_read__var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_both_plus_metadata_var:write_/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_both_plus_metadata_var_write__var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_both_plus_metadata_var:read_/private/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_both_plus_metadata_var_read__private_var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_both_plus_metadata_var:write_/private/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_both_plus_metadata_var_write__private_var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_data_only:read_/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_data_only_read__var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_data_only:write_/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_data_only_write__var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_data_only:read_/private/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_data_only_read__private_var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_data_only:write_/private/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_data_only_write__private_var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_data_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_data_only_read__System_Volumes_Data_private_var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_var_tmp_data_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_var_tmp_data_only_write__System_Volumes_Data_private_var_tmp_vfs_canon_probe.jsonl"
+    ],
+    "vfs_etc_alias_only:read_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_etc_alias_only_read__etc_hosts.jsonl"
+    ],
+    "vfs_etc_alias_only:read_/private/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_etc_alias_only_read__private_etc_hosts.jsonl"
+    ],
+    "vfs_etc_private_only:read_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_etc_private_only_read__etc_hosts.jsonl"
+    ],
+    "vfs_etc_private_only:read_/private/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_etc_private_only_read__private_etc_hosts.jsonl"
+    ],
+    "vfs_etc_both:read_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_etc_both_read__etc_hosts.jsonl"
+    ],
+    "vfs_etc_both:read_/private/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_etc_both_read__private_etc_hosts.jsonl"
+    ],
+    "vfs_etc_both:read_openat_rootrel_etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_etc_both_read_openat_rootrel_etc_hosts.jsonl"
+    ],
+    "vfs_etc_both:read_openat_rootrel_private/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_etc_both_read_openat_rootrel_private_etc_hosts.jsonl"
+    ],
+    "vfs_etc_both_plus_metadata_etc:lstat_/etc": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_etc_both_plus_metadata_etc_lstat__etc.jsonl"
+    ],
+    "vfs_etc_both_plus_metadata_etc:read_openat_rootrel_etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_etc_both_plus_metadata_etc_read_openat_rootrel_etc_hosts.jsonl"
+    ],
+    "vfs_etc_both_plus_metadata_etc:read_openat_rootrel_private/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_etc_both_plus_metadata_etc_read_openat_rootrel_private_etc_hosts.jsonl"
+    ],
+    "vfs_etc_both_plus_metadata_etc:read_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_etc_both_plus_metadata_etc_read__etc_hosts.jsonl"
+    ],
+    "vfs_etc_both_plus_metadata_etc:read_/private/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_etc_both_plus_metadata_etc_read__private_etc_hosts.jsonl"
+    ],
+    "vfs_firmlink_private_only:read_/private/tmp/vfs_firmlink_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_firmlink_private_only_read__private_tmp_vfs_firmlink_probe.jsonl"
+    ],
+    "vfs_firmlink_private_only:write_/private/tmp/vfs_firmlink_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_firmlink_private_only_write__private_tmp_vfs_firmlink_probe.jsonl"
+    ],
+    "vfs_firmlink_private_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_firmlink_private_only_read__System_Volumes_Data_private_tmp_vfs_firmlink_probe.jsonl"
+    ],
+    "vfs_firmlink_private_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_firmlink_private_only_write__System_Volumes_Data_private_tmp_vfs_firmlink_probe.jsonl"
+    ],
+    "vfs_firmlink_data_only:read_/private/tmp/vfs_firmlink_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_firmlink_data_only_read__private_tmp_vfs_firmlink_probe.jsonl"
+    ],
+    "vfs_firmlink_data_only:write_/private/tmp/vfs_firmlink_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_firmlink_data_only_write__private_tmp_vfs_firmlink_probe.jsonl"
+    ],
+    "vfs_firmlink_data_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_firmlink_data_only_read__System_Volumes_Data_private_tmp_vfs_firmlink_probe.jsonl"
+    ],
+    "vfs_firmlink_data_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_firmlink_data_only_write__System_Volumes_Data_private_tmp_vfs_firmlink_probe.jsonl"
+    ],
+    "vfs_firmlink_both:read_/private/tmp/vfs_firmlink_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_firmlink_both_read__private_tmp_vfs_firmlink_probe.jsonl"
+    ],
+    "vfs_firmlink_both:write_/private/tmp/vfs_firmlink_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_firmlink_both_write__private_tmp_vfs_firmlink_probe.jsonl"
+    ],
+    "vfs_firmlink_both:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_firmlink_both_read__System_Volumes_Data_private_tmp_vfs_firmlink_probe.jsonl"
+    ],
+    "vfs_firmlink_both:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_firmlink_both_write__System_Volumes_Data_private_tmp_vfs_firmlink_probe.jsonl"
+    ],
+    "vfs_link_var_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_link_var_tmp_only_read__private_tmp_vfs_linkdir_to_var_tmp_vfs_link_probe.jsonl"
+    ],
+    "vfs_link_var_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_link_var_tmp_only_write__private_tmp_vfs_linkdir_to_var_tmp_vfs_link_probe.jsonl"
+    ],
+    "vfs_link_var_tmp_only:read_/private/var/tmp/vfs_link_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_link_var_tmp_only_read__private_var_tmp_vfs_link_probe.jsonl"
+    ],
+    "vfs_link_var_tmp_only:write_/private/var/tmp/vfs_link_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_link_var_tmp_only_write__private_var_tmp_vfs_link_probe.jsonl"
+    ],
+    "vfs_link_private_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_link_private_tmp_only_read__private_tmp_vfs_linkdir_to_var_tmp_vfs_link_probe.jsonl"
+    ],
+    "vfs_link_private_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_link_private_tmp_only_write__private_tmp_vfs_linkdir_to_var_tmp_vfs_link_probe.jsonl"
+    ],
+    "vfs_link_private_tmp_only:read_/private/var/tmp/vfs_link_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_link_private_tmp_only_read__private_var_tmp_vfs_link_probe.jsonl"
+    ],
+    "vfs_link_private_tmp_only:write_/private/var/tmp/vfs_link_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_link_private_tmp_only_write__private_var_tmp_vfs_link_probe.jsonl"
+    ],
+    "vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_link_both_read__private_tmp_vfs_linkdir_to_var_tmp_vfs_link_probe.jsonl"
+    ],
+    "vfs_link_both:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_link_both_write__private_tmp_vfs_linkdir_to_var_tmp_vfs_link_probe.jsonl"
+    ],
+    "vfs_link_both:read_/private/var/tmp/vfs_link_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_link_both_read__private_var_tmp_vfs_link_probe.jsonl"
+    ],
+    "vfs_link_both:write_/private/var/tmp/vfs_link_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_link_both_write__private_var_tmp_vfs_link_probe.jsonl"
+    ],
+    "vfs_link_both_plus_metadata_to_var_tmp:lstat_/private/tmp/vfs_linkdir/to_var_tmp": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_link_both_plus_metadata_to_var_tmp_lstat__private_tmp_vfs_linkdir_to_var_tmp.jsonl"
+    ],
+    "vfs_link_both_plus_metadata_to_var_tmp:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_link_both_plus_metadata_to_var_tmp_read__private_tmp_vfs_linkdir_to_var_tmp_vfs_link_probe.jsonl"
+    ],
+    "vfs_link_both_plus_metadata_to_var_tmp:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_link_both_plus_metadata_to_var_tmp_write__private_tmp_vfs_linkdir_to_var_tmp_vfs_link_probe.jsonl"
+    ],
+    "vfs_link_both_plus_metadata_to_var_tmp:read_/private/var/tmp/vfs_link_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_link_both_plus_metadata_to_var_tmp_read__private_var_tmp_vfs_link_probe.jsonl"
+    ],
+    "vfs_link_both_plus_metadata_to_var_tmp:write_/private/var/tmp/vfs_link_probe": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/db136135-55a4-4f5c-85c3-c5046b1c2bc2/runtime_mappings/traces/vfs_link_both_plus_metadata_to_var_tmp_write__private_var_tmp_vfs_link_probe.jsonl"
+    ]
+  }
+}

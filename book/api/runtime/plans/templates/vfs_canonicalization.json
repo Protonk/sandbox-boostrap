@@ -57,19 +57,23 @@
     "vfs_tmp_only",
     "vfs_private_tmp_only",
     "vfs_both_paths",
+    "vfs_private_tmp_only_openat",
     "vfs_var_tmp_alias_only",
     "vfs_var_tmp_private_only",
     "vfs_var_tmp_both",
+    "vfs_var_tmp_both_plus_metadata_var",
     "vfs_var_tmp_data_only",
     "vfs_etc_alias_only",
     "vfs_etc_private_only",
     "vfs_etc_both",
+    "vfs_etc_both_plus_metadata_etc",
     "vfs_firmlink_private_only",
     "vfs_firmlink_data_only",
     "vfs_firmlink_both",
     "vfs_link_var_tmp_only",
     "vfs_link_private_tmp_only",
-    "vfs_link_both"
+    "vfs_link_both",
+    "vfs_link_both_plus_metadata_to_var_tmp"
   ],
   "profiles": {
     "vfs_tmp_only": {
@@ -92,7 +96,21 @@
       "policy": "canonicalized_with_var_tmp_exception",
       "variant": "tmp",
       "role": "second_only",
-      "path_pairs": "base_pairs"
+      "path_pairs": "base_pairs",
+      "extra_manual_probes": [
+        {
+          "name": "read_/private/tmp/nested/../foo",
+          "operation": "file-read*",
+          "target": "/private/tmp/nested/../foo",
+          "expected": "allow"
+        },
+        {
+          "name": "write_/private/tmp/nested/../foo",
+          "operation": "file-write*",
+          "target": "/private/tmp/nested/../foo",
+          "expected": "allow"
+        }
+      ]
     },
     "vfs_both_paths": {
       "sbpl": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_both_paths.sb",
@@ -104,6 +122,52 @@
       "variant": "tmp",
       "role": "both",
       "path_pairs": "base_pairs"
+    },
+    "vfs_private_tmp_only_openat": {
+      "sbpl": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_private_tmp_only_openat.sb",
+      "probe_generation": "manual",
+      "manual_probes": [
+        {
+          "name": "read_open_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow"
+        },
+        {
+          "name": "read_openat_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "syscall": "openat",
+          "expected": "allow"
+        },
+        {
+          "name": "read_open_/private/tmp/foo",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "allow"
+        },
+        {
+          "name": "read_openat_/private/tmp/foo",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "syscall": "openat",
+          "expected": "allow"
+        },
+        {
+          "name": "read_openat_rootrel_tmp/foo",
+          "operation": "file-read*",
+          "target": "tmp/foo",
+          "syscall": "openat_rootrel",
+          "expected": "allow"
+        },
+        {
+          "name": "read_openat_rootrel_private/tmp/foo",
+          "operation": "file-read*",
+          "target": "private/tmp/foo",
+          "syscall": "openat_rootrel",
+          "expected": "allow"
+        }
+      ]
     },
     "vfs_var_tmp_alias_only": {
       "sbpl": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_alias_only.sb",
@@ -143,6 +207,34 @@
       "allowed_paths": [
         "/var/tmp/vfs_canon_probe",
         "/private/var/tmp/vfs_canon_probe"
+      ]
+    },
+    "vfs_var_tmp_both_plus_metadata_var": {
+      "sbpl": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_both_plus_metadata_var.sb",
+      "ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "policy": "literal",
+      "variant": "var_tmp",
+      "request_paths": [
+        "/var/tmp/vfs_canon_probe",
+        "/private/var/tmp/vfs_canon_probe"
+      ],
+      "allowed_paths": [
+        "/var/tmp/vfs_canon_probe",
+        "/private/var/tmp/vfs_canon_probe"
+      ],
+      "extra_manual_probes_position": "prepend",
+      "extra_manual_probes": [
+        {
+          "name": "lstat_/var",
+          "operation": "file-read-metadata",
+          "driver": "metadata_runner",
+          "syscall": "lstat",
+          "target": "/var",
+          "expected": "allow"
+        }
       ]
     },
     "vfs_var_tmp_data_only": {
@@ -193,6 +285,60 @@
       "allowed_paths": [
         "/etc/hosts",
         "/private/etc/hosts"
+      ],
+      "extra_manual_probes": [
+        {
+          "name": "read_openat_rootrel_etc/hosts",
+          "operation": "file-read*",
+          "target": "etc/hosts",
+          "syscall": "openat_rootrel",
+          "expected": "deny"
+        },
+        {
+          "name": "read_openat_rootrel_private/etc/hosts",
+          "operation": "file-read*",
+          "target": "private/etc/hosts",
+          "syscall": "openat_rootrel",
+          "expected": "allow"
+        }
+      ]
+    },
+    "vfs_etc_both_plus_metadata_etc": {
+      "sbpl": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_etc_both_plus_metadata_etc.sb",
+      "ops": [
+        "file-read*"
+      ],
+      "policy": "literal",
+      "variant": "etc",
+      "request_paths": "etc_requests",
+      "allowed_paths": [
+        "/etc/hosts",
+        "/private/etc/hosts"
+      ],
+      "extra_manual_probes_position": "prepend",
+      "extra_manual_probes": [
+        {
+          "name": "lstat_/etc",
+          "operation": "file-read-metadata",
+          "driver": "metadata_runner",
+          "syscall": "lstat",
+          "target": "/etc",
+          "expected": "allow"
+        },
+        {
+          "name": "read_openat_rootrel_etc/hosts",
+          "operation": "file-read*",
+          "target": "etc/hosts",
+          "syscall": "openat_rootrel",
+          "expected": "allow"
+        },
+        {
+          "name": "read_openat_rootrel_private/etc/hosts",
+          "operation": "file-read*",
+          "target": "private/etc/hosts",
+          "syscall": "openat_rootrel",
+          "expected": "allow"
+        }
       ]
     },
     "vfs_firmlink_private_only": {
@@ -273,6 +419,31 @@
       "allowed_paths": [
         "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
         "/private/var/tmp/vfs_link_probe"
+      ]
+    },
+    "vfs_link_both_plus_metadata_to_var_tmp": {
+      "sbpl": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_link_both_plus_metadata_to_var_tmp.sb",
+      "ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "policy": "literal",
+      "variant": "link_path",
+      "request_paths": "link_requests",
+      "allowed_paths": [
+        "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "/private/var/tmp/vfs_link_probe"
+      ],
+      "extra_manual_probes_position": "prepend",
+      "extra_manual_probes": [
+        {
+          "name": "lstat_/private/tmp/vfs_linkdir/to_var_tmp",
+          "operation": "file-read-metadata",
+          "driver": "metadata_runner",
+          "syscall": "lstat",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp",
+          "expected": "allow"
+        }
       ]
     }
   }

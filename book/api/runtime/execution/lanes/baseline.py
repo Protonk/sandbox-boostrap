@@ -51,7 +51,21 @@ def _extract_probe_details(stdout: str) -> tuple[Optional[Dict[str, Any]], str]:
 def _baseline_path_observation(target: Optional[str]) -> Dict[str, Any]:
     if not target:
         return {"observed_path": None, "observed_path_source": "unsandboxed_missing_target"}
-    return harness_runner._unsandboxed_path_observation(target)
+    observed = harness_runner._unsandboxed_path_observation(target)
+    if observed is None:
+        # Baseline path witnesses only support absolute paths. Some runtime probes
+        # intentionally use relative spellings (e.g., openat-rootrel variants).
+        # Those still have meaningful baseline allow/deny behavior, but do not
+        # have a reliable unsandboxed FD-path witness in this lane.
+        return {
+            "observed_path": None,
+            "observed_path_source": "unsandboxed_non_absolute_target",
+            "observed_path_errno": None,
+            "observed_path_nofirmlink": None,
+            "observed_path_nofirmlink_source": "unsandboxed_non_absolute_target",
+            "observed_path_nofirmlink_errno": None,
+        }
+    return observed
 
 
 def _command_for_probe(op: str, target: Optional[str]) -> list[str]:

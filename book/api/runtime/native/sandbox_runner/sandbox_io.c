@@ -332,3 +332,116 @@ int sandbox_io_write_openat(const char *profile_path, const char *target_path) {
     close(fd);
     return 0;
 }
+
+static int _validate_rootrel_target(const char *target_path) {
+    if (!target_path || target_path[0] == '\0' || target_path[0] == '/') {
+        fprintf(stderr, "invalid root-relative target path: %s\n", target_path ? target_path : "(null)");
+        return -1;
+    }
+    return 0;
+}
+
+static void maybe_precreate_target_openat(int dirfd, const char *target_path) {
+    const char *precreate = getenv(SANDBOX_LORE_ENV_FILE_PRECREATE);
+    if (!precreate || precreate[0] == '\0' || precreate[0] == '0') {
+        return;
+    }
+    if (!target_path) {
+        return;
+    }
+    int fd = openat(dirfd, target_path, O_WRONLY | O_CREAT, 0644);
+    if (fd < 0) {
+        fprintf(stderr, "precreate target: %s\n", strerror(errno));
+        return;
+    }
+    close(fd);
+}
+
+int sandbox_io_read_openat_rootrel(const char *profile_path, const char *target_path) {
+    if (_validate_rootrel_target(target_path) != 0) {
+        return 64; /* EX_USAGE */
+    }
+
+    // Open a stable dirfd for "/" before applying the sandbox so the probe
+    // does not require an explicit rule allowing directory opens on "/".
+    int rootfd = open("/", O_RDONLY | O_DIRECTORY);
+    if (rootfd < 0) {
+        perror("open root");
+        return 2;
+    }
+
+    int rc = apply_profile(profile_path);
+    if (rc != 0) {
+        close(rootfd);
+        return rc;
+    }
+
+    maybe_precreate_target_openat(rootfd, target_path);
+
+    sbl_maybe_seatbelt_callout_from_env("pre_syscall");
+    int fd = openat(rootfd, target_path, O_RDONLY);
+    if (fd < 0) {
+        perror("openat(root) target");
+        close(rootfd);
+        return 2;
+    }
+    close(rootfd);
+
+    emit_fd_paths(fd);
+    emit_fd_identity(fd);
+    char buf[4096];
+    ssize_t nr;
+    while ((nr = read(fd, buf, sizeof(buf))) > 0) {
+        if (write(STDOUT_FILENO, buf, (size_t)nr) < 0) {
+            perror("write");
+            close(fd);
+            return 3;
+        }
+    }
+    if (nr < 0) {
+        perror("read");
+        close(fd);
+        return 4;
+    }
+    close(fd);
+    return 0;
+}
+
+int sandbox_io_write_openat_rootrel(const char *profile_path, const char *target_path) {
+    if (_validate_rootrel_target(target_path) != 0) {
+        return 64; /* EX_USAGE */
+    }
+
+    int rootfd = open("/", O_RDONLY | O_DIRECTORY);
+    if (rootfd < 0) {
+        perror("open root");
+        return 2;
+    }
+
+    int rc = apply_profile(profile_path);
+    if (rc != 0) {
+        close(rootfd);
+        return rc;
+    }
+
+    sbl_maybe_seatbelt_callout_from_env("pre_syscall");
+    int fd = openat(rootfd, target_path, O_WRONLY | O_CREAT | O_APPEND, 0644);
+    if (fd < 0) {
+        perror("openat(root) target");
+        close(rootfd);
+        return 2;
+    }
+    close(rootfd);
+
+    emit_fd_paths(fd);
+    emit_fd_identity(fd);
+    const char *line = "runtime-check\n";
+    ssize_t nw = write(fd, line, strlen(line));
+    if (nw < 0) {
+        perror("write");
+        close(fd);
+        return 3;
+    }
+    close(fd);
+    return 0;
+}

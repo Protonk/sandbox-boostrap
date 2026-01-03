@@ -281,6 +281,8 @@ def build_expected_entries(template: Dict[str, Any]) -> List[Dict[str, Any]]:
     entries: List[Dict[str, Any]] = []
     for profile_id in profile_order:
         cfg = profiles.get(profile_id) or {}
+        if cfg.get("probe_generation") == "manual":
+            continue
         ops = cfg.get("ops") or []
         policy = cfg.get("policy")
         variant = cfg.get("variant")
@@ -396,6 +398,84 @@ def _build_vfs(template: Dict[str, Any], out_root: Path, *, overwrite: bool, wri
             probes[probe_id] = probe
         if probe_id not in profile_probe_refs.setdefault(profile_id, []):
             profile_probe_refs[profile_id].append(probe_id)
+
+    def _add_manual_probe(profile_id: str, spec: Dict[str, Any]) -> str:
+        name = spec.get("name")
+        operation = spec.get("operation")
+        target = spec.get("target")
+        expected = spec.get("expected")
+        if not isinstance(name, str) or not name:
+            raise ValueError(f"manual probe missing name: {profile_id}")
+        if not isinstance(operation, str) or not operation:
+            raise ValueError(f"manual probe missing operation: {profile_id}:{name}")
+        if not isinstance(target, str) or not target:
+            raise ValueError(f"manual probe missing target: {profile_id}:{name}")
+        if expected not in {"allow", "deny"}:
+            raise ValueError(f"manual probe missing expected allow/deny: {profile_id}:{name}")
+        probe_id = f"{profile_id}:{name}"
+        probe: Dict[str, Any] = {
+            "probe_id": probe_id,
+            "name": name,
+            "operation": operation,
+            "target": target,
+            "expected": expected,
+            "supports_lanes": dict(supports_lanes),
+            "expected_primary_ops": [operation],
+            "expected_predicates": [target],
+            "capabilities_required": [],
+            "controls_supported": ["baseline", "allow_default", "deny_default"],
+        }
+        driver = spec.get("driver")
+        if isinstance(driver, str) and driver:
+            probe["driver"] = driver
+        syscall = spec.get("syscall")
+        if isinstance(syscall, str) and syscall:
+            probe["syscall"] = syscall
+
+        if probe_id in probes:
+            if probes[probe_id] != probe:
+                raise ValueError(f"manual probe mismatch: {probe_id}")
+        else:
+            probes[probe_id] = probe
+        return probe_id
+
+    def _position(value: Any, *, field: str) -> str:
+        if value is None:
+            return "append"
+        if value not in {"append", "prepend"}:
+            raise ValueError(f"{field} must be append|prepend")
+        return value
+
+    for profile_id in profile_order:
+        cfg = profiles_cfg.get(profile_id) or {}
+        probe_gen = cfg.get("probe_generation")
+        if probe_gen == "manual":
+            manual_specs = cfg.get("manual_probes") or []
+            if not isinstance(manual_specs, list) or not manual_specs:
+                raise ValueError(f"manual profile missing manual_probes: {profile_id}")
+            refs: List[str] = []
+            for spec in manual_specs:
+                if not isinstance(spec, dict):
+                    raise TypeError(f"manual_probes entries must be objects: {profile_id}")
+                refs.append(_add_manual_probe(profile_id, spec))
+            profile_probe_refs[profile_id] = refs
+            continue
+
+        extra_specs = cfg.get("extra_manual_probes") or []
+        if not isinstance(extra_specs, list):
+            raise TypeError(f"extra_manual_probes must be a list: {profile_id}")
+        if not extra_specs:
+            continue
+        extra_refs: List[str] = []
+        for spec in extra_specs:
+            if not isinstance(spec, dict):
+                raise TypeError(f"extra_manual_probes entries must be objects: {profile_id}")
+            extra_refs.append(_add_manual_probe(profile_id, spec))
+        pos = _position(cfg.get("extra_manual_probes_position"), field="extra_manual_probes_position")
+        if pos == "prepend":
+            profile_probe_refs[profile_id] = extra_refs + (profile_probe_refs.get(profile_id) or [])
+        else:
+            profile_probe_refs.setdefault(profile_id, []).extend(extra_refs)
 
     family = template.get("family")
     semantic_group = template.get("semantic_group")
