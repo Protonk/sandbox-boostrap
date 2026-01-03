@@ -15,7 +15,7 @@ Non-goals:
 - Applying or executing profiles (runtime) — use `book.api.runtime` / the
   runtime harness instead.
 - Kernel policy semantics — outputs are best-effort and must be interpreted
-  using the repo’s evidence tiers (bedrock/mapped/hypothesis) and mappings.
+  using the repo’s canonical mappings and corroborating artifacts.
 
 This is the entrypoint for `python -m book.api.profile ...` (via `__main__.py`).
 """

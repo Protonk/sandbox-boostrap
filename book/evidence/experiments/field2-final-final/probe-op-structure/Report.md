@@ -1,5 +1,5 @@
 - world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
-- tier: mapped (structural); runtime slice: partial (hypothesis)
+- scope: structural outputs with a narrow runtime slice (single run; provisional)
 - primary outputs: out/analysis.json; out/anchor_hits.json; out/anchor_hits_delta.json; out/tag_inventory.json; out/tag_layout_hypotheses.json; out/literal_scan.json; out/tag_bytes.json
 - runtime outputs: out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/{runtime_results.json,runtime_events.normalized.json,run_manifest.json}
 - upstream IR: book/api/profile/decoder/; book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json; book/integration/carton/bundle/relationships/mappings/vocab/filters.json
@@ -9,7 +9,7 @@
 # Probe Op Structure – Research Report (Sonoma baseline)
 
 ## Purpose
-Build an anchor-aware structural view of `field2` usage across operations and filters on this host. The core question is: which filters show up in `field2` on which nodes/tags for concrete anchors like `/etc/hosts`, `/tmp/foo`, `flow-divert`, `com.apple.cfprefsd.agent`, and `IOUSBHostInterface`? The structural evidence is mapped and feeds `anchor_filter_map.json`. A minimal runtime slice exists to falsify or corroborate a few anchor-level expectations, but it is intentionally narrow.
+Build an anchor-aware structural view of `field2` usage across operations and filters on this host. The core question is: which filters show up in `field2` on which nodes/tags for concrete anchors like `/etc/hosts`, `/tmp/foo`, `flow-divert`, `com.apple.cfprefsd.agent`, and `IOUSBHostInterface`? The structural outputs feed `anchor_filter_map.json`. A minimal runtime slice exists to falsify or corroborate a few anchor-level expectations, but it is intentionally narrow.
 
 ## Baseline & scope
 - World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
@@ -21,8 +21,8 @@ Build an anchor-aware structural view of `field2` usage across operations and fi
 - Runtime slice: `book/evidence/experiments/runtime-final-final/suites/field2-probe-op-structure/plan.json` and registry data under `book/evidence/experiments/runtime-final-final/suites/field2-probe-op-structure/registry/`.
 
 ## Status
-- Structural evidence: **mapped** (anchor_hits + tag layouts + guardrails).
-- Runtime slice: **partial/hypothesis** (one small plan run; mismatches and non-discriminating probes recorded).
+- Structural outputs: anchor_hits + tag layouts + guardrails.
+- Runtime slice: one small plan run; mismatches and non-discriminating probes recorded.
 
 ## Method summary (structural)
 1) **Probe matrix**: SBPL profiles `v0`–`v8` exercise file, mach, network, and iokit filters with distinct anchors.
@@ -71,7 +71,7 @@ A minimal runtime plan exists to test a few anchors under the shared runtime har
   - `mach-lookup com.apple.cfprefsd.agent` allowed under `sandbox_mach_probe`.
   - `iokit-open-service IOUSBHostInterface` not found (`{"found":false}`), so this probe is non-discriminating for policy semantics.
 
-This runtime slice is intentionally narrow and should be treated as hypothesis-level evidence unless additional controls are added.
+This runtime slice is intentionally narrow and should be treated as provisional unless additional controls are added.
 
 Additional runtime closure (file-only) lives in `book/evidence/experiments/runtime-final-final/suites/runtime-closure/Report.md`. The file lane run `book/evidence/experiments/runtime-final-final/suites/runtime-closure/out/5a8908d8-d626-4cac-8bdd-0f53c02af8fe/` denies `/etc/hosts` under alias-only, private-only, and both profiles while allowing `/private/etc/hosts` only when explicitly permitted; `/tmp/foo` is denied across all three profiles. `path_witnesses.json` in that run shows baseline `/etc/hosts` -> `/private/etc/hosts` and scenario `F_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/etc/hosts` when `/private/etc/hosts` opens successfully, reinforcing the canonicalization mismatch hypothesis.
 
@@ -109,7 +109,7 @@ python -m book.api.runtime run \
 ## Limitations and non-claims
 - Literal/regex operands are still partial; some anchor bindings rely on heuristic scans.
 - Generic scaffolding filters dominate many probe graphs; this experiment does not isolate all fine-grained filters.
-- High `field2` values (e.g., 16660 in `sys:bsd`, 165/166/10752 in `sys:airlock`, 2560 in `flow-divert`, 3584 in `sys:sample`) are structurally bounded but semantically unmapped.
+- High `field2` values (e.g., 16660 in `sys:bsd`, 165/166/10752 in `sys:airlock`, 2560 in `flow-divert`, 3584 in `sys:sample`) are structurally bounded but semantically unresolved.
 - Blocked anchors in `anchor_filter_map.json` (e.g., `flow-divert`, `com.apple.cfprefsd.agent`, `IOUSBHostInterface`) remain unresolved.
 - Runtime results here are narrow and should not be treated as canonical policy semantics without broader runtime evidence.
 

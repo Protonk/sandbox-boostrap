@@ -50,7 +50,6 @@ def run_metadata_runner_job():
     payload = {
         "job_id": "experiment:metadata-runner",
         "status": "ok",
-        "tier": "mapped",
         "host": meta.get("os", {}),
         "inputs": [rel(bundle_dir / "artifact_index.json"), rel(events_path)],
         "outputs": [rel(IR_PATH)],
@@ -62,7 +61,6 @@ def run_metadata_runner_job():
 
     return {
         "status": "ok",
-        "tier": "mapped",
         "inputs": payload["inputs"],
         "outputs": [rel(IR_PATH), rel(STATUS_PATH)],
         "metrics": payload["metrics"],

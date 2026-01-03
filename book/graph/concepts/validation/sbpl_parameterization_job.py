@@ -81,7 +81,6 @@ def run_sbpl_parameterization_job() -> Dict[str, Any]:
     payload: Dict[str, Any] = {
         "job_id": "structure:sbpl-parameterization",
         "status": status,
-        "tier": "mapped",
         "host": host,
         "world_id": WORLD_ID,
         "inputs": [rel(SBPL_PATH)],

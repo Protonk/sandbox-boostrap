@@ -227,7 +227,12 @@
           }
         }
       ],
-      "notes": "ipc-posix-name appears in sys:bsd and sys:airlock; userland probes can use shm_open/sem_open and sandbox_check for decision oracles."
+      "notes": "ipc-posix-name appears in sys:bsd and sys:airlock; userland probes can use shm_open/sem_open and sandbox_check for decision oracles.",
+      "runtime_candidate": {
+        "profile_id": "adv:ipc_posix_shm",
+        "probe_name": "allow-shm",
+        "scenario_id": "adv:ipc_posix_shm:allow-shm"
+      }
     },
     {
       "field2": 6,
@@ -261,7 +266,12 @@
           }
         }
       ],
-      "notes": "right-name appears in sys:bsd; runtime backing can use authorization-right-obtain with sandbox_check callouts."
+      "notes": "right-name appears in sys:bsd; runtime backing can use authorization-right-obtain with sandbox_check callouts.",
+      "runtime_candidate": {
+        "profile_id": "adv:authorization_right",
+        "probe_name": "allow-right",
+        "scenario_id": "adv:authorization_right:allow-right"
+      }
     },
     {
       "field2": 27,
@@ -281,7 +291,12 @@
           }
         }
       ],
-      "notes": "preference-domain appears in sys:bsd; userland preference reads/writes can be paired with sandbox_check callouts."
+      "notes": "preference-domain appears in sys:bsd; userland preference reads/writes can be paired with sandbox_check callouts.",
+      "runtime_candidate": {
+        "profile_id": "adv:preference_domain",
+        "probe_name": "allow-domain",
+        "scenario_id": "adv:preference_domain:allow-domain"
+      }
     },
     {
       "field2": 34,
@@ -353,7 +368,12 @@
         }
       ],
       "system_profiles": [],
-      "notes": "xpc-service-name has no system-profile witness in the current inventory; runtime backing is expected via sandbox_check on mach-lookup."
+      "notes": "xpc-service-name has no system-profile witness in the current inventory; runtime backing is expected via sandbox_check on mach-lookup.",
+      "runtime_candidate": {
+        "profile_id": "adv:xpc_service_name",
+        "probe_name": "allow-cfprefsd-xpc",
+        "scenario_id": "adv:xpc_service_name:allow-cfprefsd-xpc"
+      }
     },
     {
       "field2": 2560,

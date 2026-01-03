@@ -114,7 +114,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
   
   3. **Integrate with vocabulary-mapping (now available)**
      - `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` exists for this host (`status: ok`), so we can map SBPL operation names to numeric Operation IDs.
-     - However, we do **not** yet have a witness that the synthetic profiles’ small op-table slot indices correspond to operation IDs; do not treat “op-table index == op_id” as bedrock.
+     - However, we do **not** yet have a witness that the synthetic profiles’ small op-table slot indices correspond to operation IDs; do not treat “op-table index == op_id” as canonical.
      - A safe integration step is to annotate the per-profile SBPL `ops` set with their numeric IDs (for joins/search), while keeping bucket claims keyed on the observed `op_entries` patterns.
        - explicitly distinguish:
          - facts (IDs and table entries from canonical vocab + blobs),

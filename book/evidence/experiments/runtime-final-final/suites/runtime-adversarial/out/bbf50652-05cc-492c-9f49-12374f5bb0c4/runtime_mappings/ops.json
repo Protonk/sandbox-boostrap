@@ -1,0 +1,302 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "source_jobs": [],
+    "notes": "op-level runtime summary"
+  },
+  "ops": {
+    "file-read*": {
+      "op_name": "file-read*",
+      "op_id": 21,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 7,
+      "matches": 3,
+      "mismatches": 4,
+      "probes_including_blocked": 7,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "unobserved": 0,
+      "examples": [
+        {
+          "scenario_id": "adv:path_edges_private:allow-private",
+          "expectation_id": "adv:path_edges_private:allow-private",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "adv:path_edges_private:allow-private-subpath",
+          "expectation_id": "adv:path_edges_private:allow-private-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "adv:path_edges_private:allow-tmp",
+          "expectation_id": "adv:path_edges_private:allow-tmp",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "adv:path_edges_private:allow-tmp-subpath",
+          "expectation_id": "adv:path_edges_private:allow-tmp-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "adv:path_edges_private:deny-dotdot",
+          "expectation_id": "adv:path_edges_private:deny-dotdot",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "adv:path_canon_alt:allow-private",
+        "adv:path_canon_alt:allow-tmp",
+        "adv:path_edges_private:allow-private",
+        "adv:path_edges_private:allow-private-subpath",
+        "adv:path_edges_private:allow-tmp",
+        "adv:path_edges_private:allow-tmp-subpath",
+        "adv:path_edges_private:deny-dotdot"
+      ],
+      "mismatch_details": [
+        {
+          "scenario_id": "adv:path_edges_private:allow-private",
+          "expectation_id": "adv:path_edges_private:allow-private",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/private/tmp/runtime-adv/edges/a"
+        },
+        {
+          "scenario_id": "adv:path_edges_private:allow-private-subpath",
+          "expectation_id": "adv:path_edges_private:allow-private-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/private/tmp/runtime-adv/edges/okdir/item.txt"
+        },
+        {
+          "scenario_id": "adv:path_edges_private:allow-tmp",
+          "expectation_id": "adv:path_edges_private:allow-tmp",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/runtime-adv/edges/a"
+        },
+        {
+          "scenario_id": "adv:path_edges_private:allow-tmp-subpath",
+          "expectation_id": "adv:path_edges_private:allow-tmp-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/runtime-adv/edges/okdir/item.txt"
+        }
+      ],
+      "coverage_status": "partial"
+    },
+    "file-write*": {
+      "op_name": "file-write*",
+      "op_id": 29,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 5,
+      "matches": 1,
+      "mismatches": 4,
+      "probes_including_blocked": 5,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "unobserved": 0,
+      "examples": [
+        {
+          "scenario_id": "adv:path_edges_private:write-private",
+          "expectation_id": "adv:path_edges_private:write-private",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "adv:path_edges_private:write-private-subpath",
+          "expectation_id": "adv:path_edges_private:write-private-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "adv:path_edges_private:write-tmp",
+          "expectation_id": "adv:path_edges_private:write-tmp",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "adv:path_edges_private:write-tmp-subpath",
+          "expectation_id": "adv:path_edges_private:write-tmp-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "adv:path_edges_private:write-dotdot",
+          "expectation_id": "adv:path_edges_private:write-dotdot",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "adv:path_edges_private:write-dotdot",
+        "adv:path_edges_private:write-private",
+        "adv:path_edges_private:write-private-subpath",
+        "adv:path_edges_private:write-tmp",
+        "adv:path_edges_private:write-tmp-subpath"
+      ],
+      "mismatch_details": [
+        {
+          "scenario_id": "adv:path_edges_private:write-private",
+          "expectation_id": "adv:path_edges_private:write-private",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/private/tmp/runtime-adv/edges/a"
+        },
+        {
+          "scenario_id": "adv:path_edges_private:write-private-subpath",
+          "expectation_id": "adv:path_edges_private:write-private-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/private/tmp/runtime-adv/edges/okdir/item.txt"
+        },
+        {
+          "scenario_id": "adv:path_edges_private:write-tmp",
+          "expectation_id": "adv:path_edges_private:write-tmp",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/runtime-adv/edges/a"
+        },
+        {
+          "scenario_id": "adv:path_edges_private:write-tmp-subpath",
+          "expectation_id": "adv:path_edges_private:write-tmp-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/runtime-adv/edges/okdir/item.txt"
+        }
+      ],
+      "coverage_status": "partial"
+    },
+    "ipc-posix-shm-write-create": {
+      "op_name": "ipc-posix-shm-write-create",
+      "op_id": 78,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 2,
+      "matches": 1,
+      "mismatches": 1,
+      "probes_including_blocked": 2,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "unobserved": 0,
+      "examples": [
+        {
+          "scenario_id": "adv:ipc_posix_shm:allow-shm",
+          "expectation_id": "adv:ipc_posix_shm:allow-shm",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "adv:ipc_posix_shm:deny-shm",
+          "expectation_id": "adv:ipc_posix_shm:deny-shm",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "adv:ipc_posix_shm:allow-shm",
+        "adv:ipc_posix_shm:deny-shm"
+      ],
+      "mismatch_details": [
+        {
+          "scenario_id": "adv:ipc_posix_shm:allow-shm",
+          "expectation_id": "adv:ipc_posix_shm:allow-shm",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "sbl.ipc.shm.allow"
+        }
+      ],
+      "coverage_status": "partial"
+    },
+    "authorization-right-obtain": {
+      "op_name": "authorization-right-obtain",
+      "op_id": 2,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 0,
+      "matches": 0,
+      "mismatches": 0,
+      "probes_including_blocked": 2,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "unobserved": 2,
+      "examples": [],
+      "scenarios": [
+        "adv:authorization_right:allow-right",
+        "adv:authorization_right:deny-right"
+      ],
+      "coverage_status": "brittle"
+    },
+    "user-preference-read": {
+      "op_name": "user-preference-read",
+      "op_id": 185,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 0,
+      "matches": 0,
+      "mismatches": 0,
+      "probes_including_blocked": 2,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "unobserved": 2,
+      "examples": [],
+      "scenarios": [
+        "adv:preference_domain:allow-domain",
+        "adv:preference_domain:deny-domain"
+      ],
+      "coverage_status": "brittle"
+    },
+    "mach-lookup": {
+      "op_name": "mach-lookup",
+      "op_id": 96,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 0,
+      "matches": 0,
+      "mismatches": 0,
+      "probes_including_blocked": 2,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "unobserved": 2,
+      "examples": [],
+      "scenarios": [
+        "adv:xpc_service_name:allow-cfprefsd-xpc",
+        "adv:xpc_service_name:deny-bogus-xpc"
+      ],
+      "coverage_status": "brittle"
+    }
+  }
+}

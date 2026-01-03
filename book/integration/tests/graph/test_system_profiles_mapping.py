@@ -35,7 +35,7 @@ def test_digests_mapping_shape():
     # Basic profiles present
     profiles = data.get("profiles") or {}
     expected = {"sys:airlock", "sys:bsd", "sys:sample"}
-    assert set(canonical.keys()) == expected, "canonical set should stay fixed to the bedrock trio"
+    assert set(canonical.keys()) == expected, "canonical set should stay fixed to the baseline trio"
     for key in expected:
         assert key in profiles, f"missing digest for {key}"
         assert key in canonical, f"missing canonical status for {key}"

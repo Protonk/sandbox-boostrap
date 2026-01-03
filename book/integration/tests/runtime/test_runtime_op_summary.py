@@ -20,7 +20,6 @@ def test_op_runtime_summary_metadata():
     meta = data.get("meta") or {}
     world_id = _load_json(BASELINE).get("world_id")
     assert meta.get("world_id") == world_id
-    assert meta.get("tier") == "mapped"
     assert meta.get("status") in {"ok", "partial", "brittle", "blocked"}
     assert meta.get("schema_version"), "missing schema_version"
     inputs = meta.get("inputs") or []

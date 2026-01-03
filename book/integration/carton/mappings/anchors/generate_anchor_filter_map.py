@@ -84,7 +84,6 @@ def build_legacy_anchor_filter_map(ctx_doc: Mapping[str, Any], *, baseline_world
     out: Dict[str, Any] = {
         "metadata": {
             "world_id": baseline_world_id,
-            "tier": "mapped",
             "notes": "Legacy literal-keyed anchor→filter view derived conservatively from anchor_ctx_filter_map.json; do not treat as a unique binding.",
             "anchor_ctx_map": str(path_utils.to_repo_relative(CTX_PATH, REPO_ROOT)),
             "generated_by": str(path_utils.to_repo_relative(Path(__file__), REPO_ROOT)),

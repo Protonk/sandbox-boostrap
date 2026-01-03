@@ -24,7 +24,6 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from book.api import path_utils
-from book.api import evidence_tiers
 from book.api import world as world_mod
 LIB_PATH = ROOT / "book/integration/carton/bundle/relationships/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
 OPS_PATH = ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/ops.json"
@@ -214,7 +213,6 @@ def main() -> int:
     ops_doc = {
         "metadata": {
             "status": "ok",
-            "tier": evidence_tiers.evidence_tier_for_artifact(path=ops_rel_path),
             "world_id": world_id,
         },
         "notes": f"Operation Vocabulary harvested from {source_rel} (_operation_names span).",
@@ -225,7 +223,6 @@ def main() -> int:
     filters_doc = {
         "metadata": {
             "status": "ok",
-            "tier": evidence_tiers.evidence_tier_for_artifact(path=filters_rel_path),
             "world_id": world_id,
         },
         "filters": [

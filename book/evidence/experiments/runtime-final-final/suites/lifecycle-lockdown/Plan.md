@@ -75,4 +75,4 @@ Apply inputs note:
 - `out/` artifacts:
   - entitlements: unsigned vs ad-hoc signed probe outputs + codesign outputs + comparison summary
   - apply: wrapper SBPL vs wrapper blob vs `apply-attempt` JSON + preflight scan result + comparison summary
-- `Report.md`: what is supportable (`mapped`) vs what remains bounded (`hypothesis`), with explicit limits and evidence paths.
+- `Report.md`: what is supportable vs what remains bounded, with explicit limits and evidence paths.

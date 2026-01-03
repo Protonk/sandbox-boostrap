@@ -90,7 +90,7 @@ Preflight (apply-gate avoidance):
 
 ### witness
 
-Definition: Mapped-tier Python surface for PolicyWitness.app (`policy-witness` CLI + `sandbox-log-observer`).
+Definition: Host-bound Python surface for PolicyWitness.app (`policy-witness` CLI + `sandbox-log-observer`).
 
 Role: Run probes across profiles, capture observer deny evidence, compare baselines, and expose lifecycle/enforcement detail without binding tooling to experiment paths.
 

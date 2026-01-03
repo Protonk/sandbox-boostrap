@@ -115,7 +115,6 @@ def run_golden_corpus_job() -> Dict[str, Any]:
     payload = {
         "job_id": "experiment:golden-corpus",
         "status": status,
-        "tier": "mapped",
         "host": host,
         "inputs": [rel(MANIFEST_PATH), rel(SUMMARY_PATH)],
         "outputs": [rel(IR_PATH)],

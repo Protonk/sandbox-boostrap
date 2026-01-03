@@ -18,7 +18,6 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api.path_utils import to_repo_relative  # type: ignore
-from book.api import evidence_tiers  # type: ignore
 from book.api.profile import digests as digests_mod  # type: ignore
 from book.api import world as world_mod  # type: ignore
 OUT_PATH = REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/system_profiles/header_contract.json"
@@ -57,10 +56,6 @@ def main() -> None:
         "metadata": {
             "world_id": world_id,
             "status": "ok",
-            "tier": evidence_tiers.evidence_tier_for_artifact(
-                path=OUT_PATH,
-                tier="mapped",
-            ),
             "inputs": [to_repo_relative(p, REPO_ROOT) for p in profiles.values()],
             "notes": "Preamble (first 16 bytes) contract for canonical system profiles on this host.",
             "source_jobs": ["generator:system_profiles:header_contract"],

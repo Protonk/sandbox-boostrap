@@ -5,7 +5,7 @@ Deliberately stress static↔runtime alignment for this host using adversarial S
 - Structural filesystem variants (file-read*/file-write*).
 - VFS edge cases (`/tmp` vs `/private/tmp`).
 - Non-filesystem ops (`mach-lookup` and `network-outbound`).
-Outputs: expected/runtime matrices, mismatch summaries, and impact hooks to downgrade bedrock claims if mismatches appear.
+Outputs: expected/runtime matrices, mismatch summaries, and impact hooks to downgrade canonical claims if mismatches appear.
 
 ## Baseline & scope
 - World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (`book/world/sonoma-14.4.1-23E224-arm64/world.json`).
@@ -43,7 +43,7 @@ python -m book.api.runtime run \
 ### VFS edge cases (path_edges)
 - Static intent: allow literal `/tmp/runtime-adv/edges/a` and subpath `/tmp/runtime-adv/edges/okdir/*`, deny `/private/tmp/runtime-adv/edges/a` and the `..` literal to catch traversal. Decoder predicts allows on `/tmp/...` probes via literal/subpath filters.
 - Runtime: `/tmp` reads are denied and flagged as `canonicalization_boundary` mismatches; writes to the same paths are unexpected denies. The normalization control (`allow-subpath-normalized`) also denies, so the mismatch packet is labeled `canonicalization_boundary` with a path-witness anchor.
-- Canonicalization control: `path_edges_private` allows the normalized `/private/tmp` targets for the same `/tmp/...` probes, confirming the boundary as VFS canonicalization rather than a decoder error. The graph-shape verdicts treat this as canonicalization-aware equivalence (no counterexample) while retaining the boundary evidence. Canonicalization evidence remains anchored in `book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/Report.md` (mapped).
+- Canonicalization control: `path_edges_private` allows the normalized `/private/tmp` targets for the same `/tmp/...` probes, confirming the boundary as VFS canonicalization rather than a decoder error. The graph-shape verdicts treat this as canonicalization-aware equivalence (no counterexample) while retaining the boundary evidence. Canonicalization evidence remains anchored in `book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/Report.md` (host-bound).
 
 ### Mount-relative-path discriminator (mount_relative_path)
 - Static intent: isolate a pure subpath rule under `/private/tmp/runtime-adv/mountrel` to exercise mount-relative-path without `/tmp` alias confounds.
@@ -90,10 +90,10 @@ python -m book.api.runtime run \
 - Covered ops/shapes: adversarial probes cover file-read*/file-write* (bucket-4/bucket-5 filesystem profiles and structural/metafilter variants), `file-read-xattr`/`file-write-xattr` (xattr discriminators), `file-read*` with file-mode filters (file-mode discriminator), `mach-lookup` (global-name and local-name, literal and regex, simple vs nested forms), and `network-outbound` (loopback TCP via nc under deny-default + startup shims), plus a flow-divert require-all triple profile.
 - Static↔runtime alignment: decision-stage outcomes are current for mach/network families, but structural/path families still show unexpected denies; keep those mismatches scoped to this host and avoid promotion.
 - Bounded mismatch: `/tmp` → `/private/tmp` canonicalization remains a known boundary from the focused VFS canonicalization experiment; it is not treated as a decoder bug.
-- Scope of claims: do not treat adversarial runtime results as bedrock while apply-gated; keep `runtime_evidence` usage conservative and rely on static IR + explicit blocked status.
+- Scope of claims: do not treat adversarial runtime results as canonical while apply-gated; keep `runtime_evidence` usage conservative and rely on static IR + explicit blocked status.
 
 ## Network-outbound runtime confirmation
-This family targets the `network-outbound` operation to confirm mapped behavior on this host via a clean runtime allow/deny split. Early attempts that sandboxed Python hit startup/file-access noise; the final design deliberately avoids sandboxing Python and pins the client to `/usr/bin/nc`.
+This family targets the `network-outbound` operation to confirm runtime behavior on this host via a clean runtime allow/deny split. Early attempts that sandboxed Python hit startup/file-access noise; the final design deliberately avoids sandboxing Python and pins the client to `/usr/bin/nc`.
 Current run note: decision-stage allow/deny outcomes are visible in the latest bundle outputs (apply preflight succeeded in the launchd staged run).
 
 ### Canonical scenario
@@ -120,7 +120,7 @@ Before refactoring the harness, a bespoke SBPL under `sandbox-exec -f … /usr/b
 ### Status and adjacent work
 - `network-outbound` is confirmed on this world by runtime via the canonical scenario and marked runtime-backed in coverage and CARTON.
 - Planned but non-blocking: add a small variant (alternate port or IPv6 loopback) using the same client/profiles; add a “negative harness” profile (remove `system-socket`) expected to fail as a harness/startup error rather than a policy decision.
-- Remaining runtime divergences: `/tmp`→`/private/tmp` VFS canonicalization in filesystem probes; see `book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/Report.md` for the focused canonicalization family and guardrails (mapped).
+- Remaining runtime divergences: `/tmp`→`/private/tmp` VFS canonicalization in filesystem probes; see `book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/Report.md` for the focused canonicalization family and guardrails (host-bound).
 
 ## Next steps
 - Extend network coverage with a small variant (alternate port or IPv6 loopback) using the same client/profiles; add a “negative harness” profile (remove `system-socket`) expected to fail as a harness/startup error rather than a policy decision.

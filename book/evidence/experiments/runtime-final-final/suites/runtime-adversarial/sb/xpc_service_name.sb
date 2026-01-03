@@ -1,0 +1,7 @@
+(version 1)
+(allow default)
+
+(allow mach-lookup
+  (xpc-service-name "com.apple.cfprefsd.xpc"))
+(deny mach-lookup
+  (xpc-service-name "com.apple.sandboxadversarial.fake.xpc"))

@@ -1,19 +1,9 @@
 # Inside (Codex harness sandbox detector)
 
 This tool detects whether the current process is already sandboxed, so policy-facing runs do not misread harness gates as policy decisions.
-It runs a small sensor set and returns a structured verdict with explicit evidence tiers and confidence.
+It runs a small sensor set and returns a structured verdict with explicit signal classes and confidence.
 
 Host baseline: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
-
-## Evidence tiers
-
-- **Mapped**: direct host observations (S0-S4, S6).
-- **Hypothesis**: log corroboration (S5) because access is blocked under sandbox and noisy under elevated.
-
-Bedrock surfaces (context only; this tool does not map ops/filters):
-- `book/integration/carton/bundle/relationships/mappings/vocab/ops.json`
-- `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`
-- `book/integration/carton/bundle/relationships/mappings/vocab/ops_coverage.json`
 
 ## Sensors and thresholds
 

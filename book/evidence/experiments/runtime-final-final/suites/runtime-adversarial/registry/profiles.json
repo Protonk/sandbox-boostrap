@@ -104,19 +104,6 @@
       "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/net_outbound_deny.sb",
       "semantic_group": "network:outbound-deny"
     },
-    "adv:kext_bundle_query": {
-      "family": "system_kext",
-      "key_specific_rules": [],
-      "mode": "sbpl",
-      "notes": "Discriminate system-kext-query by kext-bundle-id.",
-      "probe_refs": [
-        "adv:kext_bundle_query:allow-sandbox-kext",
-        "adv:kext_bundle_query:deny-bogus-kext"
-      ],
-      "profile_id": "adv:kext_bundle_query",
-      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/kext_bundle_query.sb",
-      "semantic_group": "system-kext:bundle-id-query"
-    },
     "adv:path_alias": {
       "family": "path_alias",
       "key_specific_rules": [],
@@ -249,6 +236,71 @@
       "profile_id": "adv:file_mode",
       "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/file_mode.sb",
       "semantic_group": "file:file-mode"
+    },
+    "adv:ipc_posix_shm": {
+      "family": "ipc_posix",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Discriminate ipc-posix-name via shm_open create.",
+      "probe_refs": [
+        "adv:ipc_posix_shm:allow-shm",
+        "adv:ipc_posix_shm:deny-shm"
+      ],
+      "profile_id": "adv:ipc_posix_shm",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/ipc_posix_shm.sb",
+      "semantic_group": "ipc-posix:shm-name"
+    },
+    "adv:authorization_right": {
+      "family": "authorization",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Right-name discriminator via sandbox_check probe.",
+      "probe_refs": [
+        "adv:authorization_right:allow-right",
+        "adv:authorization_right:deny-right"
+      ],
+      "profile_id": "adv:authorization_right",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/authorization_right.sb",
+      "semantic_group": "authorization:right-name"
+    },
+    "adv:preference_domain": {
+      "family": "preferences",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Preference-domain discriminator via sandbox_check probe.",
+      "probe_refs": [
+        "adv:preference_domain:allow-domain",
+        "adv:preference_domain:deny-domain"
+      ],
+      "profile_id": "adv:preference_domain",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/preference_domain.sb",
+      "semantic_group": "preferences:domain"
+    },
+    "adv:xpc_service_name": {
+      "family": "xpc_service",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "XPC service discriminator via xpc_probe.",
+      "probe_refs": [
+        "adv:xpc_service_name:allow-cfprefsd-xpc",
+        "adv:xpc_service_name:deny-bogus-xpc"
+      ],
+      "profile_id": "adv:xpc_service_name",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/xpc_service_name.sb",
+      "semantic_group": "mach:xpc-service-name"
+    },
+    "adv:path_canon_alt": {
+      "family": "path_alias",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Canonicalization alternate candidate over strict_ok fixture.",
+      "probe_refs": [
+        "adv:path_canon_alt:allow-private",
+        "adv:path_canon_alt:allow-tmp"
+      ],
+      "profile_id": "adv:path_canon_alt",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_canon_alt.sb",
+      "semantic_group": "paths:canonical-alt"
     }
   },
   "registry_id": "runtime-adversarial",

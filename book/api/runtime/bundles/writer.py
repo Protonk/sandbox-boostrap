@@ -12,7 +12,7 @@ way that supports the bundle invariants:
 
 This module assumes the caller has already chosen an output directory and (for
 concurrent writers) acquired any necessary bundle-root lock. This module does
-not run probes, interpret evidence tiers, or decide promotability.
+not run probes, interpret outcomes, or decide promotability.
 
 Atomic writes + explicit commit markers let other tools read bundles
 without races. This is a small reliability trick that pays off when runs are

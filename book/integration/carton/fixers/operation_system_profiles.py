@@ -6,7 +6,6 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Dict
 
-from book.api import evidence_tiers
 from book.integration.carton.fixers import common
 
 ROOT = common.repo_root()
@@ -48,10 +47,6 @@ def build() -> Dict[str, Any]:
             "inputs": inputs,
             "source_jobs": meta.get("source_jobs") or [],
             "status": meta.get("status") or "unknown",
-            "tier": evidence_tiers.evidence_tier_for_artifact(
-                path=OUT_PATH,
-                tier="mapped",
-            ),
             "notes": "Derived from operation_coverage; exposes operation ↔ system profile edges.",
         },
         "operations": dict(sorted(operations.items(), key=lambda kv: kv[0])),

@@ -1,0 +1,566 @@
+{
+  "schema_version": "runtime-tools.baseline_results.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "bbf50652-05cc-492c-9f49-12374f5bb0c4",
+  "results": [
+    {
+      "name": "baseline:adv:path_edges_private:allow-private",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "allow-private",
+      "operation": "file-read*",
+      "target": "/private/tmp/runtime-adv/edges/a",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/runtime-adv/edges/a",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "allow-private"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/edges/a"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /private/tmp/runtime-adv/edges/a: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:allow-private-subpath",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "allow-private-subpath",
+      "operation": "file-read*",
+      "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "allow-private-subpath"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/edges/okdir/item.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /private/tmp/runtime-adv/edges/okdir/item.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:allow-tmp",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "allow-tmp",
+      "operation": "file-read*",
+      "target": "/tmp/runtime-adv/edges/a",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/runtime-adv/edges/a",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "allow-tmp"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/edges/a"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /tmp/runtime-adv/edges/a: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:allow-tmp-subpath",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "allow-tmp-subpath",
+      "operation": "file-read*",
+      "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "allow-tmp-subpath"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/edges/okdir/item.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /tmp/runtime-adv/edges/okdir/item.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:deny-dotdot",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "deny-dotdot",
+      "operation": "file-read*",
+      "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "deny-dotdot"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/edges/okdir/../blocked.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /private/tmp/runtime-adv/edges/okdir/../blocked.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:write-private",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "write-private",
+      "operation": "file-write*",
+      "target": "/private/tmp/runtime-adv/edges/a",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/runtime-adv/edges/a",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "write-private"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/runtime-adv/edges/a'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /private/tmp/runtime-adv/edges/a: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:write-private-subpath",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "write-private-subpath",
+      "operation": "file-write*",
+      "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "write-private-subpath"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/runtime-adv/edges/okdir/item.txt'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /private/tmp/runtime-adv/edges/okdir/item.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:write-tmp",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "write-tmp",
+      "operation": "file-write*",
+      "target": "/tmp/runtime-adv/edges/a",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/runtime-adv/edges/a",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "write-tmp"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/edges/a'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /tmp/runtime-adv/edges/a: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:write-tmp-subpath",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "write-tmp-subpath",
+      "operation": "file-write*",
+      "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "write-tmp-subpath"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/edges/okdir/item.txt'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /tmp/runtime-adv/edges/okdir/item.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:write-dotdot",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "write-dotdot",
+      "operation": "file-write*",
+      "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "write-dotdot"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/runtime-adv/edges/blocked.txt'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /private/tmp/runtime-adv/edges/okdir/../blocked.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:ipc_posix_shm:allow-shm",
+      "profile_id": "adv:ipc_posix_shm",
+      "probe_name": "allow-shm",
+      "operation": "ipc-posix-shm-write-create",
+      "target": "sbl.ipc.shm.allow",
+      "primary_intent": {
+        "operation": "ipc-posix-shm-write-create",
+        "target": "sbl.ipc.shm.allow",
+        "profile_id": "adv:ipc_posix_shm",
+        "probe_name": "allow-shm"
+      },
+      "command": [
+        "/usr/bin/python3",
+        "-c",
+        "import ctypes, ctypes.util, json, os, sys\nname = sys.argv[1]\nif not name.startswith('/'):\n    name = '/' + name\ndetails = {'operation': 'ipc-posix-shm-write-create', 'name': name}\ntry:\n    lib_path = ctypes.util.find_library('c')\n    if not lib_path:\n        raise RuntimeError('libc not found')\n    lib = ctypes.CDLL(lib_path, use_errno=True)\n    lib.shm_open.argtypes = [ctypes.c_char_p, ctypes.c_int, ctypes.c_int]\n    lib.shm_open.restype = ctypes.c_int\n    lib.shm_unlink.argtypes = [ctypes.c_char_p]\n    lib.shm_unlink.restype = ctypes.c_int\n    fd = lib.shm_open(name.encode(), os.O_CREAT | os.O_RDWR, 0o600)\n    err = ctypes.get_errno()\n    details['fd'] = int(fd)\n    if fd == -1:\n        details['errno'] = int(err)\n        details['decision'] = 'deny'\n        print('SBL_PROBE_DETAILS ' + json.dumps(details))\n        sys.exit(1)\n    os.close(fd)\n    unlink_rc = lib.shm_unlink(name.encode())\n    if unlink_rc != 0:\n        details['unlink_errno'] = int(ctypes.get_errno())\n    details['decision'] = 'allow'\nexcept Exception as exc:\n    details['decision'] = 'deny'\n    details['error'] = str(exc)\nprint('SBL_PROBE_DETAILS ' + json.dumps(details))\nsys.exit(0 if details.get('decision') == 'allow' else 1)\n",
+        "sbl.ipc.shm.allow"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "operation": "ipc-posix-shm-write-create",
+        "name": "/sbl.ipc.shm.allow",
+        "fd": 3,
+        "decision": "allow"
+      }
+    },
+    {
+      "name": "baseline:adv:ipc_posix_shm:deny-shm",
+      "profile_id": "adv:ipc_posix_shm",
+      "probe_name": "deny-shm",
+      "operation": "ipc-posix-shm-write-create",
+      "target": "sbl.ipc.shm.deny",
+      "primary_intent": {
+        "operation": "ipc-posix-shm-write-create",
+        "target": "sbl.ipc.shm.deny",
+        "profile_id": "adv:ipc_posix_shm",
+        "probe_name": "deny-shm"
+      },
+      "command": [
+        "/usr/bin/python3",
+        "-c",
+        "import ctypes, ctypes.util, json, os, sys\nname = sys.argv[1]\nif not name.startswith('/'):\n    name = '/' + name\ndetails = {'operation': 'ipc-posix-shm-write-create', 'name': name}\ntry:\n    lib_path = ctypes.util.find_library('c')\n    if not lib_path:\n        raise RuntimeError('libc not found')\n    lib = ctypes.CDLL(lib_path, use_errno=True)\n    lib.shm_open.argtypes = [ctypes.c_char_p, ctypes.c_int, ctypes.c_int]\n    lib.shm_open.restype = ctypes.c_int\n    lib.shm_unlink.argtypes = [ctypes.c_char_p]\n    lib.shm_unlink.restype = ctypes.c_int\n    fd = lib.shm_open(name.encode(), os.O_CREAT | os.O_RDWR, 0o600)\n    err = ctypes.get_errno()\n    details['fd'] = int(fd)\n    if fd == -1:\n        details['errno'] = int(err)\n        details['decision'] = 'deny'\n        print('SBL_PROBE_DETAILS ' + json.dumps(details))\n        sys.exit(1)\n    os.close(fd)\n    unlink_rc = lib.shm_unlink(name.encode())\n    if unlink_rc != 0:\n        details['unlink_errno'] = int(ctypes.get_errno())\n    details['decision'] = 'allow'\nexcept Exception as exc:\n    details['decision'] = 'deny'\n    details['error'] = str(exc)\nprint('SBL_PROBE_DETAILS ' + json.dumps(details))\nsys.exit(0 if details.get('decision') == 'allow' else 1)\n",
+        "sbl.ipc.shm.deny"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "operation": "ipc-posix-shm-write-create",
+        "name": "/sbl.ipc.shm.deny",
+        "fd": 3,
+        "decision": "allow"
+      }
+    },
+    {
+      "name": "baseline:adv:authorization_right:allow-right",
+      "profile_id": "adv:authorization_right",
+      "probe_name": "allow-right",
+      "operation": "authorization-right-obtain",
+      "target": "system.preferences",
+      "primary_intent": {
+        "operation": "authorization-right-obtain",
+        "target": "system.preferences",
+        "profile_id": "adv:authorization_right",
+        "probe_name": "allow-right"
+      },
+      "command": [
+        "true"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:authorization_right:deny-right",
+      "profile_id": "adv:authorization_right",
+      "probe_name": "deny-right",
+      "operation": "authorization-right-obtain",
+      "target": "system.preferences.privacy",
+      "primary_intent": {
+        "operation": "authorization-right-obtain",
+        "target": "system.preferences.privacy",
+        "profile_id": "adv:authorization_right",
+        "probe_name": "deny-right"
+      },
+      "command": [
+        "true"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:preference_domain:allow-domain",
+      "profile_id": "adv:preference_domain",
+      "probe_name": "allow-domain",
+      "operation": "user-preference-read",
+      "target": "com.apple.TimeMachine",
+      "primary_intent": {
+        "operation": "user-preference-read",
+        "target": "com.apple.TimeMachine",
+        "profile_id": "adv:preference_domain",
+        "probe_name": "allow-domain"
+      },
+      "command": [
+        "true"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:preference_domain:deny-domain",
+      "profile_id": "adv:preference_domain",
+      "probe_name": "deny-domain",
+      "operation": "user-preference-read",
+      "target": "com.apple.sandboxadversarial.fake",
+      "primary_intent": {
+        "operation": "user-preference-read",
+        "target": "com.apple.sandboxadversarial.fake",
+        "profile_id": "adv:preference_domain",
+        "probe_name": "deny-domain"
+      },
+      "command": [
+        "true"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:xpc_service_name:allow-cfprefsd-xpc",
+      "profile_id": "adv:xpc_service_name",
+      "probe_name": "allow-cfprefsd-xpc",
+      "operation": "mach-lookup",
+      "target": "com.apple.cfprefsd.xpc",
+      "primary_intent": {
+        "operation": "mach-lookup",
+        "target": "com.apple.cfprefsd.xpc",
+        "profile_id": "adv:xpc_service_name",
+        "probe_name": "allow-cfprefsd-xpc"
+      },
+      "command": [
+        "book/api/runtime/native/probes/mach_probe",
+        "com.apple.cfprefsd.xpc"
+      ],
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "{\"kr\":1102}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "operation": "mach-lookup",
+        "kr": 1102,
+        "service_present": false
+      }
+    },
+    {
+      "name": "baseline:adv:xpc_service_name:deny-bogus-xpc",
+      "profile_id": "adv:xpc_service_name",
+      "probe_name": "deny-bogus-xpc",
+      "operation": "mach-lookup",
+      "target": "com.apple.sandboxadversarial.fake.xpc",
+      "primary_intent": {
+        "operation": "mach-lookup",
+        "target": "com.apple.sandboxadversarial.fake.xpc",
+        "profile_id": "adv:xpc_service_name",
+        "probe_name": "deny-bogus-xpc"
+      },
+      "command": [
+        "book/api/runtime/native/probes/mach_probe",
+        "com.apple.sandboxadversarial.fake.xpc"
+      ],
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "{\"kr\":1102}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "operation": "mach-lookup",
+        "kr": 1102,
+        "service_present": false
+      }
+    },
+    {
+      "name": "baseline:adv:path_canon_alt:allow-private",
+      "profile_id": "adv:path_canon_alt",
+      "probe_name": "allow-private",
+      "operation": "file-read*",
+      "target": "/private/tmp/strict_ok/allow.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/strict_ok/allow.txt",
+        "profile_id": "adv:path_canon_alt",
+        "probe_name": "allow-private"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/strict_ok/allow.txt"
+      ],
+      "observed_path": "/private/tmp/strict_ok/allow.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "strict allow\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_canon_alt:allow-tmp",
+      "profile_id": "adv:path_canon_alt",
+      "probe_name": "allow-tmp",
+      "operation": "file-read*",
+      "target": "/tmp/strict_ok/allow.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/strict_ok/allow.txt",
+        "profile_id": "adv:path_canon_alt",
+        "probe_name": "allow-tmp"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/strict_ok/allow.txt"
+      ],
+      "observed_path": "/private/tmp/strict_ok/allow.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "strict allow\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    }
+  ]
+}

@@ -14,7 +14,7 @@ It exists so that callers outside the validation layer (examples, experiments,
 API tooling) have a stable import path under `book.api.profile` without
 reaching into `book/graph/concepts/validation/`.
 
-Evidence / tiering:
+Evidence handling:
 - Header/section boundaries are treated as *structural* evidence.
 - Heuristics here are baseline-specific; if they fail for a blob, that is
   valuable information and should be captured as a witness rather than patched

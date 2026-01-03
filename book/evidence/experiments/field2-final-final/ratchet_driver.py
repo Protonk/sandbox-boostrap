@@ -16,7 +16,11 @@ from typing import Any, Dict, List
 
 import sys
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve()
+for parent in REPO_ROOT.parents:
+    if (parent / "book").is_dir():
+        REPO_ROOT = parent
+        break
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
@@ -25,6 +29,7 @@ from book.api import path_utils
 DEFAULT_MILESTONE = (
     REPO_ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "field2-final-final"
     / "active_milestone.json"
@@ -32,6 +37,7 @@ DEFAULT_MILESTONE = (
 DEFAULT_DECISIONS = (
     REPO_ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "field2-final-final"
     / "decisions.jsonl"
@@ -39,6 +45,7 @@ DEFAULT_DECISIONS = (
 DEFAULT_FRONTIER = (
     REPO_ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "field2-final-final"
     / "out"
@@ -83,7 +90,7 @@ def widen_milestone(
     new_count = current_count + delta
     cmd = [
         sys.executable,
-        str(REPO_ROOT / "book" / "experiments" / "field2-final-final" / "milestone_freeze.py"),
+        str(REPO_ROOT / "book" / "evidence" / "experiments" / "field2-final-final" / "milestone_freeze.py"),
         "--frontier",
         str(frontier_path),
         "--out",

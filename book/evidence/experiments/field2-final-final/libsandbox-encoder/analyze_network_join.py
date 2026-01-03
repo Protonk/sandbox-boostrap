@@ -252,7 +252,7 @@ def main() -> None:
         "outputs": {"join_hypotheses": rel(OUT_PATH)},
         "hypotheses": hypotheses,
         "skipped_pairs": skipped,
-        "notes": "Experiment-local hypothesis scoring; do not promote without additional evidence.",
+        "notes": "Experiment-local candidate scoring; do not promote without additional evidence.",
     }
     OUT_PATH.write_text(json.dumps(payload, indent=2, sort_keys=True))
     print(f"[+] wrote {OUT_PATH}")

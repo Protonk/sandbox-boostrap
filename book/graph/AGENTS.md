@@ -28,7 +28,7 @@ High-level layout:
 
 ## Surface registry
 
-The current surface registry for this world is recorded in `book/evidence/graph/concepts/BEDROCK_SURFACES.json`; use that as the registry and cite mapping paths when you rely on them. The promotion narrative in `status/first-promotion/post-remediation.md` explains the initial justification.
+Use the CARTON manifest (`book/integration/carton/bundle/CARTON.json`) as the registry of stable, host-bound surfaces for this world. Cite mapping paths from the CARTON bundle when you rely on them. The promotion narrative in `status/first-promotion/post-remediation.md` explains the initial justification.
 
 When in doubt:
 - New *code* that ingests or validates compiled profiles → `concepts/validation/`.

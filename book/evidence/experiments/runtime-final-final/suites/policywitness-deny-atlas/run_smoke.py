@@ -302,7 +302,7 @@ def _normalize_args(args: Iterable[str], home_dir: Path) -> List[str]:
     return [_normalize_path_value(arg, home_dir) or arg for arg in args]
 
 
-def _tier_and_limits(
+def _binding_status_and_limits(
     *,
     observed_deny: Optional[bool],
     op_id: Optional[int],
@@ -322,8 +322,8 @@ def _tier_and_limits(
     if filter_inferred:
         limits.append("filter_inferred")
     if observed_deny is True and op_id is not None and filter_id is not None:
-        return "mapped", limits
-    return "hypothesis", limits
+        return "resolved", limits
+    return "unresolved", limits
 
 
 def main() -> None:
@@ -453,7 +453,7 @@ def main() -> None:
                 )
                 detail_json = detail.to_json()
 
-                tier, limits = _tier_and_limits(
+                binding_status, limits = _binding_status_and_limits(
                     observed_deny=detail_json.get("observed_deny"),
                     op_id=op_id,
                     filter_id=filter_id,
@@ -480,7 +480,7 @@ def main() -> None:
                     "filter": primary_filter,
                     "filter_id": filter_id,
                     "target": _normalize_path_value(target, home_dir),
-                    "evidence_tier": tier,
+                    "binding_status": binding_status,
                     "limits": limits,
                     "observer_mode": observer_mode,
                     "probe_log_path": result.log_path,

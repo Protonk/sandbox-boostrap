@@ -5,7 +5,6 @@ from __future__ import annotations
 
 from typing import Dict
 
-from book.api import evidence_tiers
 from book.integration.carton.fixers import common
 
 ROOT = common.repo_root()
@@ -56,10 +55,6 @@ def build() -> Dict:
         "metadata": {
             "world_id": world_id,
             "status": anchors_doc.get("metadata", {}).get("status", "partial"),
-            "tier": evidence_tiers.evidence_tier_for_artifact(
-                path=OUT_PATH,
-                tier="mapped",
-            ),
             "inputs": [
                 common.repo_relative(ANCHORS_PATH, repo_root_path=ROOT),
                 common.repo_relative(HITS_PATH, repo_root_path=ROOT),

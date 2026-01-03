@@ -240,4 +240,4 @@ Example (per-export isolation hook):
 - If sandbox_check evidence is required, target a probe that explicitly uses libsystem_sandbox APIs or add a dedicated probe inside EntitlementJail to call sandbox_check under controlled inputs.
 
 ## Appendix: legacy runs
-Legacy run artifacts were removed from book/evidence/experiments/runtime-final-final/suites/frida-testing/out/. No current host witness remains; treat any inference as hypothesis until new runs are captured.
+Legacy run artifacts were removed from book/evidence/experiments/runtime-final-final/suites/frida-testing/out/. No current host witness remains; treat any inference as provisional until new runs are captured.

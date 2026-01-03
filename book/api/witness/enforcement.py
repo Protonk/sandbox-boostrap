@@ -93,15 +93,15 @@ def _extract_layer_attribution(
     return None
 
 
-def _format_attribution(layer_attribution: Optional[Dict[str, object]], observed_deny: Optional[bool]) -> tuple[str, str]:
+def _format_attribution(layer_attribution: Optional[Dict[str, object]], observed_deny: Optional[bool]) -> str:
     if isinstance(layer_attribution, dict):
         seatbelt = layer_attribution.get("seatbelt")
         if isinstance(seatbelt, str):
-            return seatbelt, "mapped"
-        return json.dumps(layer_attribution, sort_keys=True), "mapped"
+            return seatbelt
+        return json.dumps(layer_attribution, sort_keys=True)
     if observed_deny is True:
-        return "observer_only", "mapped"
-    return "unknown", "hypothesis"
+        return "observer_only"
+    return "unknown"
 
 
 def enforcement_detail(
@@ -116,7 +116,7 @@ def enforcement_detail(
     observed_deny = _extract_observed_deny(observer_report, stdout_json)
     observer_predicate = _extract_observer_predicate(observer_report, stdout_json)
     layer_attr = _extract_layer_attribution(observer_report, stdout_json)
-    attribution, attribution_tier = _format_attribution(layer_attr, observed_deny)
+    attribution = _format_attribution(layer_attr, observed_deny)
 
     limits = []
     if stdout_json is None:
@@ -135,7 +135,6 @@ def enforcement_detail(
         errno=errno,
         observed_deny=observed_deny,
         attribution=attribution,
-        attribution_tier=attribution_tier,
         observer_predicate=observer_predicate,
         limits=limits,
     )

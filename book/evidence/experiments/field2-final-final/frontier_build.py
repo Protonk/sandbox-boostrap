@@ -18,7 +18,11 @@ from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
 import sys
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve()
+for parent in REPO_ROOT.parents:
+    if (parent / "book").is_dir():
+        REPO_ROOT = parent
+        break
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
@@ -29,6 +33,7 @@ SCHEMA_VERSION = "field2-frontier.v0"
 DEFAULT_SEEDS = (
     REPO_ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "field2-final-final"
     / "field2-atlas"
@@ -37,6 +42,7 @@ DEFAULT_SEEDS = (
 DEFAULT_INVENTORY = (
     REPO_ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "field2-final-final"
     / "field2-filters"
@@ -46,6 +52,7 @@ DEFAULT_INVENTORY = (
 DEFAULT_UNKNOWN_NODES = (
     REPO_ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "field2-final-final"
     / "field2-filters"
@@ -55,6 +62,7 @@ DEFAULT_UNKNOWN_NODES = (
 DEFAULT_ANCHOR_HITS = (
     REPO_ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "field2-final-final"
     / "probe-op-structure"
@@ -64,6 +72,7 @@ DEFAULT_ANCHOR_HITS = (
 DEFAULT_OUT = (
     REPO_ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "field2-final-final"
     / "out"
@@ -72,6 +81,7 @@ DEFAULT_OUT = (
 DEFAULT_DECISIONS = (
     REPO_ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "field2-final-final"
     / "decisions.jsonl"
@@ -79,7 +89,10 @@ DEFAULT_DECISIONS = (
 DEFAULT_RUNTIME_LATEST = (
     REPO_ROOT
     / "book"
+    / "evidence"
     / "experiments"
+    / "runtime-final-final"
+    / "suites"
     / "runtime-adversarial"
     / "out"
     / "LATEST"
@@ -110,6 +123,7 @@ def _default_atlas_path() -> Optional[Path]:
     candidate = (
         REPO_ROOT
         / "book"
+        / "evidence"
         / "experiments"
         / "field2-final-final"
         / "field2-atlas"

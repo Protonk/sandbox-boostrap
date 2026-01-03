@@ -1862,24 +1862,75 @@
           "tag": 0
         }
       ],
-      "probe-op:v1_file_require_any.sb": [],
-      "probe-op:v2_file_three_filters_any.sb": [
+      "probe-op:v10_iokit_user_client_pair.sb": [
         {
           "edges": [
             0,
-            49
+            53
+          ],
+          "fan_in": 0,
+          "fan_out": 1,
+          "fields": [
+            0,
+            53,
+            18753
+          ],
+          "hi": 16384,
+          "idx": 52,
+          "literal_refs": [
+            "QHIDParamUserClient"
+          ],
+          "lo": 2369,
+          "name_lo": null,
+          "ops": [],
+          "raw": 18753,
+          "raw_hex": "0x4941",
+          "tag": 0
+        }
+      ],
+      "probe-op:v11_iokit_user_client_connection.sb": [],
+      "probe-op:v12_iokit_control.sb": [
+        {
+          "edges": [
+            0,
+            0
           ],
           "fan_in": 0,
           "fan_out": 2,
           "fields": [
             0,
-            49,
+            0,
+            3584
+          ],
+          "hi": 0,
+          "idx": 46,
+          "literal_refs": [],
+          "lo": 3584,
+          "name_lo": null,
+          "ops": [],
+          "raw": 3584,
+          "raw_hex": "0xe00",
+          "tag": 0
+        }
+      ],
+      "probe-op:v1_file_require_any.sb": [],
+      "probe-op:v2_file_three_filters_any.sb": [
+        {
+          "edges": [
+            0,
+            75
+          ],
+          "fan_in": 0,
+          "fan_out": 1,
+          "fields": [
+            0,
+            75,
             12096
           ],
           "hi": 0,
           "idx": 52,
           "literal_refs": [
-            "Ftmp/foo"
+            "Fvar/log"
           ],
           "lo": 12096,
           "name_lo": null,
@@ -1947,6 +1998,30 @@
       "probe-op:v8_all_combo.sb": [
         {
           "edges": [
+            11,
+            12
+          ],
+          "fan_in": 0,
+          "fan_out": 2,
+          "fields": [
+            11,
+            12,
+            7424
+          ],
+          "hi": 0,
+          "idx": 53,
+          "literal_refs": [
+            "Hetc/hosts"
+          ],
+          "lo": 7424,
+          "name_lo": null,
+          "ops": [],
+          "raw": 7424,
+          "raw_hex": "0x1d00",
+          "tag": 8
+        },
+        {
+          "edges": [
             0,
             0
           ],
@@ -1960,7 +2035,7 @@
           "hi": 0,
           "idx": 56,
           "literal_refs": [
-            "Ftmp/foo"
+            "Hetc/hosts"
           ],
           "lo": 1281,
           "name_lo": null,
@@ -1970,6 +2045,7 @@
           "tag": 0
         }
       ],
+      "probe-op:v9_iokit_user_client_only.sb": [],
       "probe:airlock_system_fcntl.sb": [],
       "probe:airlock_system_fcntl_matrix.sb": [
         {
@@ -2100,6 +2176,7 @@
       "probe:flow_divert_mixed.sb": [],
       "probe:flow_divert_only.sb": [],
       "probe:flow_divert_variant.sb": [],
+      "probe:ipc_posix_name.sb": [],
       "probe:net_require_all_domain_proto.sb": [],
       "probe:net_require_all_domain_type.sb": [],
       "probe:net_require_all_domain_type_proto.sb": [
@@ -2155,7 +2232,11 @@
         }
       ],
       "probe:net_require_all_type_proto.sb": [],
+      "probe:notification_name.sb": [],
+      "probe:preference_domain.sb": [],
       "probe:right_and_preference_names.sb": [],
+      "probe:right_name.sb": [],
+      "probe:sysctl_name.sb": [],
       "probe:v0_subpath.sb": [],
       "probe:v1_literal.sb": [],
       "probe:v2_global_name.sb": [],
@@ -2189,250 +2270,7 @@
           "tag": 0
         }
       ],
-      "sys:airlock": [
-        {
-          "edges": [
-            9728,
-            330
-          ],
-          "fan_in": 2,
-          "fan_out": 0,
-          "fields": [
-            9728,
-            330,
-            165
-          ],
-          "hi": 0,
-          "idx": 13,
-          "literal_refs": [
-            "P/dev/dtracehelper"
-          ],
-          "lo": 165,
-          "name_lo": null,
-          "ops": [
-            {
-              "id": 111,
-              "name": "network-bind"
-            },
-            {
-              "id": 132,
-              "name": "process-info-setcontrol"
-            },
-            {
-              "id": 136,
-              "name": "process-legacy-codesigning-entitlements-blob-get"
-            },
-            {
-              "id": 152,
-              "name": "syscall-mach"
-            }
-          ],
-          "raw": 165,
-          "raw_hex": "0xa5",
-          "tag": 0
-        },
-        {
-          "edges": [
-            3584,
-            1
-          ],
-          "fan_in": 0,
-          "fan_out": 1,
-          "fields": [
-            3584,
-            1,
-            165
-          ],
-          "hi": 0,
-          "idx": 48,
-          "literal_refs": [
-            "Msystem/library",
-            "P/dev/dtracehelper"
-          ],
-          "lo": 165,
-          "name_lo": null,
-          "ops": [],
-          "raw": 165,
-          "raw_hex": "0xa5",
-          "tag": 0
-        },
-        {
-          "edges": [
-            18688,
-            256
-          ],
-          "fan_in": 0,
-          "fan_out": 0,
-          "fields": [
-            18688,
-            256,
-            165
-          ],
-          "hi": 0,
-          "idx": 68,
-          "literal_refs": [
-            "\nIHEVCDecode",
-            "P/dev/dtracehelper"
-          ],
-          "lo": 165,
-          "name_lo": null,
-          "ops": [],
-          "raw": 165,
-          "raw_hex": "0xa5",
-          "tag": 0
-        },
-        {
-          "edges": [
-            18688,
-            11
-          ],
-          "fan_in": 0,
-          "fan_out": 1,
-          "fields": [
-            18688,
-            11,
-            165
-          ],
-          "hi": 0,
-          "idx": 88,
-          "literal_refs": [
-            "Esystem",
-            "G/system/",
-            "P/dev/dtracehelper"
-          ],
-          "lo": 165,
-          "name_lo": null,
-          "ops": [],
-          "raw": 165,
-          "raw_hex": "0xa5",
-          "tag": 3
-        },
-        {
-          "edges": [
-            4608,
-            67
-          ],
-          "fan_in": 0,
-          "fan_out": 1,
-          "fields": [
-            4608,
-            67,
-            165
-          ],
-          "hi": 0,
-          "idx": 127,
-          "literal_refs": [
-            "\nAIO",
-            "P/dev/dtracehelper"
-          ],
-          "lo": 165,
-          "name_lo": null,
-          "ops": [],
-          "raw": 165,
-          "raw_hex": "0xa5",
-          "tag": 0
-        },
-        {
-          "edges": [
-            48915,
-            3
-          ],
-          "fan_in": 0,
-          "fan_out": 1,
-          "fields": [
-            48915,
-            3,
-            49171
-          ],
-          "hi": 49152,
-          "idx": 175,
-          "literal_refs": [
-            "G/system/",
-            "P/dev/dtracehelper"
-          ],
-          "lo": 19,
-          "name_lo": null,
-          "ops": [],
-          "raw": 49171,
-          "raw_hex": "0xc013",
-          "tag": 0
-        }
-      ],
-      "sys:bsd": [],
-      "sys:sample": [
-        {
-          "edges": [
-            0,
-            0
-          ],
-          "fan_in": 0,
-          "fan_out": 2,
-          "fields": [
-            0,
-            0,
-            3584
-          ],
-          "hi": 0,
-          "idx": 45,
-          "literal_refs": [
-            "I/etc/hosts"
-          ],
-          "lo": 3584,
-          "name_lo": null,
-          "ops": [],
-          "raw": 3584,
-          "raw_hex": "0xe00",
-          "tag": 0
-        },
-        {
-          "edges": [
-            8,
-            6
-          ],
-          "fan_in": 0,
-          "fan_out": 2,
-          "fields": [
-            8,
-            6,
-            256
-          ],
-          "hi": 0,
-          "idx": 51,
-          "literal_refs": [
-            "I/etc/hosts"
-          ],
-          "lo": 256,
-          "name_lo": null,
-          "ops": [],
-          "raw": 256,
-          "raw_hex": "0x100",
-          "tag": 0
-        },
-        {
-          "edges": [
-            0,
-            0
-          ],
-          "fan_in": 0,
-          "fan_out": 2,
-          "fields": [
-            0,
-            0,
-            1281
-          ],
-          "hi": 0,
-          "idx": 53,
-          "literal_refs": [
-            "I/etc/hosts"
-          ],
-          "lo": 1281,
-          "name_lo": null,
-          "ops": [],
-          "raw": 1281,
-          "raw_hex": "0x501",
-          "tag": 0
-        }
-      ]
+      "probe:xpc_service_name.sb": []
     }
   },
   "metadata": {
@@ -2447,9 +2285,9 @@
       "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "c3a436fe061545ba76f0bb1cbccca9c9060a5fb6e8d577488d6fc8fffb8c04f7",
       "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json": "030a6d8b2d5806627e980a90ca7f56d51cb6c52a908ce05881b9c1dd12694136",
       "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "d8de1b9c7e9b47af05310ca92ae9b79fe33d74e3da16f10139f88d41aaa8a7b6",
-      "book/evidence/graph/concepts/validation/out/experiments/field2/field2_ir.json": "6c7b59782c77cb07d4cb0d571fe00c20f827e16f3e067813a42834118e743c82",
-      "book/integration/carton/bundle/relationships/mappings/runtime/runtime_coverage.json": "9f0aa6ef07c8fe2d9264d5c0a8387ce334a1303033053776130098af4580291f",
-      "book/integration/carton/bundle/relationships/mappings/runtime_cuts/runtime_story.json": "50f903a98ae3fe14e1918d56612a026a3249357384d8f0e90821792ea4253d87",
+      "book/evidence/graph/concepts/validation/out/experiments/field2/field2_ir.json": "f6290b159972d4627d776d4713d049c60dd08cd7abf4159365af7b5f44375dee",
+      "book/integration/carton/bundle/relationships/mappings/runtime/runtime_coverage.json": "2250fca206b94807be86a2bed5cf7e676be4e18ad4c591a07e015088ff907b85",
+      "book/integration/carton/bundle/relationships/mappings/runtime_cuts/runtime_story.json": "e00edc5f63b80fc62833a0781b76ccd8ad622bae1ee1460bc80ae0f4fbde8f29",
       "expected_matrix": "c3f4fca3ed04fd93455f157004ccb9aff2c4a3eedfe60fb7110df2d522156de9"
     },
     "inputs": [
@@ -2476,8 +2314,8 @@
           "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "c3a436fe061545ba76f0bb1cbccca9c9060a5fb6e8d577488d6fc8fffb8c04f7",
           "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json": "030a6d8b2d5806627e980a90ca7f56d51cb6c52a908ce05881b9c1dd12694136",
           "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "d8de1b9c7e9b47af05310ca92ae9b79fe33d74e3da16f10139f88d41aaa8a7b6",
-          "book/integration/carton/bundle/relationships/mappings/runtime_cuts/ops.json": "84c22d3f674a3bf7a0f3848706bb8399ec8c0e9d5ee7f177ba3a6369db620950",
-          "book/integration/carton/bundle/relationships/mappings/runtime_cuts/scenarios.json": "259a1d3c9558d63be440e2d76e0786a2ef150ba4187d47b7f0a50725117b8d64"
+          "book/integration/carton/bundle/relationships/mappings/runtime_cuts/ops.json": "bb525e35e9151502f2e1235de589ca44ba62e664adddd464ce01dcc85ed851f2",
+          "book/integration/carton/bundle/relationships/mappings/runtime_cuts/scenarios.json": "1b5ec4b2a451fc6b5da5e228e817ae48f6cbdf126ed436115fd3abe5069518ed"
         },
         "inputs": [
           "book/integration/carton/bundle/relationships/mappings/runtime_cuts/ops.json",
@@ -2566,8 +2404,8 @@
               "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "c3a436fe061545ba76f0bb1cbccca9c9060a5fb6e8d577488d6fc8fffb8c04f7",
               "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json": "030a6d8b2d5806627e980a90ca7f56d51cb6c52a908ce05881b9c1dd12694136",
               "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "d8de1b9c7e9b47af05310ca92ae9b79fe33d74e3da16f10139f88d41aaa8a7b6",
-              "book/integration/carton/bundle/relationships/mappings/runtime_cuts/ops.json": "84c22d3f674a3bf7a0f3848706bb8399ec8c0e9d5ee7f177ba3a6369db620950",
-              "book/integration/carton/bundle/relationships/mappings/runtime_cuts/scenarios.json": "259a1d3c9558d63be440e2d76e0786a2ef150ba4187d47b7f0a50725117b8d64"
+              "book/integration/carton/bundle/relationships/mappings/runtime_cuts/ops.json": "bb525e35e9151502f2e1235de589ca44ba62e664adddd464ce01dcc85ed851f2",
+              "book/integration/carton/bundle/relationships/mappings/runtime_cuts/scenarios.json": "1b5ec4b2a451fc6b5da5e228e817ae48f6cbdf126ed436115fd3abe5069518ed"
             },
             "inputs": [
               "book/integration/carton/bundle/relationships/mappings/runtime_cuts/ops.json",
@@ -2606,7 +2444,6 @@
             "schema_version": "runtime-mapping.v0.1",
             "source_jobs": [],
             "status": "partial",
-            "tier": "mapped",
             "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
           }
         },
@@ -2614,7 +2451,6 @@
           "promotion_packet"
         ],
         "status": "partial",
-        "tier": "mapped",
         "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
       },
       "runtime_story": {
@@ -2629,8 +2465,8 @@
           "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "c3a436fe061545ba76f0bb1cbccca9c9060a5fb6e8d577488d6fc8fffb8c04f7",
           "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json": "030a6d8b2d5806627e980a90ca7f56d51cb6c52a908ce05881b9c1dd12694136",
           "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "d8de1b9c7e9b47af05310ca92ae9b79fe33d74e3da16f10139f88d41aaa8a7b6",
-          "book/integration/carton/bundle/relationships/mappings/runtime_cuts/ops.json": "84c22d3f674a3bf7a0f3848706bb8399ec8c0e9d5ee7f177ba3a6369db620950",
-          "book/integration/carton/bundle/relationships/mappings/runtime_cuts/scenarios.json": "259a1d3c9558d63be440e2d76e0786a2ef150ba4187d47b7f0a50725117b8d64"
+          "book/integration/carton/bundle/relationships/mappings/runtime_cuts/ops.json": "bb525e35e9151502f2e1235de589ca44ba62e664adddd464ce01dcc85ed851f2",
+          "book/integration/carton/bundle/relationships/mappings/runtime_cuts/scenarios.json": "1b5ec4b2a451fc6b5da5e228e817ae48f6cbdf126ed436115fd3abe5069518ed"
         },
         "inputs": [
           "book/integration/carton/bundle/relationships/mappings/runtime_cuts/ops.json",
@@ -2669,7 +2505,6 @@
         "schema_version": "runtime-mapping.v0.1",
         "source_jobs": [],
         "status": "partial",
-        "tier": "mapped",
         "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
       }
     },
@@ -2706,7 +2541,6 @@
       "promotion_packet"
     ],
     "status": "partial",
-    "tier": "mapped",
     "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
   },
   "mismatches": [

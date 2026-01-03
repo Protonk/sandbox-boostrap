@@ -140,7 +140,7 @@ This experiment can also support broader, still-open (and largely static/unblock
 
 ## Structural signal listening (in progress; partial/brittle)
 
-Digest lists are the **bedrock** avoidance mechanism for `.sb.bin` preflight (exact-match, witness-backed). The next extension is to explore whether compiled blobs contain a **structural signal** that correlates with the current apply-gate witness set.
+Digest lists are the **primary** avoidance mechanism for `.sb.bin` preflight (exact-match, witness-backed). The next extension is to explore whether compiled blobs contain a **structural signal** that correlates with the current apply-gate witness set.
 
 This work is explicitly **partial/brittle** until expanded and regression-tested: a structural signal is useful for triage and ranking, but it is not (yet) a substitute for witness-backed digest classification.
 

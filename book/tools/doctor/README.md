@@ -1,9 +1,8 @@
 # Doctor (world baseline checkup)
 
-Doctor performs a hypothesis-tier checkup of a candidate world baseline by
+Doctor performs a baseline integrity check of a candidate world baseline by
 verifying dyld manifest integrity and comparing host identity signals.
-Evidence tier: hypothesis. Mapping path: none (see
-`book/evidence/graph/concepts/BEDROCK_SURFACES.json` for bedrock surfaces).
+Mapping path: none.
 
 What it checks:
 - world.json and dyld/manifest.json resolution (plus registry lookups)
@@ -31,6 +30,6 @@ Exit codes:
 - 2: mismatch or baseline integrity error
 
 Notes:
-- Dyld cache UUID extraction uses a fixed header offset heuristic; treat it as hypothesis.
+- Dyld cache UUID extraction uses a fixed header offset heuristic; treat it as best-effort.
 - This tool does not update mappings or CARTON.
 - World name/id lookups use `book/world/registry.json`.

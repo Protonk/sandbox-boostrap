@@ -42,7 +42,7 @@ The matrices:
 - Provide an optional `filters.json` resolution (`filter_name`) as a *hint only*:
   - Do **not** treat in-range values as proof of a Filter Vocabulary ID unless corroborated by structural role (`tag_u16_roles.json`) and/or independent witnesses.
 
-Phase A also carries experiment-local tag-layout overrides at `out/tag_layout_overrides.json`. These are **not** a substitute for world-scoped tag layouts; they are staging knobs for this experiment’s parsing and should be treated as `partial`/`hypothesis` unless and until promoted by the shared validation→mappings pipeline.
+Phase A also carries experiment-local tag-layout overrides at `out/tag_layout_overrides.json`. These are **not** a substitute for world-scoped tag layouts; they are staging knobs for this experiment’s parsing and should be treated as `partial`/provisional unless and until promoted by the shared validation→mappings pipeline.
 
 ## Phase A — artifacts
 
@@ -118,7 +118,7 @@ The matrix now has explicit high-byte witnesses for proto in:
 - Extended the SBPL specimen matrix with order-variant require-all pairs for domain+type, domain+proto, and type+proto.
 - Added an experiment-local join analyzer (`analyze_network_join.py`) that scores small-diff pairs and emits `out/network_matrix/join_hypotheses.json`.
 - Used the analyzer output to score join hypotheses; the small-diff pairs are consistent across the single, pairwise, and triple patterns on this world (status `ok` in `join_hypotheses.json`).
-- Updated `out/encoder_sites.json` so `_emit_network` points at the join hypothesis summary alongside the diff/join artifacts.
+- Updated `out/encoder_sites.json` so `_emit_network` points at the join candidate summary alongside the diff/join artifacts.
 - Added an experiment-local guardrail (`check_network_join.py`) that fails if the join hypotheses report violations.
 - Kept the experiment-local blob oracle (`oracle_network_matrix.py`) in sync with the matrix (updated `out/network_matrix/oracle_tuples.json`).
 
@@ -153,7 +153,7 @@ The trace‑backed join is still partial/brittle. Before relying on these result
 
 ### Promotion proposal (when you want to harden this join)
 
-- Promote the join hypothesis summary into shared tooling only after another round of evidence (additional specimens or a second host baseline), then consider wiring the guardrail into `book/tests/` and updating shared decoder/oracle docs to cite the stable join.
+- Promote the join candidate summary into shared tooling only after another round of evidence (additional specimens or a second host baseline), then consider wiring the guardrail into `book/tests/` and updating shared decoder/oracle docs to cite the stable join.
 
 ## Phase B — artifacts and partial findings
 
@@ -162,7 +162,7 @@ The trace‑backed join is still partial/brittle. Before relying on these result
   - `_emit_network` emits three items (domain/type/proto) via `_emit` with widths {1,1,2} after padding to an 8-byte boundary when needed.
   - `_record_condition_data` threads emitted data into a per-op list/table (shape still under exploration).
   - The builder’s mutable buffer handle is consistently addressed at `builder+0xe98` across encoder helpers; `_compile` calls `_sb_mutable_buffer_make_immutable` on that handle.
-- Join hypothesis summary: `out/network_matrix/join_hypotheses.json` (experiment-local scoring) with guardrail `check_network_join.py`.
+- Join candidate summary: `out/network_matrix/join_hypotheses.json` (experiment-local scoring) with guardrail `check_network_join.py`.
 - Static RE excerpts (world-scoped, but interpretation remains partial):
   - `out/static_re/emit_network.otool.txt`
   - `out/static_re/emit.otool.txt`

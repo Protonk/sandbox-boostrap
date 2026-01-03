@@ -62,7 +62,6 @@ class CalloutOracleRow:
     failure_stage: Optional[str]
     failure_kind: Optional[str]
     result_source: str
-    result_tier: str
 
 
 def _sha256_utf8(s: Optional[str]) -> Optional[str]:
@@ -284,7 +283,6 @@ def build_callout_oracle(
                     failure_stage=obs.failure_stage,
                     failure_kind=obs.failure_kind,
                     result_source="oracle_sandbox_check",
-                    result_tier="runtime_oracle",
                 )
             )
 

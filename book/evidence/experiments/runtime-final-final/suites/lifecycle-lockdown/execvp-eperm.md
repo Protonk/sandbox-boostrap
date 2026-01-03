@@ -4,7 +4,7 @@ Baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (Sonoma 14.4.1 / 2
 
 This document is a self-contained, linear account of a specific failure mode observed in `book/evidence/experiments/runtime-final-final/suites/lifecycle-lockdown`: after an SBPL `(version 2)` profile is successfully applied (`sandbox_init rc=0`), the runtime runner fails to `execvp()` the intended probe with `errno=1 (EPERM)`, returning `exit_code=127` and preventing operation-stage evidence from being collected.
 
-The evidence in this document is **bootstrap-stage** runtime evidence (`mapped`, scenario-scoped) unless explicitly stated otherwise. It is **not** a claim about sandbox semantics at operation stage.
+The evidence in this document is **bootstrap-stage** runtime evidence (scenario-scoped) unless explicitly stated otherwise. It is **not** a claim about sandbox semantics at operation stage.
 
 ## Quick reproduction (repo-local)
 
@@ -39,7 +39,7 @@ RuntimeError: launchctl bootstrap failed: Command ['/bin/launchctl', 'bootstrap'
 
 ## Glossary (as used here)
 
-- **apply stage**: profile attachment (`sandbox_init`/`sandbox_apply`) succeeded or failed. Apply-stage `EPERM` is *hypothesis* evidence (profile didn’t attach).
+- **apply stage**: profile attachment (`sandbox_init`/`sandbox_apply`) succeeded or failed. Apply-stage `EPERM` is almost always evidence of a staging problem, not a policy denial. Run `book/tools/preflight`.
 - **bootstrap stage**: profile applied, but the probe did not start cleanly (e.g. `execvp()` failure). This is not operation-stage semantics.
 - **operation stage**: the probe ran and attempted its action (only here can allow/deny be interpreted as policy semantics).
 
@@ -500,7 +500,7 @@ The corresponding runtime record (apply-stage failure; not semantics):
 
 ## What we know / what we don’t know (current status)
 
-What is supported by committed evidence (bootstrap, `mapped`):
+What is supported by committed evidence (bootstrap):
 
 1) Under this host baseline, an SBPL `(version 2)` runtime profile **without `(allow default)`** that *explicitly allows*:
    - `process-exec*`

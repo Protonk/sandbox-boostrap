@@ -1,6 +1,6 @@
 # witness (API)
 
-Mapped-tier Python API for PolicyWitness.app on the Sonoma baseline. This package wraps the PolicyWitness CLI and observer and provides lifecycle snapshots, baseline comparisons, and enforcement detail helpers.
+Host-bound Python API for PolicyWitness.app on the Sonoma baseline. This package wraps the PolicyWitness CLI and observer and provides lifecycle snapshots, baseline comparisons, and enforcement detail helpers.
 
 PolicyWitness app bundle: `book/tools/witness/PolicyWitness.app`
 

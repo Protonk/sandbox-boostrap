@@ -2,7 +2,6 @@
   "schema": {
     "job_id": "string",
     "status": "ok|partial|brittle|blocked|skipped",
-    "tier": "bedrock|mapped|hypothesis",
     "host": "object",
     "inputs": "list[str]",
     "outputs": "list[str]",
@@ -17,7 +16,6 @@
     {
       "job_id": "experiment:system-profile-digest",
       "status": "ok",
-      "tier": "mapped",
       "host": {
         "product": "macOS",
         "version": "14.4.1",
@@ -42,7 +40,7 @@
       ],
       "hashes": {
         "book/evidence/graph/concepts/validation/out/experiments/system-profile-digest/digests_ir.json": "659d237c1030f51aeee2697d12fde15354203d19936089e6c766ab9d2b54605e",
-        "book/evidence/graph/concepts/validation/out/experiments/system-profile-digest/status.json": "33ef3ff24a5b8be472f8d0786ffaa5f4682e666baffb0d5f2ef92b8b7290dc1c"
+        "book/evidence/graph/concepts/validation/out/experiments/system-profile-digest/status.json": "80ede39bccbce1fc0f824744aae4099d0a28e95263c7621f4d443838c402998e"
       },
       "notes": "Normalized system profile digests into IR.",
       "metrics": {

@@ -30,8 +30,8 @@ Concretely, “success” means that each concept has:
   - How concepts map to example code.
   - How concepts map to shared abstractions and mapping JSONs, and (when frozen) how they surface in the CARTON bundle (relationships/views/contracts under `book/integration/carton/bundle/`) as part of the host’s canonical IR web.
 
-### Current bedrock surfaces (navigation)
-This list mirrors the registry in `book/evidence/graph/concepts/BEDROCK_SURFACES.json`; that file is the source of truth for bedrock in this world. For navigation, the current set is:
+### Current canonical surfaces (navigation)
+This list highlights stable host-bound mapping surfaces for navigation:
 - Operation and Filter vocabularies in `book/integration/carton/bundle/relationships/mappings/vocab/{ops.json,filters.json,ops_coverage.json}`.
 - Modern format/tag-layout subset in `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json`.
 - Canonical system profiles in `book/integration/carton/bundle/relationships/mappings/system_profiles/{digests.json,static_checks.json,attestations.json}` (`sys:airlock`, `sys:bsd`, `sys:sample`).
@@ -400,11 +400,9 @@ The point of building a concept inventory and validation plan is straightforward
 
 That also means that coherent but wrong models are dangerous: they tend to generate plausible experiments and diagrams that reinforce the wrong picture. The examples below are “fair” misconceptions—plausible, technically informed ways to be wrong—and the kinds of errors they produce.
 
-These are hypothesis “plausible failure modes”: they are conceptual hygiene, not host-witnessed claims. Do not promote them to mapped/bedrock facts without a concrete witness (experiment output, validation IR, or a mapping).
+These are plausible failure modes: they are conceptual hygiene, not host-witnessed claims. Do not promote them to facts without a concrete witness (experiment output, validation IR, or a mapping).
 
 ### SBPL Profile
-
-**Tier:** hypothesis “plausible failure mode” (no host witness).
 
 **Misconception**
 
@@ -431,8 +429,6 @@ Your probe reports “denied,” and you incorrectly attribute that denial to a 
 ---
 
 ### Operation
-
-**Tier:** hypothesis “plausible failure mode” (no host witness).
 
 **Misconception**
 
@@ -466,8 +462,6 @@ Your mapping from “observed syscall outcomes” to “operation-level policy�
 
 ### Filter
 
-**Tier:** hypothesis “plausible failure mode” (no host witness).
-
 **Misconception**
 
 “Filters are simple ‘if-conditions’ checked once per rule; if the key/value matches, the rule fires, otherwise it’s ignored.”
@@ -498,8 +492,6 @@ when in reality the graph structure allows it via a non-obvious route.
 
 ### Profile Layer / Policy Stack Evaluation Order
 
-**Tier:** hypothesis “plausible failure mode” (no host witness).
-
 **Misconception**
 
 “Multiple sandbox layers just combine as ‘most restrictive wins’ (a simple logical AND over allows/denies).”
@@ -526,8 +518,6 @@ In practice, evaluation order or an extension changes the decision path so the d
 ---
 
 ### Sandbox Extension
-
-**Tier:** hypothesis “plausible failure mode” (no host witness).
 
 **Misconception**
 

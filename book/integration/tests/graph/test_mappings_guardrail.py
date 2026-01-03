@@ -47,8 +47,8 @@ def test_anchor_filter_map_present():
     amap = load_json(ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "anchors" / "anchor_filter_map.json")
     # Ensure known anchors are present and at least one has a resolved filter_id.
     assert "/var/log" in amap
-    mapped = [v for v in amap.values() if v.get("filter_id") is not None]
-    assert mapped, "expected at least one mapped anchor → filter_id"
+    resolved = [v for v in amap.values() if v.get("filter_id") is not None]
+    assert resolved, "expected at least one resolved anchor → filter_id"
 
 
 def test_tag_layouts_present():

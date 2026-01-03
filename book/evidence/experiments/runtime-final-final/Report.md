@@ -8,7 +8,7 @@ Provide a single, host-bound runtime experiment surface for the Sonoma baseline.
 ## Baseline & scope
 - World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (Sonoma baseline).
 - Runtime evidence must be stage- and lane-labeled.
-- Apply-stage failures remain hypothesis evidence.
+- Apply-stage `EPERM` is almost always evidence of a staging problem, not a policy denial. Run `book/tools/preflight`.
 - Non-baseline runtime suites (debug VM or SIP-disabled) are explicitly marked and do not mix with baseline claims.
 
 ## Structure (canonical)

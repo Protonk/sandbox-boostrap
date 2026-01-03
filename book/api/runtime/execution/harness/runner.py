@@ -89,6 +89,10 @@ DEFAULT_FILTER_NAMES_BY_OP = {
     "darwin-notification-post": "notification-name",
     "distributed-notification-post": "notification-name",
     "system-kext-query": "kext-bundle-id",
+    "authorization-right-obtain": "right-name",
+    "user-preference-read": "preference-domain",
+    "user-preference-write": "preference-domain",
+    "ipc-posix-shm-write-create": "ipc-posix-name",
 }
 
 DISALLOWED_SANDBOX_CHECK_FILTERS = {"sysctl-name"}
@@ -186,6 +190,85 @@ def _xattr_probe_command(op: str, target: Optional[str]) -> List[str]:
         'exit 0\n'
     )
     return [SH, "-c", script, "xattr_probe", target, mode]
+
+
+def _sandbox_check_command(op: Optional[str], target: Optional[str], probe: Dict[str, Any]) -> Optional[List[str]]:
+    if not op or not target or not Path(PYTHON).exists():
+        return None
+    filter_type, filter_name = _resolve_filter_type(probe, op)
+    if filter_type is None:
+        return None
+    filter_name_arg = filter_name or ""
+    script = (
+        "import ctypes, ctypes.util, json, os, sys\n"
+        "op = sys.argv[1]\n"
+        "filter_type = int(sys.argv[2])\n"
+        "arg = sys.argv[3]\n"
+        "filter_name = sys.argv[4] if len(sys.argv) > 4 and sys.argv[4] else None\n"
+        "details = {'operation': op, 'filter_type': filter_type, 'argument': arg}\n"
+        "if filter_name:\n"
+        "    details['filter_name'] = filter_name\n"
+        "try:\n"
+        "    lib_path = ctypes.util.find_library('system_sandbox')\n"
+        "    if not lib_path:\n"
+        "        raise RuntimeError('libsystem_sandbox not found')\n"
+        "    lib = ctypes.CDLL(lib_path, use_errno=True)\n"
+        "    fn = lib.sandbox_check\n"
+        "    fn.restype = ctypes.c_int\n"
+        "    fn.argtypes = [ctypes.c_int, ctypes.c_char_p, ctypes.c_int, ctypes.c_char_p]\n"
+        "    rc = fn(os.getpid(), op.encode(), filter_type, arg.encode())\n"
+        "    err = ctypes.get_errno()\n"
+        "    details['rc'] = int(rc)\n"
+        "    if rc == -1:\n"
+        "        details['errno'] = int(err)\n"
+        "    details['decision'] = 'allow' if rc == 0 else 'deny'\n"
+        "except Exception as exc:\n"
+        "    details['decision'] = 'deny'\n"
+        "    details['error'] = str(exc)\n"
+        "print('SBL_PROBE_DETAILS ' + json.dumps(details))\n"
+        "sys.exit(0 if details.get('decision') == 'allow' else 1)\n"
+    )
+    return [PYTHON, "-c", script, op, str(filter_type), target, filter_name_arg]
+
+
+def _ipc_posix_shm_command(target: Optional[str]) -> List[str]:
+    if not target or not Path(PYTHON).exists():
+        return ["true"]
+    script = (
+        "import ctypes, ctypes.util, json, os, sys\n"
+        "name = sys.argv[1]\n"
+        "if not name.startswith('/'):\n"
+        "    name = '/' + name\n"
+        "details = {'operation': 'ipc-posix-shm-write-create', 'name': name}\n"
+        "try:\n"
+        "    lib_path = ctypes.util.find_library('c')\n"
+        "    if not lib_path:\n"
+        "        raise RuntimeError('libc not found')\n"
+        "    lib = ctypes.CDLL(lib_path, use_errno=True)\n"
+        "    lib.shm_open.argtypes = [ctypes.c_char_p, ctypes.c_int, ctypes.c_int]\n"
+        "    lib.shm_open.restype = ctypes.c_int\n"
+        "    lib.shm_unlink.argtypes = [ctypes.c_char_p]\n"
+        "    lib.shm_unlink.restype = ctypes.c_int\n"
+        "    fd = lib.shm_open(name.encode(), os.O_CREAT | os.O_RDWR, 0o600)\n"
+        "    err = ctypes.get_errno()\n"
+        "    details['fd'] = int(fd)\n"
+        "    if fd == -1:\n"
+        "        details['errno'] = int(err)\n"
+        "        details['decision'] = 'deny'\n"
+        "        print('SBL_PROBE_DETAILS ' + json.dumps(details))\n"
+        "        sys.exit(1)\n"
+        "    os.close(fd)\n"
+        "    unlink_rc = lib.shm_unlink(name.encode())\n"
+        "    if unlink_rc != 0:\n"
+        "        details['unlink_errno'] = int(ctypes.get_errno())\n"
+        "    details['decision'] = 'allow'\n"
+        "except Exception as exc:\n"
+        "    details['decision'] = 'deny'\n"
+        "    details['error'] = str(exc)\n"
+        "print('SBL_PROBE_DETAILS ' + json.dumps(details))\n"
+        "sys.exit(0 if details.get('decision') == 'allow' else 1)\n"
+    )
+    return [PYTHON, "-c", script, target]
 
 def _first_marker(markers: List[Dict[str, Any]], stage: str) -> Optional[Dict[str, Any]]:
     for marker in markers:
@@ -653,8 +736,13 @@ def build_probe_command(probe: Dict[str, Any]) -> List[str]:
     """
     target = probe.get("target")
     op = probe.get("operation")
+    driver = probe.get("driver")
     cmd: List[str]
-    if op == "file-read-metadata":
+    if driver == "sandbox_check_probe":
+        cmd = _sandbox_check_command(op, target, probe) or ["true"]
+    elif op == "ipc-posix-shm-write-create":
+        cmd = _ipc_posix_shm_command(target)
+    elif op == "file-read-metadata":
         if target and Path(PYTHON).exists():
             cmd = [PYTHON, "-c", "import os, sys; os.lstat(sys.argv[1])", target]
         else:
@@ -889,7 +977,14 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
     self_apply_mode = False
     metadata_driver = False
     file_probe_used = False
-    if op == "file-read-metadata":
+    driver = probe.get("driver")
+    if driver == "sandbox_check_probe":
+        cmd = _sandbox_check_command(op, target, probe)
+        if cmd is None:
+            return {"error": "sandbox_check_probe missing op/target/filter"}
+    elif op == "ipc-posix-shm-write-create":
+        cmd = _ipc_posix_shm_command(target)
+    elif op == "file-read-metadata":
         driver = probe.get("driver")
         if driver != "metadata_runner":
             return {"error": "file-read-metadata probe missing driver (expected metadata_runner)"}

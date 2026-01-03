@@ -27,7 +27,12 @@
       "adv:path_edges_private",
       "adv:mount_relative_path",
       "adv:xattr",
-      "adv:file_mode"
+      "adv:file_mode",
+      "adv:ipc_posix_shm",
+      "adv:authorization_right",
+      "adv:preference_domain",
+      "adv:xpc_service_name",
+      "adv:path_canon_alt"
     ],
     "registry_id": "runtime-adversarial",
     "schema_version": "runtime-tools.plan.v0.1",
@@ -1530,6 +1535,260 @@
           "scenario": true
         },
         "target": "/private/tmp/mode_allow"
+      },
+      "adv:ipc_posix_shm:allow-shm": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "allow",
+        "expected_predicates": [
+          "sbl.ipc.shm.allow"
+        ],
+        "expected_primary_ops": [
+          "ipc-posix-shm-write-create"
+        ],
+        "name": "allow-shm",
+        "operation": "ipc-posix-shm-write-create",
+        "probe_id": "adv:ipc_posix_shm:allow-shm",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "sbl.ipc.shm.allow",
+        "filter_name": "ipc-posix-name"
+      },
+      "adv:ipc_posix_shm:deny-shm": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "deny",
+        "expected_predicates": [
+          "sbl.ipc.shm.deny"
+        ],
+        "expected_primary_ops": [
+          "ipc-posix-shm-write-create"
+        ],
+        "name": "deny-shm",
+        "operation": "ipc-posix-shm-write-create",
+        "probe_id": "adv:ipc_posix_shm:deny-shm",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "sbl.ipc.shm.deny",
+        "filter_name": "ipc-posix-name"
+      },
+      "adv:authorization_right:allow-right": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "driver": "sandbox_check_probe",
+        "expected": "allow",
+        "expected_predicates": [
+          "system.preferences"
+        ],
+        "expected_primary_ops": [
+          "authorization-right-obtain"
+        ],
+        "name": "allow-right",
+        "operation": "authorization-right-obtain",
+        "probe_id": "adv:authorization_right:allow-right",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "system.preferences",
+        "filter_name": "right-name"
+      },
+      "adv:authorization_right:deny-right": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "driver": "sandbox_check_probe",
+        "expected": "deny",
+        "expected_predicates": [
+          "system.preferences.privacy"
+        ],
+        "expected_primary_ops": [
+          "authorization-right-obtain"
+        ],
+        "name": "deny-right",
+        "operation": "authorization-right-obtain",
+        "probe_id": "adv:authorization_right:deny-right",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "system.preferences.privacy",
+        "filter_name": "right-name"
+      },
+      "adv:preference_domain:allow-domain": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "driver": "sandbox_check_probe",
+        "expected": "allow",
+        "expected_predicates": [
+          "com.apple.TimeMachine"
+        ],
+        "expected_primary_ops": [
+          "user-preference-read"
+        ],
+        "name": "allow-domain",
+        "operation": "user-preference-read",
+        "probe_id": "adv:preference_domain:allow-domain",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "com.apple.TimeMachine",
+        "filter_name": "preference-domain"
+      },
+      "adv:preference_domain:deny-domain": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "driver": "sandbox_check_probe",
+        "expected": "deny",
+        "expected_predicates": [
+          "com.apple.sandboxadversarial.fake"
+        ],
+        "expected_primary_ops": [
+          "user-preference-read"
+        ],
+        "name": "deny-domain",
+        "operation": "user-preference-read",
+        "probe_id": "adv:preference_domain:deny-domain",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "com.apple.sandboxadversarial.fake",
+        "filter_name": "preference-domain"
+      },
+      "adv:xpc_service_name:allow-cfprefsd-xpc": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "driver": "xpc_probe",
+        "expected": "allow",
+        "expected_predicates": [
+          "com.apple.cfprefsd.xpc"
+        ],
+        "expected_primary_ops": [
+          "mach-lookup"
+        ],
+        "name": "allow-cfprefsd-xpc",
+        "operation": "mach-lookup",
+        "probe_id": "adv:xpc_service_name:allow-cfprefsd-xpc",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "com.apple.cfprefsd.xpc",
+        "filter_name": "xpc-service-name"
+      },
+      "adv:xpc_service_name:deny-bogus-xpc": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "driver": "xpc_probe",
+        "expected": "deny",
+        "expected_predicates": [
+          "com.apple.sandboxadversarial.fake.xpc"
+        ],
+        "expected_primary_ops": [
+          "mach-lookup"
+        ],
+        "name": "deny-bogus-xpc",
+        "operation": "mach-lookup",
+        "probe_id": "adv:xpc_service_name:deny-bogus-xpc",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "com.apple.sandboxadversarial.fake.xpc",
+        "filter_name": "xpc-service-name"
+      },
+      "adv:path_canon_alt:allow-private": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "allow",
+        "expected_predicates": [
+          "/private/tmp/strict_ok/allow.txt"
+        ],
+        "expected_primary_ops": [
+          "file-read*"
+        ],
+        "name": "allow-private",
+        "operation": "file-read*",
+        "probe_id": "adv:path_canon_alt:allow-private",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "/private/tmp/strict_ok/allow.txt"
+      },
+      "adv:path_canon_alt:allow-tmp": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "allow",
+        "expected_predicates": [
+          "/tmp/strict_ok/allow.txt"
+        ],
+        "expected_primary_ops": [
+          "file-read*"
+        ],
+        "name": "allow-tmp",
+        "operation": "file-read*",
+        "probe_id": "adv:path_canon_alt:allow-tmp",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "/tmp/strict_ok/allow.txt"
       }
     },
     "registry_id": "runtime-adversarial",
@@ -1774,6 +2033,71 @@
         "profile_id": "adv:file_mode",
         "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/file_mode.sb",
         "semantic_group": "file:file-mode"
+      },
+      "adv:ipc_posix_shm": {
+        "family": "ipc_posix",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": "Discriminate ipc-posix-name via shm_open create.",
+        "probe_refs": [
+          "adv:ipc_posix_shm:allow-shm",
+          "adv:ipc_posix_shm:deny-shm"
+        ],
+        "profile_id": "adv:ipc_posix_shm",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/ipc_posix_shm.sb",
+        "semantic_group": "ipc-posix:shm-name"
+      },
+      "adv:authorization_right": {
+        "family": "authorization",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": "Right-name discriminator via sandbox_check probe.",
+        "probe_refs": [
+          "adv:authorization_right:allow-right",
+          "adv:authorization_right:deny-right"
+        ],
+        "profile_id": "adv:authorization_right",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/authorization_right.sb",
+        "semantic_group": "authorization:right-name"
+      },
+      "adv:preference_domain": {
+        "family": "preferences",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": "Preference-domain discriminator via sandbox_check probe.",
+        "probe_refs": [
+          "adv:preference_domain:allow-domain",
+          "adv:preference_domain:deny-domain"
+        ],
+        "profile_id": "adv:preference_domain",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/preference_domain.sb",
+        "semantic_group": "preferences:domain"
+      },
+      "adv:xpc_service_name": {
+        "family": "xpc_service",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": "XPC service discriminator via xpc_probe.",
+        "probe_refs": [
+          "adv:xpc_service_name:allow-cfprefsd-xpc",
+          "adv:xpc_service_name:deny-bogus-xpc"
+        ],
+        "profile_id": "adv:xpc_service_name",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/xpc_service_name.sb",
+        "semantic_group": "mach:xpc-service-name"
+      },
+      "adv:path_canon_alt": {
+        "family": "path_alias",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": "Canonicalization alternate candidate over strict_ok fixture.",
+        "probe_refs": [
+          "adv:path_canon_alt:allow-private",
+          "adv:path_canon_alt:allow-tmp"
+        ],
+        "profile_id": "adv:path_canon_alt",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_canon_alt.sb",
+        "semantic_group": "paths:canonical-alt"
       }
     },
     "registry_id": "runtime-adversarial",

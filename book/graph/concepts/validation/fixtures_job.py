@@ -48,7 +48,6 @@ def run_fixtures_job():
         payload = {
             "job_id": "graph:fixtures",
             "status": status,
-            "tier": "mapped",
             "host": host,
             "error": f"missing fixtures file: {rel(FIXTURES_PATH)}",
             "entries": [],
@@ -56,7 +55,7 @@ def run_fixtures_job():
             "outputs": [rel(OUT_PATH)],
         }
         OUT_PATH.write_text(json.dumps(payload, indent=2))
-        return {"status": status, "tier": "mapped", "outputs": [rel(OUT_PATH)], "notes": payload.get("error")}
+        return {"status": status, "outputs": [rel(OUT_PATH)], "notes": payload.get("error")}
 
     try:
         fixtures = json.loads(FIXTURES_PATH.read_text()).get("blobs", [])
@@ -65,7 +64,6 @@ def run_fixtures_job():
         payload = {
             "job_id": "graph:fixtures",
             "status": status,
-            "tier": "mapped",
             "host": host,
             "error": f"failed to parse fixtures: {exc}",
             "entries": [],
@@ -73,7 +71,7 @@ def run_fixtures_job():
             "outputs": [rel(OUT_PATH)],
         }
         OUT_PATH.write_text(json.dumps(payload, indent=2))
-        return {"status": status, "tier": "mapped", "outputs": [rel(OUT_PATH)], "notes": payload.get("error")}
+        return {"status": status, "outputs": [rel(OUT_PATH)], "notes": payload.get("error")}
 
     for entry in fixtures:
         path = ROOT / entry["path"]
@@ -105,14 +103,13 @@ def run_fixtures_job():
     payload = {
         "job_id": "graph:fixtures",
         "status": status,
-        "tier": "mapped",
         "host": host,
         "inputs": [rel(FIXTURES_PATH)],
         "outputs": [rel(OUT_PATH)],
         "entries": entries,
     }
     OUT_PATH.write_text(json.dumps(payload, indent=2))
-    return {"status": status, "tier": "mapped", "outputs": [rel(OUT_PATH)], "metrics": {"entries": len(entries)}, "host": host}
+    return {"status": status, "outputs": [rel(OUT_PATH)], "metrics": {"entries": len(entries)}, "host": host}
 
 
 registry.register(

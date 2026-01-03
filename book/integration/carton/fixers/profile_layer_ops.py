@@ -6,7 +6,6 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Dict, List
 
-from book.api import evidence_tiers
 from book.integration.carton.fixers import common
 
 ROOT = common.repo_root()
@@ -65,10 +64,6 @@ def build() -> Dict[str, Any]:
             "inputs": inputs,
             "source_jobs": source_jobs,
             "status": coverage_status,
-            "tier": evidence_tiers.evidence_tier_for_artifact(
-                path=OUT_PATH,
-                tier="mapped",
-            ),
             "canonical_profile_status": canonical_status,
             "notes": "Derived from CARTON system digests and coverage; expresses profile-layer → op relationships.",
         },

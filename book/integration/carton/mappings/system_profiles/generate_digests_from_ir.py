@@ -25,7 +25,6 @@ SCRIPT_ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from book.api import evidence_tiers  # noqa: E402
 from book.api import world as world_mod  # noqa: E402
 
 IR_PATH = (
@@ -44,7 +43,7 @@ STATUS_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" /
 OUT_PATH = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "system_profiles" / "digests.json"
 STATIC_CHECKS_PATH = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "system_profiles" / "static_checks.json"
 EXPECTED_JOB = "experiment:system-profile-digest"
-# Canonical profiles are the bedrock policy layers for this host. They are not a
+# Canonical profiles are the baseline policy layers for this host. They are not a
 # mutable set: each entry pins a specific profile id, its descriptive role, and
 # (optionally) the SBPL source used to sanity-check the blob when present.
 #
@@ -262,8 +261,6 @@ def main() -> None:
     if any(entry["status"] != "ok" for entry in canonical_statuses.values()):
         aggregate_status = "brittle"
 
-    out_tier = "bedrock" if evidence_tiers.is_bedrock_mapping_path(OUT_PATH) else "mapped"
-
     mapping = {
         "metadata": {
             "world_id": world_id,
@@ -271,10 +268,6 @@ def main() -> None:
             "source_jobs": (ir.get("source_jobs") or []) + ["generator:system_profiles:static_checks"],
             "decoder": "book.api.profile.decoder",
             "status": aggregate_status,
-            "tier": evidence_tiers.evidence_tier_for_artifact(
-                path=OUT_PATH,
-                tier=out_tier,
-            ),
             "canonical_profiles": canonical_statuses,
             "contract_fields": CONTRACT_FIELDS,
         },

@@ -1,9 +1,6 @@
 import json
 from pathlib import Path
 
-from book.api import evidence_tiers
-
-
 from book.api import path_utils
 from book.integration.tests.runtime.runtime_bundle_helpers import load_bundle_json
 
@@ -35,8 +32,6 @@ RUNTIME_STATUS_TARGETS = {
 REQUIRED_JOBS = {
     "experiment:system-profile-digest",
 }
-ALLOWED_TIERS = set(evidence_tiers.EVIDENCE_TIERS)
-
 
 def load_json(path: Path):
     assert path.exists(), f"missing required file: {path}"
@@ -56,14 +51,6 @@ def test_status_regressions():
             continue
         status = meta.get("status")
         rel = str(path.relative_to(ROOT))
-        tier = meta.get("tier")
-        if tier not in evidence_tiers.EVIDENCE_TIERS:
-            failures.append(f"{rel} missing/invalid tier: {tier!r}")
-            continue
-        expected_tier = evidence_tiers.evidence_tier_for_artifact(path=rel, tier=tier)
-        if tier != expected_tier:
-            failures.append(f"{rel} tier mismatch (expected {expected_tier}, got {tier})")
-            continue
         if path in RUNTIME_STATUS_TARGETS:
             if status not in {"ok", "partial", "brittle", "blocked"}:
                 failures.append(f"{path} status missing or invalid")
@@ -81,8 +68,6 @@ def test_status_regressions():
         job_status = str(entry.get("status", ""))
         if job_status != "ok":
             failures.append(f"validation job {job_id} not ok (status={job_status})")
-        if entry.get("tier") not in ALLOWED_TIERS:
-            failures.append(f"validation job {job_id} missing/invalid tier: {entry.get('tier')!r}")
 
     runtime_sig = load_json(ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "runtime_signatures.json")
     meta = runtime_sig.get("metadata") or {}

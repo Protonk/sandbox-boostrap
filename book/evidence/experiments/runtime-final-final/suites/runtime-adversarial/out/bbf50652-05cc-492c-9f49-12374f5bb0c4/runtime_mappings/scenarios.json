@@ -1,0 +1,880 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "phase_histograms": {
+    "overall": {
+      "total": 20,
+      "stages": {
+        "apply": 0,
+        "bootstrap": 0,
+        "preflight": 0,
+        "probe": 20
+      },
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "probe": {
+        "total": 14,
+        "allow": 2,
+        "deny": 12,
+        "mismatches": 9,
+        "unobserved": 6
+      }
+    },
+    "by_family": {
+      "path_edges": {
+        "total": 10,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 10
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 10,
+          "allow": 0,
+          "deny": 10,
+          "mismatches": 8,
+          "unobserved": 0
+        }
+      },
+      "ipc_posix": {
+        "total": 2,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 2
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 2,
+          "allow": 0,
+          "deny": 2,
+          "mismatches": 1,
+          "unobserved": 0
+        }
+      },
+      "authorization": {
+        "total": 2,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 2
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 0,
+          "allow": 0,
+          "deny": 0,
+          "mismatches": 0,
+          "unobserved": 2
+        }
+      },
+      "preferences": {
+        "total": 2,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 2
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 0,
+          "allow": 0,
+          "deny": 0,
+          "mismatches": 0,
+          "unobserved": 2
+        }
+      },
+      "xpc_service": {
+        "total": 2,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 2
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 0,
+          "allow": 0,
+          "deny": 0,
+          "mismatches": 0,
+          "unobserved": 2
+        }
+      },
+      "path_alias": {
+        "total": 2,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 2
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 2,
+          "allow": 2,
+          "deny": 0,
+          "mismatches": 0,
+          "unobserved": 0
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "adv:path_edges_private:allow-private": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:path_edges_private",
+      "expectations": [
+        {
+          "expectation_id": "adv:path_edges_private:allow-private",
+          "profile_id": "adv:path_edges_private",
+          "operation": "file-read*",
+          "target": "/private/tmp/runtime-adv/edges/a",
+          "expected": "allow",
+          "probe_name": "allow-private"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "adv:path_edges_private:allow-private",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/private/tmp/runtime-adv/edges/a",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "adv:path_edges_private:allow-private"
+    },
+    "adv:path_edges_private:allow-private-subpath": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:path_edges_private",
+      "expectations": [
+        {
+          "expectation_id": "adv:path_edges_private:allow-private-subpath",
+          "profile_id": "adv:path_edges_private",
+          "operation": "file-read*",
+          "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+          "expected": "allow",
+          "probe_name": "allow-private-subpath"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "adv:path_edges_private:allow-private-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "adv:path_edges_private:allow-private-subpath"
+    },
+    "adv:path_edges_private:allow-tmp": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:path_edges_private",
+      "expectations": [
+        {
+          "expectation_id": "adv:path_edges_private:allow-tmp",
+          "profile_id": "adv:path_edges_private",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/edges/a",
+          "expected": "allow",
+          "probe_name": "allow-tmp"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "adv:path_edges_private:allow-tmp",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/edges/a",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "adv:path_edges_private:allow-tmp"
+    },
+    "adv:path_edges_private:allow-tmp-subpath": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:path_edges_private",
+      "expectations": [
+        {
+          "expectation_id": "adv:path_edges_private:allow-tmp-subpath",
+          "profile_id": "adv:path_edges_private",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+          "expected": "allow",
+          "probe_name": "allow-tmp-subpath"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "adv:path_edges_private:allow-tmp-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "adv:path_edges_private:allow-tmp-subpath"
+    },
+    "adv:path_edges_private:deny-dotdot": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:path_edges_private",
+      "expectations": [
+        {
+          "expectation_id": "adv:path_edges_private:deny-dotdot",
+          "profile_id": "adv:path_edges_private",
+          "operation": "file-read*",
+          "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+          "expected": "deny",
+          "probe_name": "deny-dotdot"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:path_edges_private:deny-dotdot"
+    },
+    "adv:path_edges_private:write-private": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:path_edges_private",
+      "expectations": [
+        {
+          "expectation_id": "adv:path_edges_private:write-private",
+          "profile_id": "adv:path_edges_private",
+          "operation": "file-write*",
+          "target": "/private/tmp/runtime-adv/edges/a",
+          "expected": "allow",
+          "probe_name": "write-private"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "adv:path_edges_private:write-private",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/private/tmp/runtime-adv/edges/a",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "adv:path_edges_private:write-private"
+    },
+    "adv:path_edges_private:write-private-subpath": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:path_edges_private",
+      "expectations": [
+        {
+          "expectation_id": "adv:path_edges_private:write-private-subpath",
+          "profile_id": "adv:path_edges_private",
+          "operation": "file-write*",
+          "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+          "expected": "allow",
+          "probe_name": "write-private-subpath"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "adv:path_edges_private:write-private-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "adv:path_edges_private:write-private-subpath"
+    },
+    "adv:path_edges_private:write-tmp": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:path_edges_private",
+      "expectations": [
+        {
+          "expectation_id": "adv:path_edges_private:write-tmp",
+          "profile_id": "adv:path_edges_private",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/edges/a",
+          "expected": "allow",
+          "probe_name": "write-tmp"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "adv:path_edges_private:write-tmp",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/edges/a",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "adv:path_edges_private:write-tmp"
+    },
+    "adv:path_edges_private:write-tmp-subpath": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:path_edges_private",
+      "expectations": [
+        {
+          "expectation_id": "adv:path_edges_private:write-tmp-subpath",
+          "profile_id": "adv:path_edges_private",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+          "expected": "allow",
+          "probe_name": "write-tmp-subpath"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "adv:path_edges_private:write-tmp-subpath",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: No such file or directory\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "adv:path_edges_private:write-tmp-subpath"
+    },
+    "adv:path_edges_private:write-dotdot": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:path_edges_private",
+      "expectations": [
+        {
+          "expectation_id": "adv:path_edges_private:write-dotdot",
+          "profile_id": "adv:path_edges_private",
+          "operation": "file-write*",
+          "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+          "expected": "deny",
+          "probe_name": "write-dotdot"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:path_edges_private:write-dotdot"
+    },
+    "adv:ipc_posix_shm:allow-shm": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:ipc_posix_shm",
+      "expectations": [
+        {
+          "expectation_id": "adv:ipc_posix_shm:allow-shm",
+          "profile_id": "adv:ipc_posix_shm",
+          "operation": "ipc-posix-shm-write-create",
+          "target": "sbl.ipc.shm.allow",
+          "expected": "allow",
+          "probe_name": "allow-shm"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "adv:ipc_posix_shm:allow-shm",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "ipc-posix-shm-write-create",
+          "target": "sbl.ipc.shm.allow",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "adv:ipc_posix_shm:allow-shm"
+    },
+    "adv:ipc_posix_shm:deny-shm": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:ipc_posix_shm",
+      "expectations": [
+        {
+          "expectation_id": "adv:ipc_posix_shm:deny-shm",
+          "profile_id": "adv:ipc_posix_shm",
+          "operation": "ipc-posix-shm-write-create",
+          "target": "sbl.ipc.shm.deny",
+          "expected": "deny",
+          "probe_name": "deny-shm"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:ipc_posix_shm:deny-shm"
+    },
+    "adv:authorization_right:allow-right": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:authorization_right",
+      "expectations": [
+        {
+          "expectation_id": "adv:authorization_right:allow-right",
+          "profile_id": "adv:authorization_right",
+          "operation": "authorization-right-obtain",
+          "target": "system.preferences",
+          "expected": "allow",
+          "probe_name": "allow-right"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:authorization_right:allow-right"
+    },
+    "adv:authorization_right:deny-right": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:authorization_right",
+      "expectations": [
+        {
+          "expectation_id": "adv:authorization_right:deny-right",
+          "profile_id": "adv:authorization_right",
+          "operation": "authorization-right-obtain",
+          "target": "system.preferences.privacy",
+          "expected": "deny",
+          "probe_name": "deny-right"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:authorization_right:deny-right"
+    },
+    "adv:preference_domain:allow-domain": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:preference_domain",
+      "expectations": [
+        {
+          "expectation_id": "adv:preference_domain:allow-domain",
+          "profile_id": "adv:preference_domain",
+          "operation": "user-preference-read",
+          "target": "com.apple.TimeMachine",
+          "expected": "allow",
+          "probe_name": "allow-domain"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:preference_domain:allow-domain"
+    },
+    "adv:preference_domain:deny-domain": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:preference_domain",
+      "expectations": [
+        {
+          "expectation_id": "adv:preference_domain:deny-domain",
+          "profile_id": "adv:preference_domain",
+          "operation": "user-preference-read",
+          "target": "com.apple.sandboxadversarial.fake",
+          "expected": "deny",
+          "probe_name": "deny-domain"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:preference_domain:deny-domain"
+    },
+    "adv:xpc_service_name:allow-cfprefsd-xpc": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:xpc_service_name",
+      "expectations": [
+        {
+          "expectation_id": "adv:xpc_service_name:allow-cfprefsd-xpc",
+          "profile_id": "adv:xpc_service_name",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.xpc",
+          "expected": "allow",
+          "probe_name": "allow-cfprefsd-xpc"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:xpc_service_name:allow-cfprefsd-xpc"
+    },
+    "adv:xpc_service_name:deny-bogus-xpc": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:xpc_service_name",
+      "expectations": [
+        {
+          "expectation_id": "adv:xpc_service_name:deny-bogus-xpc",
+          "profile_id": "adv:xpc_service_name",
+          "operation": "mach-lookup",
+          "target": "com.apple.sandboxadversarial.fake.xpc",
+          "expected": "deny",
+          "probe_name": "deny-bogus-xpc"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "unobserved": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:xpc_service_name:deny-bogus-xpc"
+    },
+    "adv:path_canon_alt:allow-private": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:path_canon_alt",
+      "expectations": [
+        {
+          "expectation_id": "adv:path_canon_alt:allow-private",
+          "profile_id": "adv:path_canon_alt",
+          "operation": "file-read*",
+          "target": "/private/tmp/strict_ok/allow.txt",
+          "expected": "allow",
+          "probe_name": "allow-private"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:path_canon_alt:allow-private"
+    },
+    "adv:path_canon_alt:allow-tmp": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:path_canon_alt",
+      "expectations": [
+        {
+          "expectation_id": "adv:path_canon_alt:allow-tmp",
+          "profile_id": "adv:path_canon_alt",
+          "operation": "file-read*",
+          "target": "/tmp/strict_ok/allow.txt",
+          "expected": "allow",
+          "probe_name": "allow-tmp"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:path_canon_alt:allow-tmp"
+    }
+  }
+}

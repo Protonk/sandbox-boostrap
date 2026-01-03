@@ -29,14 +29,14 @@ Lanes used in this experiment:
 
 ## Signals and how to classify them
 
-| Signal | Layer | Stage | Tier default | How to interpret |
+| Signal | Layer | Stage | Default handling | How to interpret |
 |---|---|---|---|---|
 | sandbox_init rc!=0 | apply | apply | blocked | Not a policy decision; profile did not attach. |
 | preflight apply gate | tooling | apply | blocked | Harness boundary; do not interpret as enforcement. |
-| open_kr=0 | IOKit | operation | hypothesis | Operation succeeded under current profile. |
-| call_kr=kIOReturnBadArgument | IOKit | operation | hypothesis | Call-shape/interface mismatch unless baseline differs. |
-| oracle rc=1 | oracle | n/a | hypothesis | Annotation only until oracle calibration succeeds. |
-| observer log empty | observer | n/a | hypothesis | No witness; do not infer deny. |
+| open_kr=0 | IOKit | operation | observed | Operation succeeded under current profile. |
+| call_kr=kIOReturnBadArgument | IOKit | operation | provisional | Call-shape/interface mismatch unless baseline differs. |
+| oracle rc=1 | oracle | n/a | annotation-only | Annotation only until oracle calibration succeeds. |
+| observer log empty | observer | n/a | no witness | No witness; do not infer deny. |
 
 ## Interfaces touched in runtime-closure
 

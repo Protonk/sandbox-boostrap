@@ -50,7 +50,7 @@ def _lookup_probe(runtime_doc: Dict[str, Any], profile_id: str, probe_name: str)
     return None
 
 
-def _load_runtime_events(paths: list[Path], tier: str) -> list[Dict[str, Any]]:
+def _load_runtime_events(paths: list[Path]) -> list[Dict[str, Any]]:
     events: list[Dict[str, Any]] = []
     for path in paths:
         if not path.exists():
@@ -59,7 +59,6 @@ def _load_runtime_events(paths: list[Path], tier: str) -> list[Dict[str, Any]]:
             if isinstance(row, dict):
                 row = dict(row)
                 row["source"] = path_utils.to_repo_relative(path, repo_root=REPO_ROOT)
-                row["tier"] = tier
                 events.append(row)
     return events
 
@@ -183,7 +182,7 @@ def build_runtime_results(
     runtime_event_path = ctx.export_paths["runtime_events"]
     baseline_path = ctx.export_paths["baseline_results"]
 
-    events = _load_runtime_events([runtime_event_path], tier="current")
+    events = _load_runtime_events([runtime_event_path])
     events_by_key = _index_runtime_events(events)
     baseline_by_key = _load_baseline_results(baseline_path)
     signatures = runtime_doc.get("signatures") or {}
@@ -233,20 +232,20 @@ def build_runtime_results(
 
         blocked = _is_blocked_event(event)
         result = None
-        result_tier = None
+        result_origin = None
         result_source = None
         if not blocked and actual is not None:
             result = actual
-            result_tier = "mapping"
+            result_origin = "mapping"
             result_source = path_utils.to_repo_relative(DEFAULT_RUNTIME_SIGNATURES, repo_root=REPO_ROOT)
         elif not blocked and event and event.get("actual") is not None:
             result = event.get("actual")
-            result_tier = "packet_event"
+            result_origin = "packet_event"
             result_source = path_utils.to_repo_relative(runtime_event_path, repo_root=REPO_ROOT)
             mapping_status = "packet_only"
         elif blocked and actual is not None:
             result = actual
-            result_tier = "historical_mapping"
+            result_origin = "historical_mapping"
             result_source = path_utils.to_repo_relative(DEFAULT_RUNTIME_SIGNATURES, repo_root=REPO_ROOT)
 
         if not blocked and result is not None:
@@ -286,7 +285,7 @@ def build_runtime_results(
                     "target": probe_info.get("target"),
                     "expected": probe_info.get("expected"),
                     "result": result,
-                    "result_tier": result_tier,
+                    "result_origin": result_origin,
                     "result_source": result_source,
                     "mapping_status": mapping_status,
                     "path_observation": path_observation,

@@ -7,7 +7,7 @@ Determine whether the Codex harness is sandboxed by comparing six host-grounded 
 ## Baseline and scope
 
 - Host baseline: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
-- Bedrock surfaces referenced (bedrock tier):
+- Canonical vocab mappings referenced:
   - `book/integration/carton/bundle/relationships/mappings/vocab/ops.json`
   - `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`
   - `book/integration/carton/bundle/relationships/mappings/vocab/ops_coverage.json`
@@ -19,34 +19,34 @@ Determine whether the Codex harness is sandboxed by comparing six host-grounded 
 - Run artifacts under `book/evidence/experiments/runtime-final-final/suites/codex-sandbox/out/codex-sandbox/`.
 - A clear outcome statement on harness sandboxing with reliability notes.
 
-## Sensors (S0-S5) and evidence tiers
+## Sensors (S0-S5) and evidence notes
 
-All sensor outputs are host observations (mapped tier) unless noted; conclusions drawn across sensors are hypothesis tier.
+All sensor outputs are host observations unless noted; conclusions drawn across sensors are provisional.
 
 S0. **Self sandboxed** (preflight, scenario)
 - Mechanism: `sandbox_check(getpid(), NULL, ...)`.
-- Mapped evidence: direct return code in `s0_self_sandbox.json`.
+- Observation: direct return code in `s0_self_sandbox.json`.
 
 S1. **Mach-lookup preflight** (preflight, scenario)
 - Mechanism: `sandbox_check(getpid(), "mach-lookup", filter, service_name)`.
-- Mapped evidence: return code in `s1_mach_lookup.json`.
-- Reliability note (hypothesis tier): filter constants are missing on this host, so early runs either skipped S1 or produced invalid-args; later runs used an unfiltered fallback and are coarse.
+- Observation: return code in `s1_mach_lookup.json`.
+- Reliability note (provisional): filter constants are missing on this host, so early runs either skipped S1 or produced invalid-args; later runs used an unfiltered fallback and are coarse.
 
 S2. **Bootstrap sentinel** (bootstrap, scenario)
 - Mechanism: `bootstrap_look_up` against `com.apple.cfprefsd.agent`.
-- Mapped evidence: `kr` in `s2_bootstrap_lookup.json`.
+- Observation: `kr` in `s2_bootstrap_lookup.json`.
 
 S3. **Sentinel XPC probe** (bootstrap or operation, scenario)
 - Mechanism: `policy-witness xpc run --profile minimal fs_op --op stat --path-class tmp`.
-- Mapped evidence: `normalized_outcome` and `layer_attribution` in `s3_sentinel_xpc.json`.
+- Observation: `normalized_outcome` and `layer_attribution` in `s3_sentinel_xpc.json`.
 
 S4. **SBPL apply heuristic** (apply, baseline)
 - Mechanism: `book/tools/sbpl/wrapper/wrapper --preflight enforce --sbpl allow_all.sb -- /usr/bin/true`.
-- Mapped evidence: apply markers in `s4_sbpl_apply.json`.
+- Observation: apply markers in `s4_sbpl_apply.json`.
 
 S5. **Log corroboration** (observer, scenario)
 - Mechanism: `log show --last 10s` with sandbox predicate.
-- Hypothesis tier: `log show` fails under sandbox and is noisy under elevated; use only as supporting signal.
+- Supporting-only: `log show` fails under sandbox and is noisy under elevated; use only as supporting signal.
 
 ## Plan and execution log
 
@@ -65,7 +65,7 @@ Runs captured under `book/evidence/experiments/runtime-final-final/suites/codex-
 - `8a0ffee3-705d-4fe8-801a-c59a254e8510`
 - `8992a587-9d3b-4599-853f-6983e1f26b7d`
 
-Mapped observations (consistent across runs):
+Consistent observations (across runs):
 - S0: `rc=1` (sandboxed).
 - S2: `kr=1100` (BOOTSTRAP_NOT_PRIVILEGED).
 - S3: `normalized_outcome=xpc_error` with `xpc:openSession_failed` (error 159).
@@ -73,10 +73,10 @@ Mapped observations (consistent across runs):
 
 S1 variability:
 - Early runs skipped S1 due to missing filter constants or returned invalid args; later runs used unfiltered fallback (`rc=1`).
-- This remains a coarse signal on this host (hypothesis tier).
+- This remains a coarse signal on this host (provisional).
 
 S5:
-- `log show` fails with `Cannot run while sandboxed` (supporting, hypothesis tier).
+- `log show` fails with `Cannot run while sandboxed` (supporting-only).
 
 ### Elevated harness (unsandboxed)
 
@@ -87,7 +87,7 @@ Runs captured under `book/evidence/experiments/runtime-final-final/suites/codex-
 - `8c7c7dd3-5161-4116-b6c4-d01c3bc58c82`
 - `27d8439e-ffb8-4fa3-9bd6-bb78fa9e5d0b`
 
-Mapped observations (consistent across runs):
+Consistent observations (across runs):
 - S0: `rc=0` (not sandboxed).
 - S2: `kr=0` (bootstrap ok).
 - S3: `normalized_outcome=ok` (operation-stage ok).
@@ -97,9 +97,9 @@ S1 variability:
 - Early run invalid args when a filter constant was assumed; later runs used unfiltered fallback with `rc=0`.
 
 S5:
-- `log show` succeeds but deny lines are unrelated to the current PID; not a reliable indicator (hypothesis tier).
+- `log show` succeeds but deny lines are unrelated to the current PID; not a reliable indicator (supporting-only).
 
-## Representative evidence (mapped tier unless noted)
+## Representative evidence (observations unless noted)
 
 - S0 normal: `book/evidence/experiments/runtime-final-final/suites/codex-sandbox/out/codex-sandbox/2f63d887-46c2-46fa-a36a-e1b46e060911/s0_self_sandbox.json`.
 - S0 elevated: `book/evidence/experiments/runtime-final-final/suites/codex-sandbox/out/codex-sandbox/5d0e304f-db39-4130-aac2-aede2627572b/s0_self_sandbox.json`.
@@ -111,16 +111,16 @@ S5:
 - S4 elevated: `book/evidence/experiments/runtime-final-final/suites/codex-sandbox/out/codex-sandbox/5d0e304f-db39-4130-aac2-aede2627572b/s4_sbpl_apply.json`.
 - S1 fallback (coarse): `book/evidence/experiments/runtime-final-final/suites/codex-sandbox/out/codex-sandbox/2f63d887-46c2-46fa-a36a-e1b46e060911/s1_mach_lookup.json`.
 - S1 skipped (missing filter constant): `book/evidence/experiments/runtime-final-final/suites/codex-sandbox/out/codex-sandbox/8a0ffee3-705d-4fe8-801a-c59a254e8510/s1_mach_lookup.json`.
-- S5 blocked (hypothesis): `book/evidence/experiments/runtime-final-final/suites/codex-sandbox/out/codex-sandbox/2f63d887-46c2-46fa-a36a-e1b46e060911/s5_log_corroboration.json`.
-- S5 noisy (hypothesis): `book/evidence/experiments/runtime-final-final/suites/codex-sandbox/out/codex-sandbox/5d0e304f-db39-4130-aac2-aede2627572b/s5_log_corroboration.json`.
+- S5 blocked (log capture): `book/evidence/experiments/runtime-final-final/suites/codex-sandbox/out/codex-sandbox/2f63d887-46c2-46fa-a36a-e1b46e060911/s5_log_corroboration.json`.
+- S5 noisy (log capture): `book/evidence/experiments/runtime-final-final/suites/codex-sandbox/out/codex-sandbox/5d0e304f-db39-4130-aac2-aede2627572b/s5_log_corroboration.json`.
 
 ## Outcome summary
 
-Hypothesis tier conclusion: normal harness mode is sandboxed and elevated mode is not. This is supported by a four-sensor alignment (S0, S2, S3, S4) across multiple runs, with S1 and S5 remaining coarse or unreliable on this host.
+Conclusion (provisional): normal harness mode is sandboxed and elevated mode is not. This is supported by a four-sensor alignment (S0, S2, S3, S4) across multiple runs, with S1 and S5 remaining coarse or unreliable on this host.
 
 ## Reliability assessment
 
-- **High reliability (mapped tier):** S0, S2, S3, S4.
+- **High reliability:** S0, S2, S3, S4.
 - **Limited reliability:** S1 (filter constants missing, unfiltered fallback only).
 - **Low reliability:** S5 (blocked under sandbox, noisy under elevated).
 

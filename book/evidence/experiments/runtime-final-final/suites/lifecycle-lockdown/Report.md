@@ -50,7 +50,7 @@ Evidence:
 - `book/evidence/experiments/runtime-final-final/suites/lifecycle-lockdown/out/entitlements/entitlements_signed.json`
 - `book/evidence/experiments/runtime-final-final/suites/lifecycle-lockdown/out/entitlements/codesign_entitlements_signed.stdout.txt`
 
-Tier: `mapped` (metadata visibility on this host).
+Status: metadata visibility on this host.
 
 ### B) Apply attempts + preflight + wrapper markers
 
@@ -76,7 +76,7 @@ Evidence:
 - `book/evidence/experiments/runtime-final-final/suites/lifecycle-lockdown/out/apply/wrapper_sbpl_gate_force.stderr.txt`
 - `book/evidence/experiments/runtime-final-final/suites/lifecycle-lockdown/out/apply/wrapper_blob_gate_force.stderr.txt`
 
-Tier: `hypothesis` (apply-stage EPERM; confounded by harness/environment constraints).
+Status: apply-stage EPERM; confounded by harness/environment constraints.
 
 #### B2) Execution-lane isolation via `book.api.runtime` (`launchd_clean`)
 
@@ -102,7 +102,7 @@ Evidence:
 - `book/evidence/experiments/runtime-final-final/suites/lifecycle-lockdown/out/runtime/launchd_clean_enforce/8d20c8f6-6ed3-4ca6-b0bd-da17599b18a9/runtime_results.json`
 - `book/evidence/experiments/runtime-final-final/suites/lifecycle-lockdown/out/runtime/launchd_clean_force/4406014b-65cc-4753-a550-1200d966734d/runtime_results.json`
 
-Tier: `hypothesis` (still apply-stage evidence; bounded by lane separation).
+Status: apply-stage evidence; bounded by lane separation.
 
 #### B3) Bootstrap exec: marker suppression + `execvp` `EPERM`
 
@@ -142,7 +142,7 @@ Evidence:
 - Same, with added `file-read*` for `/private/tmp/sandbox-lore-launchctl` (no change observed): `book/evidence/experiments/runtime-final-final/suites/lifecycle-lockdown/out/runtime/launchd_clean_enforce/f2118065-6f7c-4445-9006-63b01240034b/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_read_launchctl.runtime.sb`
 - Runtime bundle showing `execvp()` `EPERM` persists under `..._write_read_launchctl`: `book/evidence/experiments/runtime-final-final/suites/lifecycle-lockdown/out/runtime/launchd_clean_enforce/f2118065-6f7c-4445-9006-63b01240034b/runtime_results.json`
 
-Tier: `mapped` (bootstrap-stage, scenario-scoped, from a runtime bundle; not operation semantics).
+Status: bootstrap-stage, scenario-scoped, from a runtime bundle; not operation semantics.
 
 #### B4) System-binary pivot: `execvp()` `EPERM` also blocks `/usr/sbin/sysctl`
 
@@ -164,7 +164,7 @@ Evidence:
 - Generated SBPL for sysctl probe (shows `process-exec*` + `file-read*` on `/usr` + `file-write-data`): `book/evidence/experiments/runtime-final-final/suites/lifecycle-lockdown/out/runtime/launchd_clean_enforce/d4e96281-6046-4405-81de-535fd29e8890/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_sysctl.runtime.sb`
 - Same, with expanded `file-map-executable` allowlist (no change observed): `book/evidence/experiments/runtime-final-final/suites/lifecycle-lockdown/out/runtime/launchd_clean_enforce/d4e96281-6046-4405-81de-535fd29e8890/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec_sysctl.runtime.sb`
 
-Tier: `mapped` (bootstrap-stage, scenario-scoped, from a runtime bundle; not operation semantics).
+Status: bootstrap-stage, scenario-scoped, from a runtime bundle; not operation semantics.
 
 #### B5) `allow default` is a decisive bootstrap knob for SBPL `(version 2)`
 
@@ -185,7 +185,7 @@ Evidence (file_probe runs and yields operation-stage evidence under `(allow defa
 
 Negative controls (selected): `file-map-executable` (even unfiltered), `mach-lookup` (unfiltered), `file-read*` (unfiltered), and several path-scoped expansions did not clear the `execvp()` `EPERM`; see bundles under `book/evidence/experiments/runtime-final-final/suites/lifecycle-lockdown/out/runtime/launchd_clean_enforce/` with plan_ids `lifecycle-lockdown.v4.exec-stage-system-binary-pivot` through `lifecycle-lockdown.v14.exec-stage-codesigning`.
 
-Tier: `mapped` (bootstrap-stage, scenario-scoped, from committed runtime bundles; not operation semantics).
+Status: bootstrap-stage, scenario-scoped, from committed runtime bundles; not operation semantics.
 
 #### B6) `debug` is not available in SBPL `(version 2)` (apply-time failure)
 
@@ -194,7 +194,7 @@ Observation: attempting to add `(debug deny)` (to get unified-log deny records) 
 Evidence:
 - Runtime bundle (apply fails): `book/evidence/experiments/runtime-final-final/suites/lifecycle-lockdown/out/runtime/launchd_clean_enforce/b8557b5d-fa11-40c5-bcb6-72cda15a61f7/runtime_results.json`
 
-Tier: `mapped` (apply-stage structural/compiler error; not semantics).
+Status: apply-stage structural/compiler error; not semantics.
 
 #### B7) Exec-prereq narrowing: still no substitute for `(allow default)`
 
@@ -214,7 +214,7 @@ Evidence:
 - `file-search` / `file-test-existence` variants: `book/evidence/experiments/runtime-final-final/suites/lifecycle-lockdown/out/runtime/launchd_clean_enforce/2c77975f-808c-47b5-a92a-9beda16f2f1d/runtime_results.json`
 - `process-exec` (no `*`) variant: `book/evidence/experiments/runtime-final-final/suites/lifecycle-lockdown/out/runtime/launchd_clean_enforce/a36ce479-765f-4e3d-9102-863225f7d6d3/runtime_results.json`
 
-Tier: `mapped` (bootstrap-stage, scenario-scoped, from committed runtime bundles; not operation semantics).
+Status: bootstrap-stage, scenario-scoped, from committed runtime bundles; not operation semantics.
 
 #### B8) Allow-default deny scan: some “obvious” prerequisites are not required (for sysctl)
 
@@ -230,13 +230,13 @@ Observation: adding targeted denies on top of a working `(allow default)` profil
   - `process-legacy-codesigning-status*`
   - `file-ioctl`
 
-This does **not** prove those operations never participate in exec/dyld; it only bounds the “single missing prerequisite” hypothesis for this sysctl bootstrap path.
+This does **not** prove those operations never participate in exec/dyld; it only bounds the “single missing prerequisite” question for this sysctl bootstrap path.
 
 Evidence:
 - Allow-default deny scan v1: `book/evidence/experiments/runtime-final-final/suites/lifecycle-lockdown/out/runtime/launchd_clean_enforce/52401592-67fb-473e-af25-f9217d21a925/runtime_results.json`
 - Allow-default deny scan v2 (legacy codesigning): `book/evidence/experiments/runtime-final-final/suites/lifecycle-lockdown/out/runtime/launchd_clean_enforce/81b5ae10-79c6-4db5-a3a8-524d6fca9d3f/runtime_results.json`
 
-Tier: `mapped` (bootstrap-stage, scenario-scoped, from committed runtime bundles; not operation semantics).
+Status: bootstrap-stage, scenario-scoped, from committed runtime bundles; not operation semantics.
 
 ## Next step (needs direction)
 

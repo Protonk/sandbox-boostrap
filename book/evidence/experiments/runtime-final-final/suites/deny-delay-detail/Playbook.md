@@ -1,12 +1,12 @@
 # deny-delay-detail (Playbook)
 
-This playbook captures the decision ladder used to resolve missing deny evidence on the Sonoma baseline. It is host-scoped and evidence-tiered; it is not a general claim about macOS sandbox behavior.
+This playbook captures the decision ladder used to resolve missing deny evidence on the Sonoma baseline. It is host-scoped and evidence-bounded; it is not a general claim about macOS sandbox behavior.
 
 ## Decision ladder (processual knowledge)
 
 1) **Start with a missing deny line**
    - Symptom: probe returns `permission_error` but observer report has `observed_deny: false`.
-   - Evidence tier: hypothesis until observer evidence is stabilized.
+   - Treat as provisional until observer evidence is stabilized.
 
 2) **Switch to manual observer mode**
    - Use `sandbox-log-observer --last <window>` keyed by plan/row/correlation ID.
@@ -21,11 +21,11 @@ This playbook captures the decision ladder used to resolve missing deny evidence
      - `fs_coordinated_op write` (higher-level userland)
      - `sandbox_check` control (informational)
    - Use per-run unique filenames to avoid stale artifacts.
-   - Evidence tier: mapped only when deny lines appear consistently across repeated runs.
+   - Treat as resolved only when deny lines appear consistently across repeated runs.
 
 4) **Apply a stability gate**
    - Re-run the same configuration at least twice.
-   - Require identical mapped rows (operation + filter) across runs before calling it stable.
+   - Require identical resolved rows (operation + filter) across runs before calling it stable.
    - If rows flip, treat the configuration as unstable.
 
 5) **Escalate only if still ambiguous**
@@ -41,4 +41,4 @@ This playbook captures the decision ladder used to resolve missing deny evidence
 
 - Permission-shaped failures in file-write flows where deny evidence is intermittent.
 - Comparisons across path-class vs direct-path semantics (containerization contrasts).
-- Evaluating when observer evidence is sufficient to promote mapped-tier claims.
+- Evaluating when observer evidence is sufficient to promote claims into shared mappings.

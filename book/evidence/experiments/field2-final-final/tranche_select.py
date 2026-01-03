@@ -14,7 +14,11 @@ from typing import Any, Dict, List, Optional
 
 import sys
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve()
+for parent in REPO_ROOT.parents:
+    if (parent / "book").is_dir():
+        REPO_ROOT = parent
+        break
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
@@ -24,6 +28,7 @@ SCHEMA_VERSION = "field2-tranche.v0"
 DEFAULT_FRONTIER = (
     REPO_ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "field2-final-final"
     / "out"
@@ -32,6 +37,7 @@ DEFAULT_FRONTIER = (
 DEFAULT_OUT = (
     REPO_ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "field2-final-final"
     / "out"

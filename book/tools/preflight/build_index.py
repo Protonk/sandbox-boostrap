@@ -38,6 +38,9 @@ EXCLUDED_EXPERIMENT_DIRS = {
     "entitlement-jail-extension-semantics",
 }
 EXCLUDED_EXPERIMENTS_LABEL = ", ".join(sorted(EXCLUDED_EXPERIMENT_DIRS))
+INVENTORY_IGNORE_PATHS = {
+    "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/kext_bundle_query.sb",
+}
 
 
 def _excluded_experiment_roots(experiments_root: Path) -> List[Path]:
@@ -143,6 +146,8 @@ def discover_inputs() -> List[InputRef]:
 
     out: List[InputRef] = []
     for p in sorted(by_path.keys()):
+        if to_repo_relative(p, REPO_ROOT) in INVENTORY_IGNORE_PATHS:
+            continue
         out.append(InputRef(path=p, sources=tuple(sorted(by_path[p]))))
     return out
 

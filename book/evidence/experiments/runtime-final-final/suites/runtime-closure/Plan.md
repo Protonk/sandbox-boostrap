@@ -17,7 +17,7 @@ Every run is interpreted by stage:
 - **Compile**: SBPL source -> compiled blob (construction errors only).
 - **Apply**: compiled blob -> sandbox applied (apply-gate or already-sandboxed failures only).
 - **Exec**: harness viability under the sandbox (self-denials, missing deps).
-- **Operation**: the probed syscall/IPC/IOKit operation (only this stage is eligible for mapped promotion when paired with a structural anchor binding).
+- **Operation**: the probed syscall/IPC/IOKit operation (only this stage is eligible for promotion when paired with a structural anchor binding).
 
 ## Lanes and questions
 

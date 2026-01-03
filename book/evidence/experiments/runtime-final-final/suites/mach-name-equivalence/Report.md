@@ -33,5 +33,5 @@ python -m book.api.runtime run \
 
 ## Status
 
-- `mach-lookup`: ok (mapped, scenario lane, operation stage).
+- `mach-lookup`: ok (observed, scenario lane, operation stage).
 - `mach-register`: blocked (no operation-stage probe in current toolchain).

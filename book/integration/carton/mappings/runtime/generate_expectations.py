@@ -23,7 +23,6 @@ ROOT = Path(__file__).resolve().parents[5]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from book.api import evidence_tiers  # noqa: E402
 from book.api import world as world_mod  # noqa: E402
 from book.api.runtime.bundles import reader as bundle_reader  # noqa: E402
 
@@ -181,10 +180,6 @@ def main() -> None:
             "inputs": inputs,
             "source_jobs": ["experiment:runtime-checks", "experiment:runtime-adversarial"],
             "status": overall_status,
-            "tier": evidence_tiers.evidence_tier_for_artifact(
-                path=OUT,
-                tier="mapped",
-            ),
             "notes": "Runtime expectations summarized from runtime cuts and traces; mismatches are allowed only when tagged in impact_map.json.",
         },
         "profiles": profiles,

@@ -128,7 +128,7 @@ def _parse_observer_metadata(
     return None, False
 
 
-def _tier_and_limits(
+def _binding_status_and_limits(
     *,
     observed_deny: Optional[bool],
     op_id: Optional[int],
@@ -148,8 +148,8 @@ def _tier_and_limits(
     if filter_inferred:
         limits.append("filter_inferred")
     if observed_deny is True and op_id is not None and filter_id is not None:
-        return "mapped", limits
-    return "hypothesis", limits
+        return "resolved", limits
+    return "unresolved", limits
 
 
 def _extract_result_fields(stdout_json: Optional[Dict[str, object]]) -> Dict[str, object]:
@@ -356,7 +356,7 @@ def _run_iteration(
                 )
                 detail_json = detail.to_json()
 
-                tier, limits = _tier_and_limits(
+                binding_status, limits = _binding_status_and_limits(
                     observed_deny=detail_json.get("observed_deny"),
                     op_id=op_id,
                     filter_id=filter_id,
@@ -388,7 +388,7 @@ def _run_iteration(
                     "filter": primary_filter,
                     "filter_id": filter_id,
                     "target": _normalize_path_value(target, home_dir),
-                    "evidence_tier": tier,
+                    "binding_status": binding_status,
                     "limits": limits,
                     "probe_log_path": result.log_path,
                     "observer_report_path": observer_report_path,
@@ -464,7 +464,7 @@ def _aggregate_matrix(
                     "run_id": record.get("run_id"),
                     "iteration": record.get("iteration"),
                     "observed_deny": record.get("observed_deny"),
-                    "evidence_tier": record.get("evidence_tier"),
+                    "binding_status": record.get("binding_status"),
                     "operation": record.get("operation"),
                     "filter": record.get("filter"),
                     "limits": record.get("limits"),
@@ -481,12 +481,12 @@ def _aggregate_matrix(
     rows: List[Dict[str, object]] = []
     for (observer_mode, row_id), entries in records_by_mode_row.items():
         stable = False
-        stable_mapped = False
+        stable_resolved = False
         if len(entries) >= 2:
             def _key(entry: Dict[str, object]) -> Tuple[object, ...]:
                 return (
                     entry.get("observed_deny"),
-                    entry.get("evidence_tier"),
+                    entry.get("binding_status"),
                     entry.get("operation"),
                     entry.get("filter"),
                     tuple(entry.get("limits") or []),
@@ -494,7 +494,7 @@ def _aggregate_matrix(
 
             first_key = _key(entries[0])
             stable = all(_key(entry) == first_key for entry in entries[1:])
-            stable_mapped = stable and entries[0].get("evidence_tier") == "mapped"
+            stable_resolved = stable and entries[0].get("binding_status") == "resolved"
         rows.append(
             {
                 "observer_mode": observer_mode,
@@ -502,7 +502,7 @@ def _aggregate_matrix(
                 **row_meta.get(row_id, {}),
                 "entries": entries,
                 "stable": stable,
-                "stable_mapped": stable_mapped,
+                "stable_resolved": stable_resolved,
             }
         )
 
@@ -529,11 +529,11 @@ def _write_summary(matrix: Dict[str, object], out_path: Path) -> None:
     for mode in sorted(by_mode):
         rows_for_mode = by_mode[mode]
         stable = [r for r in rows_for_mode if r.get("stable")]
-        stable_mapped = [r for r in rows_for_mode if r.get("stable_mapped")]
+        stable_resolved = [r for r in rows_for_mode if r.get("stable_resolved")]
         lines.append(f"observer_mode: {mode}")
         lines.append(f"  stable_rows: {len(stable)}")
-        lines.append(f"  stable_mapped_rows: {len(stable_mapped)}")
-        for row in sorted(stable_mapped, key=lambda r: r.get("row_id", "")):
+        lines.append(f"  stable_resolved_rows: {len(stable_resolved)}")
+        for row in sorted(stable_resolved, key=lambda r: r.get("row_id", "")):
             lines.append(f"    {row.get('row_id')}")
     out_path.write_text("\n".join(lines) + "\n")
 

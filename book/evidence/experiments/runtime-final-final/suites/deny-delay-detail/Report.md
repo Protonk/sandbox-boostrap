@@ -9,8 +9,8 @@ Turn the intermittent “missing deny evidence” problem into a repeatable meth
 ## Baseline & scope
 
 - Host-scoped to the baseline above.
-- Focused on PolicyWitness observer evidence and mapped operation/filter outputs.
-- Uses bedrock vocab surfaces (see `book/evidence/graph/concepts/BEDROCK_SURFACES.json`):
+- Focused on PolicyWitness observer evidence and vocab-aligned operation/filter outputs.
+- Uses canonical vocab mappings:
   - `book/integration/carton/bundle/relationships/mappings/vocab/ops.json`
   - `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`
   - `book/integration/carton/bundle/relationships/mappings/vocab/ops_coverage.json`
@@ -25,18 +25,18 @@ Turn the intermittent “missing deny evidence” problem into a repeatable meth
 ## Plan & execution log
 
 - Reliability matrix run via `run_reliability.py` (manual/external: 2 iterations each; capture: 1 iteration).
-  - External observer mode is the most stable for the Downloads ladder in this run set (mapped evidence tier).
-    - Stable rows: 18; stable mapped rows: 14 (stage=operation, lane=scenario).
-  - Manual observer mode is less stable (mapped evidence tier when denies are observed).
-    - Stable rows: 9; stable mapped rows: 5 (stage=operation, lane=scenario).
-  - Capture observer mode failed to produce usable evidence (hypothesis tier).
+  - External observer mode is the most stable for the Downloads ladder in this run set (consistent operation+filter rows).
+    - Stable rows: 18; stable resolved rows: 14 (stage=operation, lane=scenario).
+  - Manual observer mode is less stable (denies observed intermittently).
+    - Stable rows: 9; stable resolved rows: 5 (stage=operation, lane=scenario).
+  - Capture observer mode failed to produce usable evidence (missing child PID).
     - Host log capture reports `missing child_pid for sandbox log capture` (stage=operation, lane=scenario).
 - Investigated XPC openSession failure:
   - Direct `policy-witness xpc run` calls for `fs_op` (tmp and downloads) succeed; the earlier openSession failure is not reproducible in isolation.
-  - Evidence remains in `downloads_direct_3ba22aa95682` (stage=bootstrap, lane=scenario, hypothesis).
+  - Evidence remains in `downloads_direct_3ba22aa95682` (stage=bootstrap, lane=scenario, provisional).
 - Tri-run comparisons via `run_compare.py`:
-  - Path-class Downloads (`downloads_direct_a11650ccf1be`): entitlements run reaches operation but observer saw no deny lines (stage=operation, lane=scenario, hypothesis). SBPL apply ok; none baseline ok.
-  - Direct host Downloads (`downloads_direct_6b6d6d71bb48`): entitlements run reaches operation and observer recorded deny line (stage=operation, lane=scenario, mapped). SBPL apply ok; none baseline ok.
+  - Path-class Downloads (`downloads_direct_a11650ccf1be`): entitlements run reaches operation but observer saw no deny lines (stage=operation, lane=scenario, unresolved). SBPL apply ok; none baseline ok.
+  - Direct host Downloads (`downloads_direct_6b6d6d71bb48`): entitlements run reaches operation and observer recorded deny line (stage=operation, lane=scenario, resolved). SBPL apply ok; none baseline ok.
 
 ## Evidence & artifacts
 
@@ -52,7 +52,7 @@ Turn the intermittent “missing deny evidence” problem into a repeatable meth
 ## Risks / blockers
 
 - Capture observer mode currently blocked by missing child PID; denies are not captured.
-- OpenSession failure appears intermittent; not reproducible after follow-on runs (still recorded as hypothesis evidence).
+- OpenSession failure appears intermittent; not reproducible after follow-on runs (still recorded as provisional).
 - SBPL apply gates remain a risk, but the latest comparison shows apply success (no gate).
 
 ## Next steps

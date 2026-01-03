@@ -12,7 +12,11 @@ from typing import Any, Dict, List
 
 import sys
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve()
+for parent in REPO_ROOT.parents:
+    if (parent / "book").is_dir():
+        REPO_ROOT = parent
+        break
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
@@ -22,6 +26,7 @@ SCHEMA_VERSION = "field2-milestone.v0"
 DEFAULT_FRONTIER = (
     REPO_ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "field2-final-final"
     / "out"
@@ -30,6 +35,7 @@ DEFAULT_FRONTIER = (
 DEFAULT_OUT = (
     REPO_ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "field2-final-final"
     / "active_milestone.json"
@@ -37,6 +43,7 @@ DEFAULT_OUT = (
 DEFAULT_DECISIONS = (
     REPO_ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "field2-final-final"
     / "decisions.jsonl"
@@ -65,7 +72,9 @@ def main() -> None:
     parser.add_argument("--decisions", type=Path, default=DEFAULT_DECISIONS)
     parser.add_argument("--milestone-id", type=str, default="field2-frontier-1")
     parser.add_argument("--count", type=int, default=5)
+    parser.add_argument("--field2", type=int, action="append", default=[])
     parser.add_argument("--require-runtime-candidate", action="store_true")
+    parser.add_argument("--include-decided", action="store_true")
     parser.add_argument("--include-retired", action="store_true")
     parser.add_argument("--require-fresh-packet", action="store_true")
     args = parser.parse_args()
@@ -82,7 +91,7 @@ def main() -> None:
         if key and decision:
             decided[key] = decision
 
-    if decided:
+    if decided and not args.include_decided:
         filtered = []
         for cand in candidates:
             key = f"field2={cand.get('field2')}"
@@ -97,8 +106,20 @@ def main() -> None:
     if args.require_runtime_candidate:
         candidates = [c for c in candidates if c.get("runtime_candidate")]
 
-    candidates.sort(key=lambda c: (c.get("score", 0), c.get("anchor_count", 0)), reverse=True)
-    selected = candidates[: args.count]
+    if args.field2:
+        selected = []
+        missing = []
+        for fid in args.field2:
+            match = next((cand for cand in candidates if cand.get("field2") == fid), None)
+            if match is None:
+                missing.append(fid)
+                continue
+            selected.append(match)
+        if missing:
+            raise ValueError(f"field2 values not found in frontier: {missing}")
+    else:
+        candidates.sort(key=lambda c: (c.get("score", 0), c.get("anchor_count", 0)), reverse=True)
+        selected = candidates[: args.count]
 
     payload = {
         "schema_version": SCHEMA_VERSION,

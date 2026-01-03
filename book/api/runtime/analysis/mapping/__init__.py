@@ -2,7 +2,7 @@
 Mapping-oriented runtime analysis helpers.
 
 Mapping helpers transform normalized observations into stable JSON
-structures that the rest of the repo treats as "mapped" evidence.
+structures that the rest of the repo consumes as shared runtime artifacts.
 """
 
 from __future__ import annotations

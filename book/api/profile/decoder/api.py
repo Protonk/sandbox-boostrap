@@ -14,13 +14,13 @@ How to read this module:
   - tag counts and simple edge sanity checks,
   - “literal reference” hints by matching node fields against the literal pool.
 
-Evidence tiering (important):
+Evidence handling (important):
 - The goal is to expose *structural evidence* from bytes, not kernel semantics.
 - When this decoder uses published mappings (e.g. `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json`,
   `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_u16_roles.json`, `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`),
-  treat those annotations as “mapped” evidence.
+  treat those annotations as grounded structural references.
 - When it falls back to built-in defaults or heuristics (stride selection, literal refs),
-  treat output as “hypothesis” and corroborate with experiments / validation fixtures.
+  treat output as provisional and corroborate with experiments / validation fixtures.
 """
 
 from __future__ import annotations
@@ -561,7 +561,7 @@ def decode_profile(
     #
     # This is intentionally a “hint” layer. Many values in the node stream are
     # small integers that can coincide with literal offsets by accident; treat
-    # results as hypothesis unless corroborated by an experiment that shows the
+    # results as provisional unless corroborated by an experiment that shows the
     # same value influencing a literal under controlled SBPL variation.
     literal_refs_per_node: List[List[str]] = []
     literal_candidates: List[Tuple[str, List[bytes]]] = []

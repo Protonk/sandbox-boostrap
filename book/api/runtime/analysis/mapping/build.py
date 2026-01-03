@@ -25,7 +25,6 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Tuple
 
 from book.api import path_utils
-from book.api import evidence_tiers
 from book.api.runtime.contracts import models
 from book.api.runtime.contracts import normalize
 
@@ -54,7 +53,6 @@ def mapping_metadata(
         "schema_version": schema_version,
         "runtime_log_schema": runtime_log_schema,
         "status": status,
-        "tier": evidence_tiers.evidence_tier_for_artifact(tier="mapped"),
         "source_jobs": source_jobs or [],
     }
     if notes:

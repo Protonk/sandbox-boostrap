@@ -9,7 +9,7 @@
 - Ran runtime harness refreshes via the unified runtime CLI and regenerated the adversarial promotion packet.
 - Regenerated runtime signatures via `PYTHONPATH=$PWD python3 book/graph/mappings/runtime/generate_runtime_signatures.py`.
 - Rebuilt runtime/atlas outputs via packet-only flow (promotion packet in, derived outputs out).
-- Logging-channel hypothesis check: log stream capture exists in entitlement-diff and shrink-trace outputs, but runtime harness does not currently ingest log stream artifacts; treat this as a candidate measurement channel to validate separately before using it for atlas status changes.
+- Logging-channel candidate check: log stream capture exists in entitlement-diff and shrink-trace outputs, but runtime harness does not currently ingest log stream artifacts; treat this as a candidate measurement channel to validate separately before using it for atlas status changes.
 - Added runtime-adversarial probes for path aliasing (`adv:path_alias`) and flow-divert require-all TCP (`adv:flow_divert_require_all_tcp`); clean-channel runs surfaced apply-gated probes (`sandbox_init` EPERM), so seeds now record `runtime_attempted_blocked` with explicit failure_stage.
 - Promoted runtime mappings from the promotion packet and regenerated `runtime_story`, `runtime_coverage`, and `expectations`.
 - `book/graph/mappings/runtime/generate_runtime_signatures.py` initially failed without `PYTHONPATH`, reran with `PYTHONPATH=$PWD` to refresh `runtime_signatures.json`.

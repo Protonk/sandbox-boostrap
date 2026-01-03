@@ -7,9 +7,9 @@ This job focuses on a single, minimal question:
   parameter *values* change the compiled blob, or is the gating purely
   “present vs missing”?
 
-On this Sonoma baseline we treat the result as mapped: it is a
-small corpus (one specimen, one key) intended to prevent accidental regressions
-in the parameterization shim and to record observed behavior explicitly.
+On this Sonoma baseline we treat the result as a small, host-bound corpus
+(one specimen, one key) intended to prevent accidental regressions in the
+parameterization shim and to record observed behavior explicitly.
 """
 
 from __future__ import annotations
@@ -96,7 +96,6 @@ def run_sbpl_param_value_matrix_job() -> Dict[str, Any]:
     payload: Dict[str, Any] = {
         "job_id": "structure:sbpl-param-value-matrix",
         "status": status,
-        "tier": "mapped",
         "world_id": WORLD_ID,
         "inputs": [rel(SBPL_PATH)],
         "outputs": [rel(STATUS_PATH)],

@@ -21,7 +21,7 @@ Consolidate all runtime-facing experiments into a single, host-scoped experiment
 
 ## Invariants
 - Runtime evidence is only promotable from committed bundles or promotion packets.
-- Apply-stage `EPERM` remains hypothesis evidence; do not treat it as policy semantics.
+- Apply-stage `EPERM` is almost always evidence of a staging problem, not a policy denial. Run `book/tools/preflight`.
 - All runtime statements are stage- and lane-labeled (`compile|apply|bootstrap|operation`, `scenario|baseline|oracle`).
 - Packets are the authority boundary for derived outputs; no direct `out/LATEST` scraping in consumers.
 

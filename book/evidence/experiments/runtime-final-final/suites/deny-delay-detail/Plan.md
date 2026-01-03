@@ -4,13 +4,13 @@ Baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
 
 ## Goal
 
-Establish a reusable process for diagnosing intermittent kernel deny evidence, and quantify which observer/probe configurations reliably produce mapped deny lines across profiles on this host baseline.
+Establish a reusable process for diagnosing intermittent kernel deny evidence, and quantify which observer/probe configurations reliably produce deny lines tied to vocab bindings across profiles on this host baseline.
 
 ## Inputs and tooling
 
 - PolicyWitness API: `book.api.witness.client`, `book.api.witness.enforcement`, `book.api.witness.compare`.
 - Observer: `book.api.witness.observer` (manual `--last` and external range; capture mode if it becomes available).
-- Vocab (bedrock): `book/integration/carton/bundle/relationships/mappings/vocab/ops.json`, `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`, `book/integration/carton/bundle/relationships/mappings/vocab/ops_coverage.json`.
+- Vocab (canonical): `book/integration/carton/bundle/relationships/mappings/vocab/ops.json`, `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`, `book/integration/carton/bundle/relationships/mappings/vocab/ops_coverage.json`.
 - Path helpers: `book.api.path_utils` for repo-relative outputs.
 
 ## Step 1: Capture the processual knowledge (how we resolved it)
@@ -20,10 +20,10 @@ Establish a reusable process for diagnosing intermittent kernel deny evidence, a
      - observer mode choice (manual vs external vs capture)
      - probe design changes (ladder probes, per-run unique filenames)
      - stability check (row flips across repeated runs)
-   - For each decision, list the evidence tier and the run artifacts that justify the shift.
+   - For each decision, list the evidence basis and the run artifacts that justify the shift.
 
 2) **Emit a short playbook**
-   - Produce a minimal, host-scoped troubleshooting flow that starts with a missing deny line and ends with a stable mapped row or a declared limit.
+   - Produce a minimal, host-scoped troubleshooting flow that starts with a missing deny line and ends with a stable resolved row or a declared limit.
    - Attach links to the canonical artifacts and explicit limits (observer missing, filter inferred, etc.).
 
 ## Step 2: Determine what resolves it and how reliably
@@ -40,9 +40,9 @@ Establish a reusable process for diagnosing intermittent kernel deny evidence, a
    - Run two consecutive passes per configuration.
    - Record:
      - `observed_deny` (boolean)
-     - operation/filter mapping status (mapped vs hypothesis)
+     - operation/filter mapping status (resolved vs unresolved)
      - limits (observer missing, filter inferred)
-   - Compute stability as “mapped rows identical across runs.”
+   - Compute stability as “resolved rows identical across runs.”
 
 3) **Outputs**
    - `reliability_matrix.json` (machine-readable matrix)
@@ -67,4 +67,4 @@ Establish a reusable process for diagnosing intermittent kernel deny evidence, a
 ## Status targets
 
 - Initial status: `partial` until the reliability matrix is populated and a stable configuration is documented.
-- Promote to `ok` only after at least one observer/probe configuration produces stable mapped rows across two runs.
+- Promote to `ok` only after at least one observer/probe configuration produces stable resolved rows across two runs.

@@ -42,6 +42,6 @@ The loop is enforced by a progress gate (`book/integration/tests/graph/test_fiel
  - Loop scaffolding is in place to make tranche selection and packet-backed updates mechanical and single-claim by default.
 
 ## Notes on scope and limits
-- All claims are host-bound to the Sonoma baseline and require explicit evidence tiering.
+- All claims are host-bound to the Sonoma baseline and require explicit witness artifacts.
 - Apply-stage failures remain `blocked` and are not treated as policy semantics.
 - This experiment does not change mappings directly; it produces evidence that can be promoted through the standard validation → mappings pipeline.

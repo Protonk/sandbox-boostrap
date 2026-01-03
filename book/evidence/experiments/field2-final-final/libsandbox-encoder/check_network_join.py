@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Experiment-local guardrail for the network matrix join hypotheses.
+Experiment-local guardrail for the network matrix join candidates.
 
-This script fails if any hypothesis reports violations. It is not wired
+This script fails if any candidate reports violations. It is not wired
 into book/graph/concepts validation or the shared test harness.
 """
 
@@ -30,16 +30,16 @@ def main() -> int:
         return 2
     data = json.loads(path.read_text())
     failures = []
-    for hyp in data.get("hypotheses", []):
-        violations = hyp.get("violations") or []
+    for candidate in data.get("hypotheses", []):
+        violations = candidate.get("violations") or []
         if violations:
-            failures.append({"id": hyp.get("id"), "violations": violations})
+            failures.append({"id": candidate.get("id"), "violations": violations})
     if failures:
-        print("[!] join hypothesis violations detected")
+        print("[!] join candidate violations detected")
         for fail in failures:
             print(f"  - {fail['id']}: {len(fail['violations'])} violations")
         return 1
-    print("[+] join hypotheses: ok")
+    print("[+] join candidates: ok")
     return 0
 
 

@@ -22,7 +22,6 @@ ROOT = find_repo_root(Path(__file__))
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from book.api import evidence_tiers
 from book.graph.concepts.validation import registry
 
 METADATA_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
@@ -34,7 +33,6 @@ ALLOWED_STATUS = {
     "blocked",
     "skipped",
 }
-ALLOWED_TIERS = set(evidence_tiers.EVIDENCE_TIERS)
 
 
 def load_host_meta() -> Dict:
@@ -121,23 +119,12 @@ def normalize_record(job: registry.ValidationJob, result: Dict, host_meta: Dict,
     if status not in ALLOWED_STATUS:
         status = "blocked"
     error = result.get("error")
-    try:
-        tier = evidence_tiers.evidence_tier_for_artifact(tier=result.get("tier"))
-    except Exception as exc:
-        status = "blocked"
-        tier = "hypothesis"
-        if not error:
-            error = f"{exc}"
-    if tier not in ALLOWED_TIERS:
-        tier = "hypothesis"
-
     inputs = [to_repo_relative(p, ROOT) for p in raw_inputs]
     outputs = [to_repo_relative(p, ROOT) for p in raw_outputs]
 
     record = {
         "job_id": job.id,
         "status": status,
-        "tier": tier,
         "host": result.get("host") or host_meta,
         "inputs": inputs,
         "outputs": outputs,
@@ -218,7 +205,6 @@ def main() -> None:
         "schema": {
             "job_id": "string",
             "status": "ok|partial|brittle|blocked|skipped",
-            "tier": "bedrock|mapped|hypothesis",
             "host": "object",
             "inputs": "list[str]",
             "outputs": "list[str]",

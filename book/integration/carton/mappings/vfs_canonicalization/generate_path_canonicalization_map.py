@@ -158,7 +158,6 @@ def _build_map(*, used_packets: List[Path], records: List[Dict[str, Any]], world
         "schema_version": MAP_SCHEMA_VERSION,
         "world_id": world_id,
         "metadata": {
-            "tier": "mapped",
             "generated_by": _to_rel(Path(__file__)),
             "inputs": inputs,
             "dropped_non_witness_records": len(records) - len(witness_records),

@@ -21,12 +21,10 @@
   "correlation_id": null,
   "duration_s": 0.03343009948730469,
   "entrypoint": "book/tools/witness/PolicyWitness.app/Contents/MacOS/policy-witness",
-  "evidence_tier": "mapped",
   "exit_code": 1,
   "finished_at_unix_s": 1767243972.6607401,
   "lifecycle": {
     "correlation_id": "56B3DDA1-E074-4F74-B24E-CE168A5688D4",
-    "evidence_tier": "mapped",
     "file_path": "/Users/achyland/Downloads/atlas_matrixextern.txt",
     "plan_id": "deny-delay-detail:external:matrix-external-1-3762bd79-f1e9-4ba3-9a83-0cb4b630149a",
     "process_name": "ProbeService_minimal",
@@ -143,7 +141,7 @@
   "service_id": null,
   "started_at_unix_s": 1767243972.62731,
   "stderr": "",
-  "stdout": "{\"data\":{\"argv\":[\"--op\",\"create\",\"--path\",\"\\/Users\\/achyland\\/Downloads\\/atlas_matrixextern.txt\",\"--allow-unsafe-path\"],\"correlation_id\":\"56B3DDA1-E074-4F74-B24E-CE168A5688D4\",\"details\":{\"base_dir\":\"\",\"bundle_id\":\"com.yourteam.policy-witness.ProbeService_minimal\",\"cleanup_mode\":\"default\",\"correlation_id\":\"56B3DDA1-E074-4F74-B24E-CE168A5688D4\",\"cwd\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.policy-witness.ProbeService_minimal\\/Data\",\"duration_ms\":\"3\",\"file_path\":\"\\/Users\\/achyland\\/Downloads\\/atlas_matrixextern.txt\",\"harness_dir\":\"\",\"home_dir\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.policy-witness.ProbeService_minimal\\/Data\",\"op\":\"create\",\"path_class\":\"\",\"path_mode\":\"direct_path\",\"pid\":\"26935\",\"probe_family\":\"fs_op\",\"probe_pid\":\"26935\",\"process_name\":\"ProbeService_minimal\",\"run_dir\":\"\",\"service_pid\":\"26935\",\"session_token\":\"E6BE39EA-294D-4A2D-8B79-F0D75A240172\",\"target\":\"specimen_file\",\"tmp_dir\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.policy-witness.ProbeService_minimal\\/Data\\/tmp\\/\"},\"ended_at_iso8601\":\"2026-01-01T05:06:12.657Z\",\"errno\":1,\"error\":\"Error Domain=NSCocoaErrorDomain Code=513 \\\"You don\u2019t have permission to save the file \u201catlas_matrixextern.txt\u201d in the folder \u201cDownloads\u201d.\\\" UserInfo={NSFilePath=\\/Users\\/achyland\\/Downloads\\/atlas_matrixextern.txt, NSUnderlyingError=0x6000039803f0 {Error Domain=NSPOSIXErrorDomain Code=1 \\\"Operation not permitted\\\"}}\",\"normalized_outcome\":\"permission_error\",\"plan_id\":\"deny-delay-detail:external:matrix-external-1-3762bd79-f1e9-4ba3-9a83-0cb4b630149a\",\"probe_id\":\"fs_op\",\"rc\":1,\"row_id\":\"minimal.fs_op_create_direct_downloads\",\"schema_version\":1,\"service_build\":\"2\",\"service_bundle_id\":\"com.yourteam.policy-witness.ProbeService_minimal\",\"service_name\":\"ProbeService_minimal\",\"service_version\":\"2.0.0\",\"started_at_iso8601\":\"2026-01-01T05:06:12.654Z\",\"stderr\":\"\",\"stdout\":\"\",\"thread_id\":\"6403\"},\"generated_at_unix_ms\":1767243972659,\"kind\":\"probe_response\",\"result\":{\"errno\":1,\"error\":\"Error Domain=NSCocoaErrorDomain Code=513 \\\"You don\u2019t have permission to save the file \u201catlas_matrixextern.txt\u201d in the folder \u201cDownloads\u201d.\\\" UserInfo={NSFilePath=\\/Users\\/achyland\\/Downloads\\/atlas_matrixextern.txt, NSUnderlyingError=0x6000039803f0 {Error Domain=NSPOSIXErrorDomain Code=1 \\\"Operation not permitted\\\"}}\",\"exit_code\":1,\"normalized_outcome\":\"permission_error\",\"ok\":false,\"rc\":1},\"schema_version\":1}\n",
+  "stdout": "{\"data\":{\"argv\":[\"--op\",\"create\",\"--path\",\"\\/Users\\/achyland\\/Downloads\\/atlas_matrixextern.txt\",\"--allow-unsafe-path\"],\"correlation_id\":\"56B3DDA1-E074-4F74-B24E-CE168A5688D4\",\"details\":{\"base_dir\":\"\",\"bundle_id\":\"com.yourteam.policy-witness.ProbeService_minimal\",\"cleanup_mode\":\"default\",\"correlation_id\":\"56B3DDA1-E074-4F74-B24E-CE168A5688D4\",\"cwd\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.policy-witness.ProbeService_minimal\\/Data\",\"duration_ms\":\"3\",\"file_path\":\"\\/Users\\/achyland\\/Downloads\\/atlas_matrixextern.txt\",\"harness_dir\":\"\",\"home_dir\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.policy-witness.ProbeService_minimal\\/Data\",\"op\":\"create\",\"path_class\":\"\",\"path_mode\":\"direct_path\",\"pid\":\"26935\",\"probe_family\":\"fs_op\",\"probe_pid\":\"26935\",\"process_name\":\"ProbeService_minimal\",\"run_dir\":\"\",\"service_pid\":\"26935\",\"session_token\":\"E6BE39EA-294D-4A2D-8B79-F0D75A240172\",\"target\":\"specimen_file\",\"tmp_dir\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.policy-witness.ProbeService_minimal\\/Data\\/tmp\\/\"},\"ended_at_iso8601\":\"2026-01-01T05:06:12.657Z\",\"errno\":1,\"error\":\"Error Domain=NSCocoaErrorDomain Code=513 \\\"You don’t have permission to save the file “atlas_matrixextern.txt” in the folder “Downloads”.\\\" UserInfo={NSFilePath=\\/Users\\/achyland\\/Downloads\\/atlas_matrixextern.txt, NSUnderlyingError=0x6000039803f0 {Error Domain=NSPOSIXErrorDomain Code=1 \\\"Operation not permitted\\\"}}\",\"normalized_outcome\":\"permission_error\",\"plan_id\":\"deny-delay-detail:external:matrix-external-1-3762bd79-f1e9-4ba3-9a83-0cb4b630149a\",\"probe_id\":\"fs_op\",\"rc\":1,\"row_id\":\"minimal.fs_op_create_direct_downloads\",\"schema_version\":1,\"service_build\":\"2\",\"service_bundle_id\":\"com.yourteam.policy-witness.ProbeService_minimal\",\"service_name\":\"ProbeService_minimal\",\"service_version\":\"2.0.0\",\"started_at_iso8601\":\"2026-01-01T05:06:12.654Z\",\"stderr\":\"\",\"stdout\":\"\",\"thread_id\":\"6403\"},\"generated_at_unix_ms\":1767243972659,\"kind\":\"probe_response\",\"result\":{\"errno\":1,\"error\":\"Error Domain=NSCocoaErrorDomain Code=513 \\\"You don’t have permission to save the file “atlas_matrixextern.txt” in the folder “Downloads”.\\\" UserInfo={NSFilePath=\\/Users\\/achyland\\/Downloads\\/atlas_matrixextern.txt, NSUnderlyingError=0x6000039803f0 {Error Domain=NSPOSIXErrorDomain Code=1 \\\"Operation not permitted\\\"}}\",\"exit_code\":1,\"normalized_outcome\":\"permission_error\",\"ok\":false,\"rc\":1},\"schema_version\":1}\n",
   "stdout_json": {
     "data": {
       "argv": [
@@ -179,7 +177,7 @@
       },
       "ended_at_iso8601": "2026-01-01T05:06:12.657Z",
       "errno": 1,
-      "error": "Error Domain=NSCocoaErrorDomain Code=513 \"You don\u2019t have permission to save the file \u201catlas_matrixextern.txt\u201d in the folder \u201cDownloads\u201d.\" UserInfo={NSFilePath=/Users/achyland/Downloads/atlas_matrixextern.txt, NSUnderlyingError=0x6000039803f0 {Error Domain=NSPOSIXErrorDomain Code=1 \"Operation not permitted\"}}",
+      "error": "Error Domain=NSCocoaErrorDomain Code=513 \"You don’t have permission to save the file “atlas_matrixextern.txt” in the folder “Downloads”.\" UserInfo={NSFilePath=/Users/achyland/Downloads/atlas_matrixextern.txt, NSUnderlyingError=0x6000039803f0 {Error Domain=NSPOSIXErrorDomain Code=1 \"Operation not permitted\"}}",
       "normalized_outcome": "permission_error",
       "plan_id": "deny-delay-detail:external:matrix-external-1-3762bd79-f1e9-4ba3-9a83-0cb4b630149a",
       "probe_id": "fs_op",
@@ -199,7 +197,7 @@
     "kind": "probe_response",
     "result": {
       "errno": 1,
-      "error": "Error Domain=NSCocoaErrorDomain Code=513 \"You don\u2019t have permission to save the file \u201catlas_matrixextern.txt\u201d in the folder \u201cDownloads\u201d.\" UserInfo={NSFilePath=/Users/achyland/Downloads/atlas_matrixextern.txt, NSUnderlyingError=0x6000039803f0 {Error Domain=NSPOSIXErrorDomain Code=1 \"Operation not permitted\"}}",
+      "error": "Error Domain=NSCocoaErrorDomain Code=513 \"You don’t have permission to save the file “atlas_matrixextern.txt” in the folder “Downloads”.\" UserInfo={NSFilePath=/Users/achyland/Downloads/atlas_matrixextern.txt, NSUnderlyingError=0x6000039803f0 {Error Domain=NSPOSIXErrorDomain Code=1 \"Operation not permitted\"}}",
       "exit_code": 1,
       "normalized_outcome": "permission_error",
       "ok": false,

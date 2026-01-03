@@ -2,7 +2,7 @@
 
 - Ran reliability matrix:
   - `PYTHONPATH=. python book/evidence/experiments/runtime-final-final/suites/deny-delay-detail/run_reliability.py --observer-modes manual,external --iterations 2 --include-capture`
-  - Summary: external stable_rows=18 (stable_mapped_rows=14), manual stable_rows=9 (stable_mapped_rows=5), capture stable_rows=0.
+  - Summary: external stable_rows=18 (stable_resolved_rows=14), manual stable_rows=9 (stable_resolved_rows=5), capture stable_rows=0.
   - Capture logs report `missing child_pid for sandbox log capture` (see `book/evidence/experiments/runtime-final-final/suites/deny-delay-detail/out/reliability_summary.txt` and capture logs).
 - Tri-run comparison (initial attempt):
   - `PYTHONPATH=. python book/evidence/experiments/runtime-final-final/suites/deny-delay-detail/run_compare.py`

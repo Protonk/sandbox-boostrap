@@ -27,13 +27,13 @@ from book.api.profile.inspect import summarize_blob  # type: ignore
 
 REPO_ROOT = find_repo_root(Path(__file__))
 BOOK_ROOT = REPO_ROOT / "book"
-OUT_DIR = BOOK_ROOT / "graph" / "concepts" / "validation" / "golden_corpus"
+OUT_DIR = BOOK_ROOT / "evidence" / "graph" / "concepts" / "validation" / "golden_corpus"
 RAW_DIR = OUT_DIR / "raw"
 DECODE_DIR = OUT_DIR / "decodes"
 INSPECT_DIR = OUT_DIR / "inspect"
 BLOB_DIR = OUT_DIR / "blobs"
 
-TAG_LAYOUTS_PATH = BOOK_ROOT / "graph" / "mappings" / "tag_layouts" / "tag_layouts.json"
+TAG_LAYOUTS_PATH = BOOK_ROOT / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "tag_layouts" / "tag_layouts.json"
 
 BLOBS: List[Dict[str, str]] = [
     {
@@ -63,25 +63,25 @@ BLOBS: List[Dict[str, str]] = [
     {
         "id": "runtime_deny_all",
         "category": "sbpl-graph-runtime",
-        "path": "experiments/runtime-final-final/suites/sbpl-graph-runtime/out/deny_all.sb.bin",
+        "path": "evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/out/deny_all.sb.bin",
         "mode": "runtime-capable",
     },
     {
         "id": "runtime_param_path_concrete",
         "category": "sbpl-graph-runtime",
-        "path": "experiments/runtime-final-final/suites/sbpl-graph-runtime/out/param_path_concrete.sb.bin",
+        "path": "evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/out/param_path_concrete.sb.bin",
         "mode": "runtime-capable",
     },
     {
         "id": "encoder_single_file_subpath",
         "category": "libsandbox-encoder",
-        "path": "experiments/field2-final-final/libsandbox-encoder/out/single_file_subpath.sb.bin",
+        "path": "evidence/experiments/field2-final-final/libsandbox-encoder/out/single_file_subpath.sb.bin",
         "mode": "runtime-capable",
     },
     {
         "id": "platform_airlock",
         "category": "platform",
-        "path": "graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
+        "path": "evidence/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
         "mode": "static-only",
         "notes": "platform/system profile fixture; static-only, apply-gated on this host",
     },

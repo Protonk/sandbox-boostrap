@@ -5,7 +5,6 @@ from __future__ import annotations
 
 from typing import Any, Dict, List
 
-from book.api import evidence_tiers
 from book.integration.carton.fixers import common
 
 ROOT = common.repo_root()
@@ -49,10 +48,6 @@ def build() -> Dict[str, Any]:
             "inputs": inputs,
             "source_jobs": digests.get("metadata", {}).get("source_jobs") or [],
             "status": canonical_status,
-            "tier": evidence_tiers.evidence_tier_for_artifact(
-                path=OUT_PATH,
-                tier="mapped",
-            ),
             "notes": "Filter vocab promoted into CARTON with explicit usage_status; usage wiring remains conservative.",
         },
         "filters": entries,

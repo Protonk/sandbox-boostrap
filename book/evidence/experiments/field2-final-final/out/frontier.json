@@ -6,7 +6,7 @@
     "inventory": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
     "unknown_nodes": "book/evidence/experiments/field2-final-final/field2-filters/out/unknown_nodes.json",
     "anchor_hits": "book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json",
-    "atlas": "book/evidence/experiments/field2-final-final/field2-atlas/out/derived/62456e46-0901-4345-b02d-f96becc33310/atlas/field2_atlas.json"
+    "atlas": "book/evidence/experiments/field2-final-final/field2-atlas/out/derived/2fb35b45-143e-4383-8a8c-24e8689b7b5f/atlas/field2_atlas.json"
   },
   "candidates": [
     {
@@ -187,7 +187,11 @@
         "ipc-posix-shm*",
         "ipc-posix-sem*"
       ],
-      "runtime_candidate": null,
+      "runtime_candidate": {
+        "profile_id": "adv:ipc_posix_shm",
+        "probe_name": "allow-shm",
+        "scenario_id": "adv:ipc_posix_shm:allow-shm"
+      },
       "anchor_count": 5,
       "anchors_sample": [
         "/etc/hosts",
@@ -446,7 +450,11 @@
       "target_ops": [
         "authorization-right-obtain"
       ],
-      "runtime_candidate": null,
+      "runtime_candidate": {
+        "profile_id": "adv:authorization_right",
+        "probe_name": "allow-right",
+        "scenario_id": "adv:authorization_right:allow-right"
+      },
       "anchor_count": 1,
       "anchors_sample": [
         "flow-divert"
@@ -477,7 +485,11 @@
         "user-preference-read",
         "user-preference-write"
       ],
-      "runtime_candidate": null,
+      "runtime_candidate": {
+        "profile_id": "adv:preference_domain",
+        "probe_name": "allow-domain",
+        "scenario_id": "adv:preference_domain:allow-domain"
+      },
       "anchor_count": 0,
       "anchors_sample": [],
       "inventory": {
@@ -578,7 +590,11 @@
       "target_ops": [
         "mach-lookup"
       ],
-      "runtime_candidate": null,
+      "runtime_candidate": {
+        "profile_id": "adv:xpc_service_name",
+        "probe_name": "allow-cfprefsd-xpc",
+        "scenario_id": "adv:xpc_service_name:allow-cfprefsd-xpc"
+      },
       "anchor_count": 0,
       "anchors_sample": [],
       "inventory": {

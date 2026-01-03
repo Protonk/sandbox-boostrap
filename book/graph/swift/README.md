@@ -8,4 +8,4 @@ This directory holds the Swift executable target that enforces static contracts 
 - **Static enforcement:** encode stable mappings (vocab/coverage/digests/tag layouts/manifest/literals) as Swift data structures and validate them here so drift is caught during the Swift build.
 - **Make targets:** `make -C book build` runs Python + Swift with module caches pinned to `book/graph/.module-cache`; `make -C book clean` resets SwiftPM/.build/module caches.
 
-Files are split by concern (types/utils, concept parsing, strategies, bindings, main). Keep new checks small and typed, with clear provenance comments pointing back to mapping paths and validation tiers.***
+Files are split by concern (types/utils, concept parsing, strategies, bindings, main). Keep new checks small and typed, with clear provenance comments pointing back to mapping paths and validation outputs.

@@ -64,7 +64,6 @@ class ProbeResult:
     record_write_error: Optional[str] = None
     stdout_json: Optional[Dict[str, object]] = None
     stdout_json_error: Optional[str] = None
-    evidence_tier: str = "mapped"
 
     def to_json(self) -> Dict[str, object]:
         return asdict(self)
@@ -83,7 +82,6 @@ class LifecycleSnapshot:
     row_id: Optional[str]
     tmp_dir: Optional[str]
     file_path: Optional[str]
-    evidence_tier: str = "mapped"
 
     def to_json(self) -> Dict[str, object]:
         return asdict(self)
@@ -113,7 +111,6 @@ class CommandResult:
     tool_markers: Optional[Dict[str, List[Dict[str, object]]]] = None
     runner_info: Optional[Dict[str, object]] = None
     preflight: Optional[Dict[str, object]] = None
-    evidence_tier: str = "mapped"
 
     def to_json(self) -> Dict[str, object]:
         return asdict(self)
@@ -162,7 +159,6 @@ class ComparisonReport:
     world_id: str
     results: Dict[str, Dict[str, object]]
     limits: List[str] = field(default_factory=list)
-    evidence_tier: str = "mapped"
 
     def to_json(self) -> Dict[str, object]:
         return asdict(self)
@@ -176,10 +172,8 @@ class EnforcementDetail:
     errno: Optional[int]
     observed_deny: Optional[bool]
     attribution: str
-    attribution_tier: str
     observer_predicate: Optional[str]
     limits: List[str]
-    evidence_tier: str = "mapped"
 
     def to_json(self) -> Dict[str, object]:
         return asdict(self)

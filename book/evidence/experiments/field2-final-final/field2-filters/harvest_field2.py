@@ -15,9 +15,9 @@ from pathlib import Path
 from typing import Dict, Any, List
 
 import sys
-ROOT = Path(__file__).resolve().parents[3]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
+REPO_ROOT = Path(__file__).resolve().parents[5]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 from book.api.profile import decoder  # type: ignore
 from book.api.profile import digests as digests_mod  # type: ignore
 
@@ -85,7 +85,7 @@ def summarize_profile(path: Path, filter_names: Dict[int, str], anchors: Dict[st
 
 def main() -> None:
     filter_names = load_filters()
-    canonical = digests_mod.canonical_system_profile_blobs(ROOT)
+    canonical = digests_mod.canonical_system_profile_blobs(REPO_ROOT)
     profiles: Dict[str, Path] = {
         "sys:airlock": canonical["airlock"],
         "sys:bsd": canonical["bsd"],

@@ -73,7 +73,7 @@ def assess_promotability(bundle_dir: Path, *, repo_root: Path) -> Dict[str, Any]
     """
 
     # Promotability is *derived* from bundle artifacts; callers cannot override
-    # this by passing flags. This keeps decision-stage evidence tier-disciplined.
+    # this by passing flags. This keeps decision-stage gating consistent.
     reasons: List[PromotabilityReason] = []
     promotable = True
 

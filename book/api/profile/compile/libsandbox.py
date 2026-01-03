@@ -19,7 +19,7 @@ Parameter dictionaries:
 
   This is distinct from argv-style `KEY VALUE ... NULL` vectors used by higher
   level entry points such as `sandbox_init_with_parameters` / `sandbox-exec -D`.
-  The compile-time params-handle interface is guarded (mapped) by
+  The compile-time params-handle interface is guarded by
   `structure:sbpl-parameterization` in
   `book/graph/concepts/validation/sbpl_parameterization_job.py`.
 

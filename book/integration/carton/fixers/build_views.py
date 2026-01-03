@@ -6,7 +6,6 @@ from __future__ import annotations
 import copy
 from typing import Any, Dict, List
 
-from book.api import evidence_tiers
 from book.integration.carton.fixers import common
 
 ROOT = common.repo_root()
@@ -35,10 +34,6 @@ def _view_from_relationship(rel_path, out_path, *, note: str) -> Dict[str, Any]:
         common.repo_relative(rel_path, repo_root_path=ROOT),
         common.repo_relative(MANIFEST_PATH, repo_root_path=ROOT),
     ]
-    meta["tier"] = evidence_tiers.evidence_tier_for_artifact(
-        path=out_path,
-        tier="mapped",
-    )
     meta["notes"] = note
     view["metadata"] = meta
     return view
@@ -98,10 +93,6 @@ def build_operation_index() -> Dict[str, Any]:
             "inputs": inputs,
             "source_jobs": source_jobs,
             "status": coverage_status,
-            "tier": evidence_tiers.evidence_tier_for_artifact(
-                path=OP_INDEX_PATH,
-                tier="mapped",
-            ),
             "canonical_profile_status": canonical_status,
             "notes": "View derived from operation_coverage; expands coverage into per-operation index rows.",
         },

@@ -36,7 +36,6 @@ if str(REPO_ROOT) not in sys.path:
 
 from book.api.profile import decoder
 from book.api.profile.op_table import op_entries
-from book.api import evidence_tiers
 from book.api import world as world_mod
 from book.graph.concepts.validation import profile_ingestion as pi
 
@@ -289,9 +288,6 @@ def main() -> None:
         + [str(p.relative_to(REPO_ROOT)) for p in sorted(GOLDEN_TRIPLE_BLOBS_DIR.glob("*.sb.bin")) if p.exists()],
         "source_jobs": ["generator:system_profiles:attestations"],
         "status": "ok",
-        "tier": evidence_tiers.evidence_tier_for_artifact(
-            path=OUT_JSON,
-        ),
     }
 
     OUT_JSON.write_text(

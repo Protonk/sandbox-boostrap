@@ -1,1 +1,5 @@
 - init experiment
+- inside tool reports harness constrained in current shell (S0/S2 strong_true); runtime evidence collected via launchd_clean.
+- launchd_clean runtime-adversarial run `book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4` (stage=operation, lanes=baseline/scenario/oracle) for profiles adv:path_edges_private, adv:path_canon_alt, adv:ipc_posix_shm, adv:authorization_right, adv:preference_domain, adv:xpc_service_name; run status partial with canonicalization_boundary/op_not_witnessed mismatches.
+- probe results to revisit: ipc-posix shm allow probe denied (stage=operation, lane=scenario), sandbox_check probes for right-name/preference-domain return errno 22 (stage=operation, lane=scenario), xpc_service_name allow probe returns connection_invalid (stage=operation, lane=scenario).
+- field2 atlas rebuild from promotion packet at `book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/promotion_packet.json` yields mapping_delta proposal for field2=0 (candidate_after adv:path_canon_alt:allow-tmp) and unresolved no_alternate_candidate entries for field2=4/26/27/49.

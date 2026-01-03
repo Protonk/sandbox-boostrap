@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "op_to_scenarios": {
+    "file-read*": [
+      "adv:path_edges_private:allow-private",
+      "adv:path_edges_private:allow-private-subpath",
+      "adv:path_edges_private:allow-tmp",
+      "adv:path_edges_private:allow-tmp-subpath",
+      "adv:path_edges_private:deny-dotdot",
+      "adv:path_canon_alt:allow-private",
+      "adv:path_canon_alt:allow-tmp"
+    ],
+    "file-write*": [
+      "adv:path_edges_private:write-private",
+      "adv:path_edges_private:write-private-subpath",
+      "adv:path_edges_private:write-tmp",
+      "adv:path_edges_private:write-tmp-subpath",
+      "adv:path_edges_private:write-dotdot"
+    ],
+    "ipc-posix-shm-write-create": [
+      "adv:ipc_posix_shm:allow-shm",
+      "adv:ipc_posix_shm:deny-shm"
+    ],
+    "authorization-right-obtain": [
+      "adv:authorization_right:allow-right",
+      "adv:authorization_right:deny-right"
+    ],
+    "user-preference-read": [
+      "adv:preference_domain:allow-domain",
+      "adv:preference_domain:deny-domain"
+    ],
+    "mach-lookup": [
+      "adv:xpc_service_name:allow-cfprefsd-xpc",
+      "adv:xpc_service_name:deny-bogus-xpc"
+    ]
+  },
+  "scenario_to_traces": {
+    "adv:path_edges_private:allow-private": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_path_edges_private_allow-private.jsonl"
+    ],
+    "adv:path_edges_private:allow-private-subpath": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_path_edges_private_allow-private-subpath.jsonl"
+    ],
+    "adv:path_edges_private:allow-tmp": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_path_edges_private_allow-tmp.jsonl"
+    ],
+    "adv:path_edges_private:allow-tmp-subpath": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_path_edges_private_allow-tmp-subpath.jsonl"
+    ],
+    "adv:path_edges_private:deny-dotdot": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_path_edges_private_deny-dotdot.jsonl"
+    ],
+    "adv:path_edges_private:write-private": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_path_edges_private_write-private.jsonl"
+    ],
+    "adv:path_edges_private:write-private-subpath": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_path_edges_private_write-private-subpath.jsonl"
+    ],
+    "adv:path_edges_private:write-tmp": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_path_edges_private_write-tmp.jsonl"
+    ],
+    "adv:path_edges_private:write-tmp-subpath": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_path_edges_private_write-tmp-subpath.jsonl"
+    ],
+    "adv:path_edges_private:write-dotdot": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_path_edges_private_write-dotdot.jsonl"
+    ],
+    "adv:ipc_posix_shm:allow-shm": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_ipc_posix_shm_allow-shm.jsonl"
+    ],
+    "adv:ipc_posix_shm:deny-shm": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_ipc_posix_shm_deny-shm.jsonl"
+    ],
+    "adv:authorization_right:allow-right": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_authorization_right_allow-right.jsonl"
+    ],
+    "adv:authorization_right:deny-right": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_authorization_right_deny-right.jsonl"
+    ],
+    "adv:preference_domain:allow-domain": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_preference_domain_allow-domain.jsonl"
+    ],
+    "adv:preference_domain:deny-domain": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_preference_domain_deny-domain.jsonl"
+    ],
+    "adv:xpc_service_name:allow-cfprefsd-xpc": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_xpc_service_name_allow-cfprefsd-xpc.jsonl"
+    ],
+    "adv:xpc_service_name:deny-bogus-xpc": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_xpc_service_name_deny-bogus-xpc.jsonl"
+    ],
+    "adv:path_canon_alt:allow-private": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_path_canon_alt_allow-private.jsonl"
+    ],
+    "adv:path_canon_alt:allow-tmp": [
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/bbf50652-05cc-492c-9f49-12374f5bb0c4/runtime_mappings/traces/adv_path_canon_alt_allow-tmp.jsonl"
+    ]
+  }
+}

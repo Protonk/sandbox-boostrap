@@ -45,4 +45,4 @@ def test_vfs_path_canonicalization_map_is_generated_and_deterministic():
 
     meta = expected_mapping.get("metadata") or {}
     assert isinstance(meta, dict)
-    assert "status" not in meta, "vfs mapping should not use metadata.status (tiering is handled elsewhere)"
+    assert "status" not in meta, "vfs mapping should not use metadata.status (status is derived elsewhere)"

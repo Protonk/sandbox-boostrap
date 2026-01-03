@@ -37,7 +37,7 @@ python -m book.api.runtime run \
   - Baseline candidate extraction done: `out/anchor_filter_candidates.json` holds anchor → {field2_names, field2_values, sources}.
   - Canonical ctx-indexed anchor map published at `book/integration/carton/bundle/relationships/mappings/anchors/anchor_ctx_filter_map.json`, and legacy literal view regenerated conservatively at `book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json` (pins a literal only when all contexts agree).
   - Runtime discriminator run for `com.apple.cfprefsd.agent` (mach-lookup predicate kind):
-    - Result (tier `mapped`; host-scoped): the discriminating matrix is consistent with `com.apple.cfprefsd.agent@global-name` on this host; the literal-keyed compatibility view remains blocked because the same literal is observed in multiple contexts.
+    - Result (host-scoped): the discriminating matrix is consistent with `com.apple.cfprefsd.agent@global-name` on this host; the literal-keyed compatibility view remains blocked because the same literal is observed in multiple contexts.
     - Provenance:
       - `run_id`: `028d4d91-1c9e-4c2f-95da-7fc89ec3635a`
       - Promotion packet: `book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json`
@@ -47,7 +47,7 @@ python -m book.api.runtime run \
       - Under `(deny default)`: allowing `mach-lookup` unfiltered reaches/permits the lookup; denying by default yields `kr=1100`.
       - Predicate discrimination: allowing `global-name` permits; allowing `local-name` yields `kr=1100`; allowing both permits.
   - Runtime discriminator attempted for `IOUSBHostInterface` (iokit-open-service predicate kind):
-    - Result (tier `mapped`; host-scoped): discriminator attempt is recorded (packet/receipt), but baseline lane reports `found=false` in this process context, so no filter-kind lift is justified.
+    - Result (host-scoped): discriminator attempt is recorded (packet/receipt), but baseline lane reports `found=false` in this process context, so no filter-kind lift is justified.
     - Provenance:
       - `run_id`: `bf80e47b-3020-4b13-bfa7-249cfcff8b52`
       - Promotion packet: `book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json`
@@ -65,7 +65,7 @@ python -m book.api.runtime run \
   - None so far; current map is based solely on existing probes and system profiles.
 - **4) Synthesis and guardrails**
   - Finalized `book/integration/carton/bundle/relationships/mappings/anchors/anchor_ctx_filter_map.json` as the canonical ctx-indexed mapping surface; regenerated `book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json` as the deterministic derived view.
-  - Added a guardrail test (`book/tests/planes/graph/test_mappings_guardrail.py`) that asserts map presence and at least one mapped anchor → filter ID.
+  - Added a guardrail test (`book/tests/planes/graph/test_mappings_guardrail.py`) that asserts map presence and at least one resolved anchor → filter ID.
   - Updated `ResearchReport.md` and `Notes.md` with current mapping decisions, evidence sources, and remaining ambiguous anchors.
 
 ### Maintenance / rerun plan
@@ -82,7 +82,7 @@ If the anchor map needs to be updated (for example, new probes or improved decod
    - Decode and rerun anchor extraction; refine the candidate mapping where new evidence appears.
 4. **Synthesis and guardrails**
    - Refresh `anchor_filter_map.json` with updated per-anchor status and provenance.
-   - Keep the guardrail test in sync so it continues to assert presence and at least one mapped anchor → filter ID.
+   - Keep the guardrail test in sync so it continues to assert presence and at least one resolved anchor → filter ID.
 
 ## Evidence & artifacts
 - Anchor hits from `book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json`.

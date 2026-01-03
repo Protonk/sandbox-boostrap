@@ -325,7 +325,7 @@ def capture_apply_attempt(
         "sbpl_preflight_markers": sbpl_preflight_markers,
         "stderr": rt_contract.strip_tool_markers(res.stderr),
         "limits": [
-            "Apply-stage failures (including EPERM) are hypothesis evidence only and do not imply a PolicyGraph decision.",
+            "Apply-stage `EPERM` is almost always evidence of a staging problem, not a policy denial. Run `book/tools/preflight`.",
             "Wrapper preflight may block known gated signatures before apply; interpret apply-attempt alongside preflight_scan results.",
         ],
     }

@@ -1,0 +1,207 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "adv:path_edges_private": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_edges_private.sb",
+      "mode": "sbpl",
+      "family": "path_edges",
+      "semantic_group": "paths:literal-vs-normalized",
+      "probes": [
+        {
+          "name": "allow-private",
+          "operation": "file-read*",
+          "target": "/private/tmp/runtime-adv/edges/a",
+          "expected": "allow",
+          "expectation_id": "adv:path_edges_private:allow-private"
+        },
+        {
+          "name": "allow-private-subpath",
+          "operation": "file-read*",
+          "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+          "expected": "allow",
+          "expectation_id": "adv:path_edges_private:allow-private-subpath"
+        },
+        {
+          "name": "allow-tmp",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/edges/a",
+          "expected": "allow",
+          "expectation_id": "adv:path_edges_private:allow-tmp"
+        },
+        {
+          "name": "allow-tmp-subpath",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+          "expected": "allow",
+          "expectation_id": "adv:path_edges_private:allow-tmp-subpath"
+        },
+        {
+          "name": "deny-dotdot",
+          "operation": "file-read*",
+          "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+          "expected": "deny",
+          "expectation_id": "adv:path_edges_private:deny-dotdot"
+        },
+        {
+          "name": "write-private",
+          "operation": "file-write*",
+          "target": "/private/tmp/runtime-adv/edges/a",
+          "expected": "allow",
+          "expectation_id": "adv:path_edges_private:write-private"
+        },
+        {
+          "name": "write-private-subpath",
+          "operation": "file-write*",
+          "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+          "expected": "allow",
+          "expectation_id": "adv:path_edges_private:write-private-subpath"
+        },
+        {
+          "name": "write-tmp",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/edges/a",
+          "expected": "allow",
+          "expectation_id": "adv:path_edges_private:write-tmp"
+        },
+        {
+          "name": "write-tmp-subpath",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+          "expected": "allow",
+          "expectation_id": "adv:path_edges_private:write-tmp-subpath"
+        },
+        {
+          "name": "write-dotdot",
+          "operation": "file-write*",
+          "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+          "expected": "deny",
+          "expectation_id": "adv:path_edges_private:write-dotdot"
+        }
+      ]
+    },
+    "adv:ipc_posix_shm": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/ipc_posix_shm.sb",
+      "mode": "sbpl",
+      "family": "ipc_posix",
+      "semantic_group": "ipc-posix:shm-name",
+      "probes": [
+        {
+          "name": "allow-shm",
+          "operation": "ipc-posix-shm-write-create",
+          "target": "sbl.ipc.shm.allow",
+          "expected": "allow",
+          "expectation_id": "adv:ipc_posix_shm:allow-shm",
+          "filter_name": "ipc-posix-name"
+        },
+        {
+          "name": "deny-shm",
+          "operation": "ipc-posix-shm-write-create",
+          "target": "sbl.ipc.shm.deny",
+          "expected": "deny",
+          "expectation_id": "adv:ipc_posix_shm:deny-shm",
+          "filter_name": "ipc-posix-name"
+        }
+      ]
+    },
+    "adv:authorization_right": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/authorization_right.sb",
+      "mode": "sbpl",
+      "family": "authorization",
+      "semantic_group": "authorization:right-name",
+      "probes": [
+        {
+          "name": "allow-right",
+          "operation": "authorization-right-obtain",
+          "target": "system.preferences",
+          "expected": "allow",
+          "expectation_id": "adv:authorization_right:allow-right",
+          "driver": "sandbox_check_probe",
+          "filter_name": "right-name"
+        },
+        {
+          "name": "deny-right",
+          "operation": "authorization-right-obtain",
+          "target": "system.preferences.privacy",
+          "expected": "deny",
+          "expectation_id": "adv:authorization_right:deny-right",
+          "driver": "sandbox_check_probe",
+          "filter_name": "right-name"
+        }
+      ]
+    },
+    "adv:preference_domain": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/preference_domain.sb",
+      "mode": "sbpl",
+      "family": "preferences",
+      "semantic_group": "preferences:domain",
+      "probes": [
+        {
+          "name": "allow-domain",
+          "operation": "user-preference-read",
+          "target": "com.apple.TimeMachine",
+          "expected": "allow",
+          "expectation_id": "adv:preference_domain:allow-domain",
+          "driver": "sandbox_check_probe",
+          "filter_name": "preference-domain"
+        },
+        {
+          "name": "deny-domain",
+          "operation": "user-preference-read",
+          "target": "com.apple.sandboxadversarial.fake",
+          "expected": "deny",
+          "expectation_id": "adv:preference_domain:deny-domain",
+          "driver": "sandbox_check_probe",
+          "filter_name": "preference-domain"
+        }
+      ]
+    },
+    "adv:xpc_service_name": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/xpc_service_name.sb",
+      "mode": "sbpl",
+      "family": "xpc_service",
+      "semantic_group": "mach:xpc-service-name",
+      "probes": [
+        {
+          "name": "allow-cfprefsd-xpc",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.xpc",
+          "expected": "allow",
+          "expectation_id": "adv:xpc_service_name:allow-cfprefsd-xpc",
+          "driver": "xpc_probe",
+          "filter_name": "xpc-service-name"
+        },
+        {
+          "name": "deny-bogus-xpc",
+          "operation": "mach-lookup",
+          "target": "com.apple.sandboxadversarial.fake.xpc",
+          "expected": "deny",
+          "expectation_id": "adv:xpc_service_name:deny-bogus-xpc",
+          "driver": "xpc_probe",
+          "filter_name": "xpc-service-name"
+        }
+      ]
+    },
+    "adv:path_canon_alt": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_canon_alt.sb",
+      "mode": "sbpl",
+      "family": "path_alias",
+      "semantic_group": "paths:canonical-alt",
+      "probes": [
+        {
+          "name": "allow-private",
+          "operation": "file-read*",
+          "target": "/private/tmp/strict_ok/allow.txt",
+          "expected": "allow",
+          "expectation_id": "adv:path_canon_alt:allow-private"
+        },
+        {
+          "name": "allow-tmp",
+          "operation": "file-read*",
+          "target": "/tmp/strict_ok/allow.txt",
+          "expected": "allow",
+          "expectation_id": "adv:path_canon_alt:allow-tmp"
+        }
+      ]
+    }
+  }
+}

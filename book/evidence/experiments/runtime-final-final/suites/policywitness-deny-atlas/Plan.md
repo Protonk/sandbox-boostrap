@@ -4,13 +4,13 @@ Baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
 
 ## Goal
 
-Create a reproducible, observer-backed deny atlas for PolicyWitness profiles using `book.api.witness`. The atlas must explicitly distinguish mapped-tier denies from hypothesis-tier permission-shaped outcomes.
+Create a reproducible, observer-backed deny atlas for PolicyWitness profiles using `book.api.witness`. The atlas must explicitly distinguish resolved denies from unresolved permission-shaped outcomes.
 
 ## Inputs and tooling
 
 - PolicyWitness API: `book.api.witness.client`, `book.api.witness.enforcement`, `book.api.witness.lifecycle`.
 - Observer: `book.api.witness.observer` (manual `--last` default; external range available via `--observer-mode external`).
-- Vocab (bedrock): `book/integration/carton/bundle/relationships/mappings/vocab/ops.json`, `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`, `book/integration/carton/bundle/relationships/mappings/vocab/ops_coverage.json`.
+- Vocab (canonical): `book/integration/carton/bundle/relationships/mappings/vocab/ops.json`, `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`, `book/integration/carton/bundle/relationships/mappings/vocab/ops_coverage.json`.
 - Path helpers: `book.api.path_utils` for repo-relative outputs.
 
 ## Deny set (initial probes)
@@ -59,26 +59,26 @@ If `probe_catalog` shows a Mach/XPC probe (for example a `mach_*` or `bootstrap`
      - If the log line omits the filter, infer `path` for `file-*` operations and record `filter_inferred`.
    - Map `operation` to vocab `ops.json`; map `primary-filter` to `filters.json`.
 
-4) **Evidence tier assignment**
-   - **Mapped**: observer report exists, `observed_deny == true`, and operation/filter map to vocab.
-   - **Hypothesis**: permission-shaped outcome with no observer evidence or unmapped fields.
+4) **Resolution assignment**
+   - **Resolved**: observer report exists, `observed_deny == true`, and operation/filter map to vocab.
+   - **Unresolved**: permission-shaped outcome with no observer evidence or unmapped fields.
    - Record explicit `limits` for each record (missing observer, unmapped operation/filter, `filter_inferred`, etc.).
 
 5) **Atlas emission**
    - Write `deny_atlas.json` with rows:
      - `profile_id`, `probe_id`, `probe_args`, `operation`, `filter`, `target`
      - `observed_deny`, `normalized_outcome`, `errno`
-     - `evidence_tier`, `limits`
+     - `binding_status`, `limits`
      - `observer_report_path`, `probe_log_path`
    - Write `runs.jsonl` with full per-probe `ProbeResult` + parsed observer summary.
 
 6) **Repeatability**
-   - Re-run the deny set twice (same flags) and require identical mapped rows for a stability pass.
+   - Re-run the deny set twice (same flags) and require identical resolved rows for a stability pass.
    - If a row flips, record it as unstable and keep the atlas `partial`.
 
 7) **Report updates**
    - Update `Report.md` with what was run, the highest-signal deny records, and any blockers.
-   - Do not upgrade hypothesis outcomes without observer-backed evidence.
+   - Do not upgrade unresolved outcomes without observer-backed evidence.
 
 ## Data schema (suggested)
 
@@ -97,7 +97,7 @@ If `probe_catalog` shows a Mach/XPC probe (for example a `mach_*` or `bootstrap`
       "operation": "file-read-data",
       "filter": "path",
       "target": "/private/var/db/launchd.db/com.apple.launchd/overrides.plist",
-      "evidence_tier": "mapped",
+      "binding_status": "resolved",
       "limits": [],
       "probe_log_path": "book/evidence/experiments/runtime-final-final/suites/policywitness-deny-atlas/out/<run_id>/...",
       "observer_report_path": "book/evidence/experiments/runtime-final-final/suites/policywitness-deny-atlas/out/<run_id>/..."
@@ -109,4 +109,4 @@ If `probe_catalog` shows a Mach/XPC probe (for example a `mach_*` or `bootstrap`
 ## Status targets
 
 - Initial run: `partial` (expect missing denies or missing observer output).
-- Promote to `ok` only after multiple profiles show mapped denies with stable operation/filter mapping.
+- Promote to `ok` only after multiple profiles show resolved denies with stable operation/filter mapping.

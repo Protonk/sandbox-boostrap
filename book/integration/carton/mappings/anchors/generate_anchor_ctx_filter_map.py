@@ -233,7 +233,6 @@ def main() -> None:
         "metadata": {
             "schema_version": SCHEMA_VERSION,
             "world_id": baseline_world_id,
-            "tier": "mapped",
             "notes": "Canonical anchor_ctx-indexed anchor→filter mapping; do not treat literal strings as type-safe.",
             "inputs": [
                 str(path_utils.to_repo_relative(ANCHOR_FIELD2_MAP_PATH, REPO_ROOT)),

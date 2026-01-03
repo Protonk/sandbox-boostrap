@@ -33,7 +33,6 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api.path_utils import ensure_absolute, find_repo_root, to_repo_relative
-from book.api import evidence_tiers
 from book.api import world as world_mod
 
 
@@ -132,10 +131,6 @@ def _promote_op_table_vocab_alignment(repo_root: Path, world_id: str, vocab_vers
             "world_id": world_id,
             "vocab_versions": vocab_versions,
             "status": "ok" if data.get("vocab_present") else "partial",
-            "tier": evidence_tiers.evidence_tier_for_artifact(
-                path=to_repo_relative(out, repo_root),
-                tier="mapped",
-            ),
             "vocab_present": bool(data.get("vocab_present")),
             "filter_vocab_present": bool(data.get("filter_vocab_present")),
             "source_summary": source_summary,

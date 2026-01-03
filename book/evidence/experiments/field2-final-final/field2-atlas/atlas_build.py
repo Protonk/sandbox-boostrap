@@ -42,7 +42,7 @@ SUMMARY_SCHEMA_VERSION = "field2-atlas.summary.v0"
 DELTA_SCHEMA_VERSION = "field2-atlas.mapping_delta.v0"
 
 ALT_CANDIDATES = {
-    0: {"profile_id": "adv:path_edges_private", "probe_name": "allow-tmp"},
+    0: {"profile_id": "adv:path_canon_alt", "probe_name": "allow-tmp"},
     1: {"profile_id": "adv:path_edges_private", "probe_name": "allow-tmp-subpath"},
     2: {"profile_id": "adv:xattr", "probe_name": "allow-foo-read"},
 }

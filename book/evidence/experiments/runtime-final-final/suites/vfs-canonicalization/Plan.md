@@ -21,7 +21,7 @@ Metadata canonicalization is handled by `book/evidence/experiments/runtime-final
 
 Upstream inputs:
 
-- **Tag and layout bedrock:** `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json` (status: ok, from `tag-layout-decode`).
+- **Tag and layout baseline:** `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json` (status: ok, from `tag-layout-decode`).
 - **Anchor structure:** `book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json` (guarded by `book/tests/planes/graph/test_anchor_filter_alignment.py`) and anchor placement notes from `book/evidence/experiments/field2-final-final/probe-op-structure/Report.md`.
 - **Runtime harness:** `book/api/runtime` plan execution (same shims as `runtime-checks` / `runtime-adversarial`).
 

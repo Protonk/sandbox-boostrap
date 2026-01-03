@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-World baseline checkup tool (hypothesis-tier signals only).
+World baseline checkup tool (best-effort signals only).
 
-Doctor compares a baseline hypothesis (world.json + dyld/manifest.json)
+Doctor compares a baseline snapshot (world.json + dyld/manifest.json)
 to host signals and emits a report + witness snippet. It does not update any
 mapping or CARTON artifacts.
 """
@@ -428,7 +428,7 @@ def _render_witness(report: Dict[str, Any]) -> str:
 
 
 def main(argv: Optional[List[str]] = None) -> int:
-    parser = argparse.ArgumentParser(description="Check a world baseline hypothesis against host signals.")
+    parser = argparse.ArgumentParser(description="Check a world baseline snapshot against host signals.")
     parser.add_argument(
         "--world",
         required=True,
@@ -633,7 +633,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         "selected_path": selected["path"] if selected else None,
         "uuid": None,
         "uuid_sha8": None,
-        "uuid_source": "header_offset_0x58 (hypothesis)",
+        "uuid_source": "header_offset_0x58 (heuristic)",
         "incoming_dir_present": Path("/System/Volumes/Preboot/Cryptexes/Incoming/OS/System/Library/dyld").exists(),
     }
     if selected:

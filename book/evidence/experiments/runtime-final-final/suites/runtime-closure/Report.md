@@ -1,5 +1,5 @@
 - world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
-- tier: hypothesis (runtime); mapped only when paired with structural anchor bindings
+- scope: runtime-only; promotion only when paired with structural anchor bindings
 - primary outputs: out/<run_id>/{runtime_results.json,runtime_events.normalized.json,run_manifest.json,artifact_index.json,path_witnesses.json}
 - upstream structure: book/evidence/experiments/field2-final-final/probe-op-structure/Report.md
 - runtime harness: book/api/runtime (plan/registry execution, launchd_clean channel)
@@ -89,7 +89,7 @@ Call-shape instrumentation:
 - Capture → replay loop:
   - Baseline capture run `out/274a4c71-3c97-4aaa-a22f-93b587ba9ba9/` (launchd_clean, `SANDBOX_LORE_IKIT_SELECTOR_LIST=0`) records `capture_first_spec="IOConnectCallMethod:0:1:16:0:16"` with `call_kr=-536870206` at operation stage and `surface_create_ok=true` in baseline.
   - Replay run `out/e720b256-2f6e-4888-9288-2e19b5007fa9/` (launchd_clean, `SANDBOX_LORE_IKIT_REPLAY=1`, `SANDBOX_LORE_IKIT_REPLAY_SPEC=IOConnectCallMethod:0:1:16:0:16`) replays the tuple under sandbox and returns `replay_kr=-536870206` in both baseline and scenario, with `replay_attempted=true` and no selector sweep (replay mode).
-  - Interpretation: the captured post-open call shape is invalid in baseline and sandbox, so the IOSurface post-open failure is a call-shape issue, not a sandbox gate, at hypothesis tier.
+  - Interpretation: the captured post-open call shape is invalid in baseline and sandbox, so the IOSurface post-open failure is a call-shape issue, not a sandbox gate on this host.
 All profiles apply successfully (`sandbox_init` rc=0). The post-open selector sweep still returns `call_kr=-536870206` under all scenarios, while `IOSurfaceCreate` succeeds unsandboxed (`surface_create_ok=true` in `book/api/runtime/native/probes/iokit_probe IOSurfaceRoot`) and fails under the sandbox, so Action B is now a discriminating failure signal but does not yet surface an op-name witness.
 
 This indicates the user-client-class filter is sufficient for the IOSurfaceRoot probe, while the IOAccelerator connection constraint is too narrow on this host.
@@ -113,14 +113,14 @@ Op-witness attempts:
   - Selector discovery (baseline): `book/evidence/experiments/runtime-final-final/suites/runtime-closure/out/a6e042e5-135d-4072-b0d6-50455abc62a3/iokit_probe_stdout.txt` and `book/evidence/experiments/runtime-final-final/suites/runtime-closure/out/a6e042e5-135d-4072-b0d6-50455abc62a3/iokit_probe_stderr.txt` using a WebKit-derived candidate list with non-zero call shapes.
   - Observer-lane logs: `book/evidence/experiments/runtime-final-final/suites/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/observer/sandbox_log_stream_iokit.txt` and `book/evidence/experiments/runtime-final-final/suites/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/observer/sandbox_log_show_iokit.txt` (no iokit op lines observed).
   - Prior runs: `book/evidence/experiments/runtime-final-final/suites/runtime-closure/out/5a8908d8-d626-4cac-8bdd-0f53c02af8fe/` (file v1) and `book/evidence/experiments/runtime-final-final/suites/runtime-closure/out/48086066-bfa2-44bb-877c-62dd1dceca09/` (IOKit v1).
-- Mapped VFS update: `book/integration/carton/bundle/relationships/mappings/vfs_canonicalization/path_canonicalization_map.json` (now includes the runtime-closure file matrix packet).
+- VFS mapping update: `book/integration/carton/bundle/relationships/mappings/vfs_canonicalization/path_canonicalization_map.json` (now includes the runtime-closure file matrix packet).
 
 ## Limitations
 - Apply-stage gating is blocked evidence; failures at apply/exec are not policy outcomes.
 - Missing services/classes are not denials and must be resolved via baseline lane.
 - `/etc/hosts` remains unresolved when spelled as `/etc/...` even when private and Data spellings are allowed.
-- Data-only literal rules do not allow Data spellings on this host, suggesting enforcement compares a different spelling; this remains hypothesis-level without a direct kernel witness at operation time.
+- Data-only literal rules do not allow Data spellings on this host, suggesting enforcement compares a different spelling; this remains unresolved without a direct kernel witness at operation time.
 - `with report` is not accepted on deny rules in this harness, so the initial tri-matrix attempt (`out/1034a7bd-81e1-41a1-9897-35f5556800c7/`) failed at apply stage and is treated as blocked evidence.
 - `iokit-external-method` is rejected at apply stage for the IOSurface user-client rule in this harness (`out/03aaad16-f06b-4ec7-a468-c6379abbeb4d/`), and deny-style message filters trigger preflight apply-gate blocks (`out/ad767bba-9e59-40ff-b006-45fe911b2d02/`), so external-method gating remains blocked on this host.
 - The report-loud `v11_report_loud` profile terminates the probe (SIGTRAP), so sandbox log capture via deny-default telemetry did not yield an op witness on this host.
-- Oracle-lane `sandbox_check_by_audit_token` succeeds for `iokit-open-service` but returns `EINVAL` for `iokit-open-user-client` with the current filter/argument shape, so user-client callouts remain hypothesis-only until the filter tuple is corrected.
+- Oracle-lane `sandbox_check_by_audit_token` succeeds for `iokit-open-service` but returns `EINVAL` for `iokit-open-user-client` with the current filter/argument shape, so user-client callouts remain annotation-only until the filter tuple is corrected.

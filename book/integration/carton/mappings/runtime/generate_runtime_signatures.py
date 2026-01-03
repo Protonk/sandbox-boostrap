@@ -19,7 +19,6 @@ if str(ROOT) not in sys.path:
 
 from book.api import path_utils
 from book.api.runtime.contracts import normalize as runtime_normalize
-from book.api import evidence_tiers
 from book.api import world as world_mod
 
 SCRIPT_ROOT = Path(__file__).resolve().parent
@@ -368,10 +367,6 @@ def generate(packet_paths: list[Path] | None = None) -> Path:
             "inputs": inputs,
             "source_jobs": sorted(source_jobs),
             "status": status,
-            "tier": evidence_tiers.evidence_tier_for_artifact(
-                path=OUT_PATH,
-                tier="mapped",
-            ),
             "notes": notes,
             "input_hashes": input_hashes,
             "provenance": {

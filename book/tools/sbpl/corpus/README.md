@@ -10,10 +10,8 @@ inputs in one place and to keep provenance explicit.
 
 Role: minimal allow/deny and tiny example shapes used to sanity-check the
 toolchain (compile, decode, preflight classification) without relying on
-runtime behavior.
-
-Evidence tier: hypothesis. These inputs are utility probes; they do not
-carry runtime witnesses and should not be used to claim policy semantics.
+runtime behavior. These inputs are utility probes; they do not carry runtime
+witnesses and should not be used to claim policy semantics.
 
 Pointers: `book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/Report.md`.
 
@@ -22,11 +20,9 @@ Pointers: `book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runti
 Role: SBPL sources corresponding to the golden triple profile set where SBPL
 inputs, decoded PolicyGraphs, and runtime results are aligned on this host.
 Use when you need stable, host-validated inputs for decoding or runtime harness
-work.
-
-Evidence tier: mapped. Scope is narrow and some profiles are known
-divergences (for example `bucket5:v11_read_subpath`); check the golden profile
-artifacts before treating a profile as runtime-aligned.
+work. Scope is narrow and some profiles are known divergences (for example
+`bucket5:v11_read_subpath`); check the golden profile artifacts before treating
+a profile as runtime-aligned.
 
 Pointers: `book/profiles/golden-triple/README.md`,
 `book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/Report.md`.
@@ -35,10 +31,9 @@ Pointers: `book/profiles/golden-triple/README.md`,
 
 Role: libsandbox-encoder network argument matrix. These are controlled SBPL
 variants for socket domain/type/proto that produce byte-level diffs in compiled
-blobs, used to join encoder-side emission to blob structure (static-only).
-
-Evidence tier: mapped (experiment-local). The witnesses are about userland
-emission and compiled-blob structure, not kernel semantics.
+blobs, used to join encoder-side emission to blob structure (static-only). The
+witnesses are about userland emission and compiled-blob structure, not kernel
+semantics.
 
 Pointers: `book/evidence/experiments/field2-final-final/libsandbox-encoder/Report.md`,
 `book/evidence/experiments/field2-final-final/libsandbox-encoder/out/network_matrix/`.
@@ -46,11 +41,9 @@ Pointers: `book/evidence/experiments/field2-final-final/libsandbox-encoder/Repor
 ### `gate-witness/`
 
 Role: minimal failing/passing neighbors for apply-stage EPERM gates. These are
-boundary objects for apply-gate detection and preflight guardrails.
-
-Evidence tier: hypothesis. Apply-stage EPERM is a gate signal (profile never
-attached); use these to avoid apply-gated shapes, not to interpret policy
-decisions.
+boundary objects for apply-gate detection and preflight guardrails. Apply-stage
+`EPERM` is almost always evidence of a staging problem, not a policy denial.
+Run `book/tools/preflight`.
 
 Pointers: `book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md`,
 `book/tools/preflight/README.md`.

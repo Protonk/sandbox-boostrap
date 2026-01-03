@@ -9,8 +9,7 @@ analysis produce the expected allow/deny outcomes under SBPL on this host.
 - Scope: file-read* (`/tmp/foo`, `/etc/hosts`), mach-lookup
   (`com.apple.cfprefsd.agent`), and iokit-open* anchors
   (`IOUSBHostInterface`, `IOSurfaceRootUserClient`).
-- Evidence tier: runtime results are hypothesis/partial unless clean,
-  decision-stage outcomes are observed.
+- Runtime results are provisional unless clean, decision-stage outcomes are observed.
 
 ## Inputs
 - SBPL profiles under `book/evidence/experiments/field2-final-final/probe-op-structure/sb/`:
@@ -32,7 +31,7 @@ analysis produce the expected allow/deny outcomes under SBPL on this host.
 1) Add plan + registry descriptors and register the runtime registry.
 2) Preflight scan the SBPL inputs to flag known apply-gate signatures.
 3) Run the plan via `--channel launchd_clean` and capture outputs.
-4) Update `Notes.md` and `Report.md` with results and tier labels.
+4) Update `Notes.md` and `Report.md` with results and scope notes.
 
 ## Plan B (pre-planned)
 - If `sandbox_mach_probe` or `sandbox_iokit_probe` fails at apply/boot, skip

@@ -21,7 +21,6 @@ def test_runtime_links_meta():
     meta = data.get("meta") or {}
     world_id = _load_json(BASELINE).get("world_id")
     assert meta.get("world_id") == world_id
-    assert meta.get("tier") == "mapped"
     assert meta.get("status") in {"ok", "partial", "brittle", "blocked"}
     assert meta.get("schema_version") == "runtime-links.v0.1"
     inputs = meta.get("inputs") or []

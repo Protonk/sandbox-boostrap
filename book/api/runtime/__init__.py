@@ -2,7 +2,7 @@
 Unified runtime tooling for the Sonoma baseline.
 
 This package exposes a *public* repo-wide API surface for producing and consuming
-runtime evidence in a tier-disciplined way on this host baseline.
+runtime evidence on this host baseline.
 
 Stability contract:
 - The supported import surface is this package (`book.api.runtime`).

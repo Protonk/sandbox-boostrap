@@ -52,7 +52,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
         "category": "decision-stage",
         "description": "Decision-stage runtime matrix for bucket/system profiles via sandbox_runner/wrapper.",
         "privileges": "user (launchd clean recommended)",
-        "evidence_tier": "decision-stage",
+        "evidence_role": "decision-stage",
         "status": "active",
     },
     {
@@ -61,7 +61,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
         "category": "decision-stage",
         "description": "Decision-stage adversarial probes (path edges, flow-divert, mach, net).",
         "privileges": "user (launchd clean required)",
-        "evidence_tier": "decision-stage",
+        "evidence_role": "decision-stage",
         "status": "paused",
     },
     {
@@ -70,7 +70,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
         "category": "decision-stage",
         "description": "Golden triples: SBPL ↔ PolicyGraph ↔ runtime outcomes for selected profiles.",
         "privileges": "user",
-        "evidence_tier": "decision-stage",
+        "evidence_role": "decision-stage",
         "status": "partial",
     },
     {
@@ -79,7 +79,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
         "category": "tracing",
         "description": "Runtime MACF policy registration tracing via DTrace/FBT on a separate runtime host.",
         "privileges": "root, SIP disabled (runtime-only world)",
-        "evidence_tier": "tracing",
+        "evidence_role": "tracing",
         "status": "blocked",
     },
     {
@@ -88,7 +88,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
         "category": "apply-stage",
         "description": "Investigates sandbox_init_with_parameters plumbing and __sandbox_ms argument layout.",
         "privileges": "user",
-        "evidence_tier": "apply-stage",
+        "evidence_role": "apply-stage",
         "status": "active",
     },
     {
@@ -97,7 +97,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
         "category": "decision-stage",
         "description": "Swift-based metadata syscalls under sandbox_init to probe metadata canonicalization.",
         "privileges": "user",
-        "evidence_tier": "decision-stage",
+        "evidence_role": "decision-stage",
         "status": "partial",
     },
     {
@@ -106,7 +106,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
         "category": "decision-stage",
         "description": "Path alias/canonicalization runtime probes for VFS operations.",
         "privileges": "user",
-        "evidence_tier": "decision-stage",
+        "evidence_role": "decision-stage",
         "status": "partial",
     },
     {
@@ -115,7 +115,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
         "category": "tracing",
         "description": "DTrace-based runtime instrumentation experiments.",
         "privileges": "root, SIP disabled",
-        "evidence_tier": "tracing",
+        "evidence_role": "tracing",
         "status": "ongoing",
     },
     {
@@ -124,7 +124,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
         "category": "tracing",
         "description": "Frida-based runtime instrumentation experiments.",
         "privileges": "user (Frida attach; may require entitlements)",
-        "evidence_tier": "tracing",
+        "evidence_role": "tracing",
         "status": "ongoing",
     },
     {
@@ -133,7 +133,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
         "category": "mapping",
         "description": "Canonical runtime mappings (signatures, coverage, story, traces).",
         "privileges": "n/a (derived)",
-        "evidence_tier": "mapping-only",
+        "evidence_role": "mapping-only",
         "status": "active",
     },
     {
@@ -142,7 +142,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
         "category": "tooling",
         "description": "Shared runtime harness, normalization, and mapping tooling.",
         "privileges": "user",
-        "evidence_tier": "tooling",
+        "evidence_role": "tooling",
         "status": "active",
     },
     {
@@ -151,7 +151,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
         "category": "apply-stage",
         "description": "Apply-gate preflight scanning and enterability indices.",
         "privileges": "user",
-        "evidence_tier": "apply-stage",
+        "evidence_role": "apply-stage",
         "status": "active",
     },
     {
@@ -160,7 +160,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
         "category": "logging",
         "description": "App Sandbox/entitlement probes and sandbox log observation (PolicyWitness).",
         "privileges": "user (App Sandbox runner)",
-        "evidence_tier": "logs-only",
+        "evidence_role": "logs-only",
         "status": "partial",
     },
     {
@@ -169,7 +169,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
         "category": "tracing",
         "description": "MACF registration trace scaffolding and structure notes.",
         "privileges": "root, SIP disabled (if tracing)",
-        "evidence_tier": "tracing",
+        "evidence_role": "tracing",
         "status": "design-only",
     },
 ]

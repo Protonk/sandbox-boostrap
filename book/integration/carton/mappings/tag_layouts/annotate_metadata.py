@@ -17,7 +17,6 @@ ROOT = Path(__file__).resolve().parents[5]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from book.api import evidence_tiers  # noqa: E402
 from book.api import world as world_mod  # noqa: E402
 
 TAG_LAYOUTS_PATH = ROOT / "book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json"
@@ -44,6 +43,7 @@ def main() -> None:
     status = digests_meta.get("status") or "unknown"
 
     metadata = tag_layouts.get("metadata") or {}
+    metadata.pop("tier", None)
     # Tag-layout health is derivative: it mirrors the canonical profile status
     # and world pointer so consumers know the layouts are only as trustworthy as
     # the profiles they were decoded from. We intentionally do not inject any
@@ -52,10 +52,6 @@ def main() -> None:
         {
             "world_id": world_id,
             "status": status,
-            "tier": evidence_tiers.evidence_tier_for_artifact(
-                path=TAG_LAYOUTS_PATH,
-                tier="bedrock" if evidence_tiers.is_bedrock_mapping_path(TAG_LAYOUTS_PATH) else "mapped",
-            ),
             "canonical_profiles": {
                 pid: (info.get("status") if isinstance(info, dict) else info) for pid, info in canonical_profiles.items()
             },

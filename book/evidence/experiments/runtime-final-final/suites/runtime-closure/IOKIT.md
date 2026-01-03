@@ -6,11 +6,11 @@ This document is the durable, host-scoped record of the IOKit lane in runtime-cl
 
 ## Evidence model used
 
-Evidence tiers:
-- bedrock: vocab and baseline contracts (not modified here)
-- mapped: structural bindings (already promoted for IOSurfaceRootUserClient via delta attribution)
-- hypothesis: runtime outcomes and instrumentation-derived signals
-- blocked: compile/apply/preflight failures or inapplicable constructs
+Evidence scope:
+- Shared mappings: vocab and baseline contracts (not modified here)
+- Structural bindings already promoted for IOSurfaceRootUserClient via delta attribution
+- Runtime outcomes and instrumentation-derived signals recorded as observations
+- Apply/compile/preflight failures or inapplicable constructs are marked `blocked`
 
 Runtime stage taxonomy:
 - compile: SBPL source to blob

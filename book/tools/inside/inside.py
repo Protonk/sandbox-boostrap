@@ -239,7 +239,7 @@ def _sensor_s0() -> Dict[str, Any]:
     else:
         result_class = RESULT_UNKNOWN
         note = "sandbox_check(getpid(), NULL) error"
-    return _result_payload(result_class, **raw, note=note, evidence_tier="mapped")
+    return _result_payload(result_class, **raw, note=note)
 
 
 def _sensor_s1(
@@ -262,7 +262,6 @@ def _sensor_s1(
             target=service_name,
             control=control_service,
             constants_source=constants.get("source_path"),
-            evidence_tier="mapped",
         )
     filter_type = filter_value or 0
     if filter_value is None:
@@ -322,7 +321,6 @@ def _sensor_s1(
         constants_source=constants.get("source_path"),
         no_report_available=no_report_value is not None,
         no_report_used=no_report_used,
-        evidence_tier="mapped",
     )
 
 
@@ -349,7 +347,6 @@ def _sensor_s2(service_names: Iterable[str]) -> Dict[str, Any]:
         result_class,
         note=note,
         results=results,
-        evidence_tier="mapped",
     )
 
 
@@ -365,7 +362,6 @@ def _sensor_s3(
             note="policy-witness binary missing",
             policywitness_bin=policywitness_rel,
             service_name=service_name,
-            evidence_tier="mapped",
         )
 
     cmd = [
@@ -408,7 +404,6 @@ def _sensor_s3(
         service_name=service_name,
         record=record,
         summary=summary,
-        evidence_tier="mapped",
     )
 
 
@@ -427,7 +422,6 @@ def _sensor_s4(
             wrapper=wrapper_rel,
             profile=sbpl_rel,
             skipped=True,
-            evidence_tier="mapped",
         )
     if not Path(wrapper_path).exists():
         return _result_payload(
@@ -435,7 +429,6 @@ def _sensor_s4(
             note="sbpl wrapper missing",
             wrapper=wrapper_rel,
             profile=sbpl_rel,
-            evidence_tier="mapped",
         )
     if not Path(sbpl_path).exists():
         return _result_payload(
@@ -443,7 +436,6 @@ def _sensor_s4(
             note="sbpl profile missing",
             wrapper=wrapper_rel,
             profile=sbpl_rel,
-            evidence_tier="mapped",
         )
     cmd = [
         wrapper_path,
@@ -475,7 +467,6 @@ def _sensor_s4(
         profile=sbpl_rel,
         record=record,
         summary=summary,
-        evidence_tier="mapped",
     )
 
 
@@ -492,7 +483,6 @@ def _sensor_s5(
             RESULT_UNKNOWN,
             note="log corroboration skipped",
             skipped=True,
-            evidence_tier="hypothesis",
         )
     fmt = "%Y-%m-%d %H:%M:%S"
     cmd = [
@@ -539,7 +529,6 @@ def _sensor_s5(
         deny_lines=deny_lines,
         deny_lines_pid=pid_lines,
         predicate=predicate,
-        evidence_tier="hypothesis",
     )
 
 
@@ -556,7 +545,6 @@ def _sensor_s6() -> Dict[str, Any]:
         container_id=container_id,
         home=home,
         home_in_container=home_in_container,
-        evidence_tier="mapped",
         axis="app_sandbox",
     )
 

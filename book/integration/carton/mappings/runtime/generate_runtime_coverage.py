@@ -23,7 +23,6 @@ if str(SCRIPT_ROOT) not in sys.path:
 
 import promotion_packets
 from book.api import path_utils
-from book.api import evidence_tiers
 from book.api import world as world_mod
 
 
@@ -117,10 +116,6 @@ def build_coverage(
             "input_hashes": input_hashes,
             "source_jobs": source_jobs,
             "status": overall_status,
-            "tier": evidence_tiers.evidence_tier_for_artifact(
-                path=path_utils.to_repo_relative(OUT, ROOT),
-                tier="mapped",
-            ),
             "notes": "Runtime coverage derived from runtime_story; mismatches allowed only when tagged in impact_map.json.",
             "mismatches": disallowed,
             "mismatch_summary": {

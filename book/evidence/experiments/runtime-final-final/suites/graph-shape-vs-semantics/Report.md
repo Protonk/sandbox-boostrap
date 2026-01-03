@@ -91,7 +91,7 @@ With additional variants and small changes, this suite could:
   - Introduce variants that differ only in metafilter structure, decision modifiers, or tag assignments within the modeled tag set, while holding intent fixed. Comparing their runtime behavior would test whether our current reconstruction treats those differences as semantically irrelevant (as intended) or not.
 
 - **Stress tag/layout assumptions**
-  - Construct pairs where we deliberately change which tag encodes a particular literal or filter combination, staying within the set of tags we consider “bedrock”. If behavior changes unexpectedly, that would suggest our tag/layout interpretations are incomplete.
+  - Construct pairs where we deliberately change which tag encodes a particular literal or filter combination, staying within the set of tags we consider canonical. If behavior changes unexpectedly, that would suggest our tag/layout interpretations are incomplete.
 
 - **Explore other ops**
   - Create structural variants for non-filesystem, non-mach operations (network, IPC, extensions) to see whether “different graph, same behavior” holds there as well.

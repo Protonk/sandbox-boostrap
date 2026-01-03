@@ -17,7 +17,6 @@ REPO_ROOT = Path(__file__).resolve().parents[5]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from book.api import evidence_tiers  # noqa: E402
 from book.api import world as world_mod  # noqa: E402
 
 OPS_JSON = REPO_ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "vocab" / "ops.json"
@@ -107,9 +106,6 @@ def main() -> int:
                     "world_id": world_id,
                     "inputs": inputs,
                     "status": "ok",
-                    "tier": evidence_tiers.evidence_tier_for_artifact(
-                        path=OUT_JSON,
-                    ),
                     "source_jobs": [
                         "vocab:sonoma-14.4.1",
                         "experiment:runtime-checks",

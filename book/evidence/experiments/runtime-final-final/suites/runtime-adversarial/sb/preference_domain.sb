@@ -1,0 +1,7 @@
+(version 1)
+(deny default)
+
+(allow user-preference-read
+  (preference-domain "com.apple.TimeMachine"))
+(deny user-preference-read
+  (preference-domain "com.apple.sandboxadversarial.fake"))

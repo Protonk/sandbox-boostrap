@@ -14,7 +14,7 @@ def load_json(path: Path):
 
 def test_anchor_filter_alignment_with_anchor_hits():
     """
-    Guardrail: mapped anchors in anchor_filter_map.json must be backed by
+    Guardrail: resolved anchors in anchor_filter_map.json must be backed by
     anchor_hits.json for this world (or anchor_hits_delta.json when the
     delta attribution path is in use), and the pinned filter_id must appear
     among the observed field2 values for those anchors.
@@ -78,12 +78,12 @@ def test_anchor_filter_alignment_with_anchor_hits():
                     observed.add(val)
 
         # Only enforce alignment when we have at least one observation.
-        assert observed, f"no anchor_hits observations for mapped anchor {anchor!r}"
+        assert observed, f"no anchor_hits observations for resolved anchor {anchor!r}"
         anchors_checked += 1
 
         # The pinned filter_id must appear among observed field2 values.
         assert filter_id in observed, (
-            f"mapped filter_id {filter_id} for anchor {anchor!r} "
+            f"pinned filter_id {filter_id} for anchor {anchor!r} "
             f"not present in field2_values observed in anchor_hits.json"
         )
 
@@ -92,7 +92,7 @@ def test_anchor_filter_alignment_with_anchor_hits():
         assert observed <= mapped_vals, (
             f"anchor_filter_map field2_values for {anchor!r} "
             f"do not cover all observed field2 values: observed={sorted(observed)}, "
-            f"mapped={sorted(mapped_vals)}"
+            f"pinned={sorted(mapped_vals)}"
         )
 
-    assert anchors_checked > 0, "expected to check at least one mapped anchor"
+    assert anchors_checked > 0, "expected to check at least one resolved anchor"

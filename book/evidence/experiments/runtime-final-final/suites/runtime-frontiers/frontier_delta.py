@@ -205,7 +205,7 @@ def generate_report(run_dir: Path, packet_set_path: Path) -> Path:
         f"generated_by: {path_utils.to_repo_relative(Path(__file__), REPO_ROOT)}",
         "",
         "## Probe fidelity",
-        "tier: mapped",
+        "status: host-bound",
         f"evidence: {path_utils.to_repo_relative(run_dir / 'runtime_events.normalized.json', REPO_ROOT)}",
         f"- total_observations: {fidelity['total']}",
         f"- intended_op_witnessed: {fidelity['intended_op_witnessed']}",
@@ -227,7 +227,7 @@ def generate_report(run_dir: Path, packet_set_path: Path) -> Path:
         report_lines += [
             "",
             "## Bootstrap diagnostics",
-            "tier: mapped",
+            "status: host-bound",
             f"evidence: {path_utils.to_repo_relative(diag_path, REPO_ROOT)}",
         ]
         if isinstance(failure, dict):
@@ -248,7 +248,7 @@ def generate_report(run_dir: Path, packet_set_path: Path) -> Path:
     report_lines += [
         "",
         "## Coverage delta",
-        "tier: mapped",
+        "status: host-bound",
         f"evidence: {path_utils.to_repo_relative(packet_set.packet_set_path, REPO_ROOT)}, "
         f"{path_utils.to_repo_relative(run_dir / 'runtime_events.normalized.json', REPO_ROOT)}, "
         f"{path_utils.to_repo_relative(run_dir / 'path_witnesses.json', REPO_ROOT)}",

@@ -79,7 +79,6 @@ def run_system_profiles_job():
     status_payload = {
         "job_id": "experiment:system-profile-digest",
         "status": "ok",
-        "tier": "mapped",
         "host": host,
         "inputs": [rel(path) for path in blobs.values()],
         "outputs": [rel(IR_PATH)],
@@ -90,7 +89,6 @@ def run_system_profiles_job():
     STATUS_PATH.write_text(json.dumps(status_payload, indent=2))
     return {
         "status": "ok",
-        "tier": "mapped",
         "inputs": status_payload["inputs"],
         "outputs": [rel(IR_PATH), rel(STATUS_PATH)],
         "metrics": status_payload["metrics"],

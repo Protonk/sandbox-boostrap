@@ -6,7 +6,7 @@ Produce a **durable witness corpus** for “apply-stage `EPERM`” on this host 
 
 This experiment is intentionally narrow:
 - It does **not** claim that any particular Operation+Filter was denied by a PolicyGraph.
-- It treats apply-stage `EPERM` as **hypothesis evidence** (the Profile never attached), consistent with the EPERM phase discipline in [`troubles/EPERMx2.md`](../../../troubles/EPERMx2.md).
+- Apply-stage `EPERM` is almost always evidence of a staging problem, not a policy denial. Run `book/tools/preflight` (see [`troubles/EPERMx2.md`](../../../troubles/EPERMx2.md)).
 
 ## Baseline & scope
 
@@ -70,7 +70,7 @@ Results (see `out/compile_vs_apply.json`):
 - For all three minimal failing witnesses, compilation succeeds (`rc==0`), but apply fails at `sandbox_apply` with apply-stage `EPERM` (`failure_stage=="apply"`, `apply_report.api=="sandbox_apply"`, `apply_report.errno==EPERM`).
 - Therefore, **on this world**, the observed gate is **not** enforced by the user-space compiler rejecting the SBPL form at compile time; it is enforced at **apply time** (the attach/validation step reached by `sandbox_apply`).
 
-This is still “mapped” runtime evidence: it is a repeated, mechanical observation on this host baseline, but it does not yet identify the specific kernel-side validator or process attribute gate responsible.
+This is still a repeated, host-bound runtime observation on this host baseline, but it does not yet identify the specific kernel-side validator or process attribute gate responsible.
 The compile→apply split is re-verified in the permissive (`--yolo`) context, but not in the less permissive control context.
 
 ## Micro-variant matrix (tightening the trigger within the minimized form)
@@ -120,7 +120,7 @@ As a host-grounded corroboration point for the “entitlement-gated capability�
 
 Results are recorded in `out/entitlements_scan.json`. On this world baseline, multiple system services that are plausible users of message filtering carry the key (notably WebKit XPC services, BlastDoor services, and `CGPDFService`), while `book/tools/sbpl/wrapper/wrapper` does not.
 
-This is **mapped** evidence: it establishes that the entitlement key exists on this host and is used by real, signed system processes, but it does not by itself prove that the apply-stage gate observed in this experiment is *caused* by entitlement enforcement.
+This is host-bound evidence: it establishes that the entitlement key exists on this host and is used by real, signed system processes, but it does not by itself prove that the apply-stage gate observed in this experiment is *caused* by entitlement enforcement.
 
 ## Kernel xrefs (sandbox_kext; partial)
 
@@ -131,7 +131,7 @@ Key xrefs on this world:
 - `com.apple.private.security.message-filter-manager` → referenced by `_syscall_message_filter_{retain,release}`
 - “missing message filter entitlement” → referenced by `_syscall_set_userland_profile`
 
-This is still **mapped** evidence: it is stronger than “string exists” because it identifies concrete sandbox-kext call sites, but it is still static (not a runtime witness of why a particular `sandbox_apply` failed in our harness identity).
+This is still host-bound evidence: it is stronger than “string exists” because it identifies concrete sandbox-kext call sites, but it is still static (not a runtime witness of why a particular `sandbox_apply` failed in our harness identity).
 
 The same summary also records a small userland cross-check: the trimmed dyld slices under `book/integration/carton/bundle/relationships/mappings/dyld-libs/` contain many `message-filter`-related SBPL/compiler strings, but do not contain the entitlement key strings themselves, which is consistent with a kernel-side entitlement check rather than a purely userland compiler-side gate.
 

@@ -29,7 +29,7 @@ GENERATOR_CMDS = {
 def run_validation(tags):
     """
     Run the validation harness with the requested tags before promotion.
-    This keeps promotion tied to the same evidence tiers used to vet the
+    This keeps promotion tied to the same validation gates used to vet the
     mappings (smoke/system-profiles/etc.).
     """
     cmd = [sys.executable, "-m", "book.graph.concepts.validation"]

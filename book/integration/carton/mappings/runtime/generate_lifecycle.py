@@ -29,7 +29,6 @@ REPO_ROOT = Path(__file__).resolve().parents[5]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from book.api import evidence_tiers  # noqa: E402
 from book.api import world as world_mod  # noqa: E402
 
 OUT_MANIFEST = REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/runtime/lifecycle.json"
@@ -197,10 +196,6 @@ def main() -> None:
             str(EXTENSIONS_PATH.relative_to(REPO_ROOT)): sha256_path(EXTENSIONS_PATH),
         },
         "status": overall_status,
-        "tier": evidence_tiers.evidence_tier_for_artifact(
-            path=OUT_MANIFEST,
-            tier="mapped",
-        ),
         "notes": "Lifecycle probes normalized; blocked/partial scenarios retained with source logs.",
     }
 
@@ -212,10 +207,6 @@ def main() -> None:
             "inputs": inputs,
             "input_hashes": manifest["metadata"]["input_hashes"],
             "status": manifest["metadata"]["status"],
-            "tier": evidence_tiers.evidence_tier_for_artifact(
-                path=OUT_STORY,
-                tier="mapped",
-            ),
             "notes": "Lifecycle story derived from validation outputs; expected vs observed per scenario.",
         },
         "scenarios": story_scenarios,
@@ -255,10 +246,6 @@ def main() -> None:
             "inputs": inputs,
             "input_hashes": manifest["metadata"]["input_hashes"],
             "status": coverage_status,
-            "tier": evidence_tiers.evidence_tier_for_artifact(
-                path=OUT_COVERAGE,
-                tier="mapped",
-            ),
             "notes": "Lifecycle coverage derived from lifecycle_story; mismatches are not currently gated.",
             "mismatch_summary": {
                 "total_mismatches": sum((len(s.get("mismatches") or []) for s in story["scenarios"].values())),

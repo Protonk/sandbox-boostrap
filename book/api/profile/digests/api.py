@@ -62,7 +62,7 @@ def digest_compiled_blob_bytes(blob: bytes, *, source: str | None = None) -> dic
     """
     # Decode once and then filter down to the stable key set. We keep the key
     # set small on purpose; callers needing more should use the decoder
-    # directly (and accept that the output is more “hypothesis-heavy”).
+    # directly (and accept that the output is more heuristic-heavy).
     decoded = decoder.decode_profile_dict(blob)
     body = {k: decoded[k] for k in sorted(_DEFAULT_DIGEST_KEYS) if k in decoded}
     if source is not None:

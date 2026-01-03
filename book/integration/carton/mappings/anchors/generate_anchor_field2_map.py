@@ -20,7 +20,6 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api import path_utils  # type: ignore
-from book.api import evidence_tiers  # type: ignore
 from book.api import world as world_mod  # type: ignore
 HITS_PATH = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json"
 DELTA_HITS_PATH = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_delta.json"
@@ -95,10 +94,6 @@ def main() -> None:
         "metadata": {
             "world_id": world_id,
             "status": "partial",
-            "tier": evidence_tiers.evidence_tier_for_artifact(
-                path=path_utils.to_repo_relative(OUT_PATH, REPO_ROOT),
-                tier="mapped",
-            ),
             "inputs": input_paths,
             "source_jobs": ["experiment:probe-op-structure"],
             "notes": "Structural anchor -> field2 hints derived from probe-op-structure anchor_hits; exploratory, not semantic bindings.",
