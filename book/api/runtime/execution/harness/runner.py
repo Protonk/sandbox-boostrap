@@ -585,11 +585,9 @@ def _resolve_sandbox_check_filter_type(probe: Dict[str, Any], op: Optional[str])
 def _seatbelt_callout_spec(probe: Dict[str, Any], op: Optional[str], target: Optional[str]) -> Optional[Dict[str, Any]]:
     if not op or not target:
         return None
-    driver = probe.get("driver")
-    if driver == "sandbox_check_probe":
-        filter_type, filter_name = _resolve_sandbox_check_filter_type(probe, op)
-    else:
-        filter_type, filter_name = _resolve_filter_type(probe, op)
+    # Seatbelt callouts are implemented via sandbox_check* and must use the
+    # sandbox_check filter-type namespace (not PolicyGraph filter IDs).
+    filter_type, filter_name = _resolve_sandbox_check_filter_type(probe, op)
     if filter_type is None:
         return None
     seatbelt_op = op
