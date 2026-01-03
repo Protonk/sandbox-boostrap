@@ -1,0 +1,441 @@
+{
+  "provenance": {
+    "artifact_index": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/artifact_index.json",
+    "artifact_index_sha256": "96935ac1d8ca93a88d2c1fba39aa3b5cd405f0b1d4a4d17c2dea68a6208d5cc8",
+    "bundle_dir": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998",
+    "consumption_receipt": "book/evidence/experiments/field2-final-final/field2-atlas/out/derived/8e462c5f-f64f-462a-86e0-ac6bbf1db998/consumption_receipt.json",
+    "exports": {
+      "baseline_results": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/baseline_results.json",
+      "path_witnesses": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/path_witnesses.json",
+      "run_manifest": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/run_manifest.json",
+      "runtime_events": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_events.normalized.json"
+    },
+    "packet": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/promotion_packet.json",
+    "run_id": "8e462c5f-f64f-462a-86e0-ac6bbf1db998"
+  },
+  "results": [
+    {
+      "field2": 0,
+      "filter_name": "path",
+      "notes": "Multiple anchor witnesses in probe-op-structure; present in canonical sys:sample decode (tag 7). Structural coverage ok; runtime to be refreshed.",
+      "runtime_candidate": {
+        "probe_name": "allow-tmp",
+        "profile_id": "adv:path_edges_private",
+        "scenario_id": "adv:path_edges_private:allow-tmp"
+      },
+      "seed_anchors": [
+        {
+          "anchor": "/etc/hosts",
+          "source": "anchor_filter_map",
+          "status": "partial"
+        },
+        {
+          "anchor": "/tmp/foo",
+          "source": "anchor_filter_map",
+          "status": "partial"
+        }
+      ],
+      "status": "missing_probe",
+      "target_ops": [
+        "file-read-data",
+        "file-write-data"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 5,
+      "filter_name": "global-name",
+      "notes": "Global-name appears on multiple anchors (mach + path probes) and in sys:bsd tag 27; runtime backed by mach-lookup traces on this host.",
+      "runtime_candidate": {
+        "probe_name": "allow-cfprefsd",
+        "profile_id": "adv:mach_simple_allow",
+        "scenario_id": "field2-5-mach-global"
+      },
+      "seed_anchors": [
+        {
+          "anchor": "preferences/logging",
+          "source": "anchor_filter_map",
+          "status": "partial"
+        },
+        {
+          "anchor": "/etc/hosts",
+          "source": "anchor_filter_map",
+          "status": "partial"
+        }
+      ],
+      "status": "missing_probe",
+      "target_ops": [
+        "mach-lookup"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 7,
+      "filter_name": "local",
+      "notes": "Local (mach/socket) has multiple anchor witnesses, including a blocked flow-divert path; present in sys:sample tags 3/7/8. Runtime probes exist for mach/local combos; reuse them here.",
+      "runtime_candidate": {
+        "probe_name": "allow-cfprefsd-local",
+        "profile_id": "adv:mach_local_literal",
+        "scenario_id": "field2-7-mach-local"
+      },
+      "seed_anchors": [
+        {
+          "anchor": "/etc/hosts",
+          "source": "anchor_filter_map",
+          "status": "partial"
+        },
+        {
+          "anchor": "flow-divert",
+          "source": "anchor_filter_map",
+          "status": "blocked"
+        }
+      ],
+      "status": "missing_probe",
+      "target_ops": [
+        "mach-lookup"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 1,
+      "filter_name": "mount-relative-path",
+      "notes": "Nearby static-only candidate riding the same path ops/profiles as seed0; added to exercise atlas growth. No runtime probe yet.",
+      "runtime_candidate": {
+        "probe_name": "allow-subpath",
+        "profile_id": "adv:mount_relative_path",
+        "scenario_id": "adv:mount_relative_path:allow-subpath"
+      },
+      "seed_anchors": [
+        {
+          "anchor": "/etc/hosts",
+          "source": "anchor_filter_map",
+          "status": "partial"
+        }
+      ],
+      "status": "missing_probe",
+      "target_ops": [
+        "file-read-data",
+        "file-write-data"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 2,
+      "filter_name": "xattr",
+      "notes": "xattr appears in sys:bsd (tag 26) and field2 inventory; runtime probes use file-read-xattr/file-write-xattr against /private/tmp fixtures.",
+      "runtime_candidate": {
+        "probe_name": "allow-foo-read",
+        "profile_id": "adv:xattr",
+        "scenario_id": "adv:xattr:allow-foo-read"
+      },
+      "seed_anchors": [
+        {
+          "anchor": "/tmp/foo",
+          "source": "anchor_filter_map",
+          "status": "blocked"
+        }
+      ],
+      "status": "missing_probe",
+      "target_ops": [
+        "file-read-xattr",
+        "file-write-xattr"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 3,
+      "filter_name": "file-mode",
+      "notes": "file-mode appears in sys:bsd (tag 27) and sys:sample (tags 3/8); runtime probes use a file-read* discriminator over /private/tmp mode fixtures.",
+      "runtime_candidate": {
+        "probe_name": "allow-private",
+        "profile_id": "adv:file_mode",
+        "scenario_id": "adv:file_mode:allow-private"
+      },
+      "seed_anchors": [],
+      "status": "missing_probe",
+      "target_ops": [
+        "file-read*"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 4,
+      "filter_name": "ipc-posix-name",
+      "notes": "ipc-posix-name appears in sys:bsd and sys:airlock; userland probes can use shm_open/sem_open and sandbox_check for decision oracles.",
+      "runtime_candidate": {
+        "anchor_match": null,
+        "expected": "allow",
+        "latest_attempt": {
+          "failure_kind": null,
+          "failure_stage": null,
+          "run_id": "8e462c5f-f64f-462a-86e0-ac6bbf1db998",
+          "runtime_status": "success",
+          "source": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_events.normalized.json"
+        },
+        "mapping_status": "ok",
+        "operation": "ipc-posix-shm-write-create",
+        "path_canonicalization_detected": false,
+        "path_observation": {
+          "failure_kind": null,
+          "failure_stage": null,
+          "normalized_path": null,
+          "normalized_path_source": null,
+          "observed_path": null,
+          "observed_path_source": null,
+          "requested_path": null,
+          "runtime_status": "success",
+          "source": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_events.normalized.json"
+        },
+        "probe_name": "allow-shm",
+        "profile_id": "adv:ipc_posix_shm",
+        "result": "allow",
+        "result_origin": "mapping",
+        "result_source": "book/integration/carton/bundle/relationships/mappings/runtime/runtime_signatures.json",
+        "runtime_profile": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/ipc_posix_shm.adv_ipc_posix_shm.runtime.sb",
+        "scenario_id": "adv:ipc_posix_shm:allow-shm",
+        "source": "book/integration/carton/bundle/relationships/mappings/runtime/runtime_signatures.json",
+        "target": "sbl.ipc.shm.allow"
+      },
+      "seed_anchors": [],
+      "status": "runtime_backed",
+      "target_ops": [
+        "ipc-posix-shm*",
+        "ipc-posix-sem*"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 6,
+      "filter_name": "local-name",
+      "notes": "local-name appears in mach probe profiles; no system profile witness in the current field2 inventory.",
+      "runtime_candidate": {
+        "probe_name": "allow-cfprefsd-local",
+        "profile_id": "adv:mach_local_regex",
+        "scenario_id": "adv:mach_local_regex:allow-cfprefsd-local"
+      },
+      "seed_anchors": [],
+      "status": "missing_probe",
+      "target_ops": [
+        "mach-lookup"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 26,
+      "filter_name": "right-name",
+      "notes": "right-name appears in sys:bsd; runtime backing can use authorization-right-obtain with sandbox_check callouts.",
+      "runtime_candidate": {
+        "anchor_match": null,
+        "expected": "allow",
+        "latest_attempt": {
+          "failure_kind": null,
+          "failure_stage": null,
+          "run_id": "8e462c5f-f64f-462a-86e0-ac6bbf1db998",
+          "runtime_status": "success",
+          "source": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_events.normalized.json"
+        },
+        "mapping_status": "ok",
+        "operation": "authorization-right-obtain",
+        "path_canonicalization_detected": false,
+        "path_observation": {
+          "failure_kind": null,
+          "failure_stage": null,
+          "normalized_path": null,
+          "normalized_path_source": null,
+          "observed_path": null,
+          "observed_path_source": null,
+          "requested_path": null,
+          "runtime_status": "success",
+          "source": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_events.normalized.json"
+        },
+        "probe_name": "allow-right",
+        "profile_id": "adv:authorization_right",
+        "result": "allow",
+        "result_origin": "mapping",
+        "result_source": "book/integration/carton/bundle/relationships/mappings/runtime/runtime_signatures.json",
+        "runtime_profile": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/authorization_right.adv_authorization_right.runtime.sb",
+        "scenario_id": "adv:authorization_right:allow-right",
+        "source": "book/integration/carton/bundle/relationships/mappings/runtime/runtime_signatures.json",
+        "target": "system.preferences"
+      },
+      "seed_anchors": [],
+      "status": "runtime_backed",
+      "target_ops": [
+        "authorization-right-obtain"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 27,
+      "filter_name": "preference-domain",
+      "notes": "preference-domain appears in sys:bsd; userland preference reads/writes can be paired with sandbox_check callouts.",
+      "runtime_candidate": {
+        "anchor_match": null,
+        "expected": "allow",
+        "latest_attempt": {
+          "failure_kind": null,
+          "failure_stage": null,
+          "run_id": "8e462c5f-f64f-462a-86e0-ac6bbf1db998",
+          "runtime_status": "success",
+          "source": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_events.normalized.json"
+        },
+        "mapping_status": "ok",
+        "operation": "user-preference-read",
+        "path_canonicalization_detected": false,
+        "path_observation": {
+          "failure_kind": null,
+          "failure_stage": null,
+          "normalized_path": null,
+          "normalized_path_source": null,
+          "observed_path": null,
+          "observed_path_source": null,
+          "requested_path": null,
+          "runtime_status": "success",
+          "source": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_events.normalized.json"
+        },
+        "probe_name": "allow-domain",
+        "profile_id": "adv:preference_domain",
+        "result": "allow",
+        "result_origin": "mapping",
+        "result_source": "book/integration/carton/bundle/relationships/mappings/runtime/runtime_signatures.json",
+        "runtime_profile": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/preference_domain.adv_preference_domain.runtime.sb",
+        "scenario_id": "adv:preference_domain:allow-domain",
+        "source": "book/integration/carton/bundle/relationships/mappings/runtime/runtime_signatures.json",
+        "target": "com.apple.TimeMachine"
+      },
+      "seed_anchors": [],
+      "status": "runtime_backed",
+      "target_ops": [
+        "user-preference-read",
+        "user-preference-write"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 34,
+      "filter_name": "notification-name",
+      "notes": "notification-name appears in sys:airlock tags 18-30; hardened runtime notification probes provide runtime signatures.",
+      "runtime_candidate": {
+        "probe_name": "allow-darwin",
+        "profile_id": "hardened:notifications_allow",
+        "scenario_id": "hardened:notifications_allow:allow-darwin"
+      },
+      "seed_anchors": [],
+      "status": "missing_probe",
+      "target_ops": [
+        "darwin-notification-post",
+        "distributed-notification-post"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 37,
+      "filter_name": "sysctl-name",
+      "notes": "sysctl-name has no system-profile witness in the current inventory; hardened sysctl probes provide runtime signatures.",
+      "runtime_candidate": {
+        "probe_name": "allow-kern-ostype",
+        "profile_id": "hardened:sysctl_read_allow",
+        "scenario_id": "hardened:sysctl_read_allow:allow-kern-ostype"
+      },
+      "seed_anchors": [
+        {
+          "anchor": "kern.ostype",
+          "source": "seed_manifest",
+          "status": "partial"
+        }
+      ],
+      "status": "missing_probe",
+      "target_ops": [
+        "sysctl-read"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 49,
+      "filter_name": "xpc-service-name",
+      "notes": "xpc-service-name has no system-profile witness in the current inventory; runtime backing is expected via sandbox_check on mach-lookup.",
+      "runtime_candidate": {
+        "anchor_match": null,
+        "expected": "allow",
+        "latest_attempt": {
+          "failure_kind": null,
+          "failure_stage": null,
+          "run_id": "8e462c5f-f64f-462a-86e0-ac6bbf1db998",
+          "runtime_status": "success",
+          "source": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_events.normalized.json"
+        },
+        "mapping_status": "ok",
+        "operation": "mach-lookup",
+        "path_canonicalization_detected": false,
+        "path_observation": {
+          "failure_kind": null,
+          "failure_stage": null,
+          "normalized_path": null,
+          "normalized_path_source": null,
+          "observed_path": null,
+          "observed_path_source": null,
+          "requested_path": null,
+          "runtime_status": "success",
+          "source": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_events.normalized.json"
+        },
+        "probe_name": "allow-cfprefsd-xpc",
+        "profile_id": "adv:xpc_service_name",
+        "result": "allow",
+        "result_origin": "mapping",
+        "result_source": "book/integration/carton/bundle/relationships/mappings/runtime/runtime_signatures.json",
+        "runtime_profile": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/xpc_service_name.adv_xpc_service_name.runtime.sb",
+        "scenario_id": "adv:xpc_service_name:allow-cfprefsd-xpc",
+        "source": "book/integration/carton/bundle/relationships/mappings/runtime/runtime_signatures.json",
+        "target": "com.apple.cfprefsd.xpc"
+      },
+      "seed_anchors": [
+        {
+          "anchor": "com.apple.cfprefsd.xpc",
+          "source": "seed_manifest",
+          "status": "partial"
+        }
+      ],
+      "status": "runtime_backed",
+      "target_ops": [
+        "mach-lookup"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 2560,
+      "filter_name": "local",
+      "notes": "Characterized static token for flow-divert triples (domain+type+proto) on tag0 with literal com.apple.flow-divert; derived from flow-divert-2560 matrix decode. No runtime witness; world-scoped.",
+      "runtime_candidate": {
+        "probe_name": "tcp-loopback",
+        "profile_id": "adv:flow_divert_require_all_tcp",
+        "scenario_id": "field2-2560-flow-divert"
+      },
+      "seed_anchors": [
+        {
+          "anchor": "flow-divert",
+          "notes": "Triple-only: domain+type+proto; tag0 u16_role=filter_vocab_id; literal com.apple.flow-divert",
+          "source": "flow-divert-2560",
+          "status": "characterized"
+        }
+      ],
+      "status": "missing_probe",
+      "target_ops": [
+        "network-outbound"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    }
+  ],
+  "schema_version": "field2-atlas.runtime_results.v0",
+  "source_artifacts": {
+    "anchor_map": "book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json",
+    "packet_exports": {
+      "baseline_results": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/baseline_results.json",
+      "path_witnesses": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/path_witnesses.json",
+      "run_manifest": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/run_manifest.json",
+      "runtime_events": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_events.normalized.json"
+    },
+    "runtime_signatures": "book/integration/carton/bundle/relationships/mappings/runtime/runtime_signatures.json",
+    "seeds": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

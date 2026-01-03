@@ -56,18 +56,19 @@ def run_carton_validation() -> None:
 def run_swift_build() -> None:
     repo_root = _repo_root()
     book_root = _book_root(repo_root)
+    graph_root = book_root / "integration" / "carton" / "graph"
 
     env = os.environ.copy()
     env["SWIFT_BIN"] = env.get("SWIFT", "swift")
 
-    module_cache = book_root / "graph" / ".module-cache"
+    module_cache = graph_root / ".module-cache"
     module_cache.mkdir(parents=True, exist_ok=True)
     env.setdefault("CLANG_MODULE_CACHE_PATH", str(module_cache))
     env.setdefault("SWIFTPM_MODULECACHE_OVERRIDE", str(module_cache))
 
     cmd = [sys.executable, "swift_build.py"]
     print(f"[ci] swift-build: running {' '.join(cmd)}", flush=True)
-    subprocess.check_call(cmd, cwd=book_root / "graph", env=env)
+    subprocess.check_call(cmd, cwd=graph_root, env=env)
 
 
 def run_field2_hunt() -> None:

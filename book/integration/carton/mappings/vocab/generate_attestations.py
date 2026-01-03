@@ -63,7 +63,7 @@ def blob_hashes(paths: List[Path]) -> List[Dict[str, Any]]:
 
 def run_validation_job(job_id: str) -> None:
     """Invoke the validation driver for the given job id and gate on status."""
-    cmd = [sys.executable, "-m", "book.graph.concepts.validation", "--id", job_id]
+    cmd = [sys.executable, "-m", "book.integration.carton", "validate", "--id", job_id]
     subprocess.check_call(cmd, cwd=REPO_ROOT)
     if not VALIDATION_STATUS.exists():
         raise SystemExit(f"validation status missing after running {cmd}")

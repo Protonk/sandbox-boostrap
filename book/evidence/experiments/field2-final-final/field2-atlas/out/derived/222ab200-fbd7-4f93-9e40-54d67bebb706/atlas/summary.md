@@ -1,0 +1,21 @@
+<!-- upstream_run_id=222ab200-fbd7-4f93-9e40-54d67bebb706 artifact_index_sha256=9fde543755d2c648c5c7e7f75292a3f1ce25d2200c9ce1c9810353af11a36d54 packet=book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/222ab200-fbd7-4f93-9e40-54d67bebb706/promotion_packet.json -->
+| field2 | status | profiles | anchors | runtime_scenario |
+| --- | --- | --- | --- | --- |
+| 0 | runtime_backed | 38 | 8 | adv:path_edges_private:allow-tmp |
+| 1 | runtime_backed | 38 | 8 | adv:mount_relative_path:allow-subpath |
+| 2 | runtime_backed | 19 | 1 | adv:xattr:allow-foo-read |
+| 3 | runtime_backed | 24 | 1 | adv:file_mode:allow-private |
+| 4 | runtime_backed | 29 | 4 | adv:ipc_posix_shm:allow-shm |
+| 5 | runtime_backed | 28 | 7 | field2-5-mach-global |
+| 6 | runtime_backed | 14 | 1 | adv:mach_local_regex:allow-cfprefsd-local |
+| 7 | runtime_backed | 11 | 2 | field2-7-mach-local |
+| 24 | missing_probe | 0 | 1 | adv:appleevent_destination:allow-finder |
+| 26 | missing_actual | 5 | 1 | adv:authorization_right:allow-right |
+| 27 | missing_actual | 1 | 0 | adv:preference_domain:allow-domain |
+| 32 | missing_probe | 1 | 1 | adv:kext_bundle_query:allow-sandbox |
+| 33 | missing_probe | 0 | 1 | adv:info_type:allow-hw-model |
+| 34 | runtime_backed | 1 | 0 | hardened:notifications_allow:allow-darwin |
+| 37 | runtime_backed | 0 | 1 | hardened:sysctl_read_allow:allow-kern-ostype |
+| 44 | missing_probe | 0 | 1 | adv:nvram_variable:allow-boot-args |
+| 49 | missing_actual | 0 | 1 | adv:xpc_service_name:allow-cfprefsd-xpc |
+| 2560 | runtime_backed | 5 | 2 | field2-2560-flow-divert |

@@ -134,11 +134,13 @@ def _build_plist(
     # explicitly opt-in (unset by default) so promotability and lane semantics
     # are not accidentally influenced by the parent shell environment.
     for key in [
+        "SANDBOX_LORE_FD_IDENTITY",
         "SANDBOX_LORE_SEATBELT_CALLOUT",
         "SANDBOX_LORE_SEATBELT_API",
         "SANDBOX_LORE_PREFLIGHT",
         "SANDBOX_LORE_PREFLIGHT_FORCE",
         "SANDBOX_LORE_FILE_PRECREATE",
+        "SANDBOX_LORE_WITNESS_OBSERVER",
         "SANDBOX_LORE_IOKIT_ORACLE_ONLY",
         "SANDBOX_LORE_IKIT_SELECTOR_LIST",
         "SANDBOX_LORE_IKIT_CALL_KIND",

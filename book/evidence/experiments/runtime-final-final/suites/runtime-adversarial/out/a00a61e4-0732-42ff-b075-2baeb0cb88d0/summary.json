@@ -1,0 +1,45 @@
+{
+  "schema_version": "runtime-tools.summary.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "a00a61e4-0732-42ff-b075-2baeb0cb88d0",
+  "status": "partial",
+  "plan_id": "runtime-adversarial.v1",
+  "plan_digest": "df9e86903145751ecdf0dfcbc5a825c9ff5c3110e0683c9962fe2f5426924f72",
+  "channel": "launchd_clean",
+  "lanes": {
+    "baseline": true,
+    "oracle": true,
+    "scenario": true
+  },
+  "profile_count": 21,
+  "scenario_count": 71,
+  "expected_profiles": [
+    "adv:flow_divert_partial_tcp",
+    "adv:flow_divert_require_all_tcp",
+    "adv:mach_local_literal",
+    "adv:mach_local_regex",
+    "adv:mach_simple_allow",
+    "adv:mach_simple_variants",
+    "adv:net_outbound_allow",
+    "adv:net_outbound_deny",
+    "adv:path_alias",
+    "adv:path_edges",
+    "adv:struct_flat",
+    "adv:struct_nested",
+    "adv:path_edges_private",
+    "adv:mount_relative_path",
+    "adv:xattr",
+    "adv:file_mode",
+    "adv:ipc_posix_shm",
+    "adv:authorization_right",
+    "adv:preference_domain",
+    "adv:xpc_service_name",
+    "adv:path_canon_alt"
+  ],
+  "mismatch_counts": {
+    "unexpected_deny": 11,
+    "canonicalization_boundary": 12,
+    "op_not_witnessed": 6
+  },
+  "dry_run": false
+}

@@ -15,7 +15,18 @@ DEFAULT_SOURCE = (
 )
 DEFAULT_OUT = "book/integration/carton/bundle/relationships/mappings/runtime/other_runtime_inventory.json"
 
-LEGACY_PREFIXES = ("book/graph/mappings/",)
+LEGACY_PREFIXES = ("book/graph/",)
+
+REWRITE_PREFIXES = (
+    ("book/graph/concepts/validation/", "book/integration/carton/validation/"),
+    ("book/graph/swift/", "book/integration/carton/graph/swift/"),
+    ("book/graph/mappings/", "book/integration/carton/mappings/"),
+)
+
+SPECIAL_REWRITES = {
+    "book/graph/concepts/validation/Concept_map.md": "book/integration/carton/Concept_map.md",
+    "book/graph/AGENTS.md": "book/integration/carton/graph/AGENTS.md",
+}
 
 
 def _iter_paths(doc: dict) -> Iterable[str]:
@@ -34,6 +45,37 @@ def _iter_paths(doc: dict) -> Iterable[str]:
             yield path
 
 
+def _rewrite_path(path: str) -> str:
+    if path in SPECIAL_REWRITES:
+        return SPECIAL_REWRITES[path]
+    for old_prefix, new_prefix in REWRITE_PREFIXES:
+        if path.startswith(old_prefix):
+            return f"{new_prefix}{path[len(old_prefix):]}"
+    return path
+
+
+def _rewrite_inventory(doc: dict) -> None:
+    for entry in doc.get("in_repo", []) or []:
+        paths = entry.get("paths")
+        if isinstance(paths, list):
+            entry["paths"] = [
+                _rewrite_path(path) if isinstance(path, str) else path for path in paths
+            ]
+        files = entry.get("files")
+        if isinstance(files, list):
+            for fentry in files:
+                if isinstance(fentry, dict):
+                    path = fentry.get("path")
+                    if isinstance(path, str):
+                        fentry["path"] = _rewrite_path(path)
+
+    for entry in doc.get("unclassified_hits", []) or []:
+        if isinstance(entry, dict):
+            path = entry.get("path")
+            if isinstance(path, str):
+                entry["path"] = _rewrite_path(path)
+
+
 def _validate_inventory(doc: dict) -> None:
     legacy_paths = []
     for path in _iter_paths(doc):
@@ -44,7 +86,7 @@ def _validate_inventory(doc: dict) -> None:
     if legacy_paths:
         sample = ", ".join(legacy_paths[:3])
         raise SystemExit(
-            "inventory references legacy mapping paths; "
+            "inventory references legacy graph paths; "
             f"found {len(legacy_paths)} entries (sample: {sample})"
         )
 
@@ -70,6 +112,7 @@ def main(argv: list[str] | None = None) -> None:
     out_path = path_utils.ensure_absolute(args.out, repo_root=repo_root)
 
     doc = json.loads(source_path.read_text())
+    _rewrite_inventory(doc)
     _validate_inventory(doc)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)

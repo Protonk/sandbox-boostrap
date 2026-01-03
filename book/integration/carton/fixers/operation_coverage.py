@@ -26,7 +26,16 @@ EXPECTED_JOBS = {
 
 
 def run_validation() -> None:
-    cmd = [sys.executable, "-m", "book.graph.concepts.validation", "--tag", "smoke", "--tag", "system-profiles"]
+    cmd = [
+        sys.executable,
+        "-m",
+        "book.integration.carton",
+        "validate",
+        "--tag",
+        "smoke",
+        "--tag",
+        "system-profiles",
+    ]
     subprocess.check_call(cmd, cwd=ROOT)
 
 

@@ -1,0 +1,361 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "phase_histograms": {
+    "overall": {
+      "total": 8,
+      "stages": {
+        "apply": 0,
+        "bootstrap": 0,
+        "preflight": 0,
+        "probe": 8
+      },
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "probe": {
+        "total": 8,
+        "allow": 4,
+        "deny": 4,
+        "mismatches": 0,
+        "unobserved": 0
+      }
+    },
+    "by_family": {
+      "ipc_posix": {
+        "total": 2,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 2
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 2,
+          "allow": 1,
+          "deny": 1,
+          "mismatches": 0,
+          "unobserved": 0
+        }
+      },
+      "authorization": {
+        "total": 2,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 2
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 2,
+          "allow": 1,
+          "deny": 1,
+          "mismatches": 0,
+          "unobserved": 0
+        }
+      },
+      "preferences": {
+        "total": 2,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 2
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 2,
+          "allow": 1,
+          "deny": 1,
+          "mismatches": 0,
+          "unobserved": 0
+        }
+      },
+      "xpc_service": {
+        "total": 2,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 2
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 2,
+          "allow": 1,
+          "deny": 1,
+          "mismatches": 0,
+          "unobserved": 0
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "adv:ipc_posix_shm:allow-shm": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:ipc_posix_shm",
+      "expectations": [
+        {
+          "expectation_id": "adv:ipc_posix_shm:allow-shm",
+          "profile_id": "adv:ipc_posix_shm",
+          "operation": "ipc-posix-shm-write-create",
+          "target": "sbl.ipc.shm.allow",
+          "expected": "allow",
+          "probe_name": "allow-shm"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:ipc_posix_shm:allow-shm"
+    },
+    "adv:ipc_posix_shm:deny-shm": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:ipc_posix_shm",
+      "expectations": [
+        {
+          "expectation_id": "adv:ipc_posix_shm:deny-shm",
+          "profile_id": "adv:ipc_posix_shm",
+          "operation": "ipc-posix-shm-write-create",
+          "target": "sbl.ipc.shm.deny",
+          "expected": "deny",
+          "probe_name": "deny-shm"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:ipc_posix_shm:deny-shm"
+    },
+    "adv:authorization_right:allow-right": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:authorization_right",
+      "expectations": [
+        {
+          "expectation_id": "adv:authorization_right:allow-right",
+          "profile_id": "adv:authorization_right",
+          "operation": "authorization-right-obtain",
+          "target": "system.preferences",
+          "expected": "allow",
+          "probe_name": "allow-right"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:authorization_right:allow-right"
+    },
+    "adv:authorization_right:deny-right": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:authorization_right",
+      "expectations": [
+        {
+          "expectation_id": "adv:authorization_right:deny-right",
+          "profile_id": "adv:authorization_right",
+          "operation": "authorization-right-obtain",
+          "target": "system.preferences.privacy",
+          "expected": "deny",
+          "probe_name": "deny-right"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:authorization_right:deny-right"
+    },
+    "adv:preference_domain:allow-domain": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:preference_domain",
+      "expectations": [
+        {
+          "expectation_id": "adv:preference_domain:allow-domain",
+          "profile_id": "adv:preference_domain",
+          "operation": "user-preference-read",
+          "target": "com.apple.TimeMachine",
+          "expected": "allow",
+          "probe_name": "allow-domain"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:preference_domain:allow-domain"
+    },
+    "adv:preference_domain:deny-domain": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:preference_domain",
+      "expectations": [
+        {
+          "expectation_id": "adv:preference_domain:deny-domain",
+          "profile_id": "adv:preference_domain",
+          "operation": "user-preference-read",
+          "target": "com.apple.sandboxadversarial.fake",
+          "expected": "deny",
+          "probe_name": "deny-domain"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:preference_domain:deny-domain"
+    },
+    "adv:xpc_service_name:allow-cfprefsd-xpc": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:xpc_service_name",
+      "expectations": [
+        {
+          "expectation_id": "adv:xpc_service_name:allow-cfprefsd-xpc",
+          "profile_id": "adv:xpc_service_name",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.xpc",
+          "expected": "allow",
+          "probe_name": "allow-cfprefsd-xpc"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:xpc_service_name:allow-cfprefsd-xpc"
+    },
+    "adv:xpc_service_name:deny-bogus-xpc": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:xpc_service_name",
+      "expectations": [
+        {
+          "expectation_id": "adv:xpc_service_name:deny-bogus-xpc",
+          "profile_id": "adv:xpc_service_name",
+          "operation": "mach-lookup",
+          "target": "com.apple.sandboxadversarial.fake.xpc",
+          "expected": "deny",
+          "probe_name": "deny-bogus-xpc"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:xpc_service_name:deny-bogus-xpc"
+    }
+  }
+}

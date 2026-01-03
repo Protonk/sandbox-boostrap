@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from book.graph.concepts.validation.tag_role_layout_job import run_tag_role_layout_job, STATUS_PATH
+from book.integration.carton.validation.tag_role_layout_job import run_tag_role_layout_job, STATUS_PATH
 
 
 def test_tag_roles_validation_canonical_corpus():

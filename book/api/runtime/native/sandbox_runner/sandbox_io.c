@@ -13,11 +13,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/mount.h>
+#include <sys/stat.h>
 #include <sys/syslimits.h>
 #include <unistd.h>
 
 // Opt-in precreate for oracle calibration: ensure the target exists after apply.
 #define SANDBOX_LORE_ENV_FILE_PRECREATE "SANDBOX_LORE_FILE_PRECREATE"
+
+// Opt-in FD identity emission: record (st_dev, st_ino) and mount identity for
+// successful opens. This is *diagnostic* evidence used to join alias spellings
+// to the same underlying object; it is not a claim about Seatbelt's internal
+// compare string.
+//
+// Non-fatal by design: if the sandbox denies metadata calls (e.g., fstat) after
+// a successful open, the probe still proceeds with its read/write behavior.
+#define SANDBOX_LORE_ENV_FD_IDENTITY "SANDBOX_LORE_FD_IDENTITY"
 
 static int apply_profile(const char *profile_path) {
     FILE *fp = fopen(profile_path, "r");
@@ -89,6 +100,37 @@ static void emit_fd_paths(int fd) {
 #endif
 }
 
+static int env_truthy(const char *name) {
+    const char *value = getenv(name);
+    return value && value[0] != '\0' && value[0] != '0';
+}
+
+static void emit_fd_identity(int fd) {
+    if (!env_truthy(SANDBOX_LORE_ENV_FD_IDENTITY)) {
+        return;
+    }
+
+    fprintf(stderr, "FD_IDENTITY:1\n");
+
+    struct stat st;
+    if (fstat(fd, &st) == 0) {
+        fprintf(stderr, "FSTAT_ST_DEV:%lld\n", (long long)st.st_dev);
+        fprintf(stderr, "FSTAT_ST_INO:%lld\n", (long long)st.st_ino);
+    } else {
+        fprintf(stderr, "FSTAT_ERROR:%d\n", errno);
+    }
+
+    struct statfs sfs;
+    if (fstatfs(fd, &sfs) == 0) {
+        fprintf(stderr, "FSTATFS_FSTYPENAME:%s\n", sfs.f_fstypename);
+        fprintf(stderr, "FSTATFS_MNTONNAME:%s\n", sfs.f_mntonname);
+        fprintf(stderr, "FSTATFS_FSID0:%d\n", sfs.f_fsid.val[0]);
+        fprintf(stderr, "FSTATFS_FSID1:%d\n", sfs.f_fsid.val[1]);
+    } else {
+        fprintf(stderr, "FSTATFS_ERROR:%d\n", errno);
+    }
+}
+
 int sandbox_io_read(const char *profile_path, const char *target_path) {
     int rc = apply_profile(profile_path);
     if (rc != 0) {
@@ -103,6 +145,7 @@ int sandbox_io_read(const char *profile_path, const char *target_path) {
         return 2;
     }
     emit_fd_paths(fd);
+    emit_fd_identity(fd);
     char buf[4096];
     ssize_t nr;
     while ((nr = read(fd, buf, sizeof(buf))) > 0) {
@@ -134,6 +177,7 @@ int sandbox_io_write(const char *profile_path, const char *target_path) {
         return 2;
     }
     emit_fd_paths(fd);
+    emit_fd_identity(fd);
     const char *line = "runtime-check\n";
     ssize_t nw = write(fd, line, strlen(line));
     if (nw < 0) {

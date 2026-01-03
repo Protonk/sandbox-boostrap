@@ -72,9 +72,15 @@ _SANDBOX_CHECK_FILTER_NAME_TO_ID = {
     "path": 1,
     "global-name": 2,
     "local-name": 3,
+    "appleevent-destination": 4,
     "right-name": 5,
     "preference-domain": 6,
+    "kext-bundle-id": 7,
+    "info-type": 8,
+    "notification-name": 9,
     "xpc-service-name": 12,
+    "iokit-connection": 13,
+    "nvram-variable": 15,
     "ipc-posix-name": 17,
 }
 
@@ -98,7 +104,10 @@ DEFAULT_FILTER_NAMES_BY_OP = {
     "mach-lookup": "global-name",
     "darwin-notification-post": "notification-name",
     "distributed-notification-post": "notification-name",
+    "appleevent-send": "appleevent-destination",
     "system-kext-query": "kext-bundle-id",
+    "system-info": "info-type",
+    "nvram-get": "nvram-variable",
     "authorization-right-obtain": "right-name",
     "user-preference-read": "preference-domain",
     "user-preference-write": "preference-domain",
@@ -597,7 +606,11 @@ def _resolve_sandbox_check_filter_type(probe: Dict[str, Any], op: Optional[str])
 def _seatbelt_callout_spec(probe: Dict[str, Any], op: Optional[str], target: Optional[str]) -> Optional[Dict[str, Any]]:
     if not op or not target:
         return None
-    filter_type, filter_name = _resolve_filter_type(probe, op)
+    driver = probe.get("driver")
+    if driver == "sandbox_check_probe":
+        filter_type, filter_name = _resolve_sandbox_check_filter_type(probe, op)
+    else:
+        filter_type, filter_name = _resolve_filter_type(probe, op)
     if filter_type is None:
         return None
     seatbelt_op = op
@@ -611,7 +624,7 @@ def _seatbelt_callout_spec(probe: Dict[str, Any], op: Optional[str], target: Opt
         "filter_name": filter_name,
         "argument": target,
     }
-    if filter_type == 0:
+    if filter_name == "path":
         spec["canonicalization"] = "both"
     return spec
 
@@ -688,29 +701,50 @@ def _should_capture_witness_observer() -> bool:
     return os.environ.get("SANDBOX_LORE_WITNESS_OBSERVER") == "1"
 
 
-def _extract_witness_identity(probe_details: Optional[Dict[str, Any]]) -> tuple[Optional[str], Optional[str]]:
+def _extract_witness_identity(
+    probe_details: Optional[Dict[str, Any]],
+    *,
+    cmd_pid: Optional[int] = None,
+    cmd_process_name: Optional[str] = None,
+    command: Optional[List[str]] = None,
+) -> tuple[Optional[str], Optional[str]]:
     if not isinstance(probe_details, dict):
-        return None, None
+        probe_details = None
     pid = None
-    for key in ("service_pid", "probe_pid", "pid"):
-        value = probe_details.get(key)
-        if isinstance(value, int):
-            pid = str(value)
-            break
-        if isinstance(value, str) and value:
-            pid = value
-            break
-    process_name = probe_details.get("process_name")
-    if not isinstance(process_name, str):
-        process_name = probe_details.get("service_name")
+    if probe_details is not None:
+        for key in ("service_pid", "probe_pid", "pid"):
+            value = probe_details.get(key)
+            if isinstance(value, int):
+                pid = str(value)
+                break
+            if isinstance(value, str) and value:
+                pid = value
+                break
+    if pid is None and isinstance(cmd_pid, int):
+        pid = str(cmd_pid)
+
+    process_name = None
+    if probe_details is not None:
+        process_name = probe_details.get("process_name")
+        if not isinstance(process_name, str):
+            process_name = probe_details.get("service_name")
     if not isinstance(process_name, str):
         process_name = None
+    if process_name is None and isinstance(cmd_process_name, str) and cmd_process_name:
+        process_name = cmd_process_name
+    if process_name is None and isinstance(command, list) and command:
+        entrypoint = command[0]
+        if isinstance(entrypoint, str) and entrypoint:
+            process_name = Path(entrypoint).name
     return pid, process_name
 
 
 def _capture_witness_observer(
     *,
     probe_details: Optional[Dict[str, Any]],
+    cmd_pid: Optional[int],
+    cmd_process_name: Optional[str],
+    command: Optional[List[str]],
     out_dir: Path,
     profile_id: str,
     probe_name: str,
@@ -727,7 +761,12 @@ def _capture_witness_observer(
         return {"skipped": "observer_import_error", "error": f"{type(exc).__name__}: {exc}"}
     if not witness_observer.should_run_observer():
         return {"skipped": "observer_disabled"}
-    pid, process_name = _extract_witness_identity(probe_details)
+    pid, process_name = _extract_witness_identity(
+        probe_details,
+        cmd_pid=cmd_pid,
+        cmd_process_name=cmd_process_name,
+        command=command,
+    )
     if pid is None or process_name is None:
         return {"skipped": "missing_pid_or_process_name"}
     label = _sanitize_label(f"{profile_id}.{probe_name}")
@@ -1321,8 +1360,48 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
     started_at_unix_s = time.time()
     listener_info = None
     try:
+        cmd_pid = None
+        cmd_process_name = None
+        stdout = ""
+        stderr = ""
+        capture_pid = _should_capture_witness_observer()
         if op == "network-outbound":
             with _loopback_listener(target) as listener_info:
+                if capture_pid:
+                    proc = subprocess.Popen(full_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
+                    try:
+                        stdout, stderr = proc.communicate(timeout=10)
+                    except subprocess.TimeoutExpired:
+                        proc.kill()
+                        proc.communicate()
+                        raise
+                    cmd_pid = proc.pid
+                    cmd_process_name = Path(full_cmd[0]).name if full_cmd else None
+                    exit_code = proc.returncode
+                else:
+                    res = subprocess.run(
+                        full_cmd,
+                        capture_output=True,
+                        text=True,
+                        timeout=10,
+                        env=env,
+                    )
+                    stdout = res.stdout
+                    stderr = res.stderr
+                    exit_code = res.returncode
+        else:
+            if capture_pid:
+                proc = subprocess.Popen(full_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
+                try:
+                    stdout, stderr = proc.communicate(timeout=10)
+                except subprocess.TimeoutExpired:
+                    proc.kill()
+                    proc.communicate()
+                    raise
+                cmd_pid = proc.pid
+                cmd_process_name = Path(full_cmd[0]).name if full_cmd else None
+                exit_code = proc.returncode
+            else:
                 res = subprocess.run(
                     full_cmd,
                     capture_output=True,
@@ -1330,27 +1409,21 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
                     timeout=10,
                     env=env,
                 )
-        else:
-            res = subprocess.run(
-                full_cmd,
-                capture_output=True,
-                text=True,
-                timeout=10,
-                env=env,
-            )
+                stdout = res.stdout
+                stderr = res.stderr
+                exit_code = res.returncode
         finished_at_unix_s = time.time()
-        exit_code = res.returncode
         probe_details = None
-        stdout_clean = res.stdout
+        stdout_clean = stdout
         if metadata_driver:
             parsed: Optional[Dict[str, Any]] = None
             stdout_clean = ""
-            if res.stdout:
+            if stdout:
                 try:
-                    parsed = json.loads(res.stdout)
+                    parsed = json.loads(stdout)
                 except Exception:
                     parsed = {"error": "metadata_runner_stdout_parse_failed"}
-                    stdout_clean = res.stdout
+                    stdout_clean = stdout
             if isinstance(parsed, dict):
                 probe_details = parsed
                 status = parsed.get("status")
@@ -1361,9 +1434,9 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
                 else:
                     exit_code = 1
         else:
-            probe_details, stdout_clean = _extract_probe_details(res.stdout)
+            probe_details, stdout_clean = _extract_probe_details(stdout)
             if probe_details is None and file_probe_used:
-                parsed = _parse_probe_json(res.stdout)
+                parsed = _parse_probe_json(stdout)
                 if parsed is not None:
                     probe_details = parsed
                     stdout_clean = ""
@@ -1371,11 +1444,13 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
             "command": full_cmd,
             "exit_code": exit_code,
             "stdout": stdout_clean,
-            "stderr": res.stderr,
+            "stderr": stderr,
             "probe_details": probe_details,
             "cmd_started_at_unix_s": started_at_unix_s,
             "cmd_finished_at_unix_s": finished_at_unix_s,
             "cmd_duration_s": finished_at_unix_s - started_at_unix_s,
+            **({"cmd_pid": cmd_pid} if cmd_pid is not None else {}),
+            **({"cmd_process_name": cmd_process_name} if cmd_process_name is not None else {}),
         }
         if callout_spec:
             raw["sandbox_check_request"] = callout_spec
@@ -1522,6 +1597,9 @@ def run_matrix(
                 probe_name = probe.get("name") or probe.get("probe_id") or probe.get("operation") or "probe"
                 observer_record = _capture_witness_observer(
                     probe_details=raw.get("probe_details"),
+                    cmd_pid=raw.get("cmd_pid"),
+                    cmd_process_name=raw.get("cmd_process_name"),
+                    command=raw.get("command"),
                     out_dir=out_dir,
                     profile_id=key,
                     probe_name=str(probe_name),

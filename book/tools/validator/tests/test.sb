@@ -1,0 +1,155 @@
+(version 1)
+(allow default)
+;; Small testing-based documentation of sandbox_check implemented in my sb_validator.
+;; Note for myself for the future - the below commands are your best friends when reversing this bastard again -.-
+;; grep -ri "op_name" /System/Library/Sandbox/Profiles/*.sb 
+;; strings com.apple.security.sandbox | grep -i op_name
+;; strings libsystem_sandbox.dylib | grep -i op_name
+;; cat /System/Library/Sandbox/Profiles/application.sb | grep -i op_name
+;; for i in {1..18}; do ./sb_validator `pgrep wait_helper`  "op_name" $i "filter_value"  ; done
+
+;; ----------------------------------------------+
+;; MY_NAME | FILTER ID | KERNEL OPCODE | CONTEXT |
+;; ----------------------------------------------+
+
+;; SANDBOX_FILTER_PATH | 1 | 1 | Checks access to a specific file path. WARNING when we work with /etc which is symlinked to /private/etc we should use full paths, not symlinks.
+;; ----------------------------+
+;; ./sb_validator `pgrep wait_helper` "file-read*" PATH "/private/etc/passwd" # DENIED
+;; ./sb_validator `pgrep wait_helper` "file-read*" PATH "/private/etc/hosts"  # ALLOWED
+(deny file-read* (literal "/private/etc/passwd"))
+
+;; GLOBAL_NAME | 2 | 6 | Checks permission to look up a global Mach service. Mach name is registered in the system-wide bootstrap namespace. 
+;; --------------------+
+;; ./sb_validator `pgrep wait_helper` "mach-lookup" GLOBAL_NAME "com.apple.replayd"     # DENIED
+;; ./sb_validator `pgrep wait_helper` "mach-lookup" GLOBAL_NAME "com.apple.crimson"     # ALLOWED
+(deny mach-lookup (global-name "com.apple.replayd"))
+
+
+;; LOCAL_NAME | 3 | 7 | Checks permission for a local/user Mach service. Mach name is registered in a per-session like gui/501.
+;; -------------------+
+;; ./sb_validator `pgrep wait_helper` "mach-lookup" LOCAL_NAME "com.apple.CFPasteboardClient"   # DENIED
+;; ./sb_validator `pgrep wait_helper` "mach-lookup" LOCAL_NAME "com.apple.crimson"              # ALLOWED
+(deny mach-lookup (local-name "com.apple.CFPasteboardClient"))
+
+
+;; APPLEEVENT_DESTINATION | 4 | 25 | Checks permission to send AppleEvents to a target bundle ID (AppleScript).
+;; --------------------------------+
+;; ./sb_validator `pgrep wait_helper` "appleevent-send" APPLEEVENT_DESTINATION "com.apple.Finder"   # DENIED
+;; ./sb_validator `pgrep wait_helper` "appleevent-send" APPLEEVENT_DESTINATION "com.apple.crimson"  # ALLOWED
+(deny appleevent-send  (appleevent-destination "com.apple.Finder"))
+
+
+;; RIGHT_NAME | 5 | 27 | Checks if the process can obtain a specific authorization right.
+;; --------------------+
+;; ./sb_validator `pgrep wait_helper` "authorization-right-obtain" RIGHT_NAME "system.hdd.smart"    # DENIED
+;; ./sb_validator `pgrep wait_helper` "authorization-right-obtain" RIGHT_NAME "system.hdd.crimson"  # ALLOWED
+(deny authorization-right-obtain (right-name "system.hdd.smart"))
+
+;; PREFERENCE_DOMAIN | 6 | 28 | CFPreferences Domain which identifies which specific preference plist the process may read or write through the CFPreferences/NSUserDefaults APIs
+;; ---------------------------+
+;; ./sb_validator `pgrep wait_helper` "user-preference-read" PREFERENCE_DOMAIN "com.apple.AppKit.TextFavorites"    # DENIED
+;; ./sb_validator `pgrep wait_helper` "user-preference-read" PREFERENCE_DOMAIN "com.apple.AppKit.crimson"          # ALLOWED
+(deny user-preference-read (preference-domain "com.apple.AppKit.TextFavorites"))
+
+;; KEXT_BUNDLE_ID | 7 | 33 | Check if process has right to load/unload/query Kernel Extension using its bundle ID.
+;; ID: 172 system-kext-load hook_kext_check_load / 173 system-kext-unload hook_kext_check_unload / system-kext-query hook_kext_check_query
+;; ------------------------+
+;; ./sb_validator `pgrep wait_helper` "system-kext-load" KEXT_BUNDLE_ID "com.apple.filesystems.smbfs"            # DENIED
+;; ./sb_validator `pgrep wait_helper` "system-kext-load" KEXT_BUNDLE_ID "com.apple.filesystems.crimson"          # ALLOWED
+(deny system-kext-load (kext-bundle-id "com.apple.filesystems.smbfs"))
+
+;; INFO_TYPE | 8 | 34 | Checks access to system information queries it is used for the system-info operation.
+;; -------------------+
+;; ./sb_validator `pgrep wait_helper` "system-info" INFO_TYPE "net.link.addr"   # DENIED
+;; ./sb_validator `pgrep wait_helper` "system-info" INFO_TYPE "crimson"         # ALLOWED
+(deny system-info (info-type "net.link.addr"))
+
+;; NOTIFICATION | 9 | 35 | Checks permission to post or receive specific distributed notifications.
+;; This Filter ID in sandbox_check expects 2 arguments: (const char *, int). I workaround this in the code, passing 0 there.
+;; sandbox_check(pid, operation, filter_type, filter_value, 0);
+;; Single-argument filters will simply ignore this extra 0.
+;; It works, but sandbox_check is variadic and I do not know what ... arguments it expect after filter_value. Passing 0 simply works for me now.
+;; Maybe other notification related sandbox operations will require sth more. TODO
+;; ----------------------+
+;; ./sb_validator `pgrep wait_helper` "distributed-notification-post" NOTIFICATION "com.apple.example.notification"   # DENIED
+;; ./sb_validator `pgrep wait_helper` "distributed-notification-post" NOTIFICATION "com.apple.crimson"                # ALLOWED
+(deny distributed-notification-post (notification-name "com.apple.example.notification"))
+
+;; FILE_DESCRIPTOR | 10 | 240 | Checks if the process can perform W/R operations on the file currently referenced by FD X.
+;; [CANNOT VALIDATE]
+;; The target process must actually have a file open, like: int fd3 = open("/tmp/test1.txt", O_RDWR | O_CREAT, 0644);
+;; The problem is, we cannot check the FD of other processes on macOS without special entitlement.
+;; The target process must be codesigned with com.apple.security.get-task-allow and sb_validator must have com.apple.security.cs.debugger to make it work.
+;; Afterthat we should be able to use proc_pidinfo() to get FD of target process and I did. However, despite that I get "[ERROR] System error: Bad file descriptor (9)".
+;; TODO: ATM I left it, it does not work as it should for other processes. I can still use it for checking my own process. 
+;; ALthough, I have added option to list other processes descriptors: ./bin/sb_validator `pgrep wait_helper` --list-fds.
+;; I am also unsure about operations here. Probably all file* ops, like with PATH.
+;; If my assumptions are correct, why not just use PATH? Why this Filter exists? For some inernal self checks?
+;; In the kernel it handles that in syscall_check_sandbox, there is logic to resolve FD to path so yeah.... for my tool is not so necessary.
+;; It can be used with any sandbox operation that supports path-based rules (e.g., file-read*, process-exec) allowing to check permissions against another process.
+;; ---------------------------+
+
+;; UNKNOWN | 11 | 241 | Something about audit tokens?
+;; [CANNOT VALIDATE]
+;; Accepts process identification attributes (an int32 and int64).
+;; Resolves them in the kernel to the executable path of that process.
+;; Performs a standard SANDBOX_FILTER_PATH (1) check using that path.
+;; As with FILE_DESCRIPTOR, this also resolves to PATH. 
+;; -------------------+
+
+;; XPC_SERVICE_NAME | 12 | 50 | Checks if the process can perform operations on the XPC service.
+;; Dunno why sandbox-exec currently does not handle xpc-message-send operation (Tahoe 26.0).
+;; I just use mach-lookup as wtih GLOBAL / LOCAL names.
+;; ---------------------------+
+;; ./sb_validator `pgrep wait_helper` "mach-lookup" XPC_SERVICE_NAME "com.apple.WebKit.Networking"   # DENIED
+;; ./sb_validator `pgrep wait_helper` "mach-lookup" XPC_SERVICE_NAME "com.apple.crimson"             # ALLOWED
+(deny mach-lookup (xpc-service-name "com.apple.WebKit.Networking"))
+
+;; IOKIT_CONNECTION | 13 | 19 | Checks IOKit Registry Entry Class Name.
+;; Used primarily with the 'iokit-open-service' operation.
+;; [CANNOT VALIDATE]
+;; The kernel handler (match_iokit_connection) casts the argument to an IORegistryEntry object pointer.
+;; Passing a string pointer from userspace results in a type mismatch/invalid memory access check in kernel,
+;; causing the rule to be skipped (defaulting to allow).
+;; ---------------------------+
+;; ./sb_validator `pgrep wait_helper` "iokit-open-service" IOKIT_CONNECTION "IOMedia"    # Will return ALLOWED (False Negative)
+(deny iokit-open-service (iokit-connection "IOMedia"))
+
+;; IOKIT_USER_CLIENT_CLASS | 14 | 65 | Checks the User Client Class Name.
+;; Used with 'iokit-open-user-client'.
+;; [CANNOT VALIDATE]
+;; Similar to IOKIT_CONNECTION, this expects a kernel object representing the user client or service
+;; to verify the class type. Userspace string pointers will fail the internal type check.
+;; ----------------------------------+
+;; ./sb_validator `pgrep wait_helper` "iokit-open-user-client" IOKIT_USER_CLIENT_CLASS "IOHIDParamUserClient" # Will return ALLOWED (False Negative)
+(deny iokit-open-user-client (iokit-user-client-class "IOHIDParamUserClient"))
+
+;; NVRAM_VARIABLE | 15 | 75 | Checks the name of the NVRAM variable.
+;; Used with 'nvram-get', 'nvram-set', 'nvram-delete'.
+;; -------------------------+
+;; ./sb_validator `pgrep wait_helper` "nvram-get" 15 "boot-args"         # DENIED
+;; ./sb_validator `pgrep wait_helper` "nvram-get" 15 "csr-active-config" # ALLOWED
+(deny nvram-get (nvram-variable "boot-args"))
+
+;; SYSCTL_NAME | 16 | 45 | Checks the name of the sysctl OID being accessed. - NOT SURE.
+;; [CANNOT VALIDATE]
+;; Used with 'sysctl-read' and 'sysctl-write'.
+;; No matter if its deny or allowed the results were the same:
+;; ;; for i in {1..18}; do ./sb_validator `pgrep wait_helper`  "sysctl-write" $i "kern.ostype"  ; done
+;; ----------------------+
+(deny sysctl-write (sysctl-name "kern.ostype"))
+
+;; POSIX_IPC_NAME | 17 | 5 | Checks the name of POSIX Semaphores or Shared Memory.
+;; Used with 'ipc-posix-*' operations.
+;; ------------------------+
+;; ./sb_validator `pgrep wait_helper` "ipc-posix-shm-read-data" POSIX_IPC_NAME "apple.shm.notification_center" # DENIED
+;; ./sb_validator `pgrep wait_helper` "ipc-posix-shm-read-data" POSIX_IPC_NAME "test_shm"                      # ALLOWED
+(deny ipc-posix-shm-read-data (ipc-posix-name "apple.shm.notification_center"))
+
+;; MESSAGE_FILTER | 18 | 52 | Mach Message Filtering.
+;; [CANNOT VALIDATE]
+;; At first I though it is about mach-message-send, but could not find any profile with that.
+;; This filter is extremely complex. It does not take a string.
+;; It looks like it expects a pointer to a mach message header/structure to inspect msgh_id and content.
+;; ---------------------------+
+(allow file-write* (with telemetry) (with message "124470244")) ;; Took it from application.sb 

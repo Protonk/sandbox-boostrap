@@ -1,4 +1,4 @@
-from book.graph.concepts.validation.sandbox_init_params_job import run_sandbox_init_params_job
+from book.integration.carton.validation.sandbox_init_params_job import run_sandbox_init_params_job
 
 
 def test_sandbox_init_params_guardrail():

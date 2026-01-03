@@ -109,10 +109,11 @@ def _decode_profiles(run_dir: Path, bundle_meta: dict[str, Any]) -> dict[str, An
 
     profiles_out: Dict[str, Any] = {}
     for profile_id, rec in (matrix.get("profiles") or {}).items():
-        blob_ref = rec.get("blob")
-        if not blob_ref:
-            continue
-        blob_path = path_utils.ensure_absolute(Path(blob_ref), repo_root=REPO_ROOT)
+        # Structural decode must operate on the compiled SBPL blob produced by the runtime bundle,
+        # not on the SBPL source path from expected_matrix.json.
+        blob_path = run_dir / "sb_build" / f"{profile_id}.sb.bin"
+        if not blob_path.exists():
+            raise FileNotFoundError(f"missing compiled blob for {profile_id}: {blob_path}")
         data = blob_path.read_bytes()
         dec = decoder.decode_profile_dict(data)
         literal_set: set[str] = set()
@@ -137,6 +138,7 @@ def _decode_profiles(run_dir: Path, bundle_meta: dict[str, Any]) -> dict[str, An
                 }
             )
         profiles_out[profile_id] = {
+            "compiled_blob": path_utils.to_repo_relative(blob_path, repo_root=REPO_ROOT),
             "anchors": anchors_info,
             "literal_candidates": sorted(literal_set),
             "node_count": dec.get("node_count"),
@@ -202,15 +204,15 @@ def _mismatch_summary(world_id: str, bundle_meta: dict[str, Any]) -> dict[str, A
         "profiles": {
             "vfs_tmp_only": {
                 "kind": "canonicalization",
-                "note": "Profile mentions only /tmp/* paths; alias and canonical requests are denied across the path set, consistent with canonicalization-before-enforcement with only /private/... literals effective.",
+                "note": "Alias-only /tmp profile: requests to both /tmp/* and /private/tmp/* are denied in this suite.",
             },
             "vfs_private_tmp_only": {
                 "kind": "canonicalization",
-                "note": "Profile mentions only canonical /private/... paths; alias and canonical requests are allowed across the path set; literal on canonical path effective for both.",
+                "note": "Canonical-only /private/tmp profile: requests to both /tmp/* and /private/tmp/* are allowed in this suite.",
             },
             "vfs_both_paths": {
                 "kind": "control",
-                "note": "Profile mentions both alias and canonical forms; all requests allowed; control confirming canonical behavior.",
+                "note": "Both-spellings /tmp profile: requests to both /tmp/* and /private/tmp/* are allowed in this suite (control).",
             },
         },
     }

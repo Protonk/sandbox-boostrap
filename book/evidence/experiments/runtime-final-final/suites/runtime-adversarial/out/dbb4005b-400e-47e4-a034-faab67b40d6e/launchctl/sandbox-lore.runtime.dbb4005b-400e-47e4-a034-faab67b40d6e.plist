@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>PYTHONPATH</key>
+		<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e</string>
+		<key>SANDBOX_LORE_CHANNEL</key>
+		<string>launchd_clean</string>
+		<key>SANDBOX_LORE_LAUNCHD_CLEAN</key>
+		<string>1</string>
+		<key>SANDBOX_LORE_RUN_ID</key>
+		<string>dbb4005b-400e-47e4-a034-faab67b40d6e</string>
+		<key>SANDBOX_LORE_STAGE_OUTPUT_ROOT</key>
+		<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out</string>
+		<key>SANDBOX_LORE_STAGE_ROOT</key>
+		<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e</string>
+		<key>SANDBOX_LORE_STAGE_USED</key>
+		<string>1</string>
+	</dict>
+	<key>Label</key>
+	<string>sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/opt/homebrew/Cellar/python@3.14/3.14.2/Frameworks/Python.framework/Versions/3.14/bin/python3.14</string>
+		<string>-m</string>
+		<string>book.api.runtime</string>
+		<string>run</string>
+		<string>--plan</string>
+		<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/plan.json</string>
+		<string>--out</string>
+		<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out</string>
+		<string>--channel</string>
+		<string>direct</string>
+		<string>--only-profile</string>
+		<string>adv:ipc_posix_shm</string>
+		<string>--only-profile</string>
+		<string>adv:authorization_right</string>
+		<string>--only-profile</string>
+		<string>adv:preference_domain</string>
+		<string>--only-profile</string>
+		<string>adv:xpc_service_name</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StandardErrorPath</key>
+	<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e.stderr.txt</string>
+	<key>StandardOutPath</key>
+	<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e.stdout.txt</string>
+	<key>WorkingDirectory</key>
+	<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e</string>
+</dict>
+</plist>

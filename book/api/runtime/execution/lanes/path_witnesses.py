@@ -6,6 +6,7 @@ VFS canonicalization work does not have to re-parse stderr markers ad-hoc.
 
 Responsibilities:
 - Parse `F_GETPATH*` markers emitted by the file probes on stderr.
+- Optionally parse FD identity markers (fstat/fstatfs) when enabled.
 - Join those markers back to `(profile_id, scenario_id, operation, target)` so
   consumers can reason about `requested_path` vs `observed_path` mechanically.
 - Emit `path_witnesses.json` as a run-scoped bundle artifact.
@@ -62,6 +63,50 @@ def _extract_marker(stderr: Optional[str], *, label: str) -> Tuple[Optional[str]
         if line.startswith(f"{label}_UNAVAILABLE"):
             return None, "unavailable", None
     return None, "missing", None
+
+
+def _extract_int_marker(stderr: Optional[str], *, label: str) -> Tuple[Optional[int], str, Optional[int]]:
+    raw, src, err = _extract_marker(stderr, label=label)
+    if src != "present" or raw is None:
+        return None, src, err
+    try:
+        return int(raw), "present", None
+    except ValueError:
+        return None, "parse_error", None
+
+
+def _extract_fd_identity(stderr: Optional[str]) -> Optional[Dict[str, Any]]:
+    """
+    Extract optional FD identity markers emitted by the file probes.
+
+    Returns None when the probe did not attempt identity emission.
+    """
+
+    fd_identity_enabled, fd_identity_src, _ = _extract_marker(stderr, label="FD_IDENTITY")
+    if fd_identity_src == "missing":
+        return None
+
+    st_dev, _, _ = _extract_int_marker(stderr, label="FSTAT_ST_DEV")
+    st_ino, _, _ = _extract_int_marker(stderr, label="FSTAT_ST_INO")
+    _, fstat_err_src, fstat_errno = _extract_marker(stderr, label="FSTAT")
+
+    fstype, _, _ = _extract_marker(stderr, label="FSTATFS_FSTYPENAME")
+    mnton, _, _ = _extract_marker(stderr, label="FSTATFS_MNTONNAME")
+    fsid0, _, _ = _extract_int_marker(stderr, label="FSTATFS_FSID0")
+    fsid1, _, _ = _extract_int_marker(stderr, label="FSTATFS_FSID1")
+    _, fstatfs_err_src, fstatfs_errno = _extract_marker(stderr, label="FSTATFS")
+
+    return {
+        "enabled": (fd_identity_src == "present" and fd_identity_enabled == "1"),
+        "enabled_source": f"probe_fd_identity:{fd_identity_src}",
+        "st_dev": st_dev,
+        "st_ino": st_ino,
+        "fstat_errno": fstat_errno if fstat_err_src == "error" else None,
+        "fstypename": fstype,
+        "mntonname": mnton,
+        "fsid": [fsid0, fsid1] if fsid0 is not None and fsid1 is not None else None,
+        "fstatfs_errno": fstatfs_errno if fstatfs_err_src == "error" else None,
+    }
 
 
 def _normalize_path(requested_path: Optional[str], observed_path: Optional[str]) -> Tuple[Optional[str], str]:
@@ -125,6 +170,7 @@ def build_path_witnesses_doc(
                 row.get("observed_path"),
                 row.get("observed_path_nofirmlink"),
             )
+            fd_identity = _extract_fd_identity(row.get("stderr"))
             records.append(
                 {
                     "schema_version": PATH_WITNESS_SCHEMA_VERSION,
@@ -142,6 +188,7 @@ def build_path_witnesses_doc(
                     "normalized_path": normalized_path,
                     "normalized_path_source": normalized_source,
                     "canonicalization": canonicalization,
+                    **({"fd_identity": fd_identity} if fd_identity is not None else {}),
                     "decision": row.get("status"),
                     "exit_code": row.get("exit_code"),
                     "command": row.get("command"),
@@ -163,6 +210,12 @@ def build_path_witnesses_doc(
             normalized_path, normalized_source = _normalize_path(requested_path, observed)
             canonicalization = _canonicalization_flags(requested_path, observed, nofirmlink)
 
+            # Opt-in FD identity emission: when enabled, the probe may emit
+            # fstat/fstatfs markers for successful opens. These fields are
+            # optional and best-effort; missing values are not interpreted as
+            # policy denials.
+            fd_identity = _extract_fd_identity(stderr)
+
             records.append(
                 {
                     "schema_version": PATH_WITNESS_SCHEMA_VERSION,
@@ -180,6 +233,7 @@ def build_path_witnesses_doc(
                     "normalized_path": normalized_path,
                     "normalized_path_source": normalized_source,
                     "canonicalization": canonicalization,
+                    **({"fd_identity": fd_identity} if fd_identity is not None else {}),
                     "decision": row.get("actual"),
                     "errno": row.get("errno"),
                     "failure_stage": row.get("failure_stage"),

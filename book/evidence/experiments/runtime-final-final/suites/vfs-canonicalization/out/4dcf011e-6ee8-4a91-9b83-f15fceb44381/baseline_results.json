@@ -1,0 +1,36 @@
+{
+  "schema_version": "runtime-tools.baseline_results.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "4dcf011e-6ee8-4a91-9b83-f15fceb44381",
+  "results": [
+    {
+      "name": "baseline:vfs_tmp_only:read_/tmp/foo",
+      "profile_id": "vfs_tmp_only",
+      "probe_name": "read_/tmp/foo",
+      "operation": "file-read*",
+      "target": "/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/foo",
+        "profile_id": "vfs_tmp_only",
+        "probe_name": "read_/tmp/foo"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    }
+  ]
+}

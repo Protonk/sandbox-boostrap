@@ -1,0 +1,20 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "vfs_tmp_only": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_tmp_only.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "vfs_tmp_only:read_/tmp/foo"
+        }
+      ]
+    }
+  }
+}

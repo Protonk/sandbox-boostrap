@@ -1,0 +1,90 @@
+{
+  "proposals": [
+    {
+      "candidate_after": {
+        "probe_name": "allow-tmp",
+        "profile_id": "adv:path_canon_alt",
+        "scenario_id": "adv:path_canon_alt:allow-tmp"
+      },
+      "candidate_before": {
+        "probe_name": "allow-tmp",
+        "profile_id": "adv:path_edges_private",
+        "scenario_id": "adv:path_edges_private:allow-tmp"
+      },
+      "decision": {
+        "actual": "allow",
+        "expected": "allow",
+        "failure_kind": null,
+        "failure_stage": null,
+        "operation": "file-read*",
+        "runtime_status": "success",
+        "source": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/a00a61e4-0732-42ff-b075-2baeb0cb88d0/runtime_events.normalized.json",
+        "target": "/tmp/strict_ok/allow.txt"
+      },
+      "field2": 0,
+      "filter_name": "path",
+      "status": "decided"
+    }
+  ],
+  "provenance": {
+    "artifact_index": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/a00a61e4-0732-42ff-b075-2baeb0cb88d0/artifact_index.json",
+    "artifact_index_sha256": "abf26a53e3ce81b7385c36d36f8251d3eb81f1b78f47ebc5bca7ff7e8a1817cc",
+    "bundle_dir": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/a00a61e4-0732-42ff-b075-2baeb0cb88d0",
+    "consumption_receipt": "book/evidence/experiments/field2-final-final/field2-atlas/out/derived/a00a61e4-0732-42ff-b075-2baeb0cb88d0/consumption_receipt.json",
+    "exports": {
+      "baseline_results": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/a00a61e4-0732-42ff-b075-2baeb0cb88d0/baseline_results.json",
+      "path_witnesses": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/a00a61e4-0732-42ff-b075-2baeb0cb88d0/path_witnesses.json",
+      "run_manifest": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/a00a61e4-0732-42ff-b075-2baeb0cb88d0/run_manifest.json",
+      "runtime_events": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/a00a61e4-0732-42ff-b075-2baeb0cb88d0/runtime_events.normalized.json"
+    },
+    "packet": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/a00a61e4-0732-42ff-b075-2baeb0cb88d0/promotion_packet.json",
+    "run_id": "a00a61e4-0732-42ff-b075-2baeb0cb88d0"
+  },
+  "schema_version": "field2-atlas.mapping_delta.v0",
+  "source_artifacts": {
+    "runtime_events": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/a00a61e4-0732-42ff-b075-2baeb0cb88d0/runtime_events.normalized.json"
+  },
+  "unresolved": [
+    {
+      "candidate": {
+        "probe_name": "allow-shm",
+        "profile_id": "adv:ipc_posix_shm",
+        "scenario_id": "adv:ipc_posix_shm:allow-shm"
+      },
+      "field2": 4,
+      "filter_name": "ipc-posix-name",
+      "reason": "no_alternate_candidate"
+    },
+    {
+      "candidate": {
+        "probe_name": "allow-right",
+        "profile_id": "adv:authorization_right",
+        "scenario_id": "adv:authorization_right:allow-right"
+      },
+      "field2": 26,
+      "filter_name": "right-name",
+      "reason": "no_alternate_candidate"
+    },
+    {
+      "candidate": {
+        "probe_name": "allow-domain",
+        "profile_id": "adv:preference_domain",
+        "scenario_id": "adv:preference_domain:allow-domain"
+      },
+      "field2": 27,
+      "filter_name": "preference-domain",
+      "reason": "no_alternate_candidate"
+    },
+    {
+      "candidate": {
+        "probe_name": "allow-cfprefsd-xpc",
+        "profile_id": "adv:xpc_service_name",
+        "scenario_id": "adv:xpc_service_name:allow-cfprefsd-xpc"
+      },
+      "field2": 49,
+      "filter_name": "xpc-service-name",
+      "reason": "no_alternate_candidate"
+    }
+  ],
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

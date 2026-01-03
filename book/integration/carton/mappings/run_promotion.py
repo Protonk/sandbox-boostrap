@@ -32,7 +32,7 @@ def run_validation(tags):
     This keeps promotion tied to the same validation gates used to vet the
     mappings (smoke/system-profiles/etc.).
     """
-    cmd = [sys.executable, "-m", "book.graph.concepts.validation"]
+    cmd = [sys.executable, "-m", "book.integration.carton", "validate"]
     for tag in tags:
         cmd.extend(["--tag", tag])
     subprocess.check_call(cmd, cwd=REPO_ROOT)

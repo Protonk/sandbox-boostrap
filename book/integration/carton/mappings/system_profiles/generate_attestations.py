@@ -37,7 +37,7 @@ if str(REPO_ROOT) not in sys.path:
 from book.api.profile import decoder
 from book.api.profile.op_table import op_entries
 from book.api import world as world_mod
-from book.graph.concepts.validation import profile_ingestion as pi
+from book.integration.carton.validation import profile_ingestion as pi
 
 
 OUT_JSON = REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/system_profiles/attestations.json"

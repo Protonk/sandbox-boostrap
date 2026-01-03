@@ -1,0 +1,63 @@
+{
+  "schema_version": "runtime-tools.path_witnesses.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "4dcf011e-6ee8-4a91-9b83-f15fceb44381",
+  "plan_id": "vfs-canonicalization.v1",
+  "records": [
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "vfs_tmp_only",
+      "scenario_id": "baseline:vfs_tmp_only:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "vfs_tmp_only",
+      "scenario_id": "vfs_tmp_only:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/4dcf011e-6ee8-4a91-9b83-f15fceb44381/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+        "/tmp/foo"
+      ]
+    }
+  ]
+}

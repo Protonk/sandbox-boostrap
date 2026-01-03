@@ -1,0 +1,29 @@
+(version 1)
+(deny default)
+
+(allow ipc-posix-shm-write-create
+  (ipc-posix-name "sbl.ipc.shm.allow"))
+(allow ipc-posix-shm-write-data
+  (ipc-posix-name "sbl.ipc.shm.allow"))
+(allow ipc-posix-shm-read-data
+  (ipc-posix-name "sbl.ipc.shm.allow"))
+(allow ipc-posix-shm-write-unlink
+  (ipc-posix-name "sbl.ipc.shm.allow"))
+
+(deny ipc-posix-shm-write-create
+  (ipc-posix-name "sbl.ipc.shm.deny"))
+(deny ipc-posix-shm-write-data
+  (ipc-posix-name "sbl.ipc.shm.deny"))
+(deny ipc-posix-shm-read-data
+  (ipc-posix-name "sbl.ipc.shm.deny"))
+(deny ipc-posix-shm-write-unlink
+  (ipc-posix-name "sbl.ipc.shm.deny"))
+(allow process-exec*)
+(allow file-read* (subpath "/System"))
+(allow file-read* (subpath "/usr"))
+(allow file-read* (subpath "/bin"))
+(allow file-read* (subpath "/sbin"))
+(allow file-read* (subpath "/dev"))
+(allow file-read-metadata (literal "/private"))
+(allow file-read-metadata (literal "/private/tmp"))
+(allow file-read-metadata (literal "/tmp"))

@@ -1,0 +1,156 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "source_jobs": [],
+    "notes": "op-level runtime summary"
+  },
+  "ops": {
+    "ipc-posix-shm-write-create": {
+      "op_name": "ipc-posix-shm-write-create",
+      "op_id": 78,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 2,
+      "matches": 2,
+      "mismatches": 0,
+      "probes_including_blocked": 2,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "unobserved": 0,
+      "examples": [
+        {
+          "scenario_id": "adv:ipc_posix_shm:allow-shm",
+          "expectation_id": "adv:ipc_posix_shm:allow-shm",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:ipc_posix_shm:deny-shm",
+          "expectation_id": "adv:ipc_posix_shm:deny-shm",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "adv:ipc_posix_shm:allow-shm",
+        "adv:ipc_posix_shm:deny-shm"
+      ],
+      "coverage_status": "ok"
+    },
+    "authorization-right-obtain": {
+      "op_name": "authorization-right-obtain",
+      "op_id": 2,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 2,
+      "matches": 2,
+      "mismatches": 0,
+      "probes_including_blocked": 2,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "unobserved": 0,
+      "examples": [
+        {
+          "scenario_id": "adv:authorization_right:allow-right",
+          "expectation_id": "adv:authorization_right:allow-right",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:authorization_right:deny-right",
+          "expectation_id": "adv:authorization_right:deny-right",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "adv:authorization_right:allow-right",
+        "adv:authorization_right:deny-right"
+      ],
+      "coverage_status": "ok"
+    },
+    "user-preference-read": {
+      "op_name": "user-preference-read",
+      "op_id": 185,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 2,
+      "matches": 2,
+      "mismatches": 0,
+      "probes_including_blocked": 2,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "unobserved": 0,
+      "examples": [
+        {
+          "scenario_id": "adv:preference_domain:allow-domain",
+          "expectation_id": "adv:preference_domain:allow-domain",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:preference_domain:deny-domain",
+          "expectation_id": "adv:preference_domain:deny-domain",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "adv:preference_domain:allow-domain",
+        "adv:preference_domain:deny-domain"
+      ],
+      "coverage_status": "ok"
+    },
+    "mach-lookup": {
+      "op_name": "mach-lookup",
+      "op_id": 96,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 2,
+      "matches": 2,
+      "mismatches": 0,
+      "probes_including_blocked": 2,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "unobserved": 0,
+      "examples": [
+        {
+          "scenario_id": "adv:xpc_service_name:allow-cfprefsd-xpc",
+          "expectation_id": "adv:xpc_service_name:allow-cfprefsd-xpc",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:xpc_service_name:deny-bogus-xpc",
+          "expectation_id": "adv:xpc_service_name:deny-bogus-xpc",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "adv:xpc_service_name:allow-cfprefsd-xpc",
+        "adv:xpc_service_name:deny-bogus-xpc"
+      ],
+      "coverage_status": "ok"
+    }
+  }
+}

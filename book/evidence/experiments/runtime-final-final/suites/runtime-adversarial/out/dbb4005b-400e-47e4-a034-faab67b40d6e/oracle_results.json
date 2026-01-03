@@ -1,0 +1,95 @@
+{
+  "schema_version": "runtime-tools.oracle_results.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "dbb4005b-400e-47e4-a034-faab67b40d6e",
+  "results": [
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "run_id": "dbb4005b-400e-47e4-a034-faab67b40d6e",
+      "expectation_id": "adv:ipc_posix_shm:allow-shm",
+      "operation": "ipc-posix-shm-write-create",
+      "filter_type": 17,
+      "filter_type_name": "unknown",
+      "argument": "sbl.ipc.shm.allow",
+      "decision": "allow",
+      "stage": "preflight"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "run_id": "dbb4005b-400e-47e4-a034-faab67b40d6e",
+      "expectation_id": "adv:ipc_posix_shm:deny-shm",
+      "operation": "ipc-posix-shm-write-create",
+      "filter_type": 17,
+      "filter_type_name": "unknown",
+      "argument": "sbl.ipc.shm.deny",
+      "decision": "deny",
+      "stage": "preflight"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "run_id": "dbb4005b-400e-47e4-a034-faab67b40d6e",
+      "expectation_id": "adv:authorization_right:allow-right",
+      "operation": "authorization-right-obtain",
+      "filter_type": 5,
+      "filter_type_name": "global-name",
+      "argument": "system.preferences",
+      "decision": "allow",
+      "stage": "preflight"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "run_id": "dbb4005b-400e-47e4-a034-faab67b40d6e",
+      "expectation_id": "adv:authorization_right:deny-right",
+      "operation": "authorization-right-obtain",
+      "filter_type": 5,
+      "filter_type_name": "global-name",
+      "argument": "system.preferences.privacy",
+      "decision": "deny",
+      "stage": "preflight"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "run_id": "dbb4005b-400e-47e4-a034-faab67b40d6e",
+      "expectation_id": "adv:preference_domain:allow-domain",
+      "operation": "user-preference-read",
+      "filter_type": 6,
+      "filter_type_name": "local-name",
+      "argument": "com.apple.TimeMachine",
+      "decision": "allow",
+      "stage": "preflight"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "run_id": "dbb4005b-400e-47e4-a034-faab67b40d6e",
+      "expectation_id": "adv:preference_domain:deny-domain",
+      "operation": "user-preference-read",
+      "filter_type": 6,
+      "filter_type_name": "local-name",
+      "argument": "com.apple.sandboxadversarial.fake",
+      "decision": "deny",
+      "stage": "preflight"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "run_id": "dbb4005b-400e-47e4-a034-faab67b40d6e",
+      "expectation_id": "adv:xpc_service_name:allow-cfprefsd-xpc",
+      "operation": "mach-lookup",
+      "filter_type": 12,
+      "filter_type_name": "unknown",
+      "argument": "com.apple.cfprefsd.xpc",
+      "decision": "allow",
+      "stage": "preflight"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "run_id": "dbb4005b-400e-47e4-a034-faab67b40d6e",
+      "expectation_id": "adv:xpc_service_name:deny-bogus-xpc",
+      "operation": "mach-lookup",
+      "filter_type": 12,
+      "filter_type_name": "unknown",
+      "argument": "com.apple.sandboxadversarial.fake.xpc",
+      "decision": "deny",
+      "stage": "preflight"
+    }
+  ]
+}

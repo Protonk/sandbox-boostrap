@@ -54,8 +54,14 @@ Two supported read modes exist:
 - and `normalized_path` (a conservative join key derived from the fields above).
 - `canonicalization.alias_pair` / `canonicalization.nofirmlink_differs` flags to
   keep alias and firmlink distinctions visible without re-deriving them.
+- optional `fd_identity` fields (when enabled) to attach object identity to a successful open:
+  - `st_dev`, `st_ino` (from `fstat(2)`),
+  - `fstypename`, `mntonname`, `fsid` (from `fstatfs(2)`),
+  - and `fstat_errno` / `fstatfs_errno` when those metadata calls fail after a successful open.
 
 This IR exists so VFS canonicalization work can be expressed as stable inputs/outputs without embedding ad-hoc stderr parsing in experiments.
+
+FD identity emission is opt-in via `SANDBOX_LORE_FD_IDENTITY=1`. It is best-effort and non-fatal: if the sandbox denies metadata calls (for example `file-read-metadata` surfaces), the probe continues and the witness records `fstat_errno` / `fstatfs_errno` instead of failing.
 
 ### 1.6 Normalized runtime events (`runtime_events.normalized.json`)
 

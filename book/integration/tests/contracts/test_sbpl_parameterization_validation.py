@@ -2,11 +2,11 @@ import json
 
 import pytest
 
-from book.graph.concepts.validation.sbpl_param_value_matrix_job import (
+from book.integration.carton.validation.sbpl_param_value_matrix_job import (
     STATUS_PATH as MATRIX_STATUS_PATH,
     run_sbpl_param_value_matrix_job,
 )
-from book.graph.concepts.validation.sbpl_parameterization_job import STATUS_PATH, run_sbpl_parameterization_job
+from book.integration.carton.validation.sbpl_parameterization_job import STATUS_PATH, run_sbpl_parameterization_job
 
 
 @pytest.mark.system

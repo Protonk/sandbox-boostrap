@@ -128,6 +128,39 @@ def cmd_explain(args: argparse.Namespace) -> None:
         print(line)
 
 
+def cmd_validate(args: argparse.Namespace) -> None:
+    from book.integration.carton.validation import __main__ as validation_main
+
+    argv: List[str] = []
+    if args.all:
+        argv.append("--all")
+    for job_id in args.id:
+        argv.extend(["--id", job_id])
+    for tag in args.tag:
+        argv.extend(["--tag", tag])
+    for experiment in args.experiment:
+        argv.extend(["--experiment", experiment])
+    if args.skip_missing_inputs:
+        argv.append("--skip-missing-inputs")
+    if args.list:
+        argv.append("--list")
+    if args.describe:
+        argv.extend(["--describe", args.describe])
+    validation_main.main(argv)
+
+
+def cmd_swift(args: argparse.Namespace) -> None:
+    from book.integration.carton.jobs import graph as graph_jobs
+
+    repo_root = _repo_root()
+    if args.build and args.run:
+        raise SystemExit("swift: choose one of --build or --run")
+    if args.build:
+        graph_jobs.run_swift_build(repo_root)
+        return
+    graph_jobs.run_swift_run(repo_root)
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="CARTON pipeline CLI")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -170,6 +203,23 @@ def build_parser() -> argparse.ArgumentParser:
     explain = subparsers.add_parser("explain", help="Explain a CARTON job")
     explain.add_argument("job_id", help="job id to explain")
     explain.set_defaults(func=cmd_explain)
+
+    validate = subparsers.add_parser("validate", help="Run validation jobs")
+    validate.add_argument("--all", action="store_true", help="run all registered jobs")
+    validate.add_argument("--id", action="append", default=[], help="run a specific job id (repeatable)")
+    validate.add_argument("--tag", action="append", default=[], help="run jobs matching tag (repeatable)")
+    validate.add_argument(
+        "--experiment", action="append", default=[], help="run jobs matching experiment (repeatable)"
+    )
+    validate.add_argument("--skip-missing-inputs", action="store_true", help="skip jobs whose inputs are absent")
+    validate.add_argument("--list", action="store_true", help="list available jobs and exit")
+    validate.add_argument("--describe", help="show details for a specific job id and exit")
+    validate.set_defaults(func=cmd_validate)
+
+    swift = subparsers.add_parser("swift", help="Run the Swift graph tool")
+    swift.add_argument("--run", action="store_true", help="run the Swift graph tool")
+    swift.add_argument("--build", action="store_true", help="build the Swift graph tool")
+    swift.set_defaults(func=cmd_swift)
 
     return parser
 

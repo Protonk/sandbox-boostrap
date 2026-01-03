@@ -1,0 +1,838 @@
+{
+  "adv:ipc_posix_shm": {
+    "status": "ok",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/ipc_posix_shm.adv_ipc_posix_shm.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/ipc_posix_shm.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/ipc_posix_shm.adv_ipc_posix_shm.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "allow-shm",
+        "expectation_id": "adv:ipc_posix_shm:allow-shm",
+        "operation": "ipc-posix-shm-write-create",
+        "path": "sbl.ipc.shm.allow",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": -6,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_runner",
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": false,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+            "entrypoint_sha256": "f861cec8738ef675d0e37aba769aa778270823f17cc600b0c3b76329125a0d10",
+            "tool_build_id": "f861cec8738ef675d0e37aba769aa778270823f17cc600b0c3b76329125a0d10"
+          },
+          "seatbelt_callouts": [
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "preflight",
+              "api": "sandbox_check",
+              "operation": "ipc-posix-shm-write-create",
+              "filter_type": 17,
+              "filter_type_name": "unknown",
+              "check_type": 1073741841,
+              "varargs_count": 1,
+              "argument": "sbl.ipc.shm.allow",
+              "canonicalization": "raw",
+              "canonical_flag_used": false,
+              "canonical_flag_reason": "not_requested",
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 0,
+              "errno": 0,
+              "decision": "allow",
+              "no_report_reason": null
+            }
+          ],
+          "intended_op_witnessed": true,
+          "sandbox_check_request": {
+            "operation": "ipc-posix-shm-write-create",
+            "filter_type": 17,
+            "filter_name": "ipc-posix-name",
+            "argument": "sbl.ipc.shm.allow"
+          },
+          "resource_hygiene": {
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": false,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/ipc_posix_shm.adv_ipc_posix_shm.runtime.sb",
+          "--",
+          "/usr/bin/true"
+        ],
+        "exit_code": -6,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/ipc_posix_shm.adv_ipc_posix_shm.runtime.sb\",\"pid\":76654}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/ipc_posix_shm.adv_ipc_posix_shm.runtime.sb\",\"pid\":76654}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"ipc-posix-shm-write-create\",\"filter_type\":17,\"filter_type_name\":\"unknown\",\"check_type\":1073741841,\"varargs_count\":1,\"argument\":\"sbl.ipc.shm.allow\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":0,\"errno\":0,\"decision\":\"allow\"}\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767425366.75857,
+        "cmd_finished_at_unix_s": 1767425366.772984,
+        "cmd_duration_s": 0.014414072036743164,
+        "sandbox_check_request": {
+          "operation": "ipc-posix-shm-write-create",
+          "filter_type": 17,
+          "filter_name": "ipc-posix-name",
+          "argument": "sbl.ipc.shm.allow"
+        },
+        "decision_source": "seatbelt_callout"
+      },
+      {
+        "name": "deny-shm",
+        "expectation_id": "adv:ipc_posix_shm:deny-shm",
+        "operation": "ipc-posix-shm-write-create",
+        "path": "sbl.ipc.shm.deny",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": -6,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_runner",
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": false,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+            "entrypoint_sha256": "f861cec8738ef675d0e37aba769aa778270823f17cc600b0c3b76329125a0d10",
+            "tool_build_id": "f861cec8738ef675d0e37aba769aa778270823f17cc600b0c3b76329125a0d10"
+          },
+          "seatbelt_callouts": [
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "preflight",
+              "api": "sandbox_check",
+              "operation": "ipc-posix-shm-write-create",
+              "filter_type": 17,
+              "filter_type_name": "unknown",
+              "check_type": 1073741841,
+              "varargs_count": 1,
+              "argument": "sbl.ipc.shm.deny",
+              "canonicalization": "raw",
+              "canonical_flag_used": false,
+              "canonical_flag_reason": "not_requested",
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 1,
+              "errno": 0,
+              "decision": "deny",
+              "no_report_reason": null
+            }
+          ],
+          "intended_op_witnessed": true,
+          "sandbox_check_request": {
+            "operation": "ipc-posix-shm-write-create",
+            "filter_type": 17,
+            "filter_name": "ipc-posix-name",
+            "argument": "sbl.ipc.shm.deny"
+          },
+          "resource_hygiene": {
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": false,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/ipc_posix_shm.adv_ipc_posix_shm.runtime.sb",
+          "--",
+          "/usr/bin/true"
+        ],
+        "exit_code": -6,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/ipc_posix_shm.adv_ipc_posix_shm.runtime.sb\",\"pid\":76657}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/ipc_posix_shm.adv_ipc_posix_shm.runtime.sb\",\"pid\":76657}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"ipc-posix-shm-write-create\",\"filter_type\":17,\"filter_type_name\":\"unknown\",\"check_type\":1073741841,\"varargs_count\":1,\"argument\":\"sbl.ipc.shm.deny\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767425366.7738361,
+        "cmd_finished_at_unix_s": 1767425366.789046,
+        "cmd_duration_s": 0.01520991325378418,
+        "sandbox_check_request": {
+          "operation": "ipc-posix-shm-write-create",
+          "filter_type": 17,
+          "filter_name": "ipc-posix-name",
+          "argument": "sbl.ipc.shm.deny"
+        },
+        "decision_source": "seatbelt_callout"
+      }
+    ],
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "dbb4005b-400e-47e4-a034-faab67b40d6e"
+  },
+  "adv:authorization_right": {
+    "status": "ok",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/authorization_right.adv_authorization_right.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/authorization_right.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/authorization_right.adv_authorization_right.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "allow-right",
+        "expectation_id": "adv:authorization_right:allow-right",
+        "operation": "authorization-right-obtain",
+        "path": "system.preferences",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": -6,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_runner",
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": false,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+            "entrypoint_sha256": "f861cec8738ef675d0e37aba769aa778270823f17cc600b0c3b76329125a0d10",
+            "tool_build_id": "f861cec8738ef675d0e37aba769aa778270823f17cc600b0c3b76329125a0d10"
+          },
+          "seatbelt_callouts": [
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "preflight",
+              "api": "sandbox_check",
+              "operation": "authorization-right-obtain",
+              "filter_type": 5,
+              "filter_type_name": "global-name",
+              "check_type": 1073741829,
+              "varargs_count": 1,
+              "argument": "system.preferences",
+              "canonicalization": "raw",
+              "canonical_flag_used": false,
+              "canonical_flag_reason": "not_requested",
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 0,
+              "errno": 0,
+              "decision": "allow",
+              "no_report_reason": null
+            }
+          ],
+          "intended_op_witnessed": true,
+          "sandbox_check_request": {
+            "operation": "authorization-right-obtain",
+            "filter_type": 5,
+            "filter_name": "right-name",
+            "argument": "system.preferences"
+          },
+          "resource_hygiene": {
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": false,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/authorization_right.adv_authorization_right.runtime.sb",
+          "--",
+          "/usr/bin/true"
+        ],
+        "exit_code": -6,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/authorization_right.adv_authorization_right.runtime.sb\",\"pid\":76658}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/authorization_right.adv_authorization_right.runtime.sb\",\"pid\":76658}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"authorization-right-obtain\",\"filter_type\":5,\"filter_type_name\":\"global-name\",\"check_type\":1073741829,\"varargs_count\":1,\"argument\":\"system.preferences\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":0,\"errno\":0,\"decision\":\"allow\"}\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767425366.790616,
+        "cmd_finished_at_unix_s": 1767425366.842271,
+        "cmd_duration_s": 0.05165505409240723,
+        "sandbox_check_request": {
+          "operation": "authorization-right-obtain",
+          "filter_type": 5,
+          "filter_name": "right-name",
+          "argument": "system.preferences"
+        },
+        "decision_source": "seatbelt_callout"
+      },
+      {
+        "name": "deny-right",
+        "expectation_id": "adv:authorization_right:deny-right",
+        "operation": "authorization-right-obtain",
+        "path": "system.preferences.privacy",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": -6,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_runner",
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": false,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+            "entrypoint_sha256": "f861cec8738ef675d0e37aba769aa778270823f17cc600b0c3b76329125a0d10",
+            "tool_build_id": "f861cec8738ef675d0e37aba769aa778270823f17cc600b0c3b76329125a0d10"
+          },
+          "seatbelt_callouts": [
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "preflight",
+              "api": "sandbox_check",
+              "operation": "authorization-right-obtain",
+              "filter_type": 5,
+              "filter_type_name": "global-name",
+              "check_type": 1073741829,
+              "varargs_count": 1,
+              "argument": "system.preferences.privacy",
+              "canonicalization": "raw",
+              "canonical_flag_used": false,
+              "canonical_flag_reason": "not_requested",
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 1,
+              "errno": 0,
+              "decision": "deny",
+              "no_report_reason": null
+            }
+          ],
+          "intended_op_witnessed": true,
+          "sandbox_check_request": {
+            "operation": "authorization-right-obtain",
+            "filter_type": 5,
+            "filter_name": "right-name",
+            "argument": "system.preferences.privacy"
+          },
+          "resource_hygiene": {
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": false,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/authorization_right.adv_authorization_right.runtime.sb",
+          "--",
+          "/usr/bin/true"
+        ],
+        "exit_code": -6,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/authorization_right.adv_authorization_right.runtime.sb\",\"pid\":76659}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/authorization_right.adv_authorization_right.runtime.sb\",\"pid\":76659}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"authorization-right-obtain\",\"filter_type\":5,\"filter_type_name\":\"global-name\",\"check_type\":1073741829,\"varargs_count\":1,\"argument\":\"system.preferences.privacy\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767425366.842974,
+        "cmd_finished_at_unix_s": 1767425366.8540428,
+        "cmd_duration_s": 0.01106882095336914,
+        "sandbox_check_request": {
+          "operation": "authorization-right-obtain",
+          "filter_type": 5,
+          "filter_name": "right-name",
+          "argument": "system.preferences.privacy"
+        },
+        "decision_source": "seatbelt_callout"
+      }
+    ],
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "dbb4005b-400e-47e4-a034-faab67b40d6e"
+  },
+  "adv:preference_domain": {
+    "status": "ok",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/preference_domain.adv_preference_domain.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/preference_domain.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/preference_domain.adv_preference_domain.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "allow-domain",
+        "expectation_id": "adv:preference_domain:allow-domain",
+        "operation": "user-preference-read",
+        "path": "com.apple.TimeMachine",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": -6,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_runner",
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": false,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+            "entrypoint_sha256": "f861cec8738ef675d0e37aba769aa778270823f17cc600b0c3b76329125a0d10",
+            "tool_build_id": "f861cec8738ef675d0e37aba769aa778270823f17cc600b0c3b76329125a0d10"
+          },
+          "seatbelt_callouts": [
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "preflight",
+              "api": "sandbox_check",
+              "operation": "user-preference-read",
+              "filter_type": 6,
+              "filter_type_name": "local-name",
+              "check_type": 1073741830,
+              "varargs_count": 1,
+              "argument": "com.apple.TimeMachine",
+              "canonicalization": "raw",
+              "canonical_flag_used": false,
+              "canonical_flag_reason": "not_requested",
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 0,
+              "errno": 0,
+              "decision": "allow",
+              "no_report_reason": null
+            }
+          ],
+          "intended_op_witnessed": true,
+          "sandbox_check_request": {
+            "operation": "user-preference-read",
+            "filter_type": 6,
+            "filter_name": "preference-domain",
+            "argument": "com.apple.TimeMachine"
+          },
+          "resource_hygiene": {
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": false,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/preference_domain.adv_preference_domain.runtime.sb",
+          "--",
+          "/usr/bin/true"
+        ],
+        "exit_code": -6,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/preference_domain.adv_preference_domain.runtime.sb\",\"pid\":76660}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/preference_domain.adv_preference_domain.runtime.sb\",\"pid\":76660}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"user-preference-read\",\"filter_type\":6,\"filter_type_name\":\"local-name\",\"check_type\":1073741830,\"varargs_count\":1,\"argument\":\"com.apple.TimeMachine\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":0,\"errno\":0,\"decision\":\"allow\"}\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767425366.855406,
+        "cmd_finished_at_unix_s": 1767425366.865182,
+        "cmd_duration_s": 0.009775876998901367,
+        "sandbox_check_request": {
+          "operation": "user-preference-read",
+          "filter_type": 6,
+          "filter_name": "preference-domain",
+          "argument": "com.apple.TimeMachine"
+        },
+        "decision_source": "seatbelt_callout"
+      },
+      {
+        "name": "deny-domain",
+        "expectation_id": "adv:preference_domain:deny-domain",
+        "operation": "user-preference-read",
+        "path": "com.apple.sandboxadversarial.fake",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": -6,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_runner",
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": false,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+            "entrypoint_sha256": "f861cec8738ef675d0e37aba769aa778270823f17cc600b0c3b76329125a0d10",
+            "tool_build_id": "f861cec8738ef675d0e37aba769aa778270823f17cc600b0c3b76329125a0d10"
+          },
+          "seatbelt_callouts": [
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "preflight",
+              "api": "sandbox_check",
+              "operation": "user-preference-read",
+              "filter_type": 6,
+              "filter_type_name": "local-name",
+              "check_type": 1073741830,
+              "varargs_count": 1,
+              "argument": "com.apple.sandboxadversarial.fake",
+              "canonicalization": "raw",
+              "canonical_flag_used": false,
+              "canonical_flag_reason": "not_requested",
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 1,
+              "errno": 0,
+              "decision": "deny",
+              "no_report_reason": null
+            }
+          ],
+          "intended_op_witnessed": true,
+          "sandbox_check_request": {
+            "operation": "user-preference-read",
+            "filter_type": 6,
+            "filter_name": "preference-domain",
+            "argument": "com.apple.sandboxadversarial.fake"
+          },
+          "resource_hygiene": {
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": false,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/preference_domain.adv_preference_domain.runtime.sb",
+          "--",
+          "/usr/bin/true"
+        ],
+        "exit_code": -6,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/preference_domain.adv_preference_domain.runtime.sb\",\"pid\":76661}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/preference_domain.adv_preference_domain.runtime.sb\",\"pid\":76661}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"user-preference-read\",\"filter_type\":6,\"filter_type_name\":\"local-name\",\"check_type\":1073741830,\"varargs_count\":1,\"argument\":\"com.apple.sandboxadversarial.fake\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767425366.865717,
+        "cmd_finished_at_unix_s": 1767425366.8739572,
+        "cmd_duration_s": 0.008240222930908203,
+        "sandbox_check_request": {
+          "operation": "user-preference-read",
+          "filter_type": 6,
+          "filter_name": "preference-domain",
+          "argument": "com.apple.sandboxadversarial.fake"
+        },
+        "decision_source": "seatbelt_callout"
+      }
+    ],
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "dbb4005b-400e-47e4-a034-faab67b40d6e"
+  },
+  "adv:xpc_service_name": {
+    "status": "ok",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/xpc_service_name.adv_xpc_service_name.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/xpc_service_name.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/xpc_service_name.adv_xpc_service_name.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "allow-cfprefsd-xpc",
+        "expectation_id": "adv:xpc_service_name:allow-cfprefsd-xpc",
+        "operation": "mach-lookup",
+        "path": "com.apple.cfprefsd.xpc",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": null,
+          "failure_kind": null,
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_runner",
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": false,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+            "entrypoint_sha256": "f861cec8738ef675d0e37aba769aa778270823f17cc600b0c3b76329125a0d10",
+            "tool_build_id": "f861cec8738ef675d0e37aba769aa778270823f17cc600b0c3b76329125a0d10"
+          },
+          "seatbelt_callouts": [
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "preflight",
+              "api": "sandbox_check",
+              "operation": "mach-lookup",
+              "filter_type": 12,
+              "filter_type_name": "unknown",
+              "check_type": 1073741836,
+              "varargs_count": 1,
+              "argument": "com.apple.cfprefsd.xpc",
+              "canonicalization": "raw",
+              "canonical_flag_used": false,
+              "canonical_flag_reason": "not_requested",
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 0,
+              "errno": 0,
+              "decision": "allow",
+              "no_report_reason": null
+            }
+          ],
+          "intended_op_witnessed": true,
+          "sandbox_check_request": {
+            "operation": "mach-lookup",
+            "filter_type": 12,
+            "filter_name": "xpc-service-name",
+            "argument": "com.apple.cfprefsd.xpc"
+          },
+          "resource_hygiene": {
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": false,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/xpc_service_name.adv_xpc_service_name.runtime.sb",
+          "--",
+          "/usr/bin/true"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/xpc_service_name.adv_xpc_service_name.runtime.sb\",\"pid\":76662}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/xpc_service_name.adv_xpc_service_name.runtime.sb\",\"pid\":76662}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"mach-lookup\",\"filter_type\":12,\"filter_type_name\":\"unknown\",\"check_type\":1073741836,\"varargs_count\":1,\"argument\":\"com.apple.cfprefsd.xpc\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":0,\"errno\":0,\"decision\":\"allow\"}\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767425366.8750029,
+        "cmd_finished_at_unix_s": 1767425366.882883,
+        "cmd_duration_s": 0.007880210876464844,
+        "sandbox_check_request": {
+          "operation": "mach-lookup",
+          "filter_type": 12,
+          "filter_name": "xpc-service-name",
+          "argument": "com.apple.cfprefsd.xpc"
+        },
+        "decision_source": "seatbelt_callout"
+      },
+      {
+        "name": "deny-bogus-xpc",
+        "expectation_id": "adv:xpc_service_name:deny-bogus-xpc",
+        "operation": "mach-lookup",
+        "path": "com.apple.sandboxadversarial.fake.xpc",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": null,
+          "failure_kind": null,
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_runner",
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": false,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+            "entrypoint_sha256": "f861cec8738ef675d0e37aba769aa778270823f17cc600b0c3b76329125a0d10",
+            "tool_build_id": "f861cec8738ef675d0e37aba769aa778270823f17cc600b0c3b76329125a0d10"
+          },
+          "seatbelt_callouts": [
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "preflight",
+              "api": "sandbox_check",
+              "operation": "mach-lookup",
+              "filter_type": 12,
+              "filter_type_name": "unknown",
+              "check_type": 1073741836,
+              "varargs_count": 1,
+              "argument": "com.apple.sandboxadversarial.fake.xpc",
+              "canonicalization": "raw",
+              "canonical_flag_used": false,
+              "canonical_flag_reason": "not_requested",
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 1,
+              "errno": 0,
+              "decision": "deny",
+              "no_report_reason": null
+            }
+          ],
+          "intended_op_witnessed": true,
+          "sandbox_check_request": {
+            "operation": "mach-lookup",
+            "filter_type": 12,
+            "filter_name": "xpc-service-name",
+            "argument": "com.apple.sandboxadversarial.fake.xpc"
+          },
+          "resource_hygiene": {
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": false,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/xpc_service_name.adv_xpc_service_name.runtime.sb",
+          "--",
+          "/usr/bin/true"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/xpc_service_name.adv_xpc_service_name.runtime.sb\",\"pid\":76663}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.dbb4005b-400e-47e4-a034-faab67b40d6e/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/dbb4005b-400e-47e4-a034-faab67b40d6e/runtime_profiles/xpc_service_name.adv_xpc_service_name.runtime.sb\",\"pid\":76663}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"mach-lookup\",\"filter_type\":12,\"filter_type_name\":\"unknown\",\"check_type\":1073741836,\"varargs_count\":1,\"argument\":\"com.apple.sandboxadversarial.fake.xpc\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767425366.8832698,
+        "cmd_finished_at_unix_s": 1767425366.890445,
+        "cmd_duration_s": 0.0071752071380615234,
+        "sandbox_check_request": {
+          "operation": "mach-lookup",
+          "filter_type": 12,
+          "filter_name": "xpc-service-name",
+          "argument": "com.apple.sandboxadversarial.fake.xpc"
+        },
+        "decision_source": "seatbelt_callout"
+      }
+    ],
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "dbb4005b-400e-47e4-a034-faab67b40d6e"
+  }
+}

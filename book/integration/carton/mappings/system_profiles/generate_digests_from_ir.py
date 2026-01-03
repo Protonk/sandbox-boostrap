@@ -78,7 +78,7 @@ CONTRACT_FIELDS = [
 
 
 def run_validation():
-    cmd = [sys.executable, "-m", "book.graph.concepts.validation", "--tag", "system-profiles"]
+    cmd = [sys.executable, "-m", "book.integration.carton", "validate", "--tag", "system-profiles"]
     subprocess.check_call(cmd, cwd=ROOT)
 
 

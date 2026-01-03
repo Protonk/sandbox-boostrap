@@ -1,0 +1,946 @@
+[
+  {
+    "actual": "allow",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/ipc_posix_shm.adv_ipc_posix_shm.runtime.sb",
+      "--",
+      "/usr/bin/true"
+    ],
+    "expectation_id": "adv:ipc_posix_shm:allow-shm",
+    "expected": "allow",
+    "intended_op_witnessed": true,
+    "match": true,
+    "operation": "ipc-posix-shm-write-create",
+    "policy_layers": {
+      "attribution": "allow",
+      "effective_decision": "allow",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "allow",
+        "failure_kind": null,
+        "failure_stage": null,
+        "status": "success"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/ipc_posix_shm.adv_ipc_posix_shm.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "allow-shm",
+    "profile_id": "adv:ipc_posix_shm",
+    "resource_hygiene": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": false,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "8e462c5f-f64f-462a-86e0-ac6bbf1db998",
+    "runner_info": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "entrypoint": "sandbox_runner",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "entrypoint_sha256": "a6204fd773aeda8ca03f578f5a08069f0e869922cbbc3f32a203b4b72831914b",
+      "preexisting_sandbox_suspected": false,
+      "tool_build_id": "a6204fd773aeda8ca03f578f5a08069f0e869922cbbc3f32a203b4b72831914b"
+    },
+    "runtime_status": "success",
+    "sandbox_check_prepass": {
+      "api": "sandbox_check",
+      "argument": "sbl.ipc.shm.allow",
+      "canonical_flag_reason": "not_requested",
+      "canonical_flag_used": false,
+      "canonicalization": "raw",
+      "decision": "allow",
+      "errno": 0,
+      "filter_type": 17,
+      "filter_type_name": "unknown",
+      "no_report": true,
+      "no_report_reason": null,
+      "operation": "ipc-posix-shm-write-create",
+      "rc": 0,
+      "stage": "preflight",
+      "token_mach_kr": 0,
+      "token_status": "pid"
+    },
+    "scenario_id": "adv:ipc_posix_shm:allow-shm",
+    "seatbelt_callouts": [
+      {
+        "api": "sandbox_check",
+        "argument": "sbl.ipc.shm.allow",
+        "canonical_flag_reason": "not_requested",
+        "canonical_flag_used": false,
+        "canonicalization": "raw",
+        "check_type": 1073741841,
+        "decision": "allow",
+        "errno": 0,
+        "filter_type": 17,
+        "filter_type_name": "unknown",
+        "marker_schema_version": 2,
+        "no_report": true,
+        "no_report_reason": null,
+        "operation": "ipc-posix-shm-write-create",
+        "rc": 0,
+        "stage": "preflight",
+        "token_mach_kr": 0,
+        "token_status": "pid",
+        "tool": "seatbelt-callout",
+        "varargs_count": 1
+      }
+    ],
+    "stderr": "",
+    "stdout": "",
+    "target": "sbl.ipc.shm.allow",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "actual": "deny",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/ipc_posix_shm.adv_ipc_posix_shm.runtime.sb",
+      "--",
+      "/usr/bin/true"
+    ],
+    "expectation_id": "adv:ipc_posix_shm:deny-shm",
+    "expected": "deny",
+    "intended_op_witnessed": true,
+    "match": true,
+    "operation": "ipc-posix-shm-write-create",
+    "policy_layers": {
+      "attribution": "process_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "deny",
+        "failure_kind": null,
+        "failure_stage": null,
+        "status": "success"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/ipc_posix_shm.adv_ipc_posix_shm.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "deny-shm",
+    "profile_id": "adv:ipc_posix_shm",
+    "resource_hygiene": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": false,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "8e462c5f-f64f-462a-86e0-ac6bbf1db998",
+    "runner_info": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "entrypoint": "sandbox_runner",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "entrypoint_sha256": "a6204fd773aeda8ca03f578f5a08069f0e869922cbbc3f32a203b4b72831914b",
+      "preexisting_sandbox_suspected": false,
+      "tool_build_id": "a6204fd773aeda8ca03f578f5a08069f0e869922cbbc3f32a203b4b72831914b"
+    },
+    "runtime_status": "success",
+    "sandbox_check_prepass": {
+      "api": "sandbox_check",
+      "argument": "sbl.ipc.shm.deny",
+      "canonical_flag_reason": "not_requested",
+      "canonical_flag_used": false,
+      "canonicalization": "raw",
+      "decision": "deny",
+      "errno": 0,
+      "filter_type": 17,
+      "filter_type_name": "unknown",
+      "no_report": true,
+      "no_report_reason": null,
+      "operation": "ipc-posix-shm-write-create",
+      "rc": 1,
+      "stage": "preflight",
+      "token_mach_kr": 0,
+      "token_status": "pid"
+    },
+    "scenario_id": "adv:ipc_posix_shm:deny-shm",
+    "seatbelt_callouts": [
+      {
+        "api": "sandbox_check",
+        "argument": "sbl.ipc.shm.deny",
+        "canonical_flag_reason": "not_requested",
+        "canonical_flag_used": false,
+        "canonicalization": "raw",
+        "check_type": 1073741841,
+        "decision": "deny",
+        "errno": 0,
+        "filter_type": 17,
+        "filter_type_name": "unknown",
+        "marker_schema_version": 2,
+        "no_report": true,
+        "no_report_reason": null,
+        "operation": "ipc-posix-shm-write-create",
+        "rc": 1,
+        "stage": "preflight",
+        "token_mach_kr": 0,
+        "token_status": "pid",
+        "tool": "seatbelt-callout",
+        "varargs_count": 1
+      }
+    ],
+    "stderr": "",
+    "stdout": "",
+    "target": "sbl.ipc.shm.deny",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "actual": "allow",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/authorization_right.adv_authorization_right.runtime.sb",
+      "--",
+      "/usr/bin/true"
+    ],
+    "expectation_id": "adv:authorization_right:allow-right",
+    "expected": "allow",
+    "intended_op_witnessed": true,
+    "match": true,
+    "operation": "authorization-right-obtain",
+    "policy_layers": {
+      "attribution": "allow",
+      "effective_decision": "allow",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "allow",
+        "failure_kind": null,
+        "failure_stage": null,
+        "status": "success"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/authorization_right.adv_authorization_right.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "allow-right",
+    "profile_id": "adv:authorization_right",
+    "resource_hygiene": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": false,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "8e462c5f-f64f-462a-86e0-ac6bbf1db998",
+    "runner_info": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "entrypoint": "sandbox_runner",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "entrypoint_sha256": "a6204fd773aeda8ca03f578f5a08069f0e869922cbbc3f32a203b4b72831914b",
+      "preexisting_sandbox_suspected": false,
+      "tool_build_id": "a6204fd773aeda8ca03f578f5a08069f0e869922cbbc3f32a203b4b72831914b"
+    },
+    "runtime_status": "success",
+    "sandbox_check_prepass": {
+      "api": "sandbox_check",
+      "argument": "system.preferences",
+      "canonical_flag_reason": "not_requested",
+      "canonical_flag_used": false,
+      "canonicalization": "raw",
+      "decision": "allow",
+      "errno": 0,
+      "filter_type": 5,
+      "filter_type_name": "global-name",
+      "no_report": true,
+      "no_report_reason": null,
+      "operation": "authorization-right-obtain",
+      "rc": 0,
+      "stage": "preflight",
+      "token_mach_kr": 0,
+      "token_status": "pid"
+    },
+    "scenario_id": "adv:authorization_right:allow-right",
+    "seatbelt_callouts": [
+      {
+        "api": "sandbox_check",
+        "argument": "system.preferences",
+        "canonical_flag_reason": "not_requested",
+        "canonical_flag_used": false,
+        "canonicalization": "raw",
+        "check_type": 1073741829,
+        "decision": "allow",
+        "errno": 0,
+        "filter_type": 5,
+        "filter_type_name": "global-name",
+        "marker_schema_version": 2,
+        "no_report": true,
+        "no_report_reason": null,
+        "operation": "authorization-right-obtain",
+        "rc": 0,
+        "stage": "preflight",
+        "token_mach_kr": 0,
+        "token_status": "pid",
+        "tool": "seatbelt-callout",
+        "varargs_count": 1
+      }
+    ],
+    "stderr": "",
+    "stdout": "",
+    "target": "system.preferences",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "actual": "deny",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/authorization_right.adv_authorization_right.runtime.sb",
+      "--",
+      "/usr/bin/true"
+    ],
+    "expectation_id": "adv:authorization_right:deny-right",
+    "expected": "deny",
+    "intended_op_witnessed": true,
+    "match": true,
+    "operation": "authorization-right-obtain",
+    "policy_layers": {
+      "attribution": "process_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "deny",
+        "failure_kind": null,
+        "failure_stage": null,
+        "status": "success"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/authorization_right.adv_authorization_right.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "deny-right",
+    "profile_id": "adv:authorization_right",
+    "resource_hygiene": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": false,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "8e462c5f-f64f-462a-86e0-ac6bbf1db998",
+    "runner_info": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "entrypoint": "sandbox_runner",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "entrypoint_sha256": "a6204fd773aeda8ca03f578f5a08069f0e869922cbbc3f32a203b4b72831914b",
+      "preexisting_sandbox_suspected": false,
+      "tool_build_id": "a6204fd773aeda8ca03f578f5a08069f0e869922cbbc3f32a203b4b72831914b"
+    },
+    "runtime_status": "success",
+    "sandbox_check_prepass": {
+      "api": "sandbox_check",
+      "argument": "system.preferences.privacy",
+      "canonical_flag_reason": "not_requested",
+      "canonical_flag_used": false,
+      "canonicalization": "raw",
+      "decision": "deny",
+      "errno": 0,
+      "filter_type": 5,
+      "filter_type_name": "global-name",
+      "no_report": true,
+      "no_report_reason": null,
+      "operation": "authorization-right-obtain",
+      "rc": 1,
+      "stage": "preflight",
+      "token_mach_kr": 0,
+      "token_status": "pid"
+    },
+    "scenario_id": "adv:authorization_right:deny-right",
+    "seatbelt_callouts": [
+      {
+        "api": "sandbox_check",
+        "argument": "system.preferences.privacy",
+        "canonical_flag_reason": "not_requested",
+        "canonical_flag_used": false,
+        "canonicalization": "raw",
+        "check_type": 1073741829,
+        "decision": "deny",
+        "errno": 0,
+        "filter_type": 5,
+        "filter_type_name": "global-name",
+        "marker_schema_version": 2,
+        "no_report": true,
+        "no_report_reason": null,
+        "operation": "authorization-right-obtain",
+        "rc": 1,
+        "stage": "preflight",
+        "token_mach_kr": 0,
+        "token_status": "pid",
+        "tool": "seatbelt-callout",
+        "varargs_count": 1
+      }
+    ],
+    "stderr": "",
+    "stdout": "",
+    "target": "system.preferences.privacy",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "actual": "allow",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/preference_domain.adv_preference_domain.runtime.sb",
+      "--",
+      "/usr/bin/true"
+    ],
+    "expectation_id": "adv:preference_domain:allow-domain",
+    "expected": "allow",
+    "intended_op_witnessed": true,
+    "match": true,
+    "operation": "user-preference-read",
+    "policy_layers": {
+      "attribution": "allow",
+      "effective_decision": "allow",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "allow",
+        "failure_kind": null,
+        "failure_stage": null,
+        "status": "success"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/preference_domain.adv_preference_domain.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "allow-domain",
+    "profile_id": "adv:preference_domain",
+    "resource_hygiene": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": false,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "8e462c5f-f64f-462a-86e0-ac6bbf1db998",
+    "runner_info": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "entrypoint": "sandbox_runner",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "entrypoint_sha256": "a6204fd773aeda8ca03f578f5a08069f0e869922cbbc3f32a203b4b72831914b",
+      "preexisting_sandbox_suspected": false,
+      "tool_build_id": "a6204fd773aeda8ca03f578f5a08069f0e869922cbbc3f32a203b4b72831914b"
+    },
+    "runtime_status": "success",
+    "sandbox_check_prepass": {
+      "api": "sandbox_check",
+      "argument": "com.apple.TimeMachine",
+      "canonical_flag_reason": "not_requested",
+      "canonical_flag_used": false,
+      "canonicalization": "raw",
+      "decision": "allow",
+      "errno": 0,
+      "filter_type": 6,
+      "filter_type_name": "local-name",
+      "no_report": true,
+      "no_report_reason": null,
+      "operation": "user-preference-read",
+      "rc": 0,
+      "stage": "preflight",
+      "token_mach_kr": 0,
+      "token_status": "pid"
+    },
+    "scenario_id": "adv:preference_domain:allow-domain",
+    "seatbelt_callouts": [
+      {
+        "api": "sandbox_check",
+        "argument": "com.apple.TimeMachine",
+        "canonical_flag_reason": "not_requested",
+        "canonical_flag_used": false,
+        "canonicalization": "raw",
+        "check_type": 1073741830,
+        "decision": "allow",
+        "errno": 0,
+        "filter_type": 6,
+        "filter_type_name": "local-name",
+        "marker_schema_version": 2,
+        "no_report": true,
+        "no_report_reason": null,
+        "operation": "user-preference-read",
+        "rc": 0,
+        "stage": "preflight",
+        "token_mach_kr": 0,
+        "token_status": "pid",
+        "tool": "seatbelt-callout",
+        "varargs_count": 1
+      }
+    ],
+    "stderr": "",
+    "stdout": "",
+    "target": "com.apple.TimeMachine",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "actual": "deny",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/preference_domain.adv_preference_domain.runtime.sb",
+      "--",
+      "/usr/bin/true"
+    ],
+    "expectation_id": "adv:preference_domain:deny-domain",
+    "expected": "deny",
+    "intended_op_witnessed": true,
+    "match": true,
+    "operation": "user-preference-read",
+    "policy_layers": {
+      "attribution": "process_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "deny",
+        "failure_kind": null,
+        "failure_stage": null,
+        "status": "success"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/preference_domain.adv_preference_domain.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "deny-domain",
+    "profile_id": "adv:preference_domain",
+    "resource_hygiene": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": false,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "8e462c5f-f64f-462a-86e0-ac6bbf1db998",
+    "runner_info": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "entrypoint": "sandbox_runner",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "entrypoint_sha256": "a6204fd773aeda8ca03f578f5a08069f0e869922cbbc3f32a203b4b72831914b",
+      "preexisting_sandbox_suspected": false,
+      "tool_build_id": "a6204fd773aeda8ca03f578f5a08069f0e869922cbbc3f32a203b4b72831914b"
+    },
+    "runtime_status": "success",
+    "sandbox_check_prepass": {
+      "api": "sandbox_check",
+      "argument": "com.apple.sandboxadversarial.fake",
+      "canonical_flag_reason": "not_requested",
+      "canonical_flag_used": false,
+      "canonicalization": "raw",
+      "decision": "deny",
+      "errno": 0,
+      "filter_type": 6,
+      "filter_type_name": "local-name",
+      "no_report": true,
+      "no_report_reason": null,
+      "operation": "user-preference-read",
+      "rc": 1,
+      "stage": "preflight",
+      "token_mach_kr": 0,
+      "token_status": "pid"
+    },
+    "scenario_id": "adv:preference_domain:deny-domain",
+    "seatbelt_callouts": [
+      {
+        "api": "sandbox_check",
+        "argument": "com.apple.sandboxadversarial.fake",
+        "canonical_flag_reason": "not_requested",
+        "canonical_flag_used": false,
+        "canonicalization": "raw",
+        "check_type": 1073741830,
+        "decision": "deny",
+        "errno": 0,
+        "filter_type": 6,
+        "filter_type_name": "local-name",
+        "marker_schema_version": 2,
+        "no_report": true,
+        "no_report_reason": null,
+        "operation": "user-preference-read",
+        "rc": 1,
+        "stage": "preflight",
+        "token_mach_kr": 0,
+        "token_status": "pid",
+        "tool": "seatbelt-callout",
+        "varargs_count": 1
+      }
+    ],
+    "stderr": "",
+    "stdout": "",
+    "target": "com.apple.sandboxadversarial.fake",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "actual": "allow",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/xpc_service_name.adv_xpc_service_name.runtime.sb",
+      "--",
+      "/usr/bin/true"
+    ],
+    "expectation_id": "adv:xpc_service_name:allow-cfprefsd-xpc",
+    "expected": "allow",
+    "intended_op_witnessed": true,
+    "match": true,
+    "operation": "mach-lookup",
+    "policy_layers": {
+      "attribution": "platform_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "deny",
+        "error": null,
+        "exit_code": 1,
+        "source": "baseline",
+        "status": "deny"
+      },
+      "process_policy": {
+        "decision": "allow",
+        "failure_kind": null,
+        "failure_stage": null,
+        "status": "success"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/xpc_service_name.adv_xpc_service_name.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "allow-cfprefsd-xpc",
+    "profile_id": "adv:xpc_service_name",
+    "resource_hygiene": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": false,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "8e462c5f-f64f-462a-86e0-ac6bbf1db998",
+    "runner_info": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "entrypoint": "sandbox_runner",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "entrypoint_sha256": "a6204fd773aeda8ca03f578f5a08069f0e869922cbbc3f32a203b4b72831914b",
+      "preexisting_sandbox_suspected": false,
+      "tool_build_id": "a6204fd773aeda8ca03f578f5a08069f0e869922cbbc3f32a203b4b72831914b"
+    },
+    "runtime_status": "success",
+    "sandbox_check_prepass": {
+      "api": "sandbox_check",
+      "argument": "com.apple.cfprefsd.xpc",
+      "canonical_flag_reason": "not_requested",
+      "canonical_flag_used": false,
+      "canonicalization": "raw",
+      "decision": "allow",
+      "errno": 0,
+      "filter_type": 12,
+      "filter_type_name": "unknown",
+      "no_report": true,
+      "no_report_reason": null,
+      "operation": "mach-lookup",
+      "rc": 0,
+      "stage": "preflight",
+      "token_mach_kr": 0,
+      "token_status": "pid"
+    },
+    "scenario_id": "adv:xpc_service_name:allow-cfprefsd-xpc",
+    "seatbelt_callouts": [
+      {
+        "api": "sandbox_check",
+        "argument": "com.apple.cfprefsd.xpc",
+        "canonical_flag_reason": "not_requested",
+        "canonical_flag_used": false,
+        "canonicalization": "raw",
+        "check_type": 1073741836,
+        "decision": "allow",
+        "errno": 0,
+        "filter_type": 12,
+        "filter_type_name": "unknown",
+        "marker_schema_version": 2,
+        "no_report": true,
+        "no_report_reason": null,
+        "operation": "mach-lookup",
+        "rc": 0,
+        "stage": "preflight",
+        "token_mach_kr": 0,
+        "token_status": "pid",
+        "tool": "seatbelt-callout",
+        "varargs_count": 1
+      }
+    ],
+    "stderr": "",
+    "stdout": "",
+    "target": "com.apple.cfprefsd.xpc",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "actual": "deny",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/xpc_service_name.adv_xpc_service_name.runtime.sb",
+      "--",
+      "/usr/bin/true"
+    ],
+    "expectation_id": "adv:xpc_service_name:deny-bogus-xpc",
+    "expected": "deny",
+    "intended_op_witnessed": true,
+    "match": true,
+    "operation": "mach-lookup",
+    "policy_layers": {
+      "attribution": "platform_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "deny",
+        "error": null,
+        "exit_code": 1,
+        "source": "baseline",
+        "status": "deny"
+      },
+      "process_policy": {
+        "decision": "deny",
+        "failure_kind": null,
+        "failure_stage": null,
+        "status": "success"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/8e462c5f-f64f-462a-86e0-ac6bbf1db998/runtime_profiles/xpc_service_name.adv_xpc_service_name.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "deny-bogus-xpc",
+    "profile_id": "adv:xpc_service_name",
+    "resource_hygiene": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": false,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "8e462c5f-f64f-462a-86e0-ac6bbf1db998",
+    "runner_info": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "entrypoint": "sandbox_runner",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "entrypoint_sha256": "a6204fd773aeda8ca03f578f5a08069f0e869922cbbc3f32a203b4b72831914b",
+      "preexisting_sandbox_suspected": false,
+      "tool_build_id": "a6204fd773aeda8ca03f578f5a08069f0e869922cbbc3f32a203b4b72831914b"
+    },
+    "runtime_status": "success",
+    "sandbox_check_prepass": {
+      "api": "sandbox_check",
+      "argument": "com.apple.sandboxadversarial.fake.xpc",
+      "canonical_flag_reason": "not_requested",
+      "canonical_flag_used": false,
+      "canonicalization": "raw",
+      "decision": "deny",
+      "errno": 0,
+      "filter_type": 12,
+      "filter_type_name": "unknown",
+      "no_report": true,
+      "no_report_reason": null,
+      "operation": "mach-lookup",
+      "rc": 1,
+      "stage": "preflight",
+      "token_mach_kr": 0,
+      "token_status": "pid"
+    },
+    "scenario_id": "adv:xpc_service_name:deny-bogus-xpc",
+    "seatbelt_callouts": [
+      {
+        "api": "sandbox_check",
+        "argument": "com.apple.sandboxadversarial.fake.xpc",
+        "canonical_flag_reason": "not_requested",
+        "canonical_flag_used": false,
+        "canonicalization": "raw",
+        "check_type": 1073741836,
+        "decision": "deny",
+        "errno": 0,
+        "filter_type": 12,
+        "filter_type_name": "unknown",
+        "marker_schema_version": 2,
+        "no_report": true,
+        "no_report_reason": null,
+        "operation": "mach-lookup",
+        "rc": 1,
+        "stage": "preflight",
+        "token_mach_kr": 0,
+        "token_status": "pid",
+        "tool": "seatbelt-callout",
+        "varargs_count": 1
+      }
+    ],
+    "stderr": "",
+    "stdout": "",
+    "target": "com.apple.sandboxadversarial.fake.xpc",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  }
+]

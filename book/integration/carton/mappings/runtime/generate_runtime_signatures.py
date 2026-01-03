@@ -35,7 +35,7 @@ RUNTIME_COVERAGE = ROOT / "book" / "integration" / "carton" / "bundle" / "relati
 
 
 def run_field2_validation():
-    cmd = [sys.executable, "-m", "book.graph.concepts.validation", "--experiment", "field2"]
+    cmd = [sys.executable, "-m", "book.integration.carton", "validate", "--experiment", "field2"]
     subprocess.check_call(cmd, cwd=ROOT)
 
 

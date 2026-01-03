@@ -1,0 +1,2153 @@
+{
+  "schema_version": "runtime-tools.baseline_results.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "a00a61e4-0732-42ff-b075-2baeb0cb88d0",
+  "results": [
+    {
+      "name": "baseline:adv:flow_divert_partial_tcp:tcp-loopback",
+      "profile_id": "adv:flow_divert_partial_tcp",
+      "probe_name": "tcp-loopback",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62646",
+      "primary_intent": {
+        "operation": "network-outbound",
+        "target": "127.0.0.1:62646",
+        "profile_id": "adv:flow_divert_partial_tcp",
+        "probe_name": "tcp-loopback"
+      },
+      "command": [
+        "/usr/bin/nc",
+        "-z",
+        "-w",
+        "2",
+        "127.0.0.1",
+        "62646"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Connection to 127.0.0.1 port 62646 [tcp/*] succeeded!\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62646,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "name": "baseline:adv:flow_divert_partial_tcp:tcp-loopback-2",
+      "profile_id": "adv:flow_divert_partial_tcp",
+      "probe_name": "tcp-loopback-2",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62647",
+      "primary_intent": {
+        "operation": "network-outbound",
+        "target": "127.0.0.1:62647",
+        "profile_id": "adv:flow_divert_partial_tcp",
+        "probe_name": "tcp-loopback-2"
+      },
+      "command": [
+        "/usr/bin/nc",
+        "-z",
+        "-w",
+        "2",
+        "127.0.0.1",
+        "62647"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Connection to 127.0.0.1 port 62647 [tcp/*] succeeded!\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62647,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "name": "baseline:adv:flow_divert_require_all_tcp:tcp-loopback",
+      "profile_id": "adv:flow_divert_require_all_tcp",
+      "probe_name": "tcp-loopback",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62646",
+      "primary_intent": {
+        "operation": "network-outbound",
+        "target": "127.0.0.1:62646",
+        "profile_id": "adv:flow_divert_require_all_tcp",
+        "probe_name": "tcp-loopback"
+      },
+      "command": [
+        "/usr/bin/nc",
+        "-z",
+        "-w",
+        "2",
+        "127.0.0.1",
+        "62646"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Connection to 127.0.0.1 port 62646 [tcp/*] succeeded!\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62646,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "name": "baseline:adv:flow_divert_require_all_tcp:tcp-loopback-2",
+      "profile_id": "adv:flow_divert_require_all_tcp",
+      "probe_name": "tcp-loopback-2",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62647",
+      "primary_intent": {
+        "operation": "network-outbound",
+        "target": "127.0.0.1:62647",
+        "profile_id": "adv:flow_divert_require_all_tcp",
+        "probe_name": "tcp-loopback-2"
+      },
+      "command": [
+        "/usr/bin/nc",
+        "-z",
+        "-w",
+        "2",
+        "127.0.0.1",
+        "62647"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Connection to 127.0.0.1 port 62647 [tcp/*] succeeded!\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62647,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "name": "baseline:adv:mach_local_literal:allow-cfprefsd-local",
+      "profile_id": "adv:mach_local_literal",
+      "probe_name": "allow-cfprefsd-local",
+      "operation": "mach-lookup",
+      "target": "com.apple.cfprefsd.agent",
+      "primary_intent": {
+        "operation": "mach-lookup",
+        "target": "com.apple.cfprefsd.agent",
+        "profile_id": "adv:mach_local_literal",
+        "probe_name": "allow-cfprefsd-local"
+      },
+      "command": [
+        "book/api/runtime/native/probes/mach_probe",
+        "com.apple.cfprefsd.agent"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "{\"kr\":0}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "operation": "mach-lookup",
+        "kr": 0,
+        "service_present": true
+      }
+    },
+    {
+      "name": "baseline:adv:mach_local_literal:deny-bogus-local",
+      "profile_id": "adv:mach_local_literal",
+      "probe_name": "deny-bogus-local",
+      "operation": "mach-lookup",
+      "target": "com.apple.sandboxadversarial.fake",
+      "primary_intent": {
+        "operation": "mach-lookup",
+        "target": "com.apple.sandboxadversarial.fake",
+        "profile_id": "adv:mach_local_literal",
+        "probe_name": "deny-bogus-local"
+      },
+      "command": [
+        "book/api/runtime/native/probes/mach_probe",
+        "com.apple.sandboxadversarial.fake"
+      ],
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "{\"kr\":1102}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "operation": "mach-lookup",
+        "kr": 1102,
+        "service_present": false
+      }
+    },
+    {
+      "name": "baseline:adv:mach_local_regex:allow-cfprefsd-local",
+      "profile_id": "adv:mach_local_regex",
+      "probe_name": "allow-cfprefsd-local",
+      "operation": "mach-lookup",
+      "target": "com.apple.cfprefsd.agent",
+      "primary_intent": {
+        "operation": "mach-lookup",
+        "target": "com.apple.cfprefsd.agent",
+        "profile_id": "adv:mach_local_regex",
+        "probe_name": "allow-cfprefsd-local"
+      },
+      "command": [
+        "book/api/runtime/native/probes/mach_probe",
+        "com.apple.cfprefsd.agent"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "{\"kr\":0}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "operation": "mach-lookup",
+        "kr": 0,
+        "service_present": true
+      }
+    },
+    {
+      "name": "baseline:adv:mach_local_regex:deny-bogus-local",
+      "profile_id": "adv:mach_local_regex",
+      "probe_name": "deny-bogus-local",
+      "operation": "mach-lookup",
+      "target": "com.apple.sandboxadversarial.fake",
+      "primary_intent": {
+        "operation": "mach-lookup",
+        "target": "com.apple.sandboxadversarial.fake",
+        "profile_id": "adv:mach_local_regex",
+        "probe_name": "deny-bogus-local"
+      },
+      "command": [
+        "book/api/runtime/native/probes/mach_probe",
+        "com.apple.sandboxadversarial.fake"
+      ],
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "{\"kr\":1102}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "operation": "mach-lookup",
+        "kr": 1102,
+        "service_present": false
+      }
+    },
+    {
+      "name": "baseline:adv:mach_simple_allow:allow-cfprefsd",
+      "profile_id": "adv:mach_simple_allow",
+      "probe_name": "allow-cfprefsd",
+      "operation": "mach-lookup",
+      "target": "com.apple.cfprefsd.agent",
+      "primary_intent": {
+        "operation": "mach-lookup",
+        "target": "com.apple.cfprefsd.agent",
+        "profile_id": "adv:mach_simple_allow",
+        "probe_name": "allow-cfprefsd"
+      },
+      "command": [
+        "book/api/runtime/native/probes/mach_probe",
+        "com.apple.cfprefsd.agent"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "{\"kr\":0}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "operation": "mach-lookup",
+        "kr": 0,
+        "service_present": true
+      }
+    },
+    {
+      "name": "baseline:adv:mach_simple_allow:deny-bogus",
+      "profile_id": "adv:mach_simple_allow",
+      "probe_name": "deny-bogus",
+      "operation": "mach-lookup",
+      "target": "com.apple.sandboxadversarial.fake",
+      "primary_intent": {
+        "operation": "mach-lookup",
+        "target": "com.apple.sandboxadversarial.fake",
+        "profile_id": "adv:mach_simple_allow",
+        "probe_name": "deny-bogus"
+      },
+      "command": [
+        "book/api/runtime/native/probes/mach_probe",
+        "com.apple.sandboxadversarial.fake"
+      ],
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "{\"kr\":1102}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "operation": "mach-lookup",
+        "kr": 1102,
+        "service_present": false
+      }
+    },
+    {
+      "name": "baseline:adv:mach_simple_variants:allow-cfprefsd",
+      "profile_id": "adv:mach_simple_variants",
+      "probe_name": "allow-cfprefsd",
+      "operation": "mach-lookup",
+      "target": "com.apple.cfprefsd.agent",
+      "primary_intent": {
+        "operation": "mach-lookup",
+        "target": "com.apple.cfprefsd.agent",
+        "profile_id": "adv:mach_simple_variants",
+        "probe_name": "allow-cfprefsd"
+      },
+      "command": [
+        "book/api/runtime/native/probes/mach_probe",
+        "com.apple.cfprefsd.agent"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "{\"kr\":0}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "operation": "mach-lookup",
+        "kr": 0,
+        "service_present": true
+      }
+    },
+    {
+      "name": "baseline:adv:mach_simple_variants:deny-bogus",
+      "profile_id": "adv:mach_simple_variants",
+      "probe_name": "deny-bogus",
+      "operation": "mach-lookup",
+      "target": "com.apple.sandboxadversarial.fake",
+      "primary_intent": {
+        "operation": "mach-lookup",
+        "target": "com.apple.sandboxadversarial.fake",
+        "profile_id": "adv:mach_simple_variants",
+        "probe_name": "deny-bogus"
+      },
+      "command": [
+        "book/api/runtime/native/probes/mach_probe",
+        "com.apple.sandboxadversarial.fake"
+      ],
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "{\"kr\":1102}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "operation": "mach-lookup",
+        "kr": 1102,
+        "service_present": false
+      }
+    },
+    {
+      "name": "baseline:adv:net_outbound_allow:tcp-loopback",
+      "profile_id": "adv:net_outbound_allow",
+      "probe_name": "tcp-loopback",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62646",
+      "primary_intent": {
+        "operation": "network-outbound",
+        "target": "127.0.0.1:62646",
+        "profile_id": "adv:net_outbound_allow",
+        "probe_name": "tcp-loopback"
+      },
+      "command": [
+        "/usr/bin/nc",
+        "-z",
+        "-w",
+        "2",
+        "127.0.0.1",
+        "62646"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Connection to 127.0.0.1 port 62646 [tcp/*] succeeded!\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62646,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "name": "baseline:adv:net_outbound_allow:tcp-loopback-2",
+      "profile_id": "adv:net_outbound_allow",
+      "probe_name": "tcp-loopback-2",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62647",
+      "primary_intent": {
+        "operation": "network-outbound",
+        "target": "127.0.0.1:62647",
+        "profile_id": "adv:net_outbound_allow",
+        "probe_name": "tcp-loopback-2"
+      },
+      "command": [
+        "/usr/bin/nc",
+        "-z",
+        "-w",
+        "2",
+        "127.0.0.1",
+        "62647"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Connection to 127.0.0.1 port 62647 [tcp/*] succeeded!\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62647,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "name": "baseline:adv:net_outbound_deny:tcp-loopback",
+      "profile_id": "adv:net_outbound_deny",
+      "probe_name": "tcp-loopback",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62646",
+      "primary_intent": {
+        "operation": "network-outbound",
+        "target": "127.0.0.1:62646",
+        "profile_id": "adv:net_outbound_deny",
+        "probe_name": "tcp-loopback"
+      },
+      "command": [
+        "/usr/bin/nc",
+        "-z",
+        "-w",
+        "2",
+        "127.0.0.1",
+        "62646"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Connection to 127.0.0.1 port 62646 [tcp/*] succeeded!\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62646,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "name": "baseline:adv:net_outbound_deny:tcp-loopback-2",
+      "profile_id": "adv:net_outbound_deny",
+      "probe_name": "tcp-loopback-2",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62647",
+      "primary_intent": {
+        "operation": "network-outbound",
+        "target": "127.0.0.1:62647",
+        "profile_id": "adv:net_outbound_deny",
+        "probe_name": "tcp-loopback-2"
+      },
+      "command": [
+        "/usr/bin/nc",
+        "-z",
+        "-w",
+        "2",
+        "127.0.0.1",
+        "62647"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Connection to 127.0.0.1 port 62647 [tcp/*] succeeded!\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62647,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "name": "baseline:adv:path_alias:alias-tmp",
+      "profile_id": "adv:path_alias",
+      "probe_name": "alias-tmp",
+      "operation": "file-read*",
+      "target": "/tmp/runtime-adv/alias/allow.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/runtime-adv/alias/allow.txt",
+        "profile_id": "adv:path_alias",
+        "probe_name": "alias-tmp"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/alias/allow.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /tmp/runtime-adv/alias/allow.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_alias:alias-private",
+      "profile_id": "adv:path_alias",
+      "probe_name": "alias-private",
+      "operation": "file-read*",
+      "target": "/private/tmp/runtime-adv/alias/allow.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/runtime-adv/alias/allow.txt",
+        "profile_id": "adv:path_alias",
+        "probe_name": "alias-private"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/alias/allow.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /private/tmp/runtime-adv/alias/allow.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges:allow-tmp",
+      "profile_id": "adv:path_edges",
+      "probe_name": "allow-tmp",
+      "operation": "file-read*",
+      "target": "/tmp/runtime-adv/edges/a",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/runtime-adv/edges/a",
+        "profile_id": "adv:path_edges",
+        "probe_name": "allow-tmp"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/edges/a"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /tmp/runtime-adv/edges/a: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges:deny-private",
+      "profile_id": "adv:path_edges",
+      "probe_name": "deny-private",
+      "operation": "file-read*",
+      "target": "/private/tmp/runtime-adv/edges/a",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/runtime-adv/edges/a",
+        "profile_id": "adv:path_edges",
+        "probe_name": "deny-private"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/edges/a"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /private/tmp/runtime-adv/edges/a: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges:allow-subpath",
+      "profile_id": "adv:path_edges",
+      "probe_name": "allow-subpath",
+      "operation": "file-read*",
+      "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+        "profile_id": "adv:path_edges",
+        "probe_name": "allow-subpath"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/edges/okdir/item.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /tmp/runtime-adv/edges/okdir/item.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges:allow-subpath-normalized",
+      "profile_id": "adv:path_edges",
+      "probe_name": "allow-subpath-normalized",
+      "operation": "file-read*",
+      "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+        "profile_id": "adv:path_edges",
+        "probe_name": "allow-subpath-normalized"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/edges/okdir/item.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /private/tmp/runtime-adv/edges/okdir/item.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges:deny-dotdot",
+      "profile_id": "adv:path_edges",
+      "probe_name": "deny-dotdot",
+      "operation": "file-read*",
+      "target": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
+        "profile_id": "adv:path_edges",
+        "probe_name": "deny-dotdot"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/edges/okdir/../blocked.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /tmp/runtime-adv/edges/okdir/../blocked.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges:write-tmp",
+      "profile_id": "adv:path_edges",
+      "probe_name": "write-tmp",
+      "operation": "file-write*",
+      "target": "/tmp/runtime-adv/edges/a",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/runtime-adv/edges/a",
+        "profile_id": "adv:path_edges",
+        "probe_name": "write-tmp"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/edges/a'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /tmp/runtime-adv/edges/a: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges:write-private",
+      "profile_id": "adv:path_edges",
+      "probe_name": "write-private",
+      "operation": "file-write*",
+      "target": "/private/tmp/runtime-adv/edges/a",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/runtime-adv/edges/a",
+        "profile_id": "adv:path_edges",
+        "probe_name": "write-private"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/runtime-adv/edges/a'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /private/tmp/runtime-adv/edges/a: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges:write-subpath",
+      "profile_id": "adv:path_edges",
+      "probe_name": "write-subpath",
+      "operation": "file-write*",
+      "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+        "profile_id": "adv:path_edges",
+        "probe_name": "write-subpath"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/edges/okdir/item.txt'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /tmp/runtime-adv/edges/okdir/item.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges:write-dotdot",
+      "profile_id": "adv:path_edges",
+      "probe_name": "write-dotdot",
+      "operation": "file-write*",
+      "target": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
+        "profile_id": "adv:path_edges",
+        "probe_name": "write-dotdot"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/edges/blocked.txt'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /tmp/runtime-adv/edges/okdir/../blocked.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:struct_flat:allow-ok-root",
+      "profile_id": "adv:struct_flat",
+      "probe_name": "allow-ok-root",
+      "operation": "file-read*",
+      "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+        "profile_id": "adv:struct_flat",
+        "probe_name": "allow-ok-root"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/struct/ok/allowed.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /tmp/runtime-adv/struct/ok/allowed.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:struct_flat:allow-ok-deep",
+      "profile_id": "adv:struct_flat",
+      "probe_name": "allow-ok-deep",
+      "operation": "file-read*",
+      "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+        "profile_id": "adv:struct_flat",
+        "probe_name": "allow-ok-deep"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/struct/ok/deep/nested.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /tmp/runtime-adv/struct/ok/deep/nested.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:struct_flat:deny-blocked",
+      "profile_id": "adv:struct_flat",
+      "probe_name": "deny-blocked",
+      "operation": "file-read*",
+      "target": "/tmp/runtime-adv/struct/blocked.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/runtime-adv/struct/blocked.txt",
+        "profile_id": "adv:struct_flat",
+        "probe_name": "deny-blocked"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/struct/blocked.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /tmp/runtime-adv/struct/blocked.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:struct_flat:deny-outside",
+      "profile_id": "adv:struct_flat",
+      "probe_name": "deny-outside",
+      "operation": "file-read*",
+      "target": "/tmp/runtime-adv/struct/outside.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/runtime-adv/struct/outside.txt",
+        "profile_id": "adv:struct_flat",
+        "probe_name": "deny-outside"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/struct/outside.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /tmp/runtime-adv/struct/outside.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:struct_flat:write-ok-root",
+      "profile_id": "adv:struct_flat",
+      "probe_name": "write-ok-root",
+      "operation": "file-write*",
+      "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+        "profile_id": "adv:struct_flat",
+        "probe_name": "write-ok-root"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/struct/ok/allowed.txt'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /tmp/runtime-adv/struct/ok/allowed.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:struct_flat:write-ok-deep",
+      "profile_id": "adv:struct_flat",
+      "probe_name": "write-ok-deep",
+      "operation": "file-write*",
+      "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+        "profile_id": "adv:struct_flat",
+        "probe_name": "write-ok-deep"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/struct/ok/deep/nested.txt'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /tmp/runtime-adv/struct/ok/deep/nested.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:struct_flat:write-blocked",
+      "profile_id": "adv:struct_flat",
+      "probe_name": "write-blocked",
+      "operation": "file-write*",
+      "target": "/tmp/runtime-adv/struct/blocked.txt",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/runtime-adv/struct/blocked.txt",
+        "profile_id": "adv:struct_flat",
+        "probe_name": "write-blocked"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/struct/blocked.txt'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /tmp/runtime-adv/struct/blocked.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:struct_flat:write-outside",
+      "profile_id": "adv:struct_flat",
+      "probe_name": "write-outside",
+      "operation": "file-write*",
+      "target": "/tmp/runtime-adv/struct/outside.txt",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/runtime-adv/struct/outside.txt",
+        "profile_id": "adv:struct_flat",
+        "probe_name": "write-outside"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/struct/outside.txt'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /tmp/runtime-adv/struct/outside.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:struct_nested:allow-ok-root",
+      "profile_id": "adv:struct_nested",
+      "probe_name": "allow-ok-root",
+      "operation": "file-read*",
+      "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+        "profile_id": "adv:struct_nested",
+        "probe_name": "allow-ok-root"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/struct/ok/allowed.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /tmp/runtime-adv/struct/ok/allowed.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:struct_nested:allow-ok-deep",
+      "profile_id": "adv:struct_nested",
+      "probe_name": "allow-ok-deep",
+      "operation": "file-read*",
+      "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+        "profile_id": "adv:struct_nested",
+        "probe_name": "allow-ok-deep"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/struct/ok/deep/nested.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /tmp/runtime-adv/struct/ok/deep/nested.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:struct_nested:deny-blocked",
+      "profile_id": "adv:struct_nested",
+      "probe_name": "deny-blocked",
+      "operation": "file-read*",
+      "target": "/tmp/runtime-adv/struct/blocked.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/runtime-adv/struct/blocked.txt",
+        "profile_id": "adv:struct_nested",
+        "probe_name": "deny-blocked"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/struct/blocked.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /tmp/runtime-adv/struct/blocked.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:struct_nested:deny-outside",
+      "profile_id": "adv:struct_nested",
+      "probe_name": "deny-outside",
+      "operation": "file-read*",
+      "target": "/tmp/runtime-adv/struct/outside.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/runtime-adv/struct/outside.txt",
+        "profile_id": "adv:struct_nested",
+        "probe_name": "deny-outside"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/struct/outside.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /tmp/runtime-adv/struct/outside.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:struct_nested:write-ok-root",
+      "profile_id": "adv:struct_nested",
+      "probe_name": "write-ok-root",
+      "operation": "file-write*",
+      "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+        "profile_id": "adv:struct_nested",
+        "probe_name": "write-ok-root"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/struct/ok/allowed.txt'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /tmp/runtime-adv/struct/ok/allowed.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:struct_nested:write-ok-deep",
+      "profile_id": "adv:struct_nested",
+      "probe_name": "write-ok-deep",
+      "operation": "file-write*",
+      "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+        "profile_id": "adv:struct_nested",
+        "probe_name": "write-ok-deep"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/struct/ok/deep/nested.txt'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /tmp/runtime-adv/struct/ok/deep/nested.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:struct_nested:write-blocked",
+      "profile_id": "adv:struct_nested",
+      "probe_name": "write-blocked",
+      "operation": "file-write*",
+      "target": "/tmp/runtime-adv/struct/blocked.txt",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/runtime-adv/struct/blocked.txt",
+        "profile_id": "adv:struct_nested",
+        "probe_name": "write-blocked"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/struct/blocked.txt'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /tmp/runtime-adv/struct/blocked.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:struct_nested:write-outside",
+      "profile_id": "adv:struct_nested",
+      "probe_name": "write-outside",
+      "operation": "file-write*",
+      "target": "/tmp/runtime-adv/struct/outside.txt",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/runtime-adv/struct/outside.txt",
+        "profile_id": "adv:struct_nested",
+        "probe_name": "write-outside"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/struct/outside.txt'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /tmp/runtime-adv/struct/outside.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:allow-private",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "allow-private",
+      "operation": "file-read*",
+      "target": "/private/tmp/runtime-adv/edges/a",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/runtime-adv/edges/a",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "allow-private"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/edges/a"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /private/tmp/runtime-adv/edges/a: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:allow-private-subpath",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "allow-private-subpath",
+      "operation": "file-read*",
+      "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "allow-private-subpath"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/edges/okdir/item.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /private/tmp/runtime-adv/edges/okdir/item.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:allow-tmp",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "allow-tmp",
+      "operation": "file-read*",
+      "target": "/tmp/runtime-adv/edges/a",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/runtime-adv/edges/a",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "allow-tmp"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/edges/a"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /tmp/runtime-adv/edges/a: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:allow-tmp-subpath",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "allow-tmp-subpath",
+      "operation": "file-read*",
+      "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "allow-tmp-subpath"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/edges/okdir/item.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /tmp/runtime-adv/edges/okdir/item.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:deny-dotdot",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "deny-dotdot",
+      "operation": "file-read*",
+      "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "deny-dotdot"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/edges/okdir/../blocked.txt"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /private/tmp/runtime-adv/edges/okdir/../blocked.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:write-private",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "write-private",
+      "operation": "file-write*",
+      "target": "/private/tmp/runtime-adv/edges/a",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/runtime-adv/edges/a",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "write-private"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/runtime-adv/edges/a'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /private/tmp/runtime-adv/edges/a: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:write-private-subpath",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "write-private-subpath",
+      "operation": "file-write*",
+      "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "write-private-subpath"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/runtime-adv/edges/okdir/item.txt'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /private/tmp/runtime-adv/edges/okdir/item.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:write-tmp",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "write-tmp",
+      "operation": "file-write*",
+      "target": "/tmp/runtime-adv/edges/a",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/runtime-adv/edges/a",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "write-tmp"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/edges/a'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /tmp/runtime-adv/edges/a: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:write-tmp-subpath",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "write-tmp-subpath",
+      "operation": "file-write*",
+      "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "write-tmp-subpath"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/edges/okdir/item.txt'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /tmp/runtime-adv/edges/okdir/item.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_edges_private:write-dotdot",
+      "profile_id": "adv:path_edges_private",
+      "probe_name": "write-dotdot",
+      "operation": "file-write*",
+      "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "write-dotdot"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/runtime-adv/edges/blocked.txt'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /private/tmp/runtime-adv/edges/okdir/../blocked.txt: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:mount_relative_path:allow-subpath",
+      "profile_id": "adv:mount_relative_path",
+      "probe_name": "allow-subpath",
+      "operation": "file-read*",
+      "target": "/private/tmp/runtime-adv/mountrel/allowed.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/runtime-adv/mountrel/allowed.txt",
+        "profile_id": "adv:mount_relative_path",
+        "probe_name": "allow-subpath"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/mountrel/allowed.txt"
+      ],
+      "observed_path": "/private/tmp/runtime-adv/mountrel/allowed.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-adv mountrel allow\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:mount_relative_path:deny-outside",
+      "profile_id": "adv:mount_relative_path",
+      "probe_name": "deny-outside",
+      "operation": "file-read*",
+      "target": "/private/tmp/runtime-adv/mountrel_outside/blocked.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/runtime-adv/mountrel_outside/blocked.txt",
+        "profile_id": "adv:mount_relative_path",
+        "probe_name": "deny-outside"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/mountrel_outside/blocked.txt"
+      ],
+      "observed_path": "/private/tmp/runtime-adv/mountrel_outside/blocked.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-adv mountrel blocked\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:xattr:allow-foo-read",
+      "profile_id": "adv:xattr",
+      "probe_name": "allow-foo-read",
+      "operation": "file-read-xattr",
+      "target": "/private/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read-xattr",
+        "target": "/private/tmp/foo",
+        "profile_id": "adv:xattr",
+        "probe_name": "allow-foo-read"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "target=\"$1\"\nmode=\"$2\"\nname=\"user.sandbox_lore\"\nif [ \"$mode\" = \"read\" ]; then\n  /usr/bin/xattr -p \"$name\" \"$target\" >/dev/null 2>&1\n  rc=$?\nelse\n  /usr/bin/xattr -w \"$name\" \"probe\" \"$target\" >/dev/null 2>&1\n  rc=$?\nfi\nif [ \"$rc\" -eq 0 ]; then dec=\"allow\"; else dec=\"deny\"; fi\nprintf \"SBL_PROBE_DETAILS {\\\"decision\\\":\\\"%s\\\",\\\"exit_code\\\":%s}\\n\" \"$dec\" \"$rc\"\nexit 0\n",
+        "xattr_probe",
+        "/private/tmp/foo",
+        "read"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "decision": "allow",
+        "exit_code": 0
+      }
+    },
+    {
+      "name": "baseline:adv:xattr:deny-bar-read",
+      "profile_id": "adv:xattr",
+      "probe_name": "deny-bar-read",
+      "operation": "file-read-xattr",
+      "target": "/private/tmp/bar",
+      "primary_intent": {
+        "operation": "file-read-xattr",
+        "target": "/private/tmp/bar",
+        "profile_id": "adv:xattr",
+        "probe_name": "deny-bar-read"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "target=\"$1\"\nmode=\"$2\"\nname=\"user.sandbox_lore\"\nif [ \"$mode\" = \"read\" ]; then\n  /usr/bin/xattr -p \"$name\" \"$target\" >/dev/null 2>&1\n  rc=$?\nelse\n  /usr/bin/xattr -w \"$name\" \"probe\" \"$target\" >/dev/null 2>&1\n  rc=$?\nfi\nif [ \"$rc\" -eq 0 ]; then dec=\"allow\"; else dec=\"deny\"; fi\nprintf \"SBL_PROBE_DETAILS {\\\"decision\\\":\\\"%s\\\",\\\"exit_code\\\":%s}\\n\" \"$dec\" \"$rc\"\nexit 0\n",
+        "xattr_probe",
+        "/private/tmp/bar",
+        "read"
+      ],
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "decision": "allow",
+        "exit_code": 0
+      }
+    },
+    {
+      "name": "baseline:adv:xattr:allow-foo-write",
+      "profile_id": "adv:xattr",
+      "probe_name": "allow-foo-write",
+      "operation": "file-write-xattr",
+      "target": "/private/tmp/foo",
+      "primary_intent": {
+        "operation": "file-write-xattr",
+        "target": "/private/tmp/foo",
+        "profile_id": "adv:xattr",
+        "probe_name": "allow-foo-write"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "target=\"$1\"\nmode=\"$2\"\nname=\"user.sandbox_lore\"\nif [ \"$mode\" = \"read\" ]; then\n  /usr/bin/xattr -p \"$name\" \"$target\" >/dev/null 2>&1\n  rc=$?\nelse\n  /usr/bin/xattr -w \"$name\" \"probe\" \"$target\" >/dev/null 2>&1\n  rc=$?\nfi\nif [ \"$rc\" -eq 0 ]; then dec=\"allow\"; else dec=\"deny\"; fi\nprintf \"SBL_PROBE_DETAILS {\\\"decision\\\":\\\"%s\\\",\\\"exit_code\\\":%s}\\n\" \"$dec\" \"$rc\"\nexit 0\n",
+        "xattr_probe",
+        "/private/tmp/foo",
+        "write"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "decision": "allow",
+        "exit_code": 0
+      }
+    },
+    {
+      "name": "baseline:adv:xattr:deny-bar-write",
+      "profile_id": "adv:xattr",
+      "probe_name": "deny-bar-write",
+      "operation": "file-write-xattr",
+      "target": "/private/tmp/bar",
+      "primary_intent": {
+        "operation": "file-write-xattr",
+        "target": "/private/tmp/bar",
+        "profile_id": "adv:xattr",
+        "probe_name": "deny-bar-write"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "target=\"$1\"\nmode=\"$2\"\nname=\"user.sandbox_lore\"\nif [ \"$mode\" = \"read\" ]; then\n  /usr/bin/xattr -p \"$name\" \"$target\" >/dev/null 2>&1\n  rc=$?\nelse\n  /usr/bin/xattr -w \"$name\" \"probe\" \"$target\" >/dev/null 2>&1\n  rc=$?\nfi\nif [ \"$rc\" -eq 0 ]; then dec=\"allow\"; else dec=\"deny\"; fi\nprintf \"SBL_PROBE_DETAILS {\\\"decision\\\":\\\"%s\\\",\\\"exit_code\\\":%s}\\n\" \"$dec\" \"$rc\"\nexit 0\n",
+        "xattr_probe",
+        "/private/tmp/bar",
+        "write"
+      ],
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "decision": "allow",
+        "exit_code": 0
+      }
+    },
+    {
+      "name": "baseline:adv:file_mode:allow-private",
+      "profile_id": "adv:file_mode",
+      "probe_name": "allow-private",
+      "operation": "file-read*",
+      "target": "/private/tmp/mode_deny",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/mode_deny",
+        "profile_id": "adv:file_mode",
+        "probe_name": "allow-private"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/mode_deny"
+      ],
+      "observed_path": "/private/tmp/mode_deny",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "mode deny\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:file_mode:deny-world",
+      "profile_id": "adv:file_mode",
+      "probe_name": "deny-world",
+      "operation": "file-read*",
+      "target": "/private/tmp/mode_allow",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/mode_allow",
+        "profile_id": "adv:file_mode",
+        "probe_name": "deny-world"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/mode_allow"
+      ],
+      "observed_path": "/private/tmp/mode_allow",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "mode allow\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:ipc_posix_shm:allow-shm",
+      "profile_id": "adv:ipc_posix_shm",
+      "probe_name": "allow-shm",
+      "operation": "ipc-posix-shm-write-create",
+      "target": "sbl.ipc.shm.allow",
+      "primary_intent": {
+        "operation": "ipc-posix-shm-write-create",
+        "target": "sbl.ipc.shm.allow",
+        "profile_id": "adv:ipc_posix_shm",
+        "probe_name": "allow-shm"
+      },
+      "command": [
+        "/usr/bin/python3",
+        "-c",
+        "import ctypes, ctypes.util, json, os, sys\nname = sys.argv[1]\nif not name.startswith('/'):\n    name = '/' + name\ndetails = {'operation': 'ipc-posix-shm-write-create', 'name': name}\ntry:\n    lib_path = ctypes.util.find_library('c')\n    if not lib_path:\n        raise RuntimeError('libc not found')\n    lib = ctypes.CDLL(lib_path, use_errno=True)\n    lib.shm_open.argtypes = [ctypes.c_char_p, ctypes.c_int, ctypes.c_int]\n    lib.shm_open.restype = ctypes.c_int\n    lib.shm_unlink.argtypes = [ctypes.c_char_p]\n    lib.shm_unlink.restype = ctypes.c_int\n    fd = lib.shm_open(name.encode(), os.O_CREAT | os.O_RDWR, 0o600)\n    err = ctypes.get_errno()\n    details['fd'] = int(fd)\n    if fd == -1:\n        details['errno'] = int(err)\n        details['decision'] = 'deny'\n        print('SBL_PROBE_DETAILS ' + json.dumps(details))\n        sys.exit(1)\n    os.close(fd)\n    unlink_rc = lib.shm_unlink(name.encode())\n    if unlink_rc != 0:\n        details['unlink_errno'] = int(ctypes.get_errno())\n    details['decision'] = 'allow'\nexcept Exception as exc:\n    details['decision'] = 'deny'\n    details['error'] = str(exc)\nprint('SBL_PROBE_DETAILS ' + json.dumps(details))\nsys.exit(0 if details.get('decision') == 'allow' else 1)\n",
+        "sbl.ipc.shm.allow"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "operation": "ipc-posix-shm-write-create",
+        "name": "/sbl.ipc.shm.allow",
+        "fd": 3,
+        "decision": "allow"
+      }
+    },
+    {
+      "name": "baseline:adv:ipc_posix_shm:deny-shm",
+      "profile_id": "adv:ipc_posix_shm",
+      "probe_name": "deny-shm",
+      "operation": "ipc-posix-shm-write-create",
+      "target": "sbl.ipc.shm.deny",
+      "primary_intent": {
+        "operation": "ipc-posix-shm-write-create",
+        "target": "sbl.ipc.shm.deny",
+        "profile_id": "adv:ipc_posix_shm",
+        "probe_name": "deny-shm"
+      },
+      "command": [
+        "/usr/bin/python3",
+        "-c",
+        "import ctypes, ctypes.util, json, os, sys\nname = sys.argv[1]\nif not name.startswith('/'):\n    name = '/' + name\ndetails = {'operation': 'ipc-posix-shm-write-create', 'name': name}\ntry:\n    lib_path = ctypes.util.find_library('c')\n    if not lib_path:\n        raise RuntimeError('libc not found')\n    lib = ctypes.CDLL(lib_path, use_errno=True)\n    lib.shm_open.argtypes = [ctypes.c_char_p, ctypes.c_int, ctypes.c_int]\n    lib.shm_open.restype = ctypes.c_int\n    lib.shm_unlink.argtypes = [ctypes.c_char_p]\n    lib.shm_unlink.restype = ctypes.c_int\n    fd = lib.shm_open(name.encode(), os.O_CREAT | os.O_RDWR, 0o600)\n    err = ctypes.get_errno()\n    details['fd'] = int(fd)\n    if fd == -1:\n        details['errno'] = int(err)\n        details['decision'] = 'deny'\n        print('SBL_PROBE_DETAILS ' + json.dumps(details))\n        sys.exit(1)\n    os.close(fd)\n    unlink_rc = lib.shm_unlink(name.encode())\n    if unlink_rc != 0:\n        details['unlink_errno'] = int(ctypes.get_errno())\n    details['decision'] = 'allow'\nexcept Exception as exc:\n    details['decision'] = 'deny'\n    details['error'] = str(exc)\nprint('SBL_PROBE_DETAILS ' + json.dumps(details))\nsys.exit(0 if details.get('decision') == 'allow' else 1)\n",
+        "sbl.ipc.shm.deny"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "operation": "ipc-posix-shm-write-create",
+        "name": "/sbl.ipc.shm.deny",
+        "fd": 3,
+        "decision": "allow"
+      }
+    },
+    {
+      "name": "baseline:adv:authorization_right:allow-right",
+      "profile_id": "adv:authorization_right",
+      "probe_name": "allow-right",
+      "operation": "authorization-right-obtain",
+      "target": "system.preferences",
+      "primary_intent": {
+        "operation": "authorization-right-obtain",
+        "target": "system.preferences",
+        "profile_id": "adv:authorization_right",
+        "probe_name": "allow-right"
+      },
+      "command": [
+        "true"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:authorization_right:deny-right",
+      "profile_id": "adv:authorization_right",
+      "probe_name": "deny-right",
+      "operation": "authorization-right-obtain",
+      "target": "system.preferences.privacy",
+      "primary_intent": {
+        "operation": "authorization-right-obtain",
+        "target": "system.preferences.privacy",
+        "profile_id": "adv:authorization_right",
+        "probe_name": "deny-right"
+      },
+      "command": [
+        "true"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:preference_domain:allow-domain",
+      "profile_id": "adv:preference_domain",
+      "probe_name": "allow-domain",
+      "operation": "user-preference-read",
+      "target": "com.apple.TimeMachine",
+      "primary_intent": {
+        "operation": "user-preference-read",
+        "target": "com.apple.TimeMachine",
+        "profile_id": "adv:preference_domain",
+        "probe_name": "allow-domain"
+      },
+      "command": [
+        "true"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:preference_domain:deny-domain",
+      "profile_id": "adv:preference_domain",
+      "probe_name": "deny-domain",
+      "operation": "user-preference-read",
+      "target": "com.apple.sandboxadversarial.fake",
+      "primary_intent": {
+        "operation": "user-preference-read",
+        "target": "com.apple.sandboxadversarial.fake",
+        "profile_id": "adv:preference_domain",
+        "probe_name": "deny-domain"
+      },
+      "command": [
+        "true"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:xpc_service_name:allow-cfprefsd-xpc",
+      "profile_id": "adv:xpc_service_name",
+      "probe_name": "allow-cfprefsd-xpc",
+      "operation": "mach-lookup",
+      "target": "com.apple.cfprefsd.xpc",
+      "primary_intent": {
+        "operation": "mach-lookup",
+        "target": "com.apple.cfprefsd.xpc",
+        "profile_id": "adv:xpc_service_name",
+        "probe_name": "allow-cfprefsd-xpc"
+      },
+      "command": [
+        "book/api/runtime/native/probes/mach_probe",
+        "com.apple.cfprefsd.xpc"
+      ],
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "{\"kr\":1102}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "operation": "mach-lookup",
+        "kr": 1102,
+        "service_present": false
+      }
+    },
+    {
+      "name": "baseline:adv:xpc_service_name:deny-bogus-xpc",
+      "profile_id": "adv:xpc_service_name",
+      "probe_name": "deny-bogus-xpc",
+      "operation": "mach-lookup",
+      "target": "com.apple.sandboxadversarial.fake.xpc",
+      "primary_intent": {
+        "operation": "mach-lookup",
+        "target": "com.apple.sandboxadversarial.fake.xpc",
+        "profile_id": "adv:xpc_service_name",
+        "probe_name": "deny-bogus-xpc"
+      },
+      "command": [
+        "book/api/runtime/native/probes/mach_probe",
+        "com.apple.sandboxadversarial.fake.xpc"
+      ],
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "{\"kr\":1102}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "operation": "mach-lookup",
+        "kr": 1102,
+        "service_present": false
+      }
+    },
+    {
+      "name": "baseline:adv:path_canon_alt:allow-private",
+      "profile_id": "adv:path_canon_alt",
+      "probe_name": "allow-private",
+      "operation": "file-read*",
+      "target": "/private/tmp/strict_ok/allow.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/strict_ok/allow.txt",
+        "profile_id": "adv:path_canon_alt",
+        "probe_name": "allow-private"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/strict_ok/allow.txt"
+      ],
+      "observed_path": "/private/tmp/strict_ok/allow.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "strict allow\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:adv:path_canon_alt:allow-tmp",
+      "profile_id": "adv:path_canon_alt",
+      "probe_name": "allow-tmp",
+      "operation": "file-read*",
+      "target": "/tmp/strict_ok/allow.txt",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/strict_ok/allow.txt",
+        "profile_id": "adv:path_canon_alt",
+        "probe_name": "allow-tmp"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/strict_ok/allow.txt"
+      ],
+      "observed_path": "/private/tmp/strict_ok/allow.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "strict allow\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    }
+  ]
+}
