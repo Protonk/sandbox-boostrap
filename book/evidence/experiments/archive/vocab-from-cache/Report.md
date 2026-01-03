@@ -1,6 +1,6 @@
 # Vocab from Cache – Research Report
 
-> Archived experiment scaffold. Canonical mappings: `book/graph/mappings/vocab/{ops.json,filters.json}`.
+> Archived experiment scaffold. Canonical mappings: `book/integration/carton/bundle/relationships/mappings/vocab/{ops.json,filters.json}`.
 
 ## Purpose
 Extract Operation/Filter vocab tables (name ↔ ID) from the macOS dyld shared cache (Sandbox.framework / libsandbox payloads) and align them with decoder‑derived `op_count` / op‑table data from canonical blobs, producing real `ops.json` / `filters.json` for this host.
@@ -11,10 +11,10 @@ Extract Operation/Filter vocab tables (name ↔ ID) from the macOS dyld shared c
   - `book/evidence/graph/concepts/validation/fixtures/blobs/airlock.sb.bin`
   - `book/evidence/graph/concepts/validation/fixtures/blobs/bsd.sb.bin`
   - `book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin`
-- Current vocab artifacts (`book/evidence/graph/mappings/vocab/ops.json` / `filters.json`) are `status: ok` (196 ops, 93 filters) harvested from the dyld cache.
+- Current vocab artifacts (`book/integration/carton/bundle/relationships/mappings/vocab/ops.json` / `filters.json`) are `status: ok` (196 ops, 93 filters) harvested from the dyld cache.
 
 ## Deliverables / expected outcomes
-- `book/evidence/graph/mappings/vocab/ops.json` and `filters.json` for this Sonoma host, with operation and filter IDs, names, metadata, and provenance.
+- `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` and `filters.json` for this Sonoma host, with operation and filter IDs, names, metadata, and provenance.
 - Notes in this report and `Notes.md` summarizing how vocab artifacts were derived and how they feed other experiments.
 
 ## Plan & execution log
@@ -23,13 +23,13 @@ Extract Operation/Filter vocab tables (name ↔ ID) from the macOS dyld shared c
   - Dyld shared cache located at `/System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e`; extracted via Swift shim using `/usr/lib/dsc_extractor.bundle` into `book/evidence/experiments/vocab-from-cache/extracted/` (Sandbox.framework + libsandbox pulled out).
   - Added `harvest_ops.py` to decode `_operation_names` → `__TEXT.__cstring`; harvested 196 ordered operation names (`out/operation_names.json`), confirming the op_count heuristic (167) was a decoder artifact.
   - Added `harvest_filters.py` to decode `_filter_info` → `__TEXT.__cstring`; harvested 93 ordered filter names (`out/filter_names.json`).
-  - `book/evidence/graph/mappings/vocab/ops.json` is `status: ok` (IDs 0–195); `filters.json` now `status: ok` (IDs 0–92) from the cache harvest.
+  - `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` is `status: ok` (IDs 0–195); `filters.json` now `status: ok` (IDs 0–92) from the cache harvest.
   - Regenerated `book/evidence/experiments/op-table-operation/out/*` with the vocab length override (196 ops) and refreshed `op-table-vocab-alignment` to fill `operation_ids` per profile; op_table entries now cover the full vocabulary. (Filters not yet propagated into downstream experiments.)
-- Experiment marked complete; raw cache extraction under `book/evidence/experiments/vocab-from-cache/extracted/` removed after harvesting, with trimmed copies retained in `book/graph/mappings/dyld-libs/`.
+- Experiment marked complete; raw cache extraction under `book/evidence/experiments/vocab-from-cache/extracted/` removed after harvesting, with trimmed copies retained in `book/integration/carton/bundle/relationships/mappings/dyld-libs/`.
 - **1) Setup and scope**
   - Recorded host baseline (OS/build, kernel, SIP) in this Report and in `Notes.md`.
   - Inventoried canonical blobs for alignment (system profiles plus `sample.sb.bin`).
-  - Confirmed vocab artifacts and static metadata under `book/graph/mappings/vocab` and `validation/out/metadata.json`.
+  - Confirmed vocab artifacts and static metadata under `book/integration/carton/bundle/relationships/mappings/vocab` and `validation/out/metadata.json`.
 - **2) Cache extraction**
   - Located the dyld shared cache and extracted Sandbox-related slices (Sandbox.framework, libsandbox) into `extracted/` with provenance in `Notes.md`.
 - **3) Name harvesting**
@@ -37,7 +37,7 @@ Extract Operation/Filter vocab tables (name ↔ ID) from the macOS dyld shared c
   - Counted recovered names and compared them to decoder op_count; confirmed 196 operations and 93 filters.
 - **4) ID alignment**
   - Aligned harvested names with decoder op_table/op_count and spot-checked using single-op SBPL profiles.
-  - Emitted `book/evidence/graph/mappings/vocab/ops.json` and `filters.json` with `status: ok`, host/build metadata, and per-entry provenance.
+  - Emitted `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` and `filters.json` with `status: ok`, host/build metadata, and per-entry provenance.
   - Updated vocab artifacts with real entries and provenance.
 - **5) Alignment and propagation**
   - Reran `op-table-vocab-alignment` to fill `operation_ids` and `vocab_version`, then updated alignment artifacts.
@@ -60,8 +60,8 @@ If vocab artifacts ever need to be regenerated (for a new host or a changed deco
    - Refresh op-table alignment artifacts and sanity checks only when vocab artifacts change.
 
 ## Evidence & artifacts
-- Extracted Sandbox.framework/libsandbox slices from the dyld shared cache under `book/evidence/experiments/vocab-from-cache/extracted/` (transient) and trimmed copies in `book/graph/mappings/dyld-libs/`.
-- Published vocab artifacts `book/evidence/graph/mappings/vocab/ops.json` and `filters.json` with host/build metadata.
+- Extracted Sandbox.framework/libsandbox slices from the dyld shared cache under `book/evidence/experiments/vocab-from-cache/extracted/` (transient) and trimmed copies in `book/integration/carton/bundle/relationships/mappings/dyld-libs/`.
+- Published vocab artifacts `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` and `filters.json` with host/build metadata.
 - Archive note: experiment-local harvest scripts and `out/` name lists were removed during archival; see `Examples.md` for small excerpts.
 
 ## Blockers / risks

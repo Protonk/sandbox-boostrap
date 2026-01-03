@@ -2,7 +2,7 @@
 
 Canonical mapping:
 
-- `book/evidence/graph/mappings/runtime/op_runtime_summary.json`
+- `book/integration/carton/bundle/relationships/mappings/runtime/op_runtime_summary.json`
 
 ## Meta excerpt
 
@@ -29,5 +29,5 @@ Canonical mapping:
 
 ## Regeneration
 
-- Promote runtime mappings: `python3 book/graph/mappings/runtime/promote_from_packets.py`
+- Promote runtime mappings: `python3 book/integration/carton/mappings/runtime/promote_from_packets.py`
 

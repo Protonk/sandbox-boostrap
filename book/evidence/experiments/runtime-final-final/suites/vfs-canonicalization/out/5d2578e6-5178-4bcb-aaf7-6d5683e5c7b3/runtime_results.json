@@ -1,0 +1,772 @@
+{
+  "vfs_var_tmp_private_only": {
+    "status": "partial",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_private_only.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "read_/var/tmp/vfs_canon_probe",
+        "expectation_id": "vfs_var_tmp_private_only:read_/var/tmp/vfs_canon_probe",
+        "operation": "file-read*",
+        "path": "/var/tmp/vfs_canon_probe",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": false,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "efa67dec03ae6ac5a64fc058d4bd284f8cd21fb55c37b5aaf65420d650ffe7fe",
+            "tool_build_id": "efa67dec03ae6ac5a64fc058d4bd284f8cd21fb55c37b5aaf65420d650ffe7fe"
+          },
+          "seatbelt_callouts": [
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "pre_syscall",
+              "api": "sandbox_check",
+              "operation": "file-read-data",
+              "filter_type": 0,
+              "filter_type_name": "path",
+              "check_type": 1073741824,
+              "varargs_count": 1,
+              "argument": "/var/tmp/vfs_canon_probe",
+              "canonicalization": "raw",
+              "canonical_flag_used": false,
+              "canonical_flag_reason": "not_requested",
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 1,
+              "errno": 0,
+              "decision": "deny",
+              "no_report_reason": null
+            },
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "pre_syscall",
+              "api": "sandbox_check",
+              "operation": "file-read-data",
+              "filter_type": 0,
+              "filter_type_name": "path",
+              "check_type": 1610612736,
+              "varargs_count": 1,
+              "argument": "/var/tmp/vfs_canon_probe",
+              "canonicalization": "canonical",
+              "canonical_flag_used": true,
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 1,
+              "errno": 0,
+              "decision": "deny",
+              "no_report_reason": null,
+              "canonical_flag_reason": null
+            }
+          ],
+          "intended_op_witnessed": true,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/var/tmp/vfs_canon_probe",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": false,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/var/tmp/vfs_canon_probe",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+          "/var/tmp/vfs_canon_probe"
+        ],
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb\",\"pid\":56349}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb\",\"pid\":56349}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-read-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/var/tmp/vfs_canon_probe\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-read-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1610612736,\"varargs_count\":1,\"argument\":\"/var/tmp/vfs_canon_probe\",\"canonicalization\":\"canonical\",\"canonical_flag_used\":true,\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nopen target: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767433111.754254,
+        "cmd_finished_at_unix_s": 1767433111.973525,
+        "cmd_duration_s": 0.21927094459533691,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/var/tmp/vfs_canon_probe",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "write_/var/tmp/vfs_canon_probe",
+        "expectation_id": "vfs_var_tmp_private_only:write_/var/tmp/vfs_canon_probe",
+        "operation": "file-write*",
+        "path": "/var/tmp/vfs_canon_probe",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_writer",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": false,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+            "entrypoint_sha256": "eacb947a72941819b2ed8cef9f768dbee8e490b74ed01acef2d21023aa162d89",
+            "tool_build_id": "eacb947a72941819b2ed8cef9f768dbee8e490b74ed01acef2d21023aa162d89"
+          },
+          "seatbelt_callouts": [
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "pre_syscall",
+              "api": "sandbox_check",
+              "operation": "file-write-data",
+              "filter_type": 0,
+              "filter_type_name": "path",
+              "check_type": 1073741824,
+              "varargs_count": 1,
+              "argument": "/var/tmp/vfs_canon_probe",
+              "canonicalization": "raw",
+              "canonical_flag_used": false,
+              "canonical_flag_reason": "not_requested",
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 1,
+              "errno": 0,
+              "decision": "deny",
+              "no_report_reason": null
+            },
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "pre_syscall",
+              "api": "sandbox_check",
+              "operation": "file-write-data",
+              "filter_type": 0,
+              "filter_type_name": "path",
+              "check_type": 1610612736,
+              "varargs_count": 1,
+              "argument": "/var/tmp/vfs_canon_probe",
+              "canonicalization": "canonical",
+              "canonical_flag_used": true,
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 1,
+              "errno": 0,
+              "decision": "deny",
+              "no_report_reason": null,
+              "canonical_flag_reason": null
+            }
+          ],
+          "intended_op_witnessed": true,
+          "sandbox_check_request": {
+            "operation": "file-write-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/var/tmp/vfs_canon_probe",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": false,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/var/tmp/vfs_canon_probe",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_writer",
+          "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+          "/var/tmp/vfs_canon_probe"
+        ],
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb\",\"pid\":56350}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb\",\"pid\":56350}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-write-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/var/tmp/vfs_canon_probe\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-write-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1610612736,\"varargs_count\":1,\"argument\":\"/var/tmp/vfs_canon_probe\",\"canonicalization\":\"canonical\",\"canonical_flag_used\":true,\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nopen target: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767433111.974997,
+        "cmd_finished_at_unix_s": 1767433112.265169,
+        "cmd_duration_s": 0.29017186164855957,
+        "sandbox_check_request": {
+          "operation": "file-write-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/var/tmp/vfs_canon_probe",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "read_/private/var/tmp/vfs_canon_probe",
+        "expectation_id": "vfs_var_tmp_private_only:read_/private/var/tmp/vfs_canon_probe",
+        "operation": "file-read*",
+        "path": "/private/var/tmp/vfs_canon_probe",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": null,
+          "failure_kind": null,
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": false,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "efa67dec03ae6ac5a64fc058d4bd284f8cd21fb55c37b5aaf65420d650ffe7fe",
+            "tool_build_id": "efa67dec03ae6ac5a64fc058d4bd284f8cd21fb55c37b5aaf65420d650ffe7fe"
+          },
+          "seatbelt_callouts": [
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "pre_syscall",
+              "api": "sandbox_check",
+              "operation": "file-read-data",
+              "filter_type": 0,
+              "filter_type_name": "path",
+              "check_type": 1073741824,
+              "varargs_count": 1,
+              "argument": "/private/var/tmp/vfs_canon_probe",
+              "canonicalization": "raw",
+              "canonical_flag_used": false,
+              "canonical_flag_reason": "not_requested",
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 1,
+              "errno": 0,
+              "decision": "deny",
+              "no_report_reason": null
+            },
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "pre_syscall",
+              "api": "sandbox_check",
+              "operation": "file-read-data",
+              "filter_type": 0,
+              "filter_type_name": "path",
+              "check_type": 1610612736,
+              "varargs_count": 1,
+              "argument": "/private/var/tmp/vfs_canon_probe",
+              "canonicalization": "canonical",
+              "canonical_flag_used": true,
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 1,
+              "errno": 0,
+              "decision": "deny",
+              "no_report_reason": null,
+              "canonical_flag_reason": null
+            }
+          ],
+          "intended_op_witnessed": true,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/private/var/tmp/vfs_canon_probe",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": false,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/var/tmp/vfs_canon_probe",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+          "/private/var/tmp/vfs_canon_probe"
+        ],
+        "exit_code": 0,
+        "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb\",\"pid\":56352}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb\",\"pid\":56352}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-read-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/private/var/tmp/vfs_canon_probe\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-read-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1610612736,\"varargs_count\":1,\"argument\":\"/private/var/tmp/vfs_canon_probe\",\"canonicalization\":\"canonical\",\"canonical_flag_used\":true,\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nF_GETPATH:/private/var/tmp/vfs_canon_probe\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/var/tmp/vfs_canon_probe\nFD_IDENTITY:1\nFSTAT_ST_DEV:16777230\nFSTAT_ST_INO:113181447\nFSTATFS_FSTYPENAME:apfs\nFSTATFS_MNTONNAME:/System/Volumes/Data\nFSTATFS_FSID0:16777230\nFSTATFS_FSID1:26\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767433112.2671208,
+        "cmd_finished_at_unix_s": 1767433112.287219,
+        "cmd_duration_s": 0.020098209381103516,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/private/var/tmp/vfs_canon_probe",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "write_/private/var/tmp/vfs_canon_probe",
+        "expectation_id": "vfs_var_tmp_private_only:write_/private/var/tmp/vfs_canon_probe",
+        "operation": "file-write*",
+        "path": "/private/var/tmp/vfs_canon_probe",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": null,
+          "failure_kind": null,
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_writer",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": false,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+            "entrypoint_sha256": "eacb947a72941819b2ed8cef9f768dbee8e490b74ed01acef2d21023aa162d89",
+            "tool_build_id": "eacb947a72941819b2ed8cef9f768dbee8e490b74ed01acef2d21023aa162d89"
+          },
+          "seatbelt_callouts": [
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "pre_syscall",
+              "api": "sandbox_check",
+              "operation": "file-write-data",
+              "filter_type": 0,
+              "filter_type_name": "path",
+              "check_type": 1073741824,
+              "varargs_count": 1,
+              "argument": "/private/var/tmp/vfs_canon_probe",
+              "canonicalization": "raw",
+              "canonical_flag_used": false,
+              "canonical_flag_reason": "not_requested",
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 1,
+              "errno": 0,
+              "decision": "deny",
+              "no_report_reason": null
+            },
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "pre_syscall",
+              "api": "sandbox_check",
+              "operation": "file-write-data",
+              "filter_type": 0,
+              "filter_type_name": "path",
+              "check_type": 1610612736,
+              "varargs_count": 1,
+              "argument": "/private/var/tmp/vfs_canon_probe",
+              "canonicalization": "canonical",
+              "canonical_flag_used": true,
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 1,
+              "errno": 0,
+              "decision": "deny",
+              "no_report_reason": null,
+              "canonical_flag_reason": null
+            }
+          ],
+          "intended_op_witnessed": true,
+          "sandbox_check_request": {
+            "operation": "file-write-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/private/var/tmp/vfs_canon_probe",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": false,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/var/tmp/vfs_canon_probe",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_writer",
+          "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+          "/private/var/tmp/vfs_canon_probe"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb\",\"pid\":56353}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb\",\"pid\":56353}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-write-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/private/var/tmp/vfs_canon_probe\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-write-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1610612736,\"varargs_count\":1,\"argument\":\"/private/var/tmp/vfs_canon_probe\",\"canonicalization\":\"canonical\",\"canonical_flag_used\":true,\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nF_GETPATH:/private/var/tmp/vfs_canon_probe\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/var/tmp/vfs_canon_probe\nFD_IDENTITY:1\nFSTAT_ST_DEV:16777230\nFSTAT_ST_INO:113181447\nFSTATFS_FSTYPENAME:apfs\nFSTATFS_MNTONNAME:/System/Volumes/Data\nFSTATFS_FSID0:16777230\nFSTATFS_FSID1:26\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767433112.288223,
+        "cmd_finished_at_unix_s": 1767433112.303921,
+        "cmd_duration_s": 0.015697956085205078,
+        "sandbox_check_request": {
+          "operation": "file-write-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/private/var/tmp/vfs_canon_probe",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "expectation_id": "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "operation": "file-read*",
+        "path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "expected": "deny",
+        "actual": "allow",
+        "match": false,
+        "runtime_result": {
+          "status": "success",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": null,
+          "failure_kind": null,
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": false,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "efa67dec03ae6ac5a64fc058d4bd284f8cd21fb55c37b5aaf65420d650ffe7fe",
+            "tool_build_id": "efa67dec03ae6ac5a64fc058d4bd284f8cd21fb55c37b5aaf65420d650ffe7fe"
+          },
+          "seatbelt_callouts": [
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "pre_syscall",
+              "api": "sandbox_check",
+              "operation": "file-read-data",
+              "filter_type": 0,
+              "filter_type_name": "path",
+              "check_type": 1073741824,
+              "varargs_count": 1,
+              "argument": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+              "canonicalization": "raw",
+              "canonical_flag_used": false,
+              "canonical_flag_reason": "not_requested",
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 1,
+              "errno": 0,
+              "decision": "deny",
+              "no_report_reason": null
+            },
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "pre_syscall",
+              "api": "sandbox_check",
+              "operation": "file-read-data",
+              "filter_type": 0,
+              "filter_type_name": "path",
+              "check_type": 1610612736,
+              "varargs_count": 1,
+              "argument": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+              "canonicalization": "canonical",
+              "canonical_flag_used": true,
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 1,
+              "errno": 0,
+              "decision": "deny",
+              "no_report_reason": null,
+              "canonical_flag_reason": null
+            }
+          ],
+          "intended_op_witnessed": true,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": false,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/var/tmp/vfs_canon_probe",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+          "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        ],
+        "exit_code": 0,
+        "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb\",\"pid\":56354}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb\",\"pid\":56354}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-read-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/System/Volumes/Data/private/var/tmp/vfs_canon_probe\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-read-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1610612736,\"varargs_count\":1,\"argument\":\"/System/Volumes/Data/private/var/tmp/vfs_canon_probe\",\"canonicalization\":\"canonical\",\"canonical_flag_used\":true,\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nF_GETPATH:/private/var/tmp/vfs_canon_probe\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/var/tmp/vfs_canon_probe\nFD_IDENTITY:1\nFSTAT_ST_DEV:16777230\nFSTAT_ST_INO:113181447\nFSTATFS_FSTYPENAME:apfs\nFSTATFS_MNTONNAME:/System/Volumes/Data\nFSTATFS_FSID0:16777230\nFSTATFS_FSID1:26\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767433112.304789,
+        "cmd_finished_at_unix_s": 1767433112.3170218,
+        "cmd_duration_s": 0.012232780456542969,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "expectation_id": "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "operation": "file-write*",
+        "path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "expected": "deny",
+        "actual": "allow",
+        "match": false,
+        "runtime_result": {
+          "status": "success",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": null,
+          "failure_kind": null,
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_writer",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": false,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+            "entrypoint_sha256": "eacb947a72941819b2ed8cef9f768dbee8e490b74ed01acef2d21023aa162d89",
+            "tool_build_id": "eacb947a72941819b2ed8cef9f768dbee8e490b74ed01acef2d21023aa162d89"
+          },
+          "seatbelt_callouts": [
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "pre_syscall",
+              "api": "sandbox_check",
+              "operation": "file-write-data",
+              "filter_type": 0,
+              "filter_type_name": "path",
+              "check_type": 1073741824,
+              "varargs_count": 1,
+              "argument": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+              "canonicalization": "raw",
+              "canonical_flag_used": false,
+              "canonical_flag_reason": "not_requested",
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 1,
+              "errno": 0,
+              "decision": "deny",
+              "no_report_reason": null
+            },
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "pre_syscall",
+              "api": "sandbox_check",
+              "operation": "file-write-data",
+              "filter_type": 0,
+              "filter_type_name": "path",
+              "check_type": 1610612736,
+              "varargs_count": 1,
+              "argument": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+              "canonicalization": "canonical",
+              "canonical_flag_used": true,
+              "no_report": true,
+              "token_status": "pid",
+              "token_mach_kr": 0,
+              "rc": 1,
+              "errno": 0,
+              "decision": "deny",
+              "no_report_reason": null,
+              "canonical_flag_reason": null
+            }
+          ],
+          "intended_op_witnessed": true,
+          "sandbox_check_request": {
+            "operation": "file-write-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": false,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/var/tmp/vfs_canon_probe",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_writer",
+          "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+          "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb\",\"pid\":56355}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb\",\"pid\":56355}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-write-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/System/Volumes/Data/private/var/tmp/vfs_canon_probe\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-write-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1610612736,\"varargs_count\":1,\"argument\":\"/System/Volumes/Data/private/var/tmp/vfs_canon_probe\",\"canonicalization\":\"canonical\",\"canonical_flag_used\":true,\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nF_GETPATH:/private/var/tmp/vfs_canon_probe\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/var/tmp/vfs_canon_probe\nFD_IDENTITY:1\nFSTAT_ST_DEV:16777230\nFSTAT_ST_INO:113181447\nFSTATFS_FSTYPENAME:apfs\nFSTATFS_MNTONNAME:/System/Volumes/Data\nFSTATFS_FSID0:16777230\nFSTATFS_FSID1:26\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767433112.3176801,
+        "cmd_finished_at_unix_s": 1767433112.3293881,
+        "cmd_duration_s": 0.01170802116394043,
+        "sandbox_check_request": {
+          "operation": "file-write-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "canonicalization": "both"
+        }
+      }
+    ],
+    "notes": "runtime results diverged from expected allow/deny matrix",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3"
+  }
+}

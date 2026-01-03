@@ -10,7 +10,7 @@ Establish a reusable process for diagnosing intermittent kernel deny evidence, a
 
 - PolicyWitness API: `book.api.witness.client`, `book.api.witness.enforcement`, `book.api.witness.compare`.
 - Observer: `book.api.witness.observer` (manual `--last` and external range; capture mode if it becomes available).
-- Vocab (bedrock): `book/evidence/graph/mappings/vocab/ops.json`, `book/evidence/graph/mappings/vocab/filters.json`, `book/evidence/graph/mappings/vocab/ops_coverage.json`.
+- Vocab (bedrock): `book/integration/carton/bundle/relationships/mappings/vocab/ops.json`, `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`, `book/integration/carton/bundle/relationships/mappings/vocab/ops_coverage.json`.
 - Path helpers: `book.api.path_utils` for repo-relative outputs.
 
 ## Step 1: Capture the processual knowledge (how we resolved it)

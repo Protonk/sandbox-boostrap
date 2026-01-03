@@ -1,0 +1,132 @@
+{
+  "schema_version": "runtime-tools.path_witnesses.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "58c6e366-9d5c-4dac-9c21-973d6e5ad337",
+  "plan_id": "vfs-canonicalization.v1",
+  "records": [
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "vfs_etc_private_only",
+      "scenario_id": "baseline:vfs_etc_private_only:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "vfs_etc_private_only",
+      "scenario_id": "baseline:vfs_etc_private_only:read_/private/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/private/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/private/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "vfs_etc_private_only",
+      "scenario_id": "vfs_etc_private_only:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/58c6e366-9d5c-4dac-9c21-973d6e5ad337/runtime_profiles/vfs_etc_private_only.vfs_etc_private_only.runtime.sb",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "vfs_etc_private_only",
+      "scenario_id": "vfs_etc_private_only:read_/private/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/private/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/etc/hosts",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": true
+      },
+      "fd_identity": {
+        "enabled": true,
+        "enabled_source": "probe_fd_identity:present",
+        "st_dev": 16777230,
+        "st_ino": 79488775,
+        "fstat_errno": null,
+        "fstypename": "apfs",
+        "mntonname": "/System/Volumes/Data",
+        "fsid": [
+          16777230,
+          26
+        ],
+        "fstatfs_errno": null
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/58c6e366-9d5c-4dac-9c21-973d6e5ad337/runtime_profiles/vfs_etc_private_only.vfs_etc_private_only.runtime.sb",
+        "/private/etc/hosts"
+      ]
+    }
+  ]
+}

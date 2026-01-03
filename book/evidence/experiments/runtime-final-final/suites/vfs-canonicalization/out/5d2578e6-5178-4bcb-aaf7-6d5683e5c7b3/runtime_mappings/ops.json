@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "source_jobs": [],
+    "notes": "op-level runtime summary"
+  },
+  "ops": {
+    "file-read*": {
+      "op_name": "file-read*",
+      "op_id": 21,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 3,
+      "matches": 2,
+      "mismatches": 1,
+      "probes_including_blocked": 3,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "unobserved": 0,
+      "examples": [
+        {
+          "scenario_id": "vfs_var_tmp_private_only:read_/var/tmp/vfs_canon_probe",
+          "expectation_id": "vfs_var_tmp_private_only:read_/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "vfs_var_tmp_private_only:read_/private/var/tmp/vfs_canon_probe",
+          "expectation_id": "vfs_var_tmp_private_only:read_/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expectation_id": "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "actual": "allow",
+          "match": false
+        }
+      ],
+      "scenarios": [
+        "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_private_only:read_/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_private_only:read_/var/tmp/vfs_canon_probe"
+      ],
+      "mismatch_details": [
+        {
+          "scenario_id": "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expectation_id": "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "actual": "allow",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "coverage_status": "partial"
+    },
+    "file-write*": {
+      "op_name": "file-write*",
+      "op_id": 29,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 3,
+      "matches": 2,
+      "mismatches": 1,
+      "probes_including_blocked": 3,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "unobserved": 0,
+      "examples": [
+        {
+          "scenario_id": "vfs_var_tmp_private_only:write_/var/tmp/vfs_canon_probe",
+          "expectation_id": "vfs_var_tmp_private_only:write_/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "vfs_var_tmp_private_only:write_/private/var/tmp/vfs_canon_probe",
+          "expectation_id": "vfs_var_tmp_private_only:write_/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expectation_id": "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "actual": "allow",
+          "match": false
+        }
+      ],
+      "scenarios": [
+        "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_private_only:write_/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_private_only:write_/var/tmp/vfs_canon_probe"
+      ],
+      "mismatch_details": [
+        {
+          "scenario_id": "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expectation_id": "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "actual": "allow",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        }
+      ],
+      "coverage_status": "partial"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # Agents in `book/evidence/experiments/archive/`
 
-This subtree contains **archived** experiment scaffolds whose useful outputs have already been promoted elsewhere (typically into `book/evidence/graph/mappings/**` or `book/tools/**`).
+This subtree contains **archived** experiment scaffolds whose useful outputs have already been promoted elsewhere (typically into `book/integration/carton/bundle/relationships/mappings/**` or `book/tools/**`).
 
 **Do not edit anything under `book/evidence/experiments/archive/` unless you are expressly directed to by the user/task.**
 

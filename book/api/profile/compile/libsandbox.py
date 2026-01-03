@@ -21,7 +21,7 @@ Parameter dictionaries:
   level entry points such as `sandbox_init_with_parameters` / `sandbox-exec -D`.
   The compile-time params-handle interface is guarded by
   `structure:sbpl-parameterization` in
-  `book/graph/concepts/validation/sbpl_parameterization_job.py`.
+  `book/integration/carton/validation/sbpl_parameterization_job.py`.
 
 Memory / ownership notes:
 - On success, `sandbox_compile_*` returns a pointer to a `sandbox_profile`

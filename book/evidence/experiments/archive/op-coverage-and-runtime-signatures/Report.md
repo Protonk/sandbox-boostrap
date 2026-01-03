@@ -1,10 +1,10 @@
 # Report – op-coverage-and-runtime-signatures
 
-> Archived experiment scaffold. Canonical mapping: `book/evidence/graph/mappings/runtime/op_runtime_summary.json`.
+> Archived experiment scaffold. Canonical mapping: `book/integration/carton/bundle/relationships/mappings/runtime/op_runtime_summary.json`.
 
 ## Purpose
 
-This suite keeps a per-operation runtime summary aligned with the canonical promotion pipeline for this world (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`). The canonical output is `book/evidence/graph/mappings/runtime/op_runtime_summary.json` (mapped); this experiment no longer owns summarization logic.
+This suite keeps a per-operation runtime summary aligned with the canonical promotion pipeline for this world (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`). The canonical output is `book/integration/carton/bundle/relationships/mappings/runtime/op_runtime_summary.json` (mapped); this experiment no longer owns summarization logic.
 
 ## Baseline & scope
 
@@ -15,9 +15,9 @@ This suite keeps a per-operation runtime summary aligned with the canonical prom
 
 ## Deliverables / expected outcomes
 
-- `book/evidence/graph/mappings/runtime/op_runtime_summary.json` (mapped): canonical per-operation runtime summary (counts, mismatch examples, blocked-stage tallies).
-- Alignment with `book/evidence/graph/mappings/runtime_cuts/ops.json` (internal runtime cuts) and the runtime signature mappings in `book/evidence/graph/mappings/runtime/runtime_signatures.json`.
-- Coverage linkage via `book/evidence/graph/mappings/vocab/ops_coverage.json` (bedrock surface; see `book/evidence/graph/concepts/BEDROCK_SURFACES.json`).
+- `book/integration/carton/bundle/relationships/mappings/runtime/op_runtime_summary.json` (mapped): canonical per-operation runtime summary (counts, mismatch examples, blocked-stage tallies).
+- Alignment with `book/integration/carton/bundle/relationships/mappings/runtime_cuts/ops.json` (internal runtime cuts) and the runtime signature mappings in `book/integration/carton/bundle/relationships/mappings/runtime/runtime_signatures.json`.
+- Coverage linkage via `book/integration/carton/bundle/relationships/mappings/vocab/ops_coverage.json` (bedrock surface; see `book/evidence/graph/concepts/BEDROCK_SURFACES.json`).
 
 ## Mechanism (promotion packet -> mapping)
 
@@ -25,15 +25,15 @@ This suite keeps a per-operation runtime summary aligned with the canonical prom
    - `python -m book.api.runtime run --plan book/evidence/experiments/runtime-adversarial/plan.json --channel launchd_clean --out book/evidence/experiments/runtime-adversarial/out`
    - `python -m book.api.runtime emit-promotion --bundle book/evidence/experiments/runtime-adversarial/out --out book/evidence/experiments/runtime-adversarial/out/promotion_packet.json`
 2. Promote runtime mappings (canonical):
-   - `python book/graph/mappings/runtime/promote_from_packets.py`
+   - `python book/integration/carton/mappings/runtime/promote_from_packets.py`
    - This generates `op_runtime_summary.json` alongside runtime cuts, runtime coverage, and runtime signatures.
 3. Treat the canonical mapping as the source of truth; this archived scaffold keeps narrative context only.
 
 ## Evidence & artifacts
 
-- Canonical summary: `book/evidence/graph/mappings/runtime/op_runtime_summary.json` (mapped).
-- Related runtime mappings: `book/evidence/graph/mappings/runtime/runtime_signatures.json`, `book/evidence/graph/mappings/runtime/runtime_coverage.json`.
-- Runtime cuts (derived, not canonical): `book/evidence/graph/mappings/runtime_cuts/ops.json`.
+- Canonical summary: `book/integration/carton/bundle/relationships/mappings/runtime/op_runtime_summary.json` (mapped).
+- Related runtime mappings: `book/integration/carton/bundle/relationships/mappings/runtime/runtime_signatures.json`, `book/integration/carton/bundle/relationships/mappings/runtime/runtime_coverage.json`.
+- Runtime cuts (derived, not canonical): `book/integration/carton/bundle/relationships/mappings/runtime_cuts/ops.json`.
 - VFS divergence context: `book/evidence/experiments/vfs-canonicalization/Report.md` (mapped; explains `/tmp` -> `/private/tmp`).
 - Archive note: experiment-local mirrors were removed during archival; see `Examples.md` for small excerpts.
 

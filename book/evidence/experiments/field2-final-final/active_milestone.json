@@ -1,15 +1,66 @@
 {
   "schema_version": "field2-milestone.v0",
-  "milestone_id": "field2-atlas-blockers-5",
+  "milestone_id": "field2-atlas-14-decision-closure",
   "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
   "source": "book/evidence/experiments/field2-final-final/out/frontier.json",
   "requirements": {
     "require_packet": true,
     "require_lane_attribution": true,
     "require_mapping_delta_or_retire": true,
-    "require_fresh_packet": false
+    "require_fresh_packet": false,
+    "require_no_runtime_candidate": true,
+    "require_unresolved_retired": true,
+    "min_lane_witnesses": 2
   },
   "candidates": [
+    {
+      "claim_key": "field2=0",
+      "field2": 0,
+      "filter_name": "path",
+      "status": "runtime_backed",
+      "score": -100,
+      "runtime_candidate": {
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "allow-tmp",
+        "scenario_id": "adv:path_edges_private:allow-tmp"
+      }
+    },
+    {
+      "claim_key": "field2=1",
+      "field2": 1,
+      "filter_name": "mount-relative-path",
+      "status": "runtime_backed",
+      "score": -100,
+      "runtime_candidate": {
+        "profile_id": "adv:mount_relative_path",
+        "probe_name": "allow-subpath",
+        "scenario_id": "adv:mount_relative_path:allow-subpath"
+      }
+    },
+    {
+      "claim_key": "field2=2",
+      "field2": 2,
+      "filter_name": "xattr",
+      "status": "runtime_backed",
+      "score": -100,
+      "runtime_candidate": {
+        "profile_id": "adv:xattr",
+        "probe_name": "allow-foo-read",
+        "scenario_id": "adv:xattr:allow-foo-read"
+      }
+    },
+    {
+      "claim_key": "field2=3",
+      "field2": 3,
+      "filter_name": "file-mode",
+      "status": "runtime_backed",
+      "score": -100,
+      "runtime_candidate": {
+        "profile_id": "adv:file_mode",
+        "probe_name": "allow-private",
+        "scenario_id": "adv:file_mode:allow-private"
+      }
+    },
     {
       "claim_key": "field2=4",
       "field2": 4,
@@ -20,6 +71,42 @@
         "profile_id": "adv:ipc_posix_shm",
         "probe_name": "allow-shm",
         "scenario_id": "adv:ipc_posix_shm:allow-shm"
+      }
+    },
+    {
+      "claim_key": "field2=5",
+      "field2": 5,
+      "filter_name": "global-name",
+      "status": "runtime_backed",
+      "score": -100,
+      "runtime_candidate": {
+        "profile_id": "adv:mach_simple_allow",
+        "probe_name": "allow-cfprefsd",
+        "scenario_id": "field2-5-mach-global"
+      }
+    },
+    {
+      "claim_key": "field2=6",
+      "field2": 6,
+      "filter_name": "local-name",
+      "status": "runtime_backed",
+      "score": -100,
+      "runtime_candidate": {
+        "profile_id": "adv:mach_local_regex",
+        "probe_name": "allow-cfprefsd-local",
+        "scenario_id": "adv:mach_local_regex:allow-cfprefsd-local"
+      }
+    },
+    {
+      "claim_key": "field2=7",
+      "field2": 7,
+      "filter_name": "local",
+      "status": "runtime_backed",
+      "score": -100,
+      "runtime_candidate": {
+        "profile_id": "adv:mach_local_literal",
+        "probe_name": "allow-cfprefsd-local",
+        "scenario_id": "field2-7-mach-local"
       }
     },
     {
@@ -47,6 +134,30 @@
       }
     },
     {
+      "claim_key": "field2=34",
+      "field2": 34,
+      "filter_name": "notification-name",
+      "status": "runtime_backed",
+      "score": -100,
+      "runtime_candidate": {
+        "profile_id": "hardened:notifications_allow",
+        "probe_name": "allow-darwin",
+        "scenario_id": "hardened:notifications_allow:allow-darwin"
+      }
+    },
+    {
+      "claim_key": "field2=37",
+      "field2": 37,
+      "filter_name": "sysctl-name",
+      "status": "runtime_backed",
+      "score": -100,
+      "runtime_candidate": {
+        "profile_id": "hardened:sysctl_read_allow",
+        "probe_name": "allow-kern-ostype",
+        "scenario_id": "hardened:sysctl_read_allow:allow-kern-ostype"
+      }
+    },
+    {
       "claim_key": "field2=49",
       "field2": 49,
       "filter_name": "xpc-service-name",
@@ -59,15 +170,15 @@
       }
     },
     {
-      "claim_key": "field2=0",
-      "field2": 0,
-      "filter_name": "path",
+      "claim_key": "field2=2560",
+      "field2": 2560,
+      "filter_name": "local",
       "status": "runtime_backed",
       "score": -100,
       "runtime_candidate": {
-        "profile_id": "adv:path_edges_private",
-        "probe_name": "allow-tmp",
-        "scenario_id": "adv:path_edges_private:allow-tmp"
+        "profile_id": "adv:flow_divert_require_all_tcp",
+        "probe_name": "tcp-loopback",
+        "scenario_id": "field2-2560-flow-divert"
       }
     }
   ]

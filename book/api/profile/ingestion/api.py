@@ -8,11 +8,11 @@ This module defines the *shared slice contract* for compiled sandbox profile blo
 Why this lives under `book.api.profile`:
 - The canonical ingestion logic was developed inside the validation pipeline.
 - Experiments, examples, and ad-hoc tooling need the same slicing behavior
-  without importing from `book/graph/concepts/validation/`.
+  without importing from `book/integration/carton/validation/`.
 
 It exists so that callers outside the validation layer (examples, experiments,
 API tooling) have a stable import path under `book.api.profile` without
-reaching into `book/graph/concepts/validation/`.
+reaching into `book/integration/carton/validation/`.
 
 Evidence handling:
 - Header/section boundaries are treated as *structural* evidence.

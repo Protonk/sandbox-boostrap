@@ -153,3 +153,12 @@ Use this file for concise notes on probe designs, compile logs, and findings.
   - `v5_service_only` and `v6_user_client_only` both deny `IOSurfaceRoot` with `open_kr=-536870174` (EPERM).
   - `v7_service_user_client_both` allows `IOSurfaceRoot` (`open_kr=0`) but the post-open call fails (`call_kr=-536870206`).
   - Unsandboxed `iokit_probe IOSurfaceRoot` also reports `call_kr=-536870206`, so the post-open action is not discriminating on this host.
+
+## Tranche intake (field2 loop)
+
+- Current tranche (`book/evidence/experiments/field2-final-final/out/tranche.json`) selects `field2=65535` (`status: inventory_only`, `anchor_count: 0`).
+- `out/tranche_witness.json` shows the only inventory hit is `probe:airlock_system_fcntl.sb` and the compiled blob has no `literal_strings` (no anchor surface). The two decoded nodes carrying `fields[2]==65535` are:
+  - idx 54: `tag=1`, `u16_role=arg_u16`, `fields=[14,65533,65535]`
+  - idx 55: `tag=255`, `u16_role=unknown_role`, `fields=[65535,65535,65535]`
+- Interpretation boundary: this is a bounded structural witness that `65535` appears in an arg/unknown-role slot rather than a `filter_vocab_id` node; semantics remain unresolved without a discriminating micro-suite or a deeper decoder for tags 1/255.
+- Script hygiene: probe-op-structure scripts now locate the repo root via `book/` presence instead of the old `parents[...]` hardcoding; reran `anchor_scan.py` and `analyze_profiles.py` to refresh outputs.

@@ -82,9 +82,9 @@ python -m book.api.runtime run \
 - Apply preflight: `book/evidence/experiments/runtime-adversarial/out/LATEST/apply_preflight.json` (runner entitlements + apply markers + parent chain).
 - Bundle index: `book/evidence/experiments/runtime-adversarial/out/LATEST/artifact_index.json` (digests + schema versions).
 - Fixture markers: `book/evidence/experiments/runtime-adversarial/out/LATEST/fixtures.json` (loopback listener prereq evidence).
-- Mapping stub: `book/evidence/graph/mappings/runtime/adversarial_summary.json` (world-level counts).
-- Guardrails: `book/integration/tests/runtime/test_runtime_adversarial.py`, `book/integration/tests/runtime/test_network_outbound_guardrail.py`, plus dyld slice manifest/checker `book/graph/mappings/dyld-libs/{manifest.json,check_manifest.py}` enforced by `book/integration/tests/graph/test_dyld_libs_manifest.py`.
-- Runtime-backed ops: `book/evidence/graph/mappings/vocab/ops_coverage.json` marks `file-read*`, `file-write*`, `mach-lookup`, and `network-outbound` as having runtime evidence via runtime-checks and runtime-adversarial families; use it to decide when new probes are needed for other ops.
+- Mapping stub: `book/integration/carton/bundle/relationships/mappings/runtime/adversarial_summary.json` (world-level counts).
+- Guardrails: `book/integration/tests/runtime/test_runtime_adversarial.py`, `book/integration/tests/runtime/test_network_outbound_guardrail.py`, plus dyld slice manifest/checker (`book/integration/carton/bundle/relationships/mappings/dyld-libs/manifest.json`, `book/integration/carton/mappings/dyld-libs/check_manifest.py`) enforced by `book/integration/tests/graph/test_dyld_libs_manifest.py`.
+- Runtime-backed ops: `book/integration/carton/bundle/relationships/mappings/vocab/ops_coverage.json` marks `file-read*`, `file-write*`, `mach-lookup`, and `network-outbound` as having runtime evidence via runtime-checks and runtime-adversarial families; use it to decide when new probes are needed for other ops.
 
 ## Claims and limits
 - Covered ops/shapes: adversarial probes cover file-read*/file-write* (bucket-4/bucket-5 filesystem profiles and structural/metafilter variants), `file-read-xattr`/`file-write-xattr` (xattr discriminators), `file-read*` with file-mode filters (file-mode discriminator), `mach-lookup` (global-name and local-name, literal and regex, simple vs nested forms), and `network-outbound` (loopback TCP via nc under deny-default + startup shims), plus a flow-divert require-all triple profile.

@@ -308,7 +308,7 @@ Agents should treat these manifests as the primary handles when wiring concepts 
 
 ## Validation workflow (condensed)
 
-The validation plan ties fixtures and experiment bundles to the four clusters. Harness code and task metadata live under `book/graph/concepts/validation/` (see `validation/README.md` and `validation/tasks.py`).
+The validation plan ties fixtures and experiment bundles to the four clusters. Harness code and task metadata live under `book/integration/carton/validation/` (see `validation/README.md` and `validation/tasks.py`).
 
 - **Stage 0 — Setup and metadata**
   - Record host OS/build, hardware, SIP/TCC state, and profile format variant in `validation/out/metadata.json`.

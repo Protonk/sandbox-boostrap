@@ -126,7 +126,7 @@ python3 book/evidence/experiments/preflight-blob-digests/collect_gate_blob_diges
   --apply-matrix book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.outside_harness.json \
   --out book/evidence/experiments/preflight-blob-digests/out/apply_gate_blob_digests.json
 
-PYTHONPATH=$PWD python3 -m book.graph.concepts.validation --experiment preflight-blob-digests
+PYTHONPATH=$PWD python3 -m book.integration.carton validate --experiment preflight-blob-digests
 ```
 
 ## Open questions
@@ -134,7 +134,7 @@ PYTHONPATH=$PWD python3 -m book.graph.concepts.validation --experiment preflight
 This experiment can also support broader, still-open (and largely static/unblocked) questions:
 
 - What fraction of in-repo `*.sb.bin` blobs are currently covered by “apply-gated by digest” vs “unknown”?
-- Do any canonical `sys:*` blobs (as curated in `book/evidence/graph/mappings/system_profiles/digests.json`) overlap with the apply-gate digest corpus? (Answer so far: `sys:airlock` does; `sys:bsd` and `sys:sample` do not.)
+- Do any canonical `sys:*` blobs (as curated in `book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json`) overlap with the apply-gate digest corpus? (Answer so far: `sys:airlock` does; `sys:bsd` and `sys:sample` do not.)
 - Are compiled blob digests deterministic across repeated compiles on this world, and consistent across compilation surfaces? (Answer so far: yes for two SBPL inputs, across Python `book.api.profile` and SBPL-wrapper, 5/5 runs each.)
 - Can we maintain a small “known not-apply-gated” digest control set to detect environment-wide apply gating vs profile-specific gating?
 

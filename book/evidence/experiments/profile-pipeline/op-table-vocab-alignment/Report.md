@@ -51,7 +51,7 @@ This experiment sits between the structural experiments and the validation tooli
 
 **Validation tooling**
 
-- `book/graph/concepts/validation/profile_ingestion` and `decoder` – establish how we slice and decode modern profiles.
+- `book/integration/carton/validation/profile_ingestion` and `decoder` – establish how we slice and decode modern profiles.
 - `book/evidence/graph/concepts/validation/out/metadata.json` – records host/OS baseline and static-format metadata.
 
 ---
@@ -160,10 +160,10 @@ This experiment sits between the structural experiments and the validation tooli
   - Textual interpretation in `ResearchReport.md` framed in terms of the Operation, Operation Pointer Table, and Operation Vocabulary Map concepts.
   ---
 - **5. Turnover and integration**
-  - Add a short summary and pointer into `book/graph/concepts/EXPERIMENT_FEEDBACK.md` and any validation tasks that consume op-table/vocab data.
+  - Add a short summary and pointer into `book/evidence/graph/concepts/EXPERIMENT_FEEDBACK.md` and any validation tasks that consume op-table/vocab data.
   Open questions to track (Upcoming):
   - How best to represent “buckets” in a way that stays stable across OS builds while still tying to concrete Operation IDs.
-  - How much alignment logic should live here versus shared validation tooling under `book/graph/concepts/validation/`.
+  - How much alignment logic should live here versus shared validation tooling under `book/integration/carton/validation/`.
   - Whether future data reveals contradictions between bucket behavior in `op-table-operation` and the canonical Operation Vocabulary Map.
 
 ## Evidence & artifacts
@@ -180,7 +180,7 @@ This experiment sits between the structural experiments and the validation tooli
 ## Next steps
 - Refresh `out/op_table_vocab_alignment.json` whenever vocabulary artifacts or op-table experiment outputs change for this host.
 - Refine bucket and Operation-ID interpretations as more operations and filters are exercised in upstream experiments.
-- Coordinate with validation tooling under `book/graph/concepts/validation/` so that long-term vocabulary and alignment logic lives in shared code rather than being duplicated here.
+- Coordinate with validation tooling under `book/integration/carton/validation/` so that long-term vocabulary and alignment logic lives in shared code rather than being duplicated here.
 
 ## Appendix
 ### 5. Updated findings (with vocab present)
@@ -243,7 +243,7 @@ This experiment can treat “SBPL op name → Operation ID” as complete for th
    - cross-link to:
      - `node-layout` (e.g., “tag6-heavy regions correlate with Operation IDs X, Y, Z in bucket 6”),
      - `op-table-operation` (e.g., “bucket 5 is where mach-lookup and filtered read IDs land in these synthetic profiles”),
-     - `book/graph/concepts/EXPERIMENT_FEEDBACK.md` with a short note and pointers.
+     - `book/evidence/graph/concepts/EXPERIMENT_FEEDBACK.md` with a short note and pointers.
 
    This will turn the current bucket-level observations into properly versioned vocabulary evidence.
 

@@ -25,7 +25,7 @@ Use this file for concise notes on progress, commands, and intermediate findings
 
 ## New shared artifacts
 
-- New shared artifacts unblocking deeper mapping: tag layouts published at `book/evidence/graph/mappings/tag_layouts/tag_layouts.json` and anchor → filter map at `book/evidence/graph/mappings/anchors/anchor_filter_map.json`. Use these to reinterpret anchor-bearing nodes and rerun `harvest_field2.py` for clearer filter IDs.
+- New shared artifacts unblocking deeper mapping: tag layouts published at `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json` and anchor → filter map at `book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json`. Use these to reinterpret anchor-bearing nodes and rerun `harvest_field2.py` for clearer filter IDs.
 
 ## Characterization updates
 
@@ -229,4 +229,4 @@ Next steps: If needed, scan the main evaluator (FUN_ffffff8002d8547a in arm64e) 
 ## Userland predicate probes + Scheme extract
 
 - Added single-filter SBPL probes for `ipc-posix-name`, `notification-name`, `preference-domain`, `right-name`, `sysctl-name`, and `xpc-service-name` under `sb/` and refreshed `out/field2_inventory.json`; the new profiles still collapse to generic field2 IDs (no direct sysctl-name/xpc-service-name payloads observed in these tiny profiles).
-- Added `extract_sbpl_scheme.py` to pull Scheme-like strings out of `book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib` and to scan for unknown/high field2 values; outputs live under `out/libsandbox_scheme/` (candidate Scheme strings plus unknown-value hit summaries).
+- Added `extract_sbpl_scheme.py` to pull Scheme-like strings out of `book/integration/carton/bundle/relationships/mappings/dyld-libs/usr/lib/libsandbox.1.dylib` and to scan for unknown/high field2 values; outputs live under `out/libsandbox_scheme/` (candidate Scheme strings plus unknown-value hit summaries).

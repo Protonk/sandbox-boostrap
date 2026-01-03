@@ -69,7 +69,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
 - `book/evidence/experiments/profile-pipeline/op-table-operation/out/summary.json` with per-profile op-table entries, decoder snapshots, and structural statistics.
 - `book/evidence/experiments/profile-pipeline/op-table-operation/out/op_table_map.json` recording op_entries, unique buckets, and operation sets (plus filter annotations) per profile.
 - `book/evidence/experiments/profile-pipeline/op-table-operation/out/op_table_signatures.json` capturing per-entry structural signatures (tags and reachable literals).
-- Promoted mapping snapshots under `book/integration/carton/bundle/relationships/mappings/op_table/` regenerated via `book/graph/mappings/op_table/generate_op_table_mappings.py` (curated set excludes `v12_runtime_probe`, which remains experiment-local).
+- Promoted mapping snapshots under `book/integration/carton/bundle/relationships/mappings/op_table/` regenerated via `book/integration/carton/mappings/op_table/generate_op_table_mappings.py` (curated set excludes `v12_runtime_probe`, which remains experiment-local).
 - Narrative notes and this report summarizing bucket behavior and remaining unknowns on this host.
 
 ## Plan & execution log
@@ -122,7 +122,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
      - Update this report with any firm Operation↔bucket relationships established by that mapping.
   
   4. **Optional runtime probes**
-     - If it fits within `book/graph/concepts/validation`:
+     - If it fits within `book/integration/carton/validation`:
        - run a tiny app or harness under selected synthetic profiles (e.g., “bucket‑4 only”, “bucket‑5 only”, “[6,…,5]”),
        - exercise operations like `mach-lookup` and `network-outbound`,
        - log which SBPL operations and kernel operations appear in traces.
@@ -170,8 +170,8 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
 - Batch runner `book/tools/sbpl/op_table_runner.py`.
 - `out/summary.json`, `out/op_table_map.json`, and `out/op_table_signatures.json` as described above.
 - Consolidated catalog: `out/op_table_catalog_v1.json` (schema `op_table_catalog_v1`) with bucket patterns, ops/filters, decoder signatures, and provisional runtime hints.
-- Promoted op-table mappings: `book/integration/carton/bundle/relationships/mappings/op_table/` (regenerate after refreshing experiment outputs via `book/graph/mappings/op_table/generate_op_table_mappings.py`).
-- Shared decoder/ingestion helpers under `book/graph/concepts/validation/` used to derive op_count, sections, and node lists.
+- Promoted op-table mappings: `book/integration/carton/bundle/relationships/mappings/op_table/` (regenerate after refreshing experiment outputs via `book/integration/carton/mappings/op_table/generate_op_table_mappings.py`).
+- Shared decoder/ingestion helpers under `book/integration/carton/validation/` used to derive op_count, sections, and node lists.
 
 ## Blockers / risks
 Despite the structural progress, several key questions are still open:

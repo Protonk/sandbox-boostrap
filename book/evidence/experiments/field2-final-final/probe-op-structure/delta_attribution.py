@@ -20,9 +20,13 @@ from typing import Any, Dict, List
 
 import sys
 
-ROOT = Path(__file__).resolve().parents[3]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
+REPO_ROOT = Path(__file__).resolve()
+for parent in REPO_ROOT.parents:
+    if (parent / "book").is_dir():
+        REPO_ROOT = parent
+        break
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 from book.api.profile import decoder  # type: ignore
 
@@ -34,10 +38,10 @@ ANCHOR_FILTER_EXCLUDE = {
     "IOSurfaceRootUserClient": {0},  # exclude generic path filter context
 }
 
-CONTROL_PATH = Path("book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v12_iokit_control.sb.bin")
-VARIANT_PATH = Path("book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v9_iokit_user_client_only.sb.bin")
-OUT_PATH = Path("book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_delta.json")
-FILTERS_PATH = Path("book/integration/carton/bundle/relationships/mappings/vocab/filters.json")
+CONTROL_PATH = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v12_iokit_control.sb.bin"
+VARIANT_PATH = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v9_iokit_user_client_only.sb.bin"
+OUT_PATH = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_delta.json"
+FILTERS_PATH = REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/filters.json"
 
 
 def _node_fingerprint(node: Dict[str, Any]) -> str:

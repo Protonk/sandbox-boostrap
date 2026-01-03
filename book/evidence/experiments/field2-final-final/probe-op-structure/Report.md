@@ -1,10 +1,10 @@
 - world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
 - scope: structural outputs with a narrow runtime slice (single run; provisional)
-- primary outputs: out/analysis.json; out/anchor_hits.json; out/anchor_hits_delta.json; out/tag_inventory.json; out/tag_layout_hypotheses.json; out/literal_scan.json; out/tag_bytes.json
-- runtime outputs: out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/{runtime_results.json,runtime_events.normalized.json,run_manifest.json}
+- primary outputs: out/analysis.json; out/anchor_hits.json; out/anchor_hits_delta.json; out/tag_inventory.json; out/tag_layout_hypotheses.json; out/literal_scan.json; out/tag_bytes.json; out/tranche_witness.json
+- runtime outputs: book/evidence/experiments/runtime-final-final/suites/field2-probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/{runtime_results.json,runtime_events.normalized.json,run_manifest.json}
 - upstream IR: book/api/profile/decoder/; book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json; book/integration/carton/bundle/relationships/mappings/vocab/filters.json
 - downstream mappings: book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json; book/evidence/experiments/field2-final-final/field2-filters/out/*
-- guardrails: book/tests/planes/graph/test_anchor_filter_alignment.py; book/tests/planes/graph/test_mappings_guardrail.py
+- guardrails: book/integration/tests/graph/test_anchor_filter_alignment.py; book/integration/tests/graph/test_mappings_guardrail.py
 
 # Probe Op Structure – Research Report (Sonoma baseline)
 
@@ -41,6 +41,11 @@ Build an anchor-aware structural view of `field2` usage across operations and fi
 - `sys:bsd` now decodes tags 26/27 under the canonical layouts; `field2` payloads align with the host filter vocabulary in the current framing.
 - `sys:airlock` still carries high/out-of-vocab payloads in some tags; those remain opaque and are tracked in `field2-filters`.
 - `sys:sample` mixes low IDs with a small set of high payloads (e.g. 3584) and keeps `/etc/hosts` as a multi-filter anchor.
+
+### Tranche witness: `field2=65535` (structural)
+- The current tranche (`book/evidence/experiments/field2-final-final/out/tranche.json`) selects `field2=65535` with no anchors (`status: inventory_only`).
+- `out/tranche_witness.json` shows a single inventory hit (`probe:airlock_system_fcntl.sb`) and that the compiled blob has no literal strings; the two nodes carrying `fields[2]==65535` decode as `tag=1` (`u16_role=arg_u16`) and `tag=255` (`u16_role=unknown_role`).
+- This bounds the tranche to an arg/unknown-role shape rather than a filter-vocab-bearing node; there is no anchor surface to feed `anchor_filter_map.json` from this tranche.
 
 ### Anchor → node → `field2` summary (structural)
 
@@ -84,13 +89,13 @@ An op-identity tri-matrix under `book/evidence/experiments/runtime-final-final/s
 The runtime-closure file spelling matrix run `book/evidence/experiments/runtime-final-final/suites/runtime-closure/out/ea704c9c-5102-473a-b942-e24af4136cc8/` shows alias-only rules failing for both `/etc/hosts` and `/tmp/foo`, while private spelling rules allow `/private/...` and `/System/Volumes/Data/private/...` spellings (and `/tmp/foo`) at operation stage. `/etc/hosts` remains denied under the alias spelling even when private and Data spellings are allowed, so the `/etc` anchor is still unresolved. The same run shows `IOSurfaceRootUserClient` rules flipping `IOSurfaceRoot` to allow under the user-client-class profile (`v2_user_client_only`), while adding the `IOAccelerator` connection constraint returns `EPERM` (`v3_connection_user_client`).
 
 ## Evidence & artifacts
-- Structural outputs: `book/evidence/experiments/field2-final-final/probe-op-structure/out/{analysis.json,anchor_hits.json,anchor_hits_delta.json,tag_inventory.json,tag_layout_hypotheses.json,tag_bytes.json,literal_scan.json}`.
+- Structural outputs: `book/evidence/experiments/field2-final-final/probe-op-structure/out/{analysis.json,anchor_hits.json,anchor_hits_delta.json,tag_inventory.json,tag_layout_hypotheses.json,tag_bytes.json,literal_scan.json,tranche_witness.json}`.
 - Runtime outputs: `book/evidence/experiments/runtime-final-final/suites/field2-probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/{runtime_results.json,runtime_events.normalized.json,run_manifest.json}`.
 - Shared mappings: `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json`, `book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json`.
 
 ## Guardrails
-- `book/tests/planes/graph/test_mappings_guardrail.py` ensures tag layouts and core mappings stay pinned to this world.
-- `book/tests/planes/graph/test_anchor_filter_alignment.py` enforces that `anchor_filter_map.json` stays aligned with `out/anchor_hits.json` (or `out/anchor_hits_delta.json` for delta-attributed anchors).
+- `book/integration/tests/graph/test_mappings_guardrail.py` ensures tag layouts and core mappings stay pinned to this world.
+- `book/integration/tests/graph/test_anchor_filter_alignment.py` enforces that `anchor_filter_map.json` stays aligned with `out/anchor_hits.json` (or `out/anchor_hits_delta.json` for delta-attributed anchors).
 
 ## How to run
 Run via the runtime CLI and treat the run-scoped bundle as the authority (`out/LATEST` points to the most recent committed run):
@@ -105,11 +110,13 @@ python -m book.api.runtime run \
 ## Structural refresh
 - `python3 book/evidence/experiments/field2-final-final/probe-op-structure/analyze_profiles.py`
 - `python3 book/evidence/experiments/field2-final-final/probe-op-structure/anchor_scan.py`
+- `python3 book/evidence/experiments/field2-final-final/probe-op-structure/tranche_witness.py`
 
 ## Limitations and non-claims
 - Literal/regex operands are still partial; some anchor bindings rely on heuristic scans.
 - Generic scaffolding filters dominate many probe graphs; this experiment does not isolate all fine-grained filters.
 - High `field2` values (e.g., 16660 in `sys:bsd`, 165/166/10752 in `sys:airlock`, 2560 in `flow-divert`, 3584 in `sys:sample`) are structurally bounded but semantically unresolved.
+- `field2=65535` currently only witnesses as an `arg_u16` / `unknown_role` payload in a non-anchorable probe blob; this does not support any filter-id mapping claim.
 - Blocked anchors in `anchor_filter_map.json` (e.g., `flow-divert`, `com.apple.cfprefsd.agent`, `IOUSBHostInterface`) remain unresolved.
 - Runtime results here are narrow and should not be treated as canonical policy semantics without broader runtime evidence.
 
@@ -117,3 +124,4 @@ python -m book.api.runtime run \
 1) If IOSurface op identity remains ambiguous, add an observer-lane run (sandbox log capture) to disambiguate `iokit-open` vs `iokit-open-user-client` without adding more SBPL variants.
 2) Add discriminating SBPL variants for blocked anchors outside IOKit (e.g., separate `global-name` vs `local-name` for `com.apple.cfprefsd.agent`).
 3) Re-run the runtime slice after adding controls and note any changes in `runtime_results.json`.
+4) Decide tranche disposition for `field2=65535` (arg/unknown-role witness only): either design a discriminating micro-suite for tags 1/255 or retire it from the filter-vocab tranche frontier.

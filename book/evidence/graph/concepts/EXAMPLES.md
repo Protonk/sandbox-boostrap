@@ -63,7 +63,7 @@ Legacy sandbox-exec snapshots remain under `book/evidence/graph/concepts/validat
 
 Vocabulary/mapping evidence is anchored in dyld extraction and op-table alignment, with runtime checks as a secondary cross-check.
 
-- **Dyld-derived vocab**: `book/graph/mappings/vocab/generate_vocab_from_dyld.py` → `book/integration/carton/bundle/relationships/mappings/vocab/{ops.json,filters.json,attestations.json}`.
+- **Dyld-derived vocab**: `book/integration/carton/mappings/vocab/generate_vocab_from_dyld.py` → `book/integration/carton/bundle/relationships/mappings/vocab/{ops.json,filters.json,attestations.json}`.
 - **Op-table alignment**: `book/integration/carton/bundle/relationships/mappings/op_table/op_table_vocab_alignment.json`.
 - **Runtime cross-check**: normalized runtime events from runtime-checks (see semantic section) can be mapped back to vocab IDs to flag unknowns.
 

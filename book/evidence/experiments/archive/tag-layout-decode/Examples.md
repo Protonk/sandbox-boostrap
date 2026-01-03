@@ -2,7 +2,7 @@
 
 Canonical mapping (BEDROCK_SURFACES `bedrock:modern-tag-layouts`):
 
-- `book/evidence/graph/mappings/tag_layouts/tag_layouts.json`
+- `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json`
 
 ## Metadata excerpt
 
@@ -27,6 +27,6 @@ Canonical mapping (BEDROCK_SURFACES `bedrock:modern-tag-layouts`):
 
 ## Regeneration
 
-- Generator: `python3 book/graph/mappings/tag_layouts/generate_tag_layouts.py`
+- Generator: `python3 book/integration/carton/mappings/tag_layouts/generate_tag_layouts.py`
 - Guardrail: `book/tests/test_mappings_guardrail.py`
 

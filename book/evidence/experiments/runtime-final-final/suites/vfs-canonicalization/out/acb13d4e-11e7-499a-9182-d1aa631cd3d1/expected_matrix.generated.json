@@ -1,0 +1,41 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "vfs_link_var_tmp_only": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_link_var_tmp_only.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "operation": "file-read*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_link_var_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        },
+        {
+          "name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "operation": "file-write*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_link_var_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        },
+        {
+          "name": "read_/private/var/tmp/vfs_link_probe",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_link_var_tmp_only:read_/private/var/tmp/vfs_link_probe"
+        },
+        {
+          "name": "write_/private/var/tmp/vfs_link_probe",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_link_var_tmp_only:write_/private/var/tmp/vfs_link_probe"
+        }
+      ]
+    }
+  }
+}

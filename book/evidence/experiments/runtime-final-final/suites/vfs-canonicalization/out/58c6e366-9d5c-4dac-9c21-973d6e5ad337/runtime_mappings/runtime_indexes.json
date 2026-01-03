@@ -1,0 +1,24 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "op_to_scenarios": {
+    "file-read*": [
+      "vfs_etc_private_only:read_/etc/hosts",
+      "vfs_etc_private_only:read_/private/etc/hosts"
+    ]
+  },
+  "scenario_to_traces": {
+    "vfs_etc_private_only:read_/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/58c6e366-9d5c-4dac-9c21-973d6e5ad337/runtime_mappings/traces/vfs_etc_private_only_read__etc_hosts.jsonl"
+    ],
+    "vfs_etc_private_only:read_/private/etc/hosts": [
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/58c6e366-9d5c-4dac-9c21-973d6e5ad337/runtime_mappings/traces/vfs_etc_private_only_read__private_etc_hosts.jsonl"
+    ]
+  }
+}

@@ -2,7 +2,7 @@
 Lifecycle probe runner that emits validation IR.
 
 Outputs are intentionally small and stable; promotion into mapping-grade runtime
-artifacts happens via `book/graph/mappings/runtime/generate_lifecycle.py`.
+artifacts happens via `book/integration/carton/mappings/runtime/generate_lifecycle.py`.
 """
 
 from __future__ import annotations

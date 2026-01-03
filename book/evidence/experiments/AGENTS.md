@@ -47,8 +47,8 @@ This loop repeats. Do not treat “one run” as complete. Prefer several small 
   Use only Operation/Filter vocabularies from `book/integration/carton/bundle/relationships/mappings/vocab/{ops,filters}.json` and the project’s concept inventory. Do not invent new op/filter names or ad‑hoc jargon.
 
 * Use the validation driver  
-  When your experiment already has a registered selector, run it instead of bespoke scripts (e.g., `python -m book.graph.concepts.validation --experiment field2` for `book/evidence/experiments/field2-final-final/field2-filters`). For host vocab reuse, prefer `--tag vocab`/`--id vocab:sonoma-14.4.1` and consume the JSONs under `book/integration/carton/bundle/relationships/mappings/vocab/`.
-  Default smoke check before promotion: `python -m book.graph.concepts.validation --tag smoke` (runs vocab + field2 + runtime-checks).
+  When your experiment already has a registered selector, run it instead of bespoke scripts (e.g., `python -m book.integration.carton validate --experiment field2` for `book/evidence/experiments/field2-final-final/field2-filters`). For host vocab reuse, prefer `--tag vocab`/`--id vocab:sonoma-14.4.1` and consume the JSONs under `book/integration/carton/bundle/relationships/mappings/vocab/`.
+  Default smoke check before promotion: `python -m book.integration.carton validate --tag smoke` (runs vocab + field2 + runtime-checks).
   If you need to know what a job does, `--describe <job_id>` shows inputs/outputs and the intent; prefer `tag:golden` jobs for canonical IR.
   CARTON is the frozen IR/mapping contract bundle (`book/integration/carton/bundle/CARTON.json`). Add new experiments/outputs without mutating CARTON-listed files; instead, feed them through validation → IR → mappings and only then, if they are stable, propose updates to CARTON via contracts + manifest regeneration.
 

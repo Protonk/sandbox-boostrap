@@ -2,8 +2,8 @@
 
 Canonical mappings (BEDROCK_SURFACES `bedrock:operation-vocabulary`):
 
-- `book/evidence/graph/mappings/vocab/ops.json`
-- `book/evidence/graph/mappings/vocab/filters.json`
+- `book/integration/carton/bundle/relationships/mappings/vocab/ops.json`
+- `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`
 
 ## Metadata excerpt (`ops.json`)
 
@@ -21,7 +21,7 @@ Canonical mappings (BEDROCK_SURFACES `bedrock:operation-vocabulary`):
 {
   "id": 0,
   "name": "default",
-  "source": "book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
+  "source": "book/integration/carton/bundle/relationships/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
 }
 ```
 
@@ -29,12 +29,12 @@ Canonical mappings (BEDROCK_SURFACES `bedrock:operation-vocabulary`):
 {
   "id": 0,
   "name": "path",
-  "source": "book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
+  "source": "book/integration/carton/bundle/relationships/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
 }
 ```
 
 ## Regeneration
 
-- Dyld inputs: `book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib`
-- Generator: `python3 book/graph/mappings/vocab/generate_vocab_from_dyld.py`
+- Dyld inputs: `book/integration/carton/bundle/relationships/mappings/dyld-libs/usr/lib/libsandbox.1.dylib`
+- Generator: `python3 book/integration/carton/mappings/vocab/generate_vocab_from_dyld.py`
 

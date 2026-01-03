@@ -77,6 +77,10 @@ def main() -> None:
     parser.add_argument("--include-decided", action="store_true")
     parser.add_argument("--include-retired", action="store_true")
     parser.add_argument("--require-fresh-packet", action="store_true")
+    parser.add_argument("--require-no-runtime-candidate", action="store_true")
+    parser.add_argument("--require-no-unresolved", action="store_true")
+    parser.add_argument("--require-unresolved-retired", action="store_true")
+    parser.add_argument("--min-lane-witnesses", type=int)
     args = parser.parse_args()
 
     repo_root = path_utils.find_repo_root(Path(__file__).resolve())
@@ -121,17 +125,30 @@ def main() -> None:
         candidates.sort(key=lambda c: (c.get("score", 0), c.get("anchor_count", 0)), reverse=True)
         selected = candidates[: args.count]
 
+    if args.min_lane_witnesses is not None and args.min_lane_witnesses < 1:
+        raise ValueError("--min-lane-witnesses must be >= 1")
+
+    requirements = {
+        "require_packet": True,
+        "require_lane_attribution": True,
+        "require_mapping_delta_or_retire": True,
+        "require_fresh_packet": bool(args.require_fresh_packet),
+    }
+    if args.require_no_runtime_candidate:
+        requirements["require_no_runtime_candidate"] = True
+    if args.require_no_unresolved:
+        requirements["require_no_unresolved"] = True
+    if args.require_unresolved_retired:
+        requirements["require_unresolved_retired"] = True
+    if args.min_lane_witnesses is not None:
+        requirements["min_lane_witnesses"] = args.min_lane_witnesses
+
     payload = {
         "schema_version": SCHEMA_VERSION,
         "milestone_id": args.milestone_id,
         "world_id": frontier.get("world_id"),
         "source": path_utils.to_repo_relative(args.frontier, repo_root=repo_root),
-        "requirements": {
-            "require_packet": True,
-            "require_lane_attribution": True,
-            "require_mapping_delta_or_retire": True,
-            "require_fresh_packet": bool(args.require_fresh_packet),
-        },
+        "requirements": requirements,
         "candidates": [
             {
                 "claim_key": f"field2={entry.get('field2')}",

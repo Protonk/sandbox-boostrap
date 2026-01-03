@@ -4,7 +4,7 @@
 - Generated `out/apply_gate_blob_digests.json` from the gate-witnesses validation output:
   - `python3 book/evidence/experiments/preflight-blob-digests/collect_gate_blob_digests.py --out book/evidence/experiments/preflight-blob-digests/out/apply_gate_blob_digests.json`
 - Ran validation to emit tool-consumed IR under `book/evidence/graph/concepts/validation/out/experiments/preflight-blob-digests/`:
-  - `PYTHONPATH=$PWD python3 -m book.graph.concepts.validation --experiment preflight-blob-digests`
+  - `PYTHONPATH=$PWD python3 -m book.integration.carton validate --experiment preflight-blob-digests`
 - Inventoried all in-repo `*.sb.bin` blobs and computed sha256s:
   - `python3 book/evidence/experiments/preflight-blob-digests/inventory_repo_blobs.py --out book/evidence/experiments/preflight-blob-digests/out/repo_sb_bin_inventory.json`
 - Joined the repo inventory against canonical `sys:*` digests and the current preflight digest corpus:
@@ -34,7 +34,7 @@
 - Regenerated the apply-gate digest corpus, folding in both sys fixture apply results and the structural-validation batch:
   - `python3 book/evidence/experiments/preflight-blob-digests/collect_gate_blob_digests.py --apply-matrix book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.outside_harness.json --apply-matrix book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.structural_validation_batch1.json --out book/evidence/experiments/preflight-blob-digests/out/apply_gate_blob_digests.json`
 - Refreshed the tool-consumed digest IR via the validation driver:
-  - `PYTHONPATH=$PWD python3 -m book.graph.concepts.validation --experiment preflight-blob-digests`
+  - `PYTHONPATH=$PWD python3 -m book.integration.carton validate --experiment preflight-blob-digests`
 - Regenerated the control digest set, folding in the structural-validation batch’s apply-ok blob(s):
   - `python3 book/evidence/experiments/preflight-blob-digests/collect_control_digests.py --apply-matrix book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.in_harness.json --apply-matrix book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.outside_harness.json --apply-matrix book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.structural_validation_batch1.json --out book/evidence/experiments/preflight-blob-digests/out/control_digests.json`
 - Refroze the labeled sets and regenerated the structural-signal artifacts after expanding the apply-gate and control digests:
@@ -47,7 +47,7 @@
 - Folded the batch2 apply-gated results into the digest corpus and refreshed IR:
   - `python3 book/evidence/experiments/preflight-blob-digests/collect_gate_blob_digests.py --apply-matrix book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.outside_harness.json --apply-matrix book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.structural_validation_batch1.json --apply-matrix book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.structural_validation_batch2.json --out book/evidence/experiments/preflight-blob-digests/out/apply_gate_blob_digests.json`
   - `python3 book/evidence/experiments/preflight-blob-digests/collect_control_digests.py --apply-matrix book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.in_harness.json --apply-matrix book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.outside_harness.json --apply-matrix book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.structural_validation_batch1.json --apply-matrix book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.structural_validation_batch2.json --out book/evidence/experiments/preflight-blob-digests/out/control_digests.json`
-  - `PYTHONPATH=$PWD python3 -m book.graph.concepts.validation --experiment preflight-blob-digests`
+  - `PYTHONPATH=$PWD python3 -m book.integration.carton validate --experiment preflight-blob-digests`
 - Regenerated the structural-signal artifacts again after the batch2 expansion:
   - `python3 book/evidence/experiments/preflight-blob-digests/freeze_structural_sets.py --out book/evidence/experiments/preflight-blob-digests/out/structural_signal_sets.json`
   - `python3 book/evidence/experiments/preflight-blob-digests/extract_structural_features.py --inventory book/evidence/experiments/preflight-blob-digests/out/repo_sb_bin_inventory.json --sets book/evidence/experiments/preflight-blob-digests/out/structural_signal_sets.json --out book/evidence/experiments/preflight-blob-digests/out/blob_structural_features.json`

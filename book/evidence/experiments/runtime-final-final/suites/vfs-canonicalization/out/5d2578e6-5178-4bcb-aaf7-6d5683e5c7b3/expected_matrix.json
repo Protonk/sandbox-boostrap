@@ -1,0 +1,55 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "vfs_var_tmp_private_only": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_private_only.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_private_only:read_/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "write_/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_private_only:write_/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "read_/private/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_var_tmp_private_only:read_/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "write_/private/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_var_tmp_private_only:write_/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        }
+      ]
+    }
+  }
+}

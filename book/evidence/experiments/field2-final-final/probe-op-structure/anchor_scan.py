@@ -24,17 +24,20 @@ from typing import Dict, Any, List, Tuple
 
 import sys
 
-# Repository root is three levels up: book/evidence/experiments/field2-final-final/probe-op-structure/…
-ROOT = Path(__file__).resolve().parents[3]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
+REPO_ROOT = Path(__file__).resolve()
+for parent in REPO_ROOT.parents:
+    if (parent / "book").is_dir():
+        REPO_ROOT = parent
+        break
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 from book.api.profile import decoder  # type: ignore
 from book.api.profile import digests as digests_mod  # type: ignore
 from book.api.profile import ingestion as pi  # type: ignore
 
 
 def load_filter_names() -> Dict[int, str]:
-    filters = json.loads(Path("book/integration/carton/bundle/relationships/mappings/vocab/filters.json").read_text())
+    filters = json.loads((REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/filters.json").read_text())
     return {e["id"]: e["name"] for e in filters.get("filters", [])}
 
 
@@ -225,9 +228,9 @@ def summarize(profile_path: Path, anchors: List[str], filter_names: Dict[int, st
 
 def main() -> None:
     filter_names = load_filter_names()
-    anchors_map = json.loads(Path("book/evidence/experiments/field2-final-final/probe-op-structure/anchor_map.json").read_text())
-    profiles_dir = Path("book/evidence/experiments/field2-final-final/probe-op-structure/sb/build")
-    canonical = digests_mod.canonical_system_profile_blobs(ROOT)
+    anchors_map = json.loads((REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/anchor_map.json").read_text())
+    profiles_dir = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build"
+    canonical = digests_mod.canonical_system_profile_blobs(REPO_ROOT)
     sys_profiles = {"sys:airlock": canonical["airlock"], "sys:bsd": canonical["bsd"], "sys:sample": canonical["sample"]}
     outputs: Dict[str, Any] = {}
 
@@ -242,7 +245,7 @@ def main() -> None:
             continue
         outputs[name] = summarize(p, anchors_map.get(name, []), filter_names)
 
-    out_dir = Path("book/evidence/experiments/field2-final-final/probe-op-structure/out")
+    out_dir = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/out"
     out_dir.mkdir(exist_ok=True)
     out_path = out_dir / "anchor_hits.json"
     out_path.write_text(json.dumps(outputs, indent=2))

@@ -1,0 +1,397 @@
+{
+  "schema_version": "runtime-tools.path_witnesses.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3",
+  "plan_id": "vfs-canonicalization.v1",
+  "records": [
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "vfs_var_tmp_private_only",
+      "scenario_id": "baseline:vfs_var_tmp_private_only:read_/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "requested_path": "/var/tmp/vfs_canon_probe",
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/var/tmp/vfs_canon_probe",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/var/tmp/vfs_canon_probe"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "vfs_var_tmp_private_only",
+      "scenario_id": "baseline:vfs_var_tmp_private_only:write_/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "requested_path": "/var/tmp/vfs_canon_probe",
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/var/tmp/vfs_canon_probe",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/var/tmp/vfs_canon_probe'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "vfs_var_tmp_private_only",
+      "scenario_id": "baseline:vfs_var_tmp_private_only:read_/private/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "requested_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/var/tmp/vfs_canon_probe",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/private/var/tmp/vfs_canon_probe"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "vfs_var_tmp_private_only",
+      "scenario_id": "baseline:vfs_var_tmp_private_only:write_/private/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "requested_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/var/tmp/vfs_canon_probe",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/var/tmp/vfs_canon_probe'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "vfs_var_tmp_private_only",
+      "scenario_id": "baseline:vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "requested_path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/var/tmp/vfs_canon_probe",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "vfs_var_tmp_private_only",
+      "scenario_id": "baseline:vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "requested_path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/var/tmp/vfs_canon_probe",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/System/Volumes/Data/private/var/tmp/vfs_canon_probe'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "vfs_var_tmp_private_only",
+      "scenario_id": "vfs_var_tmp_private_only:read_/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "requested_path": "/var/tmp/vfs_canon_probe",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/var/tmp/vfs_canon_probe",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+        "/var/tmp/vfs_canon_probe"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "vfs_var_tmp_private_only",
+      "scenario_id": "vfs_var_tmp_private_only:write_/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "requested_path": "/var/tmp/vfs_canon_probe",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/var/tmp/vfs_canon_probe",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+        "/var/tmp/vfs_canon_probe"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "vfs_var_tmp_private_only",
+      "scenario_id": "vfs_var_tmp_private_only:read_/private/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "requested_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/var/tmp/vfs_canon_probe",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": true
+      },
+      "fd_identity": {
+        "enabled": true,
+        "enabled_source": "probe_fd_identity:present",
+        "st_dev": 16777230,
+        "st_ino": 113181447,
+        "fstat_errno": null,
+        "fstypename": "apfs",
+        "mntonname": "/System/Volumes/Data",
+        "fsid": [
+          16777230,
+          26
+        ],
+        "fstatfs_errno": null
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+        "/private/var/tmp/vfs_canon_probe"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "vfs_var_tmp_private_only",
+      "scenario_id": "vfs_var_tmp_private_only:write_/private/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "requested_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/var/tmp/vfs_canon_probe",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": true
+      },
+      "fd_identity": {
+        "enabled": true,
+        "enabled_source": "probe_fd_identity:present",
+        "st_dev": 16777230,
+        "st_ino": 113181447,
+        "fstat_errno": null,
+        "fstypename": "apfs",
+        "mntonname": "/System/Volumes/Data",
+        "fsid": [
+          16777230,
+          26
+        ],
+        "fstatfs_errno": null
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+        "/private/var/tmp/vfs_canon_probe"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "vfs_var_tmp_private_only",
+      "scenario_id": "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "operation": "file-read*",
+      "requested_path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/var/tmp/vfs_canon_probe",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": true
+      },
+      "fd_identity": {
+        "enabled": true,
+        "enabled_source": "probe_fd_identity:present",
+        "st_dev": 16777230,
+        "st_ino": 113181447,
+        "fstat_errno": null,
+        "fstypename": "apfs",
+        "mntonname": "/System/Volumes/Data",
+        "fsid": [
+          16777230,
+          26
+        ],
+        "fstatfs_errno": null
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+        "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "vfs_var_tmp_private_only",
+      "scenario_id": "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "operation": "file-write*",
+      "requested_path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "observed_path": "/private/var/tmp/vfs_canon_probe",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/var/tmp/vfs_canon_probe",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": true
+      },
+      "fd_identity": {
+        "enabled": true,
+        "enabled_source": "probe_fd_identity:present",
+        "st_dev": 16777230,
+        "st_ino": 113181447,
+        "fstat_errno": null,
+        "fstypename": "apfs",
+        "mntonname": "/System/Volumes/Data",
+        "fsid": [
+          16777230,
+          26
+        ],
+        "fstatfs_errno": null
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/5d2578e6-5178-4bcb-aaf7-6d5683e5c7b3/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+        "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+      ]
+    }
+  ]
+}

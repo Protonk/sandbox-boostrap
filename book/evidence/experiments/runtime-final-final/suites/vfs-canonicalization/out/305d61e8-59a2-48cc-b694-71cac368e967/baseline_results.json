@@ -1,0 +1,36 @@
+{
+  "schema_version": "runtime-tools.baseline_results.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "305d61e8-59a2-48cc-b694-71cac368e967",
+  "results": [
+    {
+      "name": "baseline:vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_both",
+      "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "operation": "file-read*",
+      "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "profile_id": "vfs_link_both",
+        "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    }
+  ]
+}

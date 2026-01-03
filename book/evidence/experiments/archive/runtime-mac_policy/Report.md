@@ -40,7 +40,7 @@ Trace sandbox/mac_policy registration at runtime and capture live `mac_policy_co
    - Read `mac_policy_conf` slots (raw + decoded) and a bounded slice of `mpc_ops` entries; decode strings when possible and classify them.
    - Serialize into `runtime_mac_policy_registration.json` with per-event fields for call info, struct snapshot, ops sample, and region mappings.
 4) Align to static IR (asymmetric, one-way):
-   - For each `mpc_ops`, map entry pointers to image/segment/offset and compare a representative subset of indices against `book/graph/mappings/op_table/op_table.json`.
+   - For each `mpc_ops`, map entry pointers to image/segment/offset and compare a representative subset of indices against `book/integration/carton/bundle/relationships/mappings/op_table/op_table.json`.
    - Allow outcomes: shape-compatible (weak/strong alignment) or shape-incompatible (suggesting per-policy or alternative tables). No reconstruction or overwrite of static op-table mapping.
 
 ## Evidence & artifacts

@@ -18,17 +18,20 @@ from typing import Dict, Any
 
 import sys
 
-# Repository root is three levels up: book/evidence/experiments/field2-final-final/probe-op-structure/…
-ROOT = Path(__file__).resolve().parents[3]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
+REPO_ROOT = Path(__file__).resolve()
+for parent in REPO_ROOT.parents:
+    if (parent / "book").is_dir():
+        REPO_ROOT = parent
+        break
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 from book.api.profile import decoder  # type: ignore
 from book.api.profile import digests as digests_mod  # type: ignore
 
 
 def load_vocab() -> Dict[str, Any]:
-    ops = json.loads(Path("book/integration/carton/bundle/relationships/mappings/vocab/ops.json").read_text())
-    filters = json.loads(Path("book/integration/carton/bundle/relationships/mappings/vocab/filters.json").read_text())
+    ops = json.loads((REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/ops.json").read_text())
+    filters = json.loads((REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/filters.json").read_text())
     return {
         "ops": ops,
         "filters": filters,
@@ -63,20 +66,32 @@ def summarize(path: Path, vocab: Dict[str, Any]) -> Dict[str, Any]:
 
 def main() -> None:
     vocab = load_vocab()
-    canonical = digests_mod.canonical_system_profile_blobs(ROOT)
+    canonical = digests_mod.canonical_system_profile_blobs(REPO_ROOT)
     profiles = {
-        "probe:v0_file_require_all": Path("book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v0_file_require_all.sb.bin"),
-        "probe:v1_file_require_any": Path("book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v1_file_require_any.sb.bin"),
-        "probe:v2_file_three_filters_any": Path("book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v2_file_three_filters_any.sb.bin"),
-        "probe:v3_mach_global_local": Path("book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v3_mach_global_local.sb.bin"),
-        "probe:v4_network_socket_require_all": Path("book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v4_network_socket_require_all.sb.bin"),
-        "probe:v5_iokit_class_property": Path("book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v5_iokit_class_property.sb.bin"),
-        "probe:v9_iokit_user_client_only": Path("book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v9_iokit_user_client_only.sb.bin"),
-        "probe:v10_iokit_user_client_pair": Path("book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v10_iokit_user_client_pair.sb.bin"),
-        "probe:v11_iokit_user_client_connection": Path("book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v11_iokit_user_client_connection.sb.bin"),
-        "probe:v6_file_mach_combo": Path("book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v6_file_mach_combo.sb.bin"),
-        "probe:v7_file_network_combo": Path("book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v7_file_network_combo.sb.bin"),
-        "probe:v8_all_combo": Path("book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v8_all_combo.sb.bin"),
+        "probe:v0_file_require_all": REPO_ROOT
+        / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v0_file_require_all.sb.bin",
+        "probe:v1_file_require_any": REPO_ROOT
+        / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v1_file_require_any.sb.bin",
+        "probe:v2_file_three_filters_any": REPO_ROOT
+        / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v2_file_three_filters_any.sb.bin",
+        "probe:v3_mach_global_local": REPO_ROOT
+        / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v3_mach_global_local.sb.bin",
+        "probe:v4_network_socket_require_all": REPO_ROOT
+        / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v4_network_socket_require_all.sb.bin",
+        "probe:v5_iokit_class_property": REPO_ROOT
+        / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v5_iokit_class_property.sb.bin",
+        "probe:v9_iokit_user_client_only": REPO_ROOT
+        / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v9_iokit_user_client_only.sb.bin",
+        "probe:v10_iokit_user_client_pair": REPO_ROOT
+        / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v10_iokit_user_client_pair.sb.bin",
+        "probe:v11_iokit_user_client_connection": REPO_ROOT
+        / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v11_iokit_user_client_connection.sb.bin",
+        "probe:v6_file_mach_combo": REPO_ROOT
+        / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v6_file_mach_combo.sb.bin",
+        "probe:v7_file_network_combo": REPO_ROOT
+        / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v7_file_network_combo.sb.bin",
+        "probe:v8_all_combo": REPO_ROOT
+        / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v8_all_combo.sb.bin",
         "sys:airlock": canonical["airlock"],
         "sys:bsd": canonical["bsd"],
         "sys:sample": canonical["sample"],
@@ -87,7 +102,7 @@ def main() -> None:
             continue
         out[name] = summarize(path, vocab)
 
-    out_dir = Path("book/evidence/experiments/field2-final-final/probe-op-structure/out")
+    out_dir = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/out"
     out_dir.mkdir(exist_ok=True)
     out_path = out_dir / "analysis.json"
     out_path.write_text(json.dumps(out, indent=2))

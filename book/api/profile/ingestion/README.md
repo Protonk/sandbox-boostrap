@@ -49,7 +49,7 @@ These are structural guesses for this world baseline, not cross-version guarante
 
 ## Relationship to validation
 
-`book/api/profile/ingestion/api.py` intentionally mirrors the ingestion helpers in `book/graph/concepts/validation/profile_ingestion.py` so that non-validation callers can import a stable API surface without reaching into the validation layer.
+`book/api/profile/ingestion/api.py` intentionally mirrors the ingestion helpers in `book/integration/carton/validation/profile_ingestion.py` so that non-validation callers can import a stable API surface without reaching into the validation layer.
 
 If you change the ingestion contract or slicing heuristics, keep the two copies aligned and run `make -C book test`.
 

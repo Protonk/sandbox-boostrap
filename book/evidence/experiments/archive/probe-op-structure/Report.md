@@ -2,8 +2,8 @@
 - tier: mapped (structural); runtime slice: partial (hypothesis)
 - primary outputs: out/analysis.json; out/anchor_hits.json; out/anchor_hits_delta.json; out/tag_inventory.json; out/tag_layout_hypotheses.json; out/literal_scan.json; out/tag_bytes.json
 - runtime outputs: out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/{runtime_results.json,runtime_events.normalized.json,run_manifest.json}
-- upstream IR: book/api/profile/decoder/; book/evidence/graph/mappings/tag_layouts/tag_layouts.json; book/evidence/graph/mappings/vocab/filters.json
-- downstream mappings: book/evidence/graph/mappings/anchors/anchor_filter_map.json; book/evidence/experiments/field2-final-final/field2-filters/out/*
+- upstream IR: book/api/profile/decoder/; book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json; book/integration/carton/bundle/relationships/mappings/vocab/filters.json
+- downstream mappings: book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json; book/evidence/experiments/field2-final-final/field2-filters/out/*
 - guardrails: book/tests/planes/graph/test_anchor_filter_alignment.py; book/tests/planes/graph/test_mappings_guardrail.py
 
 # Probe Op Structure – Research Report (Sonoma baseline)
@@ -13,11 +13,11 @@ Build an anchor-aware structural view of `field2` usage across operations and fi
 
 ## Baseline & scope
 - World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
-- Vocab: `book/evidence/graph/mappings/vocab/ops.json` and `book/evidence/graph/mappings/vocab/filters.json` (both `status: ok`).
+- Vocab: `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` and `book/integration/carton/bundle/relationships/mappings/vocab/filters.json` (both `status: ok`).
 - Profiles:
   - Probe SBPL variants under `book/evidence/experiments/field2-final-final/probe-op-structure/sb/` with compiled blobs in `sb/build/`.
   - Canonical system blobs: `book/evidence/graph/concepts/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin`.
-- Decoder backbone: `book/api/profile/decoder/` with canonical layouts from `book/evidence/graph/mappings/tag_layouts/tag_layouts.json` (`status: ok`).
+- Decoder backbone: `book/api/profile/decoder/` with canonical layouts from `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json` (`status: ok`).
 - Runtime slice: `book/evidence/experiments/field2-final-final/probe-op-structure/plan.json` and registry data under `registry/`.
 
 ## Status
@@ -28,7 +28,7 @@ Build an anchor-aware structural view of `field2` usage across operations and fi
 1) **Probe matrix**: SBPL profiles `v0`–`v8` exercise file, mach, network, and iokit filters with distinct anchors.
 2) **Decode + slice**: decoder consumes canonical tag layouts and segment-aware slicing to extract nodes, tags, and `field2` payloads.
 3) **Anchor scan**: `anchor_scan.py` resolves anchors to literal offsets and node indices using decoder `literal_refs` plus byte scans when needed.
-4) **Integration**: `anchor_hits.json` feeds `book/evidence/graph/mappings/anchors/anchor_filter_map.json` with guardrails enforcing alignment.
+4) **Integration**: `anchor_hits.json` feeds `book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json` with guardrails enforcing alignment.
 
 ## Structural findings
 
@@ -86,7 +86,7 @@ The runtime-closure file spelling matrix run `book/evidence/experiments/runtime-
 ## Evidence & artifacts
 - Structural outputs: `book/evidence/experiments/field2-final-final/probe-op-structure/out/{analysis.json,anchor_hits.json,anchor_hits_delta.json,tag_inventory.json,tag_layout_hypotheses.json,tag_bytes.json,literal_scan.json}`.
 - Runtime outputs: `book/evidence/experiments/field2-final-final/probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/{runtime_results.json,runtime_events.normalized.json,run_manifest.json}`.
-- Shared mappings: `book/evidence/graph/mappings/tag_layouts/tag_layouts.json`, `book/evidence/graph/mappings/anchors/anchor_filter_map.json`.
+- Shared mappings: `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json`, `book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json`.
 
 ## Guardrails
 - `book/tests/planes/graph/test_mappings_guardrail.py` ensures tag layouts and core mappings stay pinned to this world.

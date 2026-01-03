@@ -1,0 +1,63 @@
+{
+  "schema_version": "runtime-tools.path_witnesses.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "305d61e8-59a2-48cc-b694-71cac368e967",
+  "plan_id": "vfs-canonicalization.v1",
+  "records": [
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "vfs_link_both",
+      "scenario_id": "baseline:vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "normalized_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "exit_code": 1,
+      "command": [
+        "/bin/cat",
+        "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "vfs_link_both",
+      "scenario_id": "vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/305d61e8-59a2-48cc-b694-71cac368e967/runtime_profiles/vfs_link_both.vfs_link_both.runtime.sb",
+        "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      ]
+    }
+  ]
+}

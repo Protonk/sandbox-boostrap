@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "phase_histograms": {
+    "overall": {
+      "total": 2,
+      "stages": {
+        "apply": 0,
+        "bootstrap": 0,
+        "preflight": 0,
+        "probe": 2
+      },
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "probe": {
+        "total": 2,
+        "allow": 1,
+        "deny": 1,
+        "mismatches": 0,
+        "unobserved": 0
+      }
+    },
+    "by_family": {
+      "vfs": {
+        "total": 2,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 2
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 2,
+          "allow": 1,
+          "deny": 1,
+          "mismatches": 0,
+          "unobserved": 0
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "vfs_etc_private_only:read_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_etc_private_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_etc_private_only:read_/etc/hosts",
+          "profile_id": "vfs_etc_private_only",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "probe_name": "read_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_etc_private_only:read_/etc/hosts"
+    },
+    "vfs_etc_private_only:read_/private/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "vfs_etc_private_only",
+      "expectations": [
+        {
+          "expectation_id": "vfs_etc_private_only:read_/private/etc/hosts",
+          "profile_id": "vfs_etc_private_only",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "allow",
+          "probe_name": "read_/private/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "vfs_etc_private_only:read_/private/etc/hosts"
+    }
+  }
+}

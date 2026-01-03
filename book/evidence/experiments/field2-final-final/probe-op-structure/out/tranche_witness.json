@@ -1,0 +1,94 @@
+{
+  "schema_version": "field2-tranche-witness.v0",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "inputs": {
+    "tranche": "book/evidence/experiments/field2-final-final/out/tranche.json",
+    "inventory": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json"
+  },
+  "selected": {
+    "field2": 65535,
+    "filter_name": null,
+    "status": "inventory_only",
+    "sources": [
+      "inventory"
+    ],
+    "target_ops": [],
+    "runtime_candidate": null,
+    "anchor_count": 0,
+    "anchors_sample": [],
+    "inventory": {
+      "count": 2,
+      "profiles_sample": [
+        "probe:airlock_system_fcntl.sb"
+      ]
+    },
+    "unknown": {
+      "count": 0,
+      "profiles_sample": []
+    },
+    "score": -6
+  },
+  "inventory_hits": [
+    {
+      "profile": "probe:airlock_system_fcntl.sb",
+      "raw": 65535,
+      "raw_hex": "0xffff",
+      "hi": 49152,
+      "lo": 16383,
+      "name": null,
+      "count": 2,
+      "tags": {
+        "1": 1,
+        "255": 1
+      }
+    }
+  ],
+  "profiles": {
+    "probe:airlock_system_fcntl.sb": {
+      "blob": "book/evidence/experiments/field2-final-final/field2-filters/sb/build/airlock_system_fcntl.sb.bin",
+      "op_count": 8,
+      "node_count": 56,
+      "literal_strings_count": 0,
+      "node_hits": [
+        {
+          "idx": 54,
+          "offset": 432,
+          "tag": 1,
+          "u16_role": "arg_u16",
+          "record_size": 8,
+          "fields": [
+            14,
+            65533,
+            65535
+          ],
+          "filter_arg_raw": 65535,
+          "filter_vocab_ref": null,
+          "filter_out_of_vocab": false,
+          "layout_provenance": "mapping",
+          "literal_refs": [],
+          "literal_refs_provenance": "none",
+          "hex": "01000e00fdffffff"
+        },
+        {
+          "idx": 55,
+          "offset": 440,
+          "tag": 255,
+          "u16_role": "unknown_role",
+          "record_size": 8,
+          "fields": [
+            65535,
+            65535,
+            65535
+          ],
+          "filter_arg_raw": 65535,
+          "filter_vocab_ref": null,
+          "filter_out_of_vocab": false,
+          "layout_provenance": "default",
+          "literal_refs": [],
+          "literal_refs_provenance": "none",
+          "hex": "ffffffffffffffff"
+        }
+      ]
+    }
+  }
+}

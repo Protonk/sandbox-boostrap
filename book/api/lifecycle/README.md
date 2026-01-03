@@ -6,7 +6,7 @@ These probes exist to generate *validation IR* under:
 - `book/evidence/graph/concepts/validation/out/lifecycle/`
 
 and to feed lifecycle mapping generators such as:
-- `book/graph/mappings/runtime/generate_lifecycle.py`
+- `book/integration/carton/mappings/runtime/generate_lifecycle.py`
 
 ## Probes (current)
 

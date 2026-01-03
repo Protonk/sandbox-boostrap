@@ -180,7 +180,7 @@ These tools give us a consistent “slice + decode” view of modern profiles th
 - `book/tools/sbpl/node_layout_runner.py` as the main ingestion and summary script.
 - `book/evidence/experiments/profile-pipeline/node-layout/out/summary.json` with per-variant structural data and decoder output.
 - Header/preamble and node-remainder contracts for canonical profiles captured in `book/integration/carton/bundle/relationships/mappings/system_profiles/header_contract.json` and `book/evidence/graph/concepts/validation/out/static/node_remainders.json` (guardrailed in `book/tests/planes/contracts/test_header_contract.py` and `book/tests/planes/graph/test_node_remainders.py`).
-- Shared ingestion/decoder helpers under `book/graph/concepts/validation/` as referenced in the Baseline & scope section.
+- Shared ingestion/decoder helpers under `book/integration/carton/validation/` as referenced in the Baseline & scope section.
 
 ## Blockers / risks
 - Tail-region layout and any mixed-stride node formats are still not fully characterized; current descriptions are heuristic and may change as decoding improves.

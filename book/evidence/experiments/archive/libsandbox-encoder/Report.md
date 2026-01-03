@@ -7,11 +7,11 @@ Map how this host’s `libsandbox` populates the per-node u16 payload slot (hist
 - World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
 - Inputs:
   - `book/api/profile` (compile SBPL to a blob).
-  - `book/api/profile/decoder/` + `book/graph/concepts/validation/profile_ingestion.py` (decode/slice compiled blobs).
-  - Trimmed `libsandbox` slice under `book/graph/mappings/dyld-libs/` (static-only inspection for Phase B).
+  - `book/api/profile/decoder/` + `book/integration/carton/validation/profile_ingestion.py` (decode/slice compiled blobs).
+  - Trimmed `libsandbox` slice under `book/integration/carton/bundle/relationships/mappings/dyld-libs/` (static-only inspection for Phase B).
 - Structural backbone (world-scoped):
-  - Tag layouts: `book/evidence/graph/mappings/tag_layouts/tag_layouts.json` (`status: ok`, record_size_bytes=8).
-  - Tag u16 roles: `book/evidence/graph/mappings/tag_layouts/tag_u16_roles.json` (`status: ok`, `filter_vocab_id` vs `arg_u16`).
+  - Tag layouts: `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json` (`status: ok`, record_size_bytes=8).
+  - Tag u16 roles: `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_u16_roles.json` (`status: ok`, `filter_vocab_id` vs `arg_u16`).
 - Out of scope:
   - Any runtime `sandbox_apply` work.
   - Kernel-side interpretation of the blob (tracked elsewhere; see `book/evidence/experiments/field2-final-final/field2-filters/Report.md`).

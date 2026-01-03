@@ -1,0 +1,195 @@
+[
+  {
+    "actual": "deny",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/305d61e8-59a2-48cc-b694-71cac368e967/runtime_profiles/vfs_link_both.vfs_link_both.runtime.sb",
+      "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+    ],
+    "errno": 2,
+    "errno_name": "ENOENT",
+    "expectation_id": "vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+    "expected": "allow",
+    "failure_kind": "probe_nonzero_exit",
+    "failure_stage": "probe",
+    "file_confounder": {
+      "attribution": "unknown",
+      "classification": "other_errno",
+      "errno": 2,
+      "errno_name": "ENOENT"
+    },
+    "intended_op_witnessed": true,
+    "match": false,
+    "normalized_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+    "normalized_path_source": "requested_path",
+    "observed_path_source": "unsandboxed_error",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "platform_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "deny",
+        "error": null,
+        "exit_code": 1,
+        "source": "baseline",
+        "status": "deny"
+      },
+      "process_policy": {
+        "decision": "deny",
+        "failure_kind": "probe_nonzero_exit",
+        "failure_stage": "probe",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/305d61e8-59a2-48cc-b694-71cac368e967/runtime_profiles/vfs_link_both.vfs_link_both.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+    "profile_id": "vfs_link_both",
+    "requested_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": false,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "305d61e8-59a2-48cc-b694-71cac368e967",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "efa67dec03ae6ac5a64fc058d4bd284f8cd21fb55c37b5aaf65420d650ffe7fe",
+      "preexisting_sandbox_suspected": false,
+      "tool_build_id": "efa67dec03ae6ac5a64fc058d4bd284f8cd21fb55c37b5aaf65420d650ffe7fe"
+    },
+    "runtime_status": "errno",
+    "sandbox_check_prepass": {
+      "primary": {
+        "api": "sandbox_check",
+        "argument": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "canonical_flag_reason": "not_requested",
+        "canonical_flag_used": false,
+        "canonicalization": "raw",
+        "decision": "deny",
+        "errno": 0,
+        "filter_type": 0,
+        "filter_type_name": "path",
+        "no_report": true,
+        "no_report_reason": null,
+        "operation": "file-read-data",
+        "rc": 1,
+        "stage": "pre_syscall",
+        "token_mach_kr": 0,
+        "token_status": "pid"
+      },
+      "variants": [
+        {
+          "api": "sandbox_check",
+          "argument": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "canonical_flag_reason": "not_requested",
+          "canonical_flag_used": false,
+          "canonicalization": "raw",
+          "decision": "deny",
+          "errno": 0,
+          "filter_type": 0,
+          "filter_type_name": "path",
+          "no_report": true,
+          "no_report_reason": null,
+          "operation": "file-read-data",
+          "rc": 1,
+          "stage": "pre_syscall",
+          "token_mach_kr": 0,
+          "token_status": "pid"
+        },
+        {
+          "api": "sandbox_check",
+          "argument": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "canonical_flag_reason": null,
+          "canonical_flag_used": true,
+          "canonicalization": "canonical",
+          "decision": "deny",
+          "errno": 0,
+          "filter_type": 0,
+          "filter_type_name": "path",
+          "no_report": true,
+          "no_report_reason": null,
+          "operation": "file-read-data",
+          "rc": 1,
+          "stage": "pre_syscall",
+          "token_mach_kr": 0,
+          "token_status": "pid"
+        }
+      ]
+    },
+    "scenario_id": "vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+    "seatbelt_callouts": [
+      {
+        "api": "sandbox_check",
+        "argument": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "canonical_flag_reason": "not_requested",
+        "canonical_flag_used": false,
+        "canonicalization": "raw",
+        "check_type": 1073741824,
+        "decision": "deny",
+        "errno": 0,
+        "filter_type": 0,
+        "filter_type_name": "path",
+        "marker_schema_version": 2,
+        "no_report": true,
+        "no_report_reason": null,
+        "operation": "file-read-data",
+        "rc": 1,
+        "stage": "pre_syscall",
+        "token_mach_kr": 0,
+        "token_status": "pid",
+        "tool": "seatbelt-callout",
+        "varargs_count": 1
+      },
+      {
+        "api": "sandbox_check",
+        "argument": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "canonical_flag_reason": null,
+        "canonical_flag_used": true,
+        "canonicalization": "canonical",
+        "check_type": 1610612736,
+        "decision": "deny",
+        "errno": 0,
+        "filter_type": 0,
+        "filter_type_name": "path",
+        "marker_schema_version": 2,
+        "no_report": true,
+        "no_report_reason": null,
+        "operation": "file-read-data",
+        "rc": 1,
+        "stage": "pre_syscall",
+        "token_mach_kr": 0,
+        "token_status": "pid",
+        "tool": "seatbelt-callout",
+        "varargs_count": 1
+      }
+    ],
+    "stderr": "open target: No such file or directory\n",
+    "stdout": "",
+    "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  }
+]

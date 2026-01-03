@@ -1,0 +1,29 @@
+{
+  "schema_version": "runtime-tools.oracle_results.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "305d61e8-59a2-48cc-b694-71cac368e967",
+  "results": [
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "run_id": "305d61e8-59a2-48cc-b694-71cac368e967",
+      "expectation_id": "vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "operation": "file-read-data",
+      "filter_type": 0,
+      "filter_type_name": "path",
+      "argument": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "decision": "deny",
+      "stage": "pre_syscall"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "run_id": "305d61e8-59a2-48cc-b694-71cac368e967",
+      "expectation_id": "vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "operation": "file-read-data",
+      "filter_type": 0,
+      "filter_type_name": "path",
+      "argument": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "decision": "deny",
+      "stage": "pre_syscall"
+    }
+  ]
+}

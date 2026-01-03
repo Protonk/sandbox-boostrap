@@ -15,9 +15,13 @@ from pathlib import Path
 from typing import Dict, Any, List
 
 import sys
-ROOT = Path(__file__).resolve().parents[3]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
+REPO_ROOT = Path(__file__).resolve()
+for parent in REPO_ROOT.parents:
+    if (parent / "book").is_dir():
+        REPO_ROOT = parent
+        break
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 from book.api.profile import ingestion as pi  # type: ignore
 from book.graph.concepts.validation import node_decoder  # type: ignore
@@ -73,15 +77,15 @@ def process(profile: Path, anchors: List[str]) -> Dict[str, Any]:
 
 
 def main() -> None:
-    anchors_map = json.loads(Path("book/evidence/experiments/field2-final-final/probe-op-structure/anchor_map.json").read_text())
-    profiles_dir = Path("book/evidence/experiments/field2-final-final/probe-op-structure/sb/build")
+    anchors_map = json.loads((REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/anchor_map.json").read_text())
+    profiles_dir = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build"
     out = {}
     for name, anchors in anchors_map.items():
         path = profiles_dir / f"{name}.sb.bin"
         if not path.exists():
             continue
         out[name] = process(path, anchors)
-    out_path = Path("book/evidence/experiments/field2-final-final/probe-op-structure/out/literal_scan.json")
+    out_path = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/out/literal_scan.json"
     out_path.write_text(json.dumps(out, indent=2))
     print(f"[+] wrote {out_path}")
 

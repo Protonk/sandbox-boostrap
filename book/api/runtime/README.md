@@ -51,7 +51,7 @@ python -m book.api.runtime emit-promotion \
   --require-promotable
 
 # 5) Promote into runtime mappings (outside runtime; consumes packets).
-python book/graph/mappings/runtime/promote_from_packets.py \
+python book/integration/carton/mappings/runtime/promote_from_packets.py \
   --packets book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/promotion_packet.json
 ```
 Outputs land under `book/integration/carton/bundle/relationships/mappings/runtime/` and `book/integration/carton/bundle/relationships/mappings/runtime_cuts/`.

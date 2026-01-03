@@ -4,7 +4,7 @@ Use this file for concise notes on progress, commands, and intermediate findings
 
 ## Initial scaffold
 
-- Experiment scaffolded (plan/report/notes). Aim: gather runtime allow/deny traces for bucket-4/bucket-5 and system profiles, landing results in `book/graph/mappings/runtime/`. Harness and probes not yet run.
+- Experiment scaffolded (plan/report/notes). Aim: gather runtime allow/deny traces for bucket-4/bucket-5 and system profiles, landing results in `book/integration/carton/bundle/relationships/mappings/runtime/`. Harness and probes not yet run.
 
 ## First harness attempts
 

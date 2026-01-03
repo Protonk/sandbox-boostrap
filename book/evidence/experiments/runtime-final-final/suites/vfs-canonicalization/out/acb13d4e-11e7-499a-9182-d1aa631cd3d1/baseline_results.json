@@ -1,0 +1,125 @@
+{
+  "schema_version": "runtime-tools.baseline_results.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "acb13d4e-11e7-499a-9182-d1aa631cd3d1",
+  "results": [
+    {
+      "name": "baseline:vfs_link_var_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_var_tmp_only",
+      "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "operation": "file-read*",
+      "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "profile_id": "vfs_link_var_tmp_only",
+        "probe_name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "cat: /private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_var_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "profile_id": "vfs_link_var_tmp_only",
+      "probe_name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "operation": "file-write*",
+      "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "profile_id": "vfs_link_var_tmp_only",
+        "probe_name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe'"
+      ],
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "/bin/sh: /private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe: No such file or directory\n",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_var_tmp_only:read_/private/var/tmp/vfs_link_probe",
+      "profile_id": "vfs_link_var_tmp_only",
+      "probe_name": "read_/private/var/tmp/vfs_link_probe",
+      "operation": "file-read*",
+      "target": "/private/var/tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/var/tmp/vfs_link_probe",
+        "profile_id": "vfs_link_var_tmp_only",
+        "probe_name": "read_/private/var/tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/var/tmp/vfs_link_probe"
+      ],
+      "observed_path": "/private/var/tmp/vfs_link_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "vfs-canonicalization vfs_link_probe\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\nruntime-check\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_link_var_tmp_only:write_/private/var/tmp/vfs_link_probe",
+      "profile_id": "vfs_link_var_tmp_only",
+      "probe_name": "write_/private/var/tmp/vfs_link_probe",
+      "operation": "file-write*",
+      "target": "/private/var/tmp/vfs_link_probe",
+      "primary_intent": {
+        "operation": "file-write*",
+        "target": "/private/var/tmp/vfs_link_probe",
+        "profile_id": "vfs_link_var_tmp_only",
+        "probe_name": "write_/private/var/tmp/vfs_link_probe"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/var/tmp/vfs_link_probe'"
+      ],
+      "observed_path": "/private/var/tmp/vfs_link_probe",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    }
+  ]
+}

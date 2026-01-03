@@ -35,7 +35,7 @@
   - `python3 book/tools/preflight/preflight.py minimize-gate --input /System/Library/Sandbox/Profiles/airlock.sb --out-dir book/evidence/experiments/gate-witnesses/out/witnesses/airlock --confirm 10`
   - Result: minimal failing still hits apply-stage `EPERM` (10/10 confirmations) while the passing neighbor is not apply-gated; preserved as `book/evidence/experiments/gate-witnesses/out/witnesses/airlock/run.yolo.json`.
   - Derived summaries: `python3 book/evidence/experiments/gate-witnesses/compile_vs_apply.py`, `python3 book/evidence/experiments/gate-witnesses/summarize_features.py`.
-  - Validation refresh: `python -m book.graph.concepts.validation --experiment gate-witnesses`.
+  - Validation refresh: `python -m book.integration.carton validate --experiment gate-witnesses`.
 
 - Less permissive control pass (non-`--yolo`) airlock run:
   - `python3 book/tools/preflight/preflight.py minimize-gate --input /System/Library/Sandbox/Profiles/airlock.sb --out-dir book/evidence/experiments/gate-witnesses/out/witnesses/airlock --confirm 10`
@@ -44,5 +44,5 @@
 - Permissive host (`--yolo`) control-ok re-run:
   - `python3 book/tools/preflight/preflight.py minimize-gate --input /System/Library/Sandbox/Profiles/airlock.sb --out-dir book/evidence/experiments/gate-witnesses/out/witnesses/airlock --confirm 10`
   - Result: minimal failing still hits apply-stage `EPERM` (10/10 confirmations), passing neighbor confirmed; current `run.json` matches `run.yolo.json`.
-  - Validation refresh: `python -m book.graph.concepts.validation --experiment gate-witnesses` → `status: ok`.
+  - Validation refresh: `python -m book.integration.carton validate --experiment gate-witnesses` → `status: ok`.
   - Derived summaries refreshed: `python3 book/evidence/experiments/gate-witnesses/compile_vs_apply.py`, `python3 book/evidence/experiments/gate-witnesses/summarize_features.py`.

@@ -2,7 +2,7 @@
 
 Canonical mapping (BEDROCK_SURFACES `bedrock:canonical-system-profiles`):
 
-- `book/evidence/graph/mappings/system_profiles/digests.json`
+- `book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json`
 
 ## Digest excerpt (`sys:bsd`)
 
@@ -30,6 +30,6 @@ Canonical mapping (BEDROCK_SURFACES `bedrock:canonical-system-profiles`):
 
 ## Regeneration
 
-- Validation job: `python3 -m book.graph.concepts.validation --experiment system-profile-digest`
-- Mapping generator: `python3 book/graph/mappings/system_profiles/generate_digests_from_ir.py`
+- Validation job: `python3 -m book.integration.carton validate --experiment system-profile-digest`
+- Mapping generator: `python3 book/integration/carton/mappings/system_profiles/generate_digests_from_ir.py`
 

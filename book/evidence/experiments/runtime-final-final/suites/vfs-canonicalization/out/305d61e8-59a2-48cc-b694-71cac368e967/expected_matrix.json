@@ -1,0 +1,20 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "vfs_link_both": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_link_both.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "operation": "file-read*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        }
+      ]
+    }
+  }
+}

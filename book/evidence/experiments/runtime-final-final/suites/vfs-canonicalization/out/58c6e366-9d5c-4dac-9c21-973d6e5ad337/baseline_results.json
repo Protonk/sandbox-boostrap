@@ -1,0 +1,65 @@
+{
+  "schema_version": "runtime-tools.baseline_results.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "58c6e366-9d5c-4dac-9c21-973d6e5ad337",
+  "results": [
+    {
+      "name": "baseline:vfs_etc_private_only:read_/etc/hosts",
+      "profile_id": "vfs_etc_private_only",
+      "probe_name": "read_/etc/hosts",
+      "operation": "file-read*",
+      "target": "/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/etc/hosts",
+        "profile_id": "vfs_etc_private_only",
+        "probe_name": "read_/etc/hosts"
+      },
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:vfs_etc_private_only:read_/private/etc/hosts",
+      "profile_id": "vfs_etc_private_only",
+      "probe_name": "read_/private/etc/hosts",
+      "operation": "file-read*",
+      "target": "/private/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/etc/hosts",
+        "profile_id": "vfs_etc_private_only",
+        "probe_name": "read_/private/etc/hosts"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    }
+  ]
+}

@@ -113,7 +113,7 @@ Op-witness attempts:
   - Selector discovery (baseline): `book/evidence/experiments/runtime-closure/out/a6e042e5-135d-4072-b0d6-50455abc62a3/iokit_probe_stdout.txt` and `book/evidence/experiments/runtime-closure/out/a6e042e5-135d-4072-b0d6-50455abc62a3/iokit_probe_stderr.txt` using a WebKit-derived candidate list with non-zero call shapes.
   - Observer-lane logs: `book/evidence/experiments/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/observer/sandbox_log_stream_iokit.txt` and `book/evidence/experiments/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/observer/sandbox_log_show_iokit.txt` (no iokit op lines observed).
   - Prior runs: `book/evidence/experiments/runtime-closure/out/5a8908d8-d626-4cac-8bdd-0f53c02af8fe/` (file v1) and `book/evidence/experiments/runtime-closure/out/48086066-bfa2-44bb-877c-62dd1dceca09/` (IOKit v1).
-- Mapped VFS update: `book/evidence/graph/mappings/vfs_canonicalization/path_canonicalization_map.json` (now includes the runtime-closure file matrix packet).
+- Mapped VFS update: `book/integration/carton/bundle/relationships/mappings/vfs_canonicalization/path_canonicalization_map.json` (now includes the runtime-closure file matrix packet).
 
 ## Limitations
 - Apply-stage gating is blocked evidence; failures at apply/exec are not policy outcomes.

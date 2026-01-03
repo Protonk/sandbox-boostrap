@@ -26,7 +26,7 @@ Safety and boundaries:
 Paths and generated artifacts:
 - Checked-in JSON/IR must not embed absolute paths; emit repo-relative paths using `book.api.path_utils` (`to_repo_relative`, `relativize_command`).
 - Do not hand-edit shared/generated artifacts. Regenerate via the appropriate generator:
-  - Concepts JSON: `cd book/graph && swift run`
+  - Concepts JSON: `python -m book.integration.carton swift --run`
   - Mappings promotion: `python -m book.integration.carton promote`
   - CARTON fixers + manifest: `python -m book.integration.carton build`
 - CARTON refresh: `python -m book.integration.carton build` or `make -C book carton-refresh`
@@ -43,8 +43,8 @@ Common host-bound commands (Sonoma 14.4.1 baseline):
 - Promote runtime packets into mappings: `python book/integration/carton/mappings/runtime/promote_from_packets.py --packets <packet.json>` (writes under `book/integration/carton/bundle/relationships/mappings/`)
 
 Host-neutral (still host-scoped artifacts; no live sandbox):
-- Validate concepts/IR: `python -m book.graph.concepts.validation --tag meta`
-- Build graph generator outputs: `cd book/graph && swift run`
+- Validate concepts/IR: `python -m book.integration.carton validate --tag meta`
+- Build graph generator outputs: `python -m book.integration.carton swift --run`
 
 ## Cold-start routing (where to look)
 
@@ -57,7 +57,7 @@ Pick the smallest surface that answers your question:
 
 Then read the nearest `AGENTS.md` in the subtree you touch:
 - API/tooling: `book/api/AGENTS.md`; CARTON fixer bundle: `book/integration/carton/README.md`.
-- Graph/concepts: `book/graph/AGENTS.md`; deeper routing in `book/graph/concepts/AGENTS.md`, `book/graph/swift/AGENTS.md`. Mapping generators: `book/integration/carton/mappings/AGENTS.md`.
+- CARTON graph/validation: `book/integration/carton/graph/AGENTS.md`; deeper routing in `book/integration/carton/graph/swift/AGENTS.md`, `book/integration/carton/validation/README.md`. Mapping generators: `book/integration/carton/mappings/AGENTS.md`.
 - Experiments: `book/evidence/experiments/AGENTS.md`; archived work in `book/evidence/experiments/archive/AGENTS.md`.
 - Dumps/artifacts: `book/dumps/AGENTS.md`.
 - Profiles: `book/profiles/AGENTS.md`.
