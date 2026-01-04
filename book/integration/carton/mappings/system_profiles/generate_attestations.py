@@ -10,7 +10,7 @@ Attestations tie together:
 
 Inputs:
 - `book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json` (to discover system blobs)
-- `book/evidence/carton/validation/out/semantic/runtime_results.json` (optional link)
+- `book/evidence/syncretic/validation/out/semantic/runtime_results.json` (optional link)
 - `book/integration/carton/bundle/relationships/mappings/runtime/expectations.json` (optional link)
 - `book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json`
 - `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json`

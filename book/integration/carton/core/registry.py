@@ -121,26 +121,26 @@ def build_registry() -> Registry:
         ),
         Artifact(
             id="validation.field2_ir",
-            path="book/evidence/carton/validation/out/experiments/field2/field2_ir.json",
+            path="book/evidence/syncretic/validation/out/experiments/field2/field2_ir.json",
             role="provenance",
             hash_mode="semantic_json",
         ),
         Artifact(
             id="validation.system_profile_digests_ir",
-            path="book/evidence/carton/validation/out/experiments/system-profile-digest/digests_ir.json",
+            path="book/evidence/syncretic/validation/out/experiments/system-profile-digest/digests_ir.json",
             role="provenance",
             hash_mode="semantic_json",
         ),
         Artifact(
             id="validation.vocab_status",
-            path="book/evidence/carton/validation/out/vocab_status.json",
+            path="book/evidence/syncretic/validation/out/vocab_status.json",
             role="status",
             hash_mode="semantic_json",
             checks=["inputs_field"],
         ),
         Artifact(
             id="validation.status",
-            path="book/evidence/carton/validation/out/validation_status.json",
+            path="book/evidence/syncretic/validation/out/validation_status.json",
             role="status",
             hash_mode="semantic_json",
             checks=["top_level_world_id"],
@@ -274,7 +274,7 @@ def build_registry() -> Registry:
             kind="mapping",
             description="Generate system profile digests and attestations",
             inputs=[
-                "book/evidence/carton/validation/out/experiments/system-profile-digest/digests_ir.json",
+                "book/evidence/syncretic/validation/out/experiments/system-profile-digest/digests_ir.json",
             ],
             outputs=[
                 "book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json",
@@ -308,8 +308,8 @@ def build_registry() -> Registry:
             kind="mapping",
             description="Generate lifecycle mappings from validation outputs",
             inputs=[
-                "book/evidence/carton/validation/out/lifecycle/entitlements.json",
-                "book/evidence/carton/validation/out/lifecycle/extensions_dynamic.md",
+                "book/evidence/syncretic/validation/out/lifecycle/entitlements.json",
+                "book/evidence/syncretic/validation/out/lifecycle/extensions_dynamic.md",
             ],
             outputs=[
                 "book/integration/carton/bundle/relationships/mappings/runtime/lifecycle.json",

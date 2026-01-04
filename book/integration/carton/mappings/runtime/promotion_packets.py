@@ -31,8 +31,8 @@ DEFAULT_PACKET_SET_PATH = REPO_ROOT / "book/integration/carton/bundle/relationsh
 REQUIRED_FIELDS = ("run_manifest", "expected_matrix", "runtime_results", "runtime_events")
 OPTIONAL_FIELDS = ("baseline_results", "oracle_results", "mismatch_packets", "summary", "impact_map")
 LEGACY_PATH_REWRITES = (
-    ("book/evidence/graph/concepts/validation/", "book/evidence/carton/validation/"),
-    ("book/evidence/graph/concepts/", "book/evidence/carton/concepts/"),
+    ("book/evidence/graph/concepts/validation/", "book/evidence/syncretic/validation/"),
+    ("book/evidence/graph/concepts/", "book/evidence/syncretic/concepts/"),
     ("book/evidence/graph/mappings/", "book/integration/carton/bundle/relationships/mappings/"),
 )
 

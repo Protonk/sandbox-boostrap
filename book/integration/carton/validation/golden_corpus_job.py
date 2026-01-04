@@ -20,11 +20,11 @@ from book.integration.carton.validation import registry
 from book.integration.carton.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
-MANIFEST_PATH = ROOT / "book/evidence/carton/validation/golden_corpus/corpus_manifest.json"
-SUMMARY_PATH = ROOT / "book/evidence/carton/validation/golden_corpus/corpus_summary.json"
-STATUS_PATH = ROOT / "book/evidence/carton/validation/out/experiments/golden-corpus/status.json"
-IR_PATH = ROOT / "book/evidence/carton/validation/out/experiments/golden-corpus/rerun_summary.json"
-META_PATH = ROOT / "book/evidence/carton/validation/out/metadata.json"
+MANIFEST_PATH = ROOT / "book/evidence/syncretic/validation/golden_corpus/corpus_manifest.json"
+SUMMARY_PATH = ROOT / "book/evidence/syncretic/validation/golden_corpus/corpus_summary.json"
+STATUS_PATH = ROOT / "book/evidence/syncretic/validation/out/experiments/golden-corpus/status.json"
+IR_PATH = ROOT / "book/evidence/syncretic/validation/out/experiments/golden-corpus/rerun_summary.json"
+META_PATH = ROOT / "book/evidence/syncretic/validation/out/metadata.json"
 
 
 def rel(path: Path) -> str:

@@ -16,7 +16,7 @@ Build an anchor-aware structural view of `field2` usage across operations and fi
 - Vocab: `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` and `book/integration/carton/bundle/relationships/mappings/vocab/filters.json` (both `status: ok`).
 - Profiles:
   - Probe SBPL variants under `book/evidence/experiments/field2-final-final/probe-op-structure/sb/` with compiled blobs in `sb/build/`.
-  - Canonical system blobs: `book/evidence/carton/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin`.
+  - Canonical system blobs: `book/evidence/syncretic/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin`.
 - Decoder backbone: `book/api/profile/decoder/` with canonical layouts from `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json` (`status: ok`).
 - Runtime slice: `book/evidence/experiments/runtime-final-final/suites/field2-probe-op-structure/plan.json` and registry data under `book/evidence/experiments/runtime-final-final/suites/field2-probe-op-structure/registry/`.
 

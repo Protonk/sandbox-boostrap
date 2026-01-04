@@ -38,7 +38,7 @@ To make this classification mechanically robust (not substring-fragile), the wra
 - Platform/system apply gates are a recurring constraint in docs and experiments; treat these outcomes as environment evidence, not as “missing profiles” (see [`guidance/Preamble.md`](guidance/Preamble.md) and [`book/tools/sbpl/wrapper/README.md`](book/tools/sbpl/wrapper/README.md)).
 - There are *at least two shapes* of apply-stage EPERM in the repo today:
   1) **Profile-specific apply gate**: `airlock` fails apply on this host even when recompiled from SBPL (see [`troubles/EPERM_chasing.md`](troubles/EPERM_chasing.md), [`book/evidence/experiments/golden-corpus/Report.md`](book/evidence/experiments/golden-corpus/Report.md), and runtime-checks notes in [`book/evidence/experiments/runtime-final-final/suites/runtime-checks/Notes.md`](book/evidence/experiments/runtime-final-final/suites/runtime-checks/Notes.md)).
-  2) **Environment/harness apply gate**: some historical runs record `sandbox_init` returning EPERM for *everything* (see “blocked runtime vocab usage” in [`book/evidence/carton/validation/out/vocab/runtime_usage.json`](book/evidence/carton/validation/out/vocab/runtime_usage.json) and the early runtime-checks chronology in [`book/evidence/experiments/runtime-final-final/suites/runtime-checks/Notes.md`](book/evidence/experiments/runtime-final-final/suites/runtime-checks/Notes.md)). It is not yet clear which parts of that story were host State vs harness context drift (see “Drift / inconsistencies” below).
+  2) **Environment/harness apply gate**: some historical runs record `sandbox_init` returning EPERM for *everything* (see “blocked runtime vocab usage” in [`book/evidence/syncretic/validation/out/vocab/runtime_usage.json`](book/evidence/syncretic/validation/out/vocab/runtime_usage.json) and the early runtime-checks chronology in [`book/evidence/experiments/runtime-final-final/suites/runtime-checks/Notes.md`](book/evidence/experiments/runtime-final-final/suites/runtime-checks/Notes.md)). It is not yet clear which parts of that story were host State vs harness context drift (see “Drift / inconsistencies” below).
 
 ### 2) Decision-stage EPERM (“deny decision”) — **mapped**
 
@@ -83,13 +83,13 @@ These are *classification* repros: the point is to see whether the failure is ap
   - `book/tools/sbpl/wrapper/wrapper --sbpl /System/Library/Sandbox/Profiles/airlock.sb -- /usr/bin/true`
   - Expect: `sandbox_init failed: Operation not permitted`
 - Apply-stage EPERM (blob mode): canonical `airlock` blob from fixtures:
-  - `book/tools/sbpl/wrapper/wrapper --blob book/evidence/carton/validation/fixtures/blobs/airlock.sb.bin -- /usr/bin/true`
+  - `book/tools/sbpl/wrapper/wrapper --blob book/evidence/syncretic/validation/fixtures/blobs/airlock.sb.bin -- /usr/bin/true`
   - Expect: `sandbox_apply: Operation not permitted`
 
 ## Bedrock vs mapped vs hypothesis (so we don’t silently upgrade claims)
 
 - **Bedrock (static structure)**: canonical system profile blobs and their contracts are `status: ok` in [`book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json`](book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json). This is a claim about the blobs’ identity and decoded structure, not runtime behavior (see the “where the claim stops” discussion in [`status/first-promotion/post-remediation.md`](status/first-promotion/post-remediation.md)).
-  - Canonical blob sources are under `book/evidence/carton/validation/fixtures/blobs/` (e.g., `.../airlock.sb.bin`, `.../bsd.sb.bin`) as recorded by the `source` fields in the digests mapping.
+  - Canonical blob sources are under `book/evidence/syncretic/validation/fixtures/blobs/` (e.g., `.../airlock.sb.bin`, `.../bsd.sb.bin`) as recorded by the `source` fields in the digests mapping.
 - **Mapped (runtime semantics)**: golden runtime scenarios, VFS canonicalization, and some adversarial families are backed by runtime artifacts, but scope is narrow and some runs carry known environment caveats (see [`status/second-report/test-coverage.md`](status/second-report/test-coverage.md)).
 - **Hypothesis**: any “runtime story” inferred from an apply-stage EPERM is hypothesis by definition; the profile did not install, so the would-be PolicyGraph was not evaluated for that probe.
 
@@ -104,7 +104,7 @@ This repo now has a small, mechanical witness corpus that ties a common apply-st
   - Status: these are “hypothesis evidence” about runtime semantics (the Profile never attaches), but they are durable boundary objects.
 - **Compile-vs-apply split (partial)**: `book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/compile_vs_apply.json` shows the failing witnesses compile successfully (via `sandbox_compile_file`) but fail at apply time (`sandbox_apply` returns `EPERM`). On this host, this is evidence that the gate is enforced at apply/attach time, not as a compiler rejection.
 - **Unified log enforcement trace (partial, high-signal)**: the gate-witnesses validation job captures a kernel log line that directly states the failure reason for the wrapper process:
-  - Example: [`book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt`](book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt) contains `missing message filter entitlement`.
+  - Example: [`book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt`](book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt) contains `missing message filter entitlement`.
   - This is host-grounded runtime evidence that the apply-stage EPERM is an entitlement-gated capability, not a generic “sandbox denied operation X” outcome.
 - **Non-IOKit scope witness (hypothesis, confirmed)**: `book/evidence/experiments/runtime-final-final/suites/gate-witnesses/` includes a minimized, confirmed witness pair demonstrating that deny-style message filtering gates outside IOKit as well (under `mach-bootstrap`):
   - Minimal failing SBPL: [`book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb`](book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb)
@@ -138,7 +138,7 @@ These are practical “don’t waste cycles” constraints derived from the curr
 
 ## Drift / inconsistencies to record (do not resolve by “averaging stories”)
 
-- [`troubles/EPERM_chasing.md`](troubles/EPERM_chasing.md) points at now-stale blob locations (legacy extract_sbs build outputs). Canonical system blobs are now referenced as `book/evidence/carton/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin` in [`book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json`](book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json).
+- [`troubles/EPERM_chasing.md`](troubles/EPERM_chasing.md) points at now-stale blob locations (legacy extract_sbs build outputs). Canonical system blobs are now referenced as `book/evidence/syncretic/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin` in [`book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json`](book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json).
 - [`book/tools/sbpl/wrapper/Plan.md`](book/tools/sbpl/wrapper/Plan.md) says blob-mode is TODO, but [`book/tools/sbpl/wrapper/wrapper.c`](book/tools/sbpl/wrapper/wrapper.c) already implements `--blob` via `sandbox_apply`.
 - Runtime-adversarial has internal tension between narrative and artifacts:
   - The report frames key mismatches as VFS canonicalization, but `out/mismatch_summary.json` contains many entries annotated with `notes: "sandbox_apply: Operation not permitted\n"` (apply-stage failure marker) (see [`book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/Report.md`](book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/Report.md) vs [`book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/mismatch_summary.json`](book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/mismatch_summary.json)).

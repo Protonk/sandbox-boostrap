@@ -72,7 +72,7 @@ python -m book.api.profile inspect /tmp/sample.sb.bin --out /tmp/summary.json
 
 `profile` sits upstream of the validation → mappings → CARTON pipeline:
 1. Compile SBPL (`compile/`) and slice/decode compiled blobs (`ingestion/`, `decoder/`).
-2. Normalize structural outputs into validation IR (`book/evidence/carton/validation/out/…`).
+2. Normalize structural outputs into validation IR (`book/evidence/syncretic/validation/out/…`).
 3. Generate host mappings from validation IR (`book/integration/carton/bundle/relationships/mappings/**`).
 4. Run CARTON fixers to refresh relationships, views, contracts, and manifest (`python -m book.integration.carton build`).
 

@@ -50,7 +50,8 @@ TRACE_PATHS = {
 }
 
 LEGACY_TRACE_REWRITES = (
-    ("book/evidence/graph/concepts/validation/", "book/evidence/carton/validation/"),
+    ("book/evidence/graph/concepts/validation/", "book/evidence/syncretic/validation/"),
+    ("book/evidence/carton/validation/", "book/evidence/syncretic/validation/"),
 )
 
 PROFILE_BLOBS = {

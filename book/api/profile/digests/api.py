@@ -47,9 +47,9 @@ def canonical_system_profile_blobs(repo_root: Path | None = None) -> dict[str, P
     """
     root = repo_root or find_repo_root()
     return {
-        "airlock": root / "book/evidence/carton/validation/fixtures/blobs/airlock.sb.bin",
-        "bsd": root / "book/evidence/carton/validation/fixtures/blobs/bsd.sb.bin",
-        "sample": root / "book/evidence/carton/validation/fixtures/blobs/sample.sb.bin",
+        "airlock": root / "book/evidence/syncretic/validation/fixtures/blobs/airlock.sb.bin",
+        "bsd": root / "book/evidence/syncretic/validation/fixtures/blobs/bsd.sb.bin",
+        "sample": root / "book/evidence/syncretic/validation/fixtures/blobs/sample.sb.bin",
     }
 
 

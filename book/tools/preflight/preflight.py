@@ -35,7 +35,7 @@ PREFLIGHT_SCHEMA_VERSION = 1
 _BLOB_DIGESTS_IR_PATH = (
     REPO_ROOT
     / "book"
-    / "evidence" / "carton" / "validation"
+    / "evidence" / "syncretic" / "validation"
     / "out"
     / "experiments"
     / "preflight-blob-digests"
@@ -48,7 +48,7 @@ _SIGNATURE_POINTERS: Dict[str, Dict[str, Any]] = {
         "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
-            "book/evidence/carton/validation/out/experiments/gate-witnesses/witness_results.json",
+            "book/evidence/syncretic/validation/out/experiments/gate-witnesses/witness_results.json",
         ],
     },
     "apply_gate_blob_digest": {
@@ -56,7 +56,7 @@ _SIGNATURE_POINTERS: Dict[str, Dict[str, Any]] = {
         "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json",
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json",
         ],
     },
 }

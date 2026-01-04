@@ -3,7 +3,7 @@
 Host-specific lifecycle probes for `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
 
 These probes exist to generate *validation IR* under:
-- `book/evidence/carton/validation/out/lifecycle/`
+- `book/evidence/syncretic/validation/out/lifecycle/`
 
 and to feed lifecycle mapping generators such as:
 - `book/integration/carton/mappings/runtime/generate_lifecycle.py`
@@ -41,11 +41,11 @@ python -m book.api.lifecycle write-validation-out
 Or write one output to an explicit path:
 
 ```sh
-python -m book.api.lifecycle entitlements --out book/evidence/carton/validation/out/lifecycle/entitlements.json
-python -m book.api.lifecycle extensions --out book/evidence/carton/validation/out/lifecycle/extensions_dynamic.md
-python -m book.api.lifecycle platform-policy --out book/evidence/carton/validation/out/lifecycle/platform.jsonl
-python -m book.api.lifecycle containers --out book/evidence/carton/validation/out/lifecycle/containers.json
-python -m book.api.lifecycle apply-attempt --out book/evidence/carton/validation/out/lifecycle/apply_attempt.json
+python -m book.api.lifecycle entitlements --out book/evidence/syncretic/validation/out/lifecycle/entitlements.json
+python -m book.api.lifecycle extensions --out book/evidence/syncretic/validation/out/lifecycle/extensions_dynamic.md
+python -m book.api.lifecycle platform-policy --out book/evidence/syncretic/validation/out/lifecycle/platform.jsonl
+python -m book.api.lifecycle containers --out book/evidence/syncretic/validation/out/lifecycle/containers.json
+python -m book.api.lifecycle apply-attempt --out book/evidence/syncretic/validation/out/lifecycle/apply_attempt.json
 ```
 
 Build products are written under `book/api/lifecycle/build/` (not committed).

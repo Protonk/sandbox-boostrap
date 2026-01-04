@@ -20,9 +20,9 @@ from book.api.profile import decoder
 from book.integration.carton.validation import registry
 from book.integration.carton.validation.registry import ValidationJob
 
-FIXTURES_PATH = ROOT / "book" / "evidence" / "carton" / "validation" / "fixtures" / "fixtures.json"
-OUT_PATH = ROOT / "book" / "evidence" / "carton" / "validation" / "out" / "fixtures_status.json"
-META_PATH = ROOT / "book" / "evidence" / "carton" / "validation" / "out" / "metadata.json"
+FIXTURES_PATH = ROOT / "book" / "evidence" / "syncretic" / "validation" / "fixtures" / "fixtures.json"
+OUT_PATH = ROOT / "book" / "evidence" / "syncretic" / "validation" / "out" / "fixtures_status.json"
+META_PATH = ROOT / "book" / "evidence" / "syncretic" / "validation" / "out" / "metadata.json"
 
 
 def rel(path: Path) -> str:

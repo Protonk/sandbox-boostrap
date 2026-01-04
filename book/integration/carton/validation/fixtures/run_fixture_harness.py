@@ -2,7 +2,7 @@
 """
 Skeleton harness for exercising the decoder against curated fixtures.
 
-Fixture data lives under `book/evidence/carton/validation/fixtures/`.
+Fixture data lives under `book/evidence/syncretic/validation/fixtures/`.
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ ROOT = find_repo_root(Path(__file__))
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-FIXTURES_DIR = ROOT / "book" / "evidence" / "carton" / "validation" / "fixtures"
+FIXTURES_DIR = ROOT / "book" / "evidence" / "syncretic" / "validation" / "fixtures"
 
 
 def main() -> None:

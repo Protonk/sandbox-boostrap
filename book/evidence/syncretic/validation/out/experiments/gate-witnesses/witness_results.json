@@ -1,0 +1,43 @@
+{
+  "control": {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "cmd": [
+      "book/tools/sbpl/wrapper/wrapper",
+      "--preflight",
+      "force",
+      "--sbpl",
+      "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v0_empty.sb",
+      "--",
+      "/usr/bin/true"
+    ],
+    "end_unix": 1767492528.8781052,
+    "entitlement_checks": [
+      {
+        "entitlement": "com.apple.private.security.message-filter",
+        "marker_schema_version": 1,
+        "pid": 83472,
+        "present": false,
+        "rc": 0,
+        "stage": "pre_apply",
+        "tool": "entitlement-check",
+        "value_type": "absent"
+      }
+    ],
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "pid": 83472,
+    "start_unix": 1767492528.768508,
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "timed_out": false,
+    "wrapper_rc": 1
+  },
+  "witnesses": [],
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

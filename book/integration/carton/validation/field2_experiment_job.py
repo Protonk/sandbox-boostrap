@@ -15,9 +15,9 @@ from book.integration.carton.validation.registry import ValidationJob
 ROOT = find_repo_root(Path(__file__))
 FIELD2_INV = ROOT / "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json"
 UNKNOWN_NODES = ROOT / "book/evidence/experiments/field2-final-final/field2-filters/out/unknown_nodes.json"
-META_PATH = ROOT / "book/evidence/carton/validation/out/metadata.json"
-STATUS_PATH = ROOT / "book/evidence/carton/validation/out/experiments/field2/status.json"
-IR_PATH = ROOT / "book/evidence/carton/validation/out/experiments/field2/field2_ir.json"
+META_PATH = ROOT / "book/evidence/syncretic/validation/out/metadata.json"
+STATUS_PATH = ROOT / "book/evidence/syncretic/validation/out/experiments/field2/status.json"
+IR_PATH = ROOT / "book/evidence/syncretic/validation/out/experiments/field2/field2_ir.json"
 
 
 def rel(path: Path) -> str:

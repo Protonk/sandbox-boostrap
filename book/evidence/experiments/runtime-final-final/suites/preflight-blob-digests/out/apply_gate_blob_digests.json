@@ -5,17 +5,10 @@
       "classification": "apply_gated_for_harness_identity",
       "evidence": [
         {
-          "apply_report": {
-            "api": "sandbox_apply",
-            "err_class": "errno_eperm",
-            "err_class_source": "errno_only",
-            "errbuf": "Operation not permitted",
-            "errno": 1,
-            "rc": -1
-          },
-          "blob_path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/minimal_failing.sb.bin",
+          "blob_path": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/blastdoor/minimal_failing.sb.bin",
           "kind": "minimal_failing",
-          "source": "gate-witnesses",
+          "note": "derived from forensics blob; witness_results empty or blocked",
+          "source": "gate-witnesses-forensics",
           "witness_target": "blastdoor"
         }
       ]
@@ -33,7 +26,7 @@
             "errno": 1,
             "rc": -1
           },
-          "blob_path": "book/evidence/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
+          "blob_path": "book/evidence/syncretic/validation/fixtures/blobs/airlock.sb.bin",
           "failure_kind": "sandbox_apply_failed",
           "failure_stage": "apply",
           "label": "outside_harness",
@@ -151,17 +144,10 @@
       "classification": "apply_gated_for_harness_identity",
       "evidence": [
         {
-          "apply_report": {
-            "api": "sandbox_apply",
-            "err_class": "errno_eperm",
-            "err_class_source": "errno_only",
-            "errbuf": "Operation not permitted",
-            "errno": 1,
-            "rc": -1
-          },
-          "blob_path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin",
+          "blob_path": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin",
           "kind": "minimal_failing",
-          "source": "gate-witnesses",
+          "note": "derived from forensics blob; witness_results empty or blocked",
+          "source": "gate-witnesses-forensics",
           "witness_target": "mach_bootstrap_deny_message_send"
         }
       ]
@@ -171,31 +157,17 @@
       "classification": "apply_gated_for_harness_identity",
       "evidence": [
         {
-          "apply_report": {
-            "api": "sandbox_apply",
-            "err_class": "errno_eperm",
-            "err_class_source": "errno_only",
-            "errbuf": "Operation not permitted",
-            "errno": 1,
-            "rc": -1
-          },
-          "blob_path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
+          "blob_path": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
           "kind": "minimal_failing",
-          "source": "gate-witnesses",
+          "note": "derived from forensics blob; witness_results empty or blocked",
+          "source": "gate-witnesses-forensics",
           "witness_target": "airlock"
         },
         {
-          "apply_report": {
-            "api": "sandbox_apply",
-            "err_class": "errno_eperm",
-            "err_class_source": "errno_only",
-            "errbuf": "Operation not permitted",
-            "errno": 1,
-            "rc": -1
-          },
-          "blob_path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb.bin",
+          "blob_path": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb.bin",
           "kind": "minimal_failing",
-          "source": "gate-witnesses",
+          "note": "derived from forensics blob; witness_results empty or blocked",
+          "source": "gate-witnesses-forensics",
           "witness_target": "com.apple.CoreGraphics.CGPDFService"
         }
       ]
@@ -205,9 +177,11 @@
     "apply_matrices": [
       "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/out/blob_apply_matrix.outside_harness.json",
       "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/out/blob_apply_matrix.structural_validation_batch1.json",
-      "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/out/blob_apply_matrix.structural_validation_batch2.json"
+      "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/out/blob_apply_matrix.structural_validation_batch2.json",
+      "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/out/blob_apply_matrix.structural_validation_batch3_scan_shortlist.json"
     ],
-    "gate_witnesses_witness_results": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+    "gate_witnesses_forensics": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics",
+    "gate_witnesses_witness_results": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/witness_results.json"
   },
   "schema_version": 1,
   "tool": "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests",

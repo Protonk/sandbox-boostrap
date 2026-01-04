@@ -1,0 +1,29 @@
+{
+  "job_id": "experiment:system-profile-digest",
+  "status": "ok",
+  "host": {
+    "product": "macOS",
+    "version": "14.4.1",
+    "build": "23E224",
+    "kernel": "23.4.0",
+    "machine": "arm64"
+  },
+  "inputs": [
+    "book/evidence/syncretic/validation/fixtures/blobs/airlock.sb.bin",
+    "book/evidence/syncretic/validation/fixtures/blobs/bsd.sb.bin",
+    "book/evidence/syncretic/validation/fixtures/blobs/sample.sb.bin"
+  ],
+  "outputs": [
+    "book/evidence/syncretic/validation/out/experiments/system-profile-digest/digests_ir.json"
+  ],
+  "metrics": {
+    "profiles": 3
+  },
+  "notes": "Normalized system profile digests into IR.",
+  "tags": [
+    "experiment:system-profile-digest",
+    "experiment",
+    "system-profiles",
+    "golden"
+  ]
+}

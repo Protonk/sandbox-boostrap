@@ -4,9 +4,9 @@ Normalize lifecycle-oriented probe outputs into mapping-grade artifacts and alig
 them with static expectations.
 
 Inputs (current):
-- book/evidence/carton/validation/out/metadata.json
-- book/evidence/carton/validation/out/lifecycle/entitlements.json
-- book/evidence/carton/validation/out/lifecycle/extensions_dynamic.md (status only)
+- book/evidence/syncretic/validation/out/metadata.json
+- book/evidence/syncretic/validation/out/lifecycle/entitlements.json
+- book/evidence/syncretic/validation/out/lifecycle/extensions_dynamic.md (status only)
 
 Outputs:
 - book/integration/carton/bundle/relationships/mappings/runtime/lifecycle.json (manifest/status)
@@ -35,8 +35,8 @@ OUT_MANIFEST = REPO_ROOT / "book/integration/carton/bundle/relationships/mapping
 OUT_STORY = REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/runtime/lifecycle_story.json"
 OUT_COVERAGE = REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/runtime/lifecycle_coverage.json"
 OUT_TRACES = REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/runtime/lifecycle_traces"
-ENTITLEMENTS_PATH = REPO_ROOT / "book/evidence/carton/validation/out/lifecycle/entitlements.json"
-EXTENSIONS_PATH = REPO_ROOT / "book/evidence/carton/validation/out/lifecycle/extensions_dynamic.md"
+ENTITLEMENTS_PATH = REPO_ROOT / "book/evidence/syncretic/validation/out/lifecycle/entitlements.json"
+EXTENSIONS_PATH = REPO_ROOT / "book/evidence/syncretic/validation/out/lifecycle/extensions_dynamic.md"
 
 
 def load_json(path: Path) -> Dict[str, Any]:
@@ -168,7 +168,7 @@ def normalize_extensions(meta: Dict[str, Any]) -> (Dict[str, Any], List[Dict[str
 
 def main() -> None:
     world_id, world_path = load_baseline_world()
-    meta = load_json(REPO_ROOT / "book/evidence/carton/validation/out/metadata.json")
+    meta = load_json(REPO_ROOT / "book/evidence/syncretic/validation/out/metadata.json")
     manifest = {
         "world_id": world_id,
         "sip_status": meta.get("sip_status"),
@@ -184,7 +184,7 @@ def main() -> None:
     inputs = [
         str(ENTITLEMENTS_PATH.relative_to(REPO_ROOT)),
         str(EXTENSIONS_PATH.relative_to(REPO_ROOT)),
-        "book/evidence/carton/validation/out/metadata.json",
+        "book/evidence/syncretic/validation/out/metadata.json",
         world_path,
     ]
     overall_status = "partial" if any(s.get("status") != "ok" for s in manifest["scenarios"]) else "ok"

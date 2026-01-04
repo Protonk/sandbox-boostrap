@@ -25,8 +25,8 @@ ROOT = find_repo_root(Path(__file__))
 WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 
 SBPL_PATH = ROOT / "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/param_path.sb"
-META_PATH = ROOT / "book/evidence/carton/validation/out/metadata.json"
-STATUS_PATH = ROOT / "book/evidence/carton/validation/out/sbpl_parameterization/status.json"
+META_PATH = ROOT / "book/evidence/syncretic/validation/out/metadata.json"
+STATUS_PATH = ROOT / "book/evidence/syncretic/validation/out/sbpl_parameterization/status.json"
 
 PARAM_KEY = "ROOT"
 PARAM_VALUE = "/private/tmp"

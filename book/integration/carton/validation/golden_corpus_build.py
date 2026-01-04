@@ -27,7 +27,7 @@ from book.api.profile.inspect import summarize_blob  # type: ignore
 
 REPO_ROOT = find_repo_root(Path(__file__))
 BOOK_ROOT = REPO_ROOT / "book"
-OUT_DIR = BOOK_ROOT / "evidence" / "carton" / "validation" / "golden_corpus"
+OUT_DIR = BOOK_ROOT / "evidence" / "syncretic" / "validation" / "golden_corpus"
 RAW_DIR = OUT_DIR / "raw"
 DECODE_DIR = OUT_DIR / "decodes"
 INSPECT_DIR = OUT_DIR / "inspect"
@@ -81,7 +81,7 @@ BLOBS: List[Dict[str, str]] = [
     {
         "id": "platform_airlock",
         "category": "platform",
-        "path": "evidence/carton/validation/fixtures/blobs/airlock.sb.bin",
+        "path": "evidence/syncretic/validation/fixtures/blobs/airlock.sb.bin",
         "mode": "static-only",
         "notes": "platform/system profile fixture; static-only, apply-gated on this host",
     },

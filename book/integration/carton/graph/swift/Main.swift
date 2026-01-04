@@ -22,7 +22,7 @@ struct GraphChecks {
             )
         }
 
-        let base = root.appendingPathComponent("book/evidence/carton/concepts")
+        let base = root.appendingPathComponent("book/evidence/syncretic/concepts")
         writeJSON(concepts, to: base.appendingPathComponent("concepts.json").path)
         writeJSON(conceptDetails, to: base.appendingPathComponent("concept_map.json").path)
     }

@@ -9,299 +9,6 @@
   "preflight_schema_version": 1,
   "records": [
     {
-      "file_sha256": "33d1a72e709f86f7827cb6e5a919a30cc86a3d0ea6e048b2117d0240a923467e",
-      "file_size": 4662,
-      "path": "book/evidence/carton/validation/fixtures/blobs/airlock.sb.bin",
-      "preflight": {
-        "classification": "likely_apply_gated_for_harness_identity",
-        "findings": [
-          {
-            "blob_sha256": "33d1a72e709f86f7827cb6e5a919a30cc86a3d0ea6e048b2117d0240a923467e",
-            "matched": true
-          }
-        ],
-        "input_kind": "sbpl_blob_path",
-        "input_ref": "book/evidence/carton/validation/fixtures/blobs/airlock.sb.bin",
-        "preflight_schema_version": 1,
-        "signature": "apply_gate_blob_digest",
-        "signature_meta": {
-          "pointers": [
-            "troubles/EPERMx2.md",
-            "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
-          ],
-          "status": "ok"
-        },
-        "tool": "book/tools/preflight",
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
-      },
-      "sources": [
-        "book_blobs"
-      ]
-    },
-    {
-      "file_sha256": "c6fe205fe002bcb0e094419e149d5f1a8a49517d034033fe5bec52ef8e75a179",
-      "file_size": 2140,
-      "path": "book/evidence/carton/validation/fixtures/blobs/bsd.sb.bin",
-      "preflight": {
-        "classification": "no_known_apply_gate_signature",
-        "findings": [
-          {
-            "blob_sha256": "c6fe205fe002bcb0e094419e149d5f1a8a49517d034033fe5bec52ef8e75a179",
-            "matched": false
-          }
-        ],
-        "input_kind": "sbpl_blob_path",
-        "input_ref": "book/evidence/carton/validation/fixtures/blobs/bsd.sb.bin",
-        "preflight_schema_version": 1,
-        "signature": null,
-        "tool": "book/tools/preflight",
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
-      },
-      "sources": [
-        "book_blobs"
-      ]
-    },
-    {
-      "file_sha256": "a82e5aa81c57e46988a3bbf96880e9131e01f9e0ac19939b6ea7b645753fbaac",
-      "file_size": 583,
-      "path": "book/evidence/carton/validation/fixtures/blobs/sample.sb.bin",
-      "preflight": {
-        "classification": "no_known_apply_gate_signature",
-        "findings": [
-          {
-            "blob_sha256": "a82e5aa81c57e46988a3bbf96880e9131e01f9e0ac19939b6ea7b645753fbaac",
-            "matched": false
-          }
-        ],
-        "input_kind": "sbpl_blob_path",
-        "input_ref": "book/evidence/carton/validation/fixtures/blobs/sample.sb.bin",
-        "preflight_schema_version": 1,
-        "signature": null,
-        "tool": "book/tools/preflight",
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
-      },
-      "sources": [
-        "book_blobs"
-      ]
-    },
-    {
-      "file_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
-      "file_size": 513,
-      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
-      "preflight": {
-        "classification": "likely_apply_gated_for_harness_identity",
-        "findings": [
-          {
-            "blob_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
-            "matched": true
-          }
-        ],
-        "input_kind": "sbpl_blob_path",
-        "input_ref": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
-        "preflight_schema_version": 1,
-        "signature": "apply_gate_blob_digest",
-        "signature_meta": {
-          "pointers": [
-            "troubles/EPERMx2.md",
-            "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
-          ],
-          "status": "ok"
-        },
-        "tool": "book/tools/preflight",
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
-      },
-      "sources": [
-        "book_blobs"
-      ]
-    },
-    {
-      "file_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
-      "file_size": 465,
-      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/passing_neighbor.sb.bin",
-      "preflight": {
-        "classification": "no_known_apply_gate_signature",
-        "findings": [
-          {
-            "blob_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
-            "matched": false
-          }
-        ],
-        "input_kind": "sbpl_blob_path",
-        "input_ref": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/passing_neighbor.sb.bin",
-        "preflight_schema_version": 1,
-        "signature": null,
-        "tool": "book/tools/preflight",
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
-      },
-      "sources": [
-        "book_blobs"
-      ]
-    },
-    {
-      "file_sha256": "1c810afb4859beba5ea31eece812cdd3548ea575500a1063dc8eeaa11a8e3f60",
-      "file_size": 448,
-      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/minimal_failing.sb.bin",
-      "preflight": {
-        "classification": "likely_apply_gated_for_harness_identity",
-        "findings": [
-          {
-            "blob_sha256": "1c810afb4859beba5ea31eece812cdd3548ea575500a1063dc8eeaa11a8e3f60",
-            "matched": true
-          }
-        ],
-        "input_kind": "sbpl_blob_path",
-        "input_ref": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/minimal_failing.sb.bin",
-        "preflight_schema_version": 1,
-        "signature": "apply_gate_blob_digest",
-        "signature_meta": {
-          "pointers": [
-            "troubles/EPERMx2.md",
-            "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
-          ],
-          "status": "ok"
-        },
-        "tool": "book/tools/preflight",
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
-      },
-      "sources": [
-        "book_blobs"
-      ]
-    },
-    {
-      "file_sha256": "0b491b96b6e101f53cd12081c41af87e31caaedec3344e11960018f25f6f4eda",
-      "file_size": 440,
-      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/passing_neighbor.sb.bin",
-      "preflight": {
-        "classification": "no_known_apply_gate_signature",
-        "findings": [
-          {
-            "blob_sha256": "0b491b96b6e101f53cd12081c41af87e31caaedec3344e11960018f25f6f4eda",
-            "matched": false
-          }
-        ],
-        "input_kind": "sbpl_blob_path",
-        "input_ref": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/passing_neighbor.sb.bin",
-        "preflight_schema_version": 1,
-        "signature": null,
-        "tool": "book/tools/preflight",
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
-      },
-      "sources": [
-        "book_blobs"
-      ]
-    },
-    {
-      "file_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
-      "file_size": 513,
-      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb.bin",
-      "preflight": {
-        "classification": "likely_apply_gated_for_harness_identity",
-        "findings": [
-          {
-            "blob_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
-            "matched": true
-          }
-        ],
-        "input_kind": "sbpl_blob_path",
-        "input_ref": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb.bin",
-        "preflight_schema_version": 1,
-        "signature": "apply_gate_blob_digest",
-        "signature_meta": {
-          "pointers": [
-            "troubles/EPERMx2.md",
-            "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
-          ],
-          "status": "ok"
-        },
-        "tool": "book/tools/preflight",
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
-      },
-      "sources": [
-        "book_blobs"
-      ]
-    },
-    {
-      "file_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
-      "file_size": 465,
-      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb.bin",
-      "preflight": {
-        "classification": "no_known_apply_gate_signature",
-        "findings": [
-          {
-            "blob_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
-            "matched": false
-          }
-        ],
-        "input_kind": "sbpl_blob_path",
-        "input_ref": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb.bin",
-        "preflight_schema_version": 1,
-        "signature": null,
-        "tool": "book/tools/preflight",
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
-      },
-      "sources": [
-        "book_blobs"
-      ]
-    },
-    {
-      "file_sha256": "f3a3e64095c59d7d33f63573a875b62bbcdd3a58054da6c0366d2512f1c87b7c",
-      "file_size": 473,
-      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin",
-      "preflight": {
-        "classification": "likely_apply_gated_for_harness_identity",
-        "findings": [
-          {
-            "blob_sha256": "f3a3e64095c59d7d33f63573a875b62bbcdd3a58054da6c0366d2512f1c87b7c",
-            "matched": true
-          }
-        ],
-        "input_kind": "sbpl_blob_path",
-        "input_ref": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin",
-        "preflight_schema_version": 1,
-        "signature": "apply_gate_blob_digest",
-        "signature_meta": {
-          "pointers": [
-            "troubles/EPERMx2.md",
-            "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
-          ],
-          "status": "ok"
-        },
-        "tool": "book/tools/preflight",
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
-      },
-      "sources": [
-        "book_blobs"
-      ]
-    },
-    {
-      "file_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
-      "file_size": 465,
-      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/passing_neighbor.sb.bin",
-      "preflight": {
-        "classification": "no_known_apply_gate_signature",
-        "findings": [
-          {
-            "blob_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
-            "matched": false
-          }
-        ],
-        "input_kind": "sbpl_blob_path",
-        "input_ref": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/passing_neighbor.sb.bin",
-        "preflight_schema_version": 1,
-        "signature": null,
-        "tool": "book/tools/preflight",
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
-      },
-      "sources": [
-        "book_blobs"
-      ]
-    },
-    {
       "file_sha256": "1aa469d19aeec51edd8935d6fde64192a6f894df82f695c144b3312f53a0aecb",
       "file_size": 575,
       "path": "book/evidence/experiments/field2-final-final/bsd-airlock-highvals/sb/airlock_system_fcntl_context.sb",
@@ -5302,7 +5009,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
           ],
           "status": "ok"
         },
@@ -5333,7 +5040,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
           ],
           "status": "ok"
         },
@@ -8833,7 +8540,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
           ],
           "status": "ok"
         },
@@ -8887,7 +8594,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
           ],
           "status": "ok"
         },
@@ -8918,7 +8625,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
           ],
           "status": "ok"
         },
@@ -8949,7 +8656,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
           ],
           "status": "ok"
         },
@@ -8980,7 +8687,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
           ],
           "status": "ok"
         },
@@ -9034,7 +8741,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
           ],
           "status": "ok"
         },
@@ -9065,7 +8772,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
           ],
           "status": "ok"
         },
@@ -9142,7 +8849,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
           ],
           "status": "ok"
         },
@@ -9173,7 +8880,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
           ],
           "status": "ok"
         },
@@ -9227,7 +8934,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
           ],
           "status": "ok"
         },
@@ -9281,7 +8988,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
           ],
           "status": "ok"
         },
@@ -9335,7 +9042,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
           ],
           "status": "ok"
         },
@@ -10632,7 +10339,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
-            "book/evidence/carton/validation/out/experiments/gate-witnesses/witness_results.json"
+            "book/evidence/syncretic/validation/out/experiments/gate-witnesses/witness_results.json"
           ],
           "status": "partial"
         },
@@ -11096,7 +10803,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
-            "book/evidence/carton/validation/out/experiments/gate-witnesses/witness_results.json"
+            "book/evidence/syncretic/validation/out/experiments/gate-witnesses/witness_results.json"
           ],
           "status": "partial"
         },
@@ -12962,6 +12669,299 @@
       ]
     },
     {
+      "file_sha256": "33d1a72e709f86f7827cb6e5a919a30cc86a3d0ea6e048b2117d0240a923467e",
+      "file_size": 4662,
+      "path": "book/evidence/syncretic/validation/fixtures/blobs/airlock.sb.bin",
+      "preflight": {
+        "classification": "likely_apply_gated_for_harness_identity",
+        "findings": [
+          {
+            "blob_sha256": "33d1a72e709f86f7827cb6e5a919a30cc86a3d0ea6e048b2117d0240a923467e",
+            "matched": true
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/evidence/syncretic/validation/fixtures/blobs/airlock.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": "apply_gate_blob_digest",
+        "signature_meta": {
+          "pointers": [
+            "troubles/EPERMx2.md",
+            "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+          ],
+          "status": "ok"
+        },
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "c6fe205fe002bcb0e094419e149d5f1a8a49517d034033fe5bec52ef8e75a179",
+      "file_size": 2140,
+      "path": "book/evidence/syncretic/validation/fixtures/blobs/bsd.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "c6fe205fe002bcb0e094419e149d5f1a8a49517d034033fe5bec52ef8e75a179",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/evidence/syncretic/validation/fixtures/blobs/bsd.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "a82e5aa81c57e46988a3bbf96880e9131e01f9e0ac19939b6ea7b645753fbaac",
+      "file_size": 583,
+      "path": "book/evidence/syncretic/validation/fixtures/blobs/sample.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "a82e5aa81c57e46988a3bbf96880e9131e01f9e0ac19939b6ea7b645753fbaac",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/evidence/syncretic/validation/fixtures/blobs/sample.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
+      "file_size": 513,
+      "path": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
+      "preflight": {
+        "classification": "likely_apply_gated_for_harness_identity",
+        "findings": [
+          {
+            "blob_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
+            "matched": true
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": "apply_gate_blob_digest",
+        "signature_meta": {
+          "pointers": [
+            "troubles/EPERMx2.md",
+            "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+          ],
+          "status": "ok"
+        },
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
+      "file_size": 465,
+      "path": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/airlock/passing_neighbor.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/airlock/passing_neighbor.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "1c810afb4859beba5ea31eece812cdd3548ea575500a1063dc8eeaa11a8e3f60",
+      "file_size": 448,
+      "path": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/blastdoor/minimal_failing.sb.bin",
+      "preflight": {
+        "classification": "likely_apply_gated_for_harness_identity",
+        "findings": [
+          {
+            "blob_sha256": "1c810afb4859beba5ea31eece812cdd3548ea575500a1063dc8eeaa11a8e3f60",
+            "matched": true
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/blastdoor/minimal_failing.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": "apply_gate_blob_digest",
+        "signature_meta": {
+          "pointers": [
+            "troubles/EPERMx2.md",
+            "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+          ],
+          "status": "ok"
+        },
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "0b491b96b6e101f53cd12081c41af87e31caaedec3344e11960018f25f6f4eda",
+      "file_size": 440,
+      "path": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/blastdoor/passing_neighbor.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "0b491b96b6e101f53cd12081c41af87e31caaedec3344e11960018f25f6f4eda",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/blastdoor/passing_neighbor.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
+      "file_size": 513,
+      "path": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb.bin",
+      "preflight": {
+        "classification": "likely_apply_gated_for_harness_identity",
+        "findings": [
+          {
+            "blob_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
+            "matched": true
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": "apply_gate_blob_digest",
+        "signature_meta": {
+          "pointers": [
+            "troubles/EPERMx2.md",
+            "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+          ],
+          "status": "ok"
+        },
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
+      "file_size": 465,
+      "path": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "f3a3e64095c59d7d33f63573a875b62bbcdd3a58054da6c0366d2512f1c87b7c",
+      "file_size": 473,
+      "path": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin",
+      "preflight": {
+        "classification": "likely_apply_gated_for_harness_identity",
+        "findings": [
+          {
+            "blob_sha256": "f3a3e64095c59d7d33f63573a875b62bbcdd3a58054da6c0366d2512f1c87b7c",
+            "matched": true
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": "apply_gate_blob_digest",
+        "signature_meta": {
+          "pointers": [
+            "troubles/EPERMx2.md",
+            "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+          ],
+          "status": "ok"
+        },
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
+      "file_size": 465,
+      "path": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/passing_neighbor.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/passing_neighbor.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
       "file_sha256": "6a939e69b3b90635a853f9a20e09abe5ec4ee4e3c1d7cd5fde8868524e4e0ec6",
       "file_size": 440,
       "path": "book/integration/carton/bundle/relationships/mappings/runtime/decoded_blobs/bucket4_v1_read.sb.bin",
@@ -13073,7 +13073,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
-            "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+            "book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
           ],
           "status": "ok"
         },
@@ -13536,7 +13536,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
-            "book/evidence/carton/validation/out/experiments/gate-witnesses/witness_results.json"
+            "book/evidence/syncretic/validation/out/experiments/gate-witnesses/witness_results.json"
           ],
           "status": "partial"
         },
@@ -13586,7 +13586,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
-            "book/evidence/carton/validation/out/experiments/gate-witnesses/witness_results.json"
+            "book/evidence/syncretic/validation/out/experiments/gate-witnesses/witness_results.json"
           ],
           "status": "partial"
         },
@@ -13636,7 +13636,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
-            "book/evidence/carton/validation/out/experiments/gate-witnesses/witness_results.json"
+            "book/evidence/syncretic/validation/out/experiments/gate-witnesses/witness_results.json"
           ],
           "status": "partial"
         },
@@ -13686,7 +13686,7 @@
           "pointers": [
             "troubles/EPERMx2.md",
             "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
-            "book/evidence/carton/validation/out/experiments/gate-witnesses/witness_results.json"
+            "book/evidence/syncretic/validation/out/experiments/gate-witnesses/witness_results.json"
           ],
           "status": "partial"
         },

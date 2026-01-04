@@ -30,10 +30,10 @@ EXP_OUT = (
     / "out"
     / "apply_gate_blob_digests.json"
 )
-META_PATH = ROOT / "book" / "evidence" / "carton" / "validation" / "out" / "metadata.json"
+META_PATH = ROOT / "book" / "evidence" / "syncretic" / "validation" / "out" / "metadata.json"
 
 OUT_DIR = (
-    ROOT / "book" / "evidence" / "carton" / "validation" / "out" / "experiments" / "preflight-blob-digests"
+    ROOT / "book" / "evidence" / "syncretic" / "validation" / "out" / "experiments" / "preflight-blob-digests"
 )
 STATUS_PATH = OUT_DIR / "status.json"
 IR_PATH = OUT_DIR / "blob_digests_ir.json"

@@ -17,9 +17,9 @@ from book.integration.carton.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
 BUNDLE_ROOT = ROOT / "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out"
-META_PATH = ROOT / "book/evidence/carton/validation/out/metadata.json"
-STATUS_PATH = ROOT / "book/evidence/carton/validation/out/experiments/runtime-checks/status.json"
-IR_PATH = ROOT / "book/evidence/carton/validation/out/experiments/runtime-checks/runtime_results.normalized.json"
+META_PATH = ROOT / "book/evidence/syncretic/validation/out/metadata.json"
+STATUS_PATH = ROOT / "book/evidence/syncretic/validation/out/experiments/runtime-checks/status.json"
+IR_PATH = ROOT / "book/evidence/syncretic/validation/out/experiments/runtime-checks/runtime_results.normalized.json"
 
 
 def rel(path: Path) -> str:

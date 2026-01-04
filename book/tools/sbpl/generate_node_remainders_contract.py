@@ -5,7 +5,7 @@ Regenerate the canonical node-region remainder contract for this host baseline.
 This tool replaces the experiment-local generator.
 
 Output:
-- book/evidence/carton/validation/out/static/node_remainders.json
+- book/evidence/syncretic/validation/out/static/node_remainders.json
 """
 
 from __future__ import annotations
@@ -31,7 +31,7 @@ CANONICAL: Dict[str, Path] = {
     "sys:sample": _CANONICAL["sample"],
 }
 
-OUT_PATH = REPO_ROOT / "book/evidence/carton/validation/out/static/node_remainders.json"
+OUT_PATH = REPO_ROOT / "book/evidence/syncretic/validation/out/static/node_remainders.json"
 BASELINE_PATH = REPO_ROOT / "book/world/sonoma-14.4.1-23E224-arm64/world.json"
 
 

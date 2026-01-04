@@ -52,7 +52,7 @@ This experiment sits between the structural experiments and the validation tooli
 **Validation tooling**
 
 - `book/integration/carton/validation/profile_ingestion` and `decoder` – establish how we slice and decode modern profiles.
-- `book/evidence/carton/validation/out/metadata.json` – records host/OS baseline and static-format metadata.
+- `book/evidence/syncretic/validation/out/metadata.json` – records host/OS baseline and static-format metadata.
 
 ---
 
@@ -170,7 +170,7 @@ This experiment sits between the structural experiments and the validation tooli
 - `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` and `filters.json` harvested from the dyld cache for this host (status: ok).
 - `book/evidence/experiments/profile-pipeline/op-table-operation/out/summary.json`, `op_table_map.json`, and `op_table_signatures.json` as upstream structural inputs.
 - `book/evidence/experiments/profile-pipeline/op-table-vocab-alignment/out/op_table_vocab_alignment.json` capturing per-profile operations, op-table buckets, and (when present) vocabulary IDs and versions.
-- Host/format metadata in `book/evidence/carton/validation/out/metadata.json` that tie alignment runs to the Sonoma baseline.
+- Host/format metadata in `book/evidence/syncretic/validation/out/metadata.json` that tie alignment runs to the Sonoma baseline.
 
 ## Blockers / risks
 - Alignment logic is currently scoped to the synthetic profiles exercised in `op-table-operation`; operations not present there are outside this experiment’s coverage.

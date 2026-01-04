@@ -15,7 +15,7 @@ This closure is not “we learned nothing.” We learned a stable set of structu
 
 All claims in this report are about the single frozen world `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`. The primary evidence is compiled profiles and host-bound mappings.
 
-Canonical vocabulary mappings live at `book/integration/carton/bundle/relationships/mappings/vocab/filters.json` and `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` (status: ok). Canonical profiles used throughout this work are `book/evidence/carton/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin`. Experimental probes (SBPL sources and compiled blobs) live under `book/evidence/experiments/field2-final-final/field2-filters/sb/` and `book/evidence/experiments/field2-final-final/field2-filters/sb/build/`.
+Canonical vocabulary mappings live at `book/integration/carton/bundle/relationships/mappings/vocab/filters.json` and `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` (status: ok). Canonical profiles used throughout this work are `book/evidence/syncretic/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin`. Experimental probes (SBPL sources and compiled blobs) live under `book/evidence/experiments/field2-final-final/field2-filters/sb/` and `book/evidence/experiments/field2-final-final/field2-filters/sb/build/`.
 
 The experiment’s primary outputs are `book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json` (per-profile histograms, tag counts, and hi/lo census) and `book/evidence/experiments/field2-final-final/field2-filters/out/unknown_nodes.json` (concrete unknown/high nodes with fields, fan-in/out derived from the current edge assumptions, and op reach when available).
 

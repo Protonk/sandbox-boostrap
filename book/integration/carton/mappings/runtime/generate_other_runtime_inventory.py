@@ -18,8 +18,8 @@ DEFAULT_OUT = "book/integration/carton/bundle/relationships/mappings/runtime/oth
 LEGACY_PREFIXES = ("book/graph/", "book/evidence/graph/")
 
 REWRITE_PREFIXES = (
-    ("book/evidence/graph/concepts/validation/", "book/evidence/carton/validation/"),
-    ("book/evidence/graph/concepts/", "book/evidence/carton/concepts/"),
+    ("book/evidence/graph/concepts/validation/", "book/evidence/syncretic/validation/"),
+    ("book/evidence/graph/concepts/", "book/evidence/syncretic/concepts/"),
     ("book/graph/concepts/validation/", "book/integration/carton/validation/"),
     ("book/graph/swift/", "book/integration/carton/graph/swift/"),
     ("book/graph/mappings/", "book/integration/carton/mappings/"),

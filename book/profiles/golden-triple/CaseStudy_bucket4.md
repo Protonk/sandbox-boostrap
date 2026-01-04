@@ -6,7 +6,7 @@ Host: Sonoma 14.4.1 (23E224), CARTON bundle (manifest + relationships/views/cont
 - **Compiled blob:** `book/profiles/golden-triple/bucket4_v1_read.sb.bin` (also mirrored in runtime profiles under `book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb`).
 - **Operations/filters:** uses vocab op `file-read*` (id 21 from `book/integration/carton/bundle/relationships/mappings/vocab/ops.json`); no additional filters beyond the default op entrypoint.
 - **Runtime behavior (from validation IR → mappings → CARTON relationships/views):**
-  - `book/evidence/carton/validation/out/experiments/runtime-checks/runtime_results.normalized.json` records probes:
+  - `book/evidence/syncretic/validation/out/experiments/runtime-checks/runtime_results.normalized.json` records probes:
     - `read_/etc/hosts` → allow (stdout contains hosts file).
     - `read_/tmp/foo` → allow.
     - `write_/etc/hosts` → deny.

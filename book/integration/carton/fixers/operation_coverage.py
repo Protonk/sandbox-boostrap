@@ -17,7 +17,7 @@ ROOT = common.repo_root()
 OPS_PATH = ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/ops.json"
 DIGESTS_PATH = ROOT / "book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json"
 MANIFEST_PATH = ROOT / "book/integration/carton/bundle/CARTON.json"
-STATUS_PATH = ROOT / "book/evidence/carton/validation/out/validation_status.json"
+STATUS_PATH = ROOT / "book/evidence/syncretic/validation/out/validation_status.json"
 OUT_PATH = ROOT / "book/integration/carton/bundle/relationships/operation_coverage.json"
 EXPECTED_JOBS = {
     "vocab:sonoma-14.4.1",

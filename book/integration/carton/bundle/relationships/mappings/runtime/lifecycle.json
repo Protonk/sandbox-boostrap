@@ -1,13 +1,13 @@
 {
   "metadata": {
     "input_hashes": {
-      "book/evidence/carton/validation/out/lifecycle/entitlements.json": "66bfa11db41083b5d012409666303aff7fb5386afd0bf999ce2a16b945faaad4",
-      "book/evidence/carton/validation/out/lifecycle/extensions_dynamic.md": "f12270f5d2cf4ba06b2e51b26656b01a78ab46ade15fa6473e65e0018787fea4"
+      "book/evidence/syncretic/validation/out/lifecycle/entitlements.json": "66bfa11db41083b5d012409666303aff7fb5386afd0bf999ce2a16b945faaad4",
+      "book/evidence/syncretic/validation/out/lifecycle/extensions_dynamic.md": "f12270f5d2cf4ba06b2e51b26656b01a78ab46ade15fa6473e65e0018787fea4"
     },
     "inputs": [
-      "book/evidence/carton/validation/out/lifecycle/entitlements.json",
-      "book/evidence/carton/validation/out/lifecycle/extensions_dynamic.md",
-      "book/evidence/carton/validation/out/metadata.json",
+      "book/evidence/syncretic/validation/out/lifecycle/entitlements.json",
+      "book/evidence/syncretic/validation/out/lifecycle/extensions_dynamic.md",
+      "book/evidence/syncretic/validation/out/metadata.json",
       "book/world/sonoma-14.4.1-23E224-arm64/world.json"
     ],
     "notes": "Lifecycle probes normalized; blocked/partial scenarios retained with source logs.",
@@ -19,7 +19,7 @@
     {
       "notes": "Unsigned/unsandboxed build; rerun with signed binaries to compare entitlement payloads.",
       "scenario_id": "entitlements-evolution",
-      "source_log": "book/evidence/carton/validation/out/lifecycle/entitlements.json",
+      "source_log": "book/evidence/syncretic/validation/out/lifecycle/entitlements.json",
       "status": "partial",
       "trace_count": 1,
       "trace_path": "book/integration/carton/bundle/relationships/mappings/runtime/lifecycle_traces/entitlements-evolution.jsonl"
@@ -27,7 +27,7 @@
     {
       "notes": "extensions token not issued (see source_log)",
       "scenario_id": "extensions-dynamic",
-      "source_log": "book/evidence/carton/validation/out/lifecycle/extensions_dynamic.md",
+      "source_log": "book/evidence/syncretic/validation/out/lifecycle/extensions_dynamic.md",
       "status": "blocked",
       "trace_count": 1,
       "trace_path": "book/integration/carton/bundle/relationships/mappings/runtime/lifecycle_traces/extensions-dynamic.jsonl"

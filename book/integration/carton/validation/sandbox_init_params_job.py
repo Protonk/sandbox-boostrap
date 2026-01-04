@@ -17,8 +17,8 @@ from book.integration.carton.validation.registry import ValidationJob
 ROOT = find_repo_root(Path(__file__))
 WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 SUMMARY_PATH = ROOT / "book/evidence/experiments/profile-pipeline/sandbox-init-params/out/validation_summary.json"
-STATUS_PATH = ROOT / "book/evidence/carton/validation/out/experiments/sandbox-init-params/status.json"
-META_PATH = ROOT / "book/evidence/carton/validation/out/metadata.json"
+STATUS_PATH = ROOT / "book/evidence/syncretic/validation/out/experiments/sandbox-init-params/status.json"
+META_PATH = ROOT / "book/evidence/syncretic/validation/out/metadata.json"
 TOOL_PATH = ROOT / "book/tools/sbpl/sandbox_init_params_validate.py"
 
 EXPECTED_RUNS = {

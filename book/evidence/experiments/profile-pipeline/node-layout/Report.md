@@ -82,7 +82,7 @@ These tools give us a consistent “slice + decode” view of modern profiles th
 ### Completed
 - **1. Baseline ingestion and heuristics**
 - Used the shared ingestion helpers (`book/api/profile/ingestion`) to:
-  - Classify `book/evidence/carton/validation/fixtures/blobs/sample.sb.bin` as a modern graph-based blob.
+  - Classify `book/evidence/syncretic/validation/fixtures/blobs/sample.sb.bin` as a modern graph-based blob.
   - Slice it into a small preamble/op-table area, a “nodes” region, and a literal/regex tail with human-readable strings.
   - Recorded, for the baseline blob:
   - `operation_count` from the heuristic header and approximate op-table length (`op_count * 2` bytes).
@@ -179,7 +179,7 @@ These tools give us a consistent “slice + decode” view of modern profiles th
 - SBPL probe profiles under `sb/` and their compiled blobs in `sb/build/*.sb.bin`.
 - `book/tools/sbpl/node_layout_runner.py` as the main ingestion and summary script.
 - `book/evidence/experiments/profile-pipeline/node-layout/out/summary.json` with per-variant structural data and decoder output.
-- Header/preamble and node-remainder contracts for canonical profiles captured in `book/integration/carton/bundle/relationships/mappings/system_profiles/header_contract.json` and `book/evidence/carton/validation/out/static/node_remainders.json` (guardrailed in `book/tests/planes/contracts/test_header_contract.py` and `book/tests/planes/graph/test_node_remainders.py`).
+- Header/preamble and node-remainder contracts for canonical profiles captured in `book/integration/carton/bundle/relationships/mappings/system_profiles/header_contract.json` and `book/evidence/syncretic/validation/out/static/node_remainders.json` (guardrailed in `book/tests/planes/contracts/test_header_contract.py` and `book/tests/planes/graph/test_node_remainders.py`).
 - Shared ingestion/decoder helpers under `book/integration/carton/validation/` as referenced in the Baseline & scope section.
 
 ## Blockers / risks

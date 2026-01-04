@@ -16,7 +16,7 @@ We need to apply compiled sandbox profile blobs (`.sb.bin`), including system pr
    - Blob apply remains the missing piece.
 
 3. **Known artifacts**
-   - Compiled system blobs live at `book/evidence/carton/validation/fixtures/blobs/airlock.sb.bin` and `bsd.sb.bin`.
+   - Compiled system blobs live at `book/evidence/syncretic/validation/fixtures/blobs/airlock.sb.bin` and `bsd.sb.bin`.
    - Digests exist in `book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json` (operation counts, op-table buckets).
    - Vocab/tag mappings exist in `book/graph/mappings/vocab/` and `.../tag_layouts/`.
 

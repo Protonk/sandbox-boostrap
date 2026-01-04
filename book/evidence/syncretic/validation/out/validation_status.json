@@ -1,0 +1,52 @@
+{
+  "schema": {
+    "job_id": "string",
+    "status": "ok|partial|brittle|blocked|skipped",
+    "host": "object",
+    "inputs": "list[str]",
+    "outputs": "list[str]",
+    "tags": "list[str]",
+    "notes": "string?",
+    "metrics": "object?",
+    "error": "string?",
+    "change": "changed|unchanged?"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "jobs": [
+    {
+      "job_id": "experiment:system-profile-digest",
+      "status": "ok",
+      "host": {
+        "product": "macOS",
+        "version": "14.4.1",
+        "build": "23E224",
+        "kernel": "23.4.0",
+        "machine": "arm64"
+      },
+      "inputs": [
+        "book/evidence/syncretic/validation/fixtures/blobs/airlock.sb.bin",
+        "book/evidence/syncretic/validation/fixtures/blobs/bsd.sb.bin",
+        "book/evidence/syncretic/validation/fixtures/blobs/sample.sb.bin"
+      ],
+      "outputs": [
+        "book/evidence/syncretic/validation/out/experiments/system-profile-digest/digests_ir.json",
+        "book/evidence/syncretic/validation/out/experiments/system-profile-digest/status.json"
+      ],
+      "tags": [
+        "experiment:system-profile-digest",
+        "experiment",
+        "system-profiles",
+        "golden"
+      ],
+      "hashes": {
+        "book/evidence/syncretic/validation/out/experiments/system-profile-digest/digests_ir.json": "bddd1c7461a9337901e24205ce1b00ea5043fa3793fbe460a91838387d44d972",
+        "book/evidence/syncretic/validation/out/experiments/system-profile-digest/status.json": "51db2c998321dcf219bcaf5778b06d11ec670e195e07167bcf0da129c6f396b0"
+      },
+      "notes": "Normalized system profile digests into IR.",
+      "metrics": {
+        "profiles": 3
+      },
+      "change": "unchanged"
+    }
+  ]
+}

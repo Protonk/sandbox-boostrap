@@ -32,15 +32,15 @@ Promotion contract:
 
 Guidelines for new validation work:
 - Prefer small, composable scripts (for example, `profile_ingestion.py` or `node_decoder.py`) over monolithic tools.
-- Emit typed JSON under `book/evidence/carton/validation/out/` and record host/OS/build metadata in outputs.
+- Emit typed JSON under `book/evidence/syncretic/validation/out/` and record host/OS/build metadata in outputs.
 - Do not hide decoder or ingestion failures; mark jobs `partial` or `brittle` and note the limitation in status output.
 - If decoding or ingestion semantics change, update this README and check whether mappings under `book/integration/carton/bundle/relationships/mappings/` need regeneration.
-- Keep fixtures under `book/evidence/carton/validation/fixtures/` small and explicit, and wire new fixtures into `tasks.py` plus the owning job module.
+- Keep fixtures under `book/evidence/syncretic/validation/fixtures/` small and explicit, and wire new fixtures into `tasks.py` plus the owning job module.
 
 ## Files
 
 - `tasks.py` – declarative mapping of validation tasks to inputs and expected artifacts. Used as the source of truth for which fixtures/experiments exercise which clusters.
-- `book/evidence/carton/validation/out/` – drop-in location for captured evidence (JSON logs, parsed headers, vocab tables) keyed by cluster/run/OS version.
+- `book/evidence/syncretic/validation/out/` – drop-in location for captured evidence (JSON logs, parsed headers, vocab tables) keyed by cluster/run/OS version.
 - Decoder lives under `book/api/profile/decoder/` (Python); import `book.api.profile.decoder` (or `from book.api.profile import decoder`) in validation tooling.
 
 ## Usage model (planned)
@@ -51,4 +51,4 @@ Guidelines for new validation work:
 4. For Vocabulary tasks, extract operation/filter maps from compiled blobs (from Static-Format) and from runtime logs (from Semantic Graph), then normalize into versioned tables under `book/integration/carton/bundle/relationships/mappings/vocab/` (a shared, stable location). Stable op-table artifacts live under `book/integration/carton/bundle/relationships/mappings/op_table/`.
 5. For Runtime Lifecycle tasks, run the lifecycle probes via `book.api.lifecycle` (entitlements/platform/containers/extensions/apply attempts) and capture label/entitlement/container/extension evidence under `out/lifecycle/`.
 
-All scripts and automation that support these steps should live in this directory; fixtures live under `book/evidence/carton/validation/fixtures/`, and experiment bundles stay under `book/evidence/experiments/`.
+All scripts and automation that support these steps should live in this directory; fixtures live under `book/evidence/syncretic/validation/fixtures/`, and experiment bundles stay under `book/evidence/experiments/`.

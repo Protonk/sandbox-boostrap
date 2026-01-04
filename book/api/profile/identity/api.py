@@ -3,7 +3,7 @@ Profile identity resolution helpers for the Sonoma Seatbelt baseline.
 
 The repo has multiple, intentionally different identity surfaces for profiles:
 - Canonical system profile ids: `sys:airlock`, `sys:bsd`, `sys:sample`
-- Compiled blob repo-relative paths: `book/evidence/carton/validation/fixtures/blobs/*.sb.bin`
+- Compiled blob repo-relative paths: `book/evidence/syncretic/validation/fixtures/blobs/*.sb.bin`
 - Compiled blob sha256 digests (contract + witnesses)
 - Per-blob attestations and static checks keyed by blob path
 

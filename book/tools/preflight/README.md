@@ -34,12 +34,12 @@ Current signature (witness-backed on this world, but still “partial” for glo
   - Evidence lives in the gate-witness corpus and validation outputs; see:
     - `troubles/EPERMx2.md`
     - `book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md`
-    - `book/evidence/carton/validation/out/experiments/gate-witnesses/witness_results.json`
+    - `book/evidence/syncretic/validation/out/experiments/gate-witnesses/witness_results.json`
 
 Digest signature (exact-match; host-scoped list):
 
 - `apply_gate_blob_digest` – the `.sb.bin` file’s `sha256` matches a known apply-gated blob digest from:
-  - `book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json`
+  - `book/evidence/syncretic/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json`
   - `book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md`
 
 ### Usage
@@ -49,7 +49,7 @@ From repo root:
 ```sh
 python3 book/tools/preflight/preflight.py scan book/tools/sbpl/corpus/baseline/sample.sb
 python3 book/tools/preflight/preflight.py scan book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/*/minimal_failing.sb
-python3 book/tools/preflight/preflight.py scan book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/*/*.sb.bin
+python3 book/tools/preflight/preflight.py scan book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/*/*.sb.bin
 ```
 
 Output is a JSON array by default. Use `--jsonl` for one JSON object per line.

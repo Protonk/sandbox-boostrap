@@ -4,7 +4,7 @@ This target keeps the concept inventory JSONs in sync with the curated concept m
 
 What it does (current):
 - Parses `book/integration/carton/Concept_map.md`.
-- Emits JSON: `book/evidence/carton/concepts/{concepts.json,concept_map.json}`.
+- Emits JSON: `book/evidence/syncretic/concepts/{concepts.json,concept_map.json}`.
 
 How to run:
 ```
@@ -18,6 +18,6 @@ Extending it:
 
 Directory map (agent quick reference):
 - `swift/` – Swift generator (types/utils, concept parsing, entrypoint).
-- `book/evidence/carton/concepts/` – Generated concept JSON outputs.
+- `book/evidence/syncretic/concepts/` – Generated concept JSON outputs.
 - `book/integration/carton/mappings/` – Generators for stable host-specific IR (vocab, op_table, anchors, tag_layouts, system_profiles, runtime) that live under `book/integration/carton/bundle/relationships/mappings/` and feed into CARTON fixers.
 - CARTON bundle lives under `book/integration/carton/` (relationships, views, contracts, manifest, and tools).

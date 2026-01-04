@@ -114,7 +114,7 @@ def write_vocab_stub(out_dir: Path, kind: str, host_meta: Dict[str, Any], source
 
 
 def main() -> None:
-    out_base = ROOT / "book" / "evidence" / "carton" / "validation" / "out"
+    out_base = ROOT / "book" / "evidence" / "syncretic" / "validation" / "out"
     out_dir = out_base / "vocab"
     out_dir.mkdir(parents=True, exist_ok=True)
     host_meta = load_host_metadata(out_base)
@@ -129,7 +129,7 @@ def run_vocab_job():
     if str(root) not in sys.path:
         sys.path.insert(0, str(root))
     main()
-    out_dir = root / "book" / "evidence" / "carton" / "validation" / "out" / "vocab"
+    out_dir = root / "book" / "evidence" / "syncretic" / "validation" / "out" / "vocab"
     return {
         "status": "ok",
         "outputs": [str(out_dir / "ops.json"), str(out_dir / "filters.json")],
@@ -141,8 +141,8 @@ registry.register(
         id="vocab:stub-harvest",
         inputs=_CANONICAL_INPUTS,
         outputs=[
-            "book/evidence/carton/validation/out/vocab/ops.json",
-            "book/evidence/carton/validation/out/vocab/filters.json",
+            "book/evidence/syncretic/validation/out/vocab/ops.json",
+            "book/evidence/syncretic/validation/out/vocab/filters.json",
         ],
         tags=["vocab", "graph"],
         description="Stub vocabulary extraction using decoder-derived metadata.",

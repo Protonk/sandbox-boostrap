@@ -45,7 +45,7 @@ def test_preflight_blob_digest_classification_cases():
     cases = [
         (
             Path(
-                "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/"
+                "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/"
                 "mach_bootstrap_deny_message_send/minimal_failing.sb.bin"
             ),
             "likely_apply_gated_for_harness_identity",
@@ -53,13 +53,13 @@ def test_preflight_blob_digest_classification_cases():
             True,
         ),
         (
-            Path("book/evidence/carton/validation/fixtures/blobs/sample.sb.bin"),
+            Path("book/evidence/syncretic/validation/fixtures/blobs/sample.sb.bin"),
             "no_known_apply_gate_signature",
             None,
             False,
         ),
         (
-            Path("book/evidence/carton/validation/fixtures/blobs/airlock.sb.bin"),
+            Path("book/evidence/syncretic/validation/fixtures/blobs/airlock.sb.bin"),
             "likely_apply_gated_for_harness_identity",
             "apply_gate_blob_digest",
             True,

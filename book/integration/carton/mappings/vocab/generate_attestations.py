@@ -5,7 +5,7 @@ Generate vocab attestation manifest tying ops/filters to their provenance.
 Inputs:
 - book/integration/carton/bundle/relationships/mappings/vocab/ops.json
 - book/integration/carton/bundle/relationships/mappings/vocab/filters.json
-- book/evidence/carton/validation/out/metadata.json (host/build)
+- book/evidence/syncretic/validation/out/metadata.json (host/build)
 - optional compiled blobs to sanity check counts (airlock/bsd/sample)
 
 Outputs:
@@ -28,7 +28,7 @@ if str(REPO_ROOT) not in sys.path:
 from book.api.profile import digests as digests_mod  # type: ignore
 from book.api import world as world_mod  # type: ignore
 OUT_PATH = REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/attestations.json"
-VALIDATION_STATUS = REPO_ROOT / "book/evidence/carton/validation/out/validation_status.json"
+VALIDATION_STATUS = REPO_ROOT / "book/evidence/syncretic/validation/out/validation_status.json"
 VALIDATION_JOB_ID = "vocab:sonoma-14.4.1"
 def load_baseline() -> Dict[str, Any]:
     data, resolution = world_mod.load_world(repo_root=REPO_ROOT)
@@ -85,7 +85,7 @@ def run_validation_job(job_id: str) -> None:
 def main() -> None:
     run_validation_job(VALIDATION_JOB_ID)
     baseline = load_baseline()
-    meta = load_json(REPO_ROOT / "book/evidence/carton/validation/out/metadata.json")
+    meta = load_json(REPO_ROOT / "book/evidence/syncretic/validation/out/metadata.json")
     ops = load_json(REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/ops.json")
     filters = load_json(REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/filters.json")
 

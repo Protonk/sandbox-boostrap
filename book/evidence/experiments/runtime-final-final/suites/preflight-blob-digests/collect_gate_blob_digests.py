@@ -12,12 +12,27 @@ This is intentionally static: it does not compile or apply profiles.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+
+def _find_repo_root(start: Path) -> Path:
+    cur = start.resolve()
+    agents_root: Path | None = None
+    for candidate in [cur] + list(cur.parents):
+        if (candidate / ".git").exists():
+            return candidate
+        if (candidate / "AGENTS.md").exists():
+            agents_root = candidate
+    if agents_root:
+        return agents_root
+    raise RuntimeError("Unable to locate repository root")
+
+
+REPO_ROOT = _find_repo_root(Path(__file__))
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
@@ -30,13 +45,27 @@ SCHEMA_VERSION = 1
 DEFAULT_SOURCE = (
     REPO_ROOT
     / "book"
-    / "graph"
-    / "concepts"
+    / "evidence"
+    / "syncretic"
     / "validation"
     / "out"
     / "experiments"
     / "gate-witnesses"
     / "witness_results.json"
+)
+FORENSICS_ROOT = (
+    REPO_ROOT
+    / "book"
+    / "evidence"
+    / "syncretic"
+    / "validation"
+    / "out"
+    / "experiments"
+    / "gate-witnesses"
+    / "forensics"
+)
+PATH_REWRITES: Tuple[Tuple[str, str], ...] = (
+    ("book/evidence/graph/concepts/validation/", "book/evidence/syncretic/validation/"),
 )
 
 
@@ -46,6 +75,21 @@ def _rel(path: Path) -> str:
 
 def _load_json(path: Path) -> Dict[str, Any]:
     return json.loads(path.read_text())
+
+
+def _rewrite_repo_path(path: str) -> str:
+    for source, target in PATH_REWRITES:
+        if path.startswith(source):
+            return f"{target}{path[len(source):]}"
+    return path
+
+
+def _sha256_file(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as fh:
+        for chunk in iter(lambda: fh.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
 
 
 def _is_apply_gate_report(apply_report: Dict[str, Any] | None) -> bool:
@@ -79,8 +123,8 @@ def _collect_apply_gated_digests(witness_results: Dict[str, Any]) -> List[Dict[s
             blob_path = (
                 REPO_ROOT
                 / "book"
-                / "graph"
-                / "concepts"
+                / "evidence"
+                / "syncretic"
                 / "validation"
                 / "out"
                 / "experiments"
@@ -97,6 +141,42 @@ def _collect_apply_gated_digests(witness_results: Dict[str, Any]) -> List[Dict[s
                 "apply_report": apply_report,
             }
             digests.setdefault(blob_sha, []).append(evidence)
+
+    out: List[Dict[str, Any]] = []
+    for sha, evidence_list in sorted(digests.items()):
+        out.append(
+            {
+                "blob_sha256": sha,
+                "classification": "apply_gated_for_harness_identity",
+                "evidence": sorted(
+                    evidence_list,
+                    key=lambda e: (str(e.get("witness_target")), str(e.get("kind")), str(e.get("blob_path"))),
+                ),
+            }
+        )
+    return out
+
+
+def _collect_forensics_minimal_failing() -> List[Dict[str, Any]]:
+    digests: Dict[str, List[Dict[str, Any]]] = {}
+    if not FORENSICS_ROOT.exists():
+        return []
+
+    for target_dir in sorted(FORENSICS_ROOT.iterdir()):
+        if not target_dir.is_dir():
+            continue
+        blob_path = target_dir / "minimal_failing.sb.bin"
+        if not blob_path.exists():
+            continue
+        blob_sha = _sha256_file(blob_path)
+        evidence = {
+            "source": "gate-witnesses-forensics",
+            "witness_target": target_dir.name,
+            "kind": "minimal_failing",
+            "blob_path": _rel(blob_path),
+            "note": "derived from forensics blob; witness_results empty or blocked",
+        }
+        digests.setdefault(blob_sha, []).append(evidence)
 
     out: List[Dict[str, Any]] = []
     for sha, evidence_list in sorted(digests.items()):
@@ -137,6 +217,7 @@ def _merge_apply_matrix(
         result = row.get("result") or {}
         if not isinstance(sha, str) or not isinstance(blob_path, str):
             continue
+        blob_path = _rewrite_repo_path(blob_path)
         evidence = {
             "source": "preflight-blob-digests",
             "label": label,
@@ -173,8 +254,15 @@ def main(argv: List[str] | None = None) -> int:
         raise ValueError(f"world_id mismatch: source={source_world!r} baseline={baseline_world!r}")
 
     combined: Dict[str, Dict[str, Any]] = {}
-    for entry in _collect_apply_gated_digests(witness_results):
-        combined[entry["blob_sha256"]] = entry
+    forensics_used = False
+    witness_entries = _collect_apply_gated_digests(witness_results)
+    if witness_entries:
+        for entry in witness_entries:
+            combined[entry["blob_sha256"]] = entry
+    else:
+        for entry in _collect_forensics_minimal_failing():
+            combined[entry["blob_sha256"]] = entry
+        forensics_used = bool(combined)
 
     apply_matrices: List[str] = []
     for apply_matrix_path in args.apply_matrix:
@@ -191,6 +279,7 @@ def main(argv: List[str] | None = None) -> int:
         "world_id": baseline_world,
         "inputs": {
             "gate_witnesses_witness_results": _rel(args.source),
+            "gate_witnesses_forensics": _rel(FORENSICS_ROOT) if forensics_used else None,
             "apply_matrices": apply_matrices or None,
         },
         "apply_gate_digests": [combined[sha] for sha in sorted(combined.keys())],
