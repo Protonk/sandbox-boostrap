@@ -4,7 +4,7 @@ Map how this host’s `libsandbox` populates the per-node u16 payload slot (hist
 
 ## Baseline & scope
 
-- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Inputs:
   - `book/api/profile` (compile SBPL to a blob).
   - `book/api/profile/decoder/` + `book/graph/concepts/validation/profile_ingestion.py` (decode/slice compiled blobs).

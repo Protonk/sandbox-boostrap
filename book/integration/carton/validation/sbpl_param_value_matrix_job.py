@@ -26,7 +26,7 @@ from book.integration.carton.validation import registry
 from book.integration.carton.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
-WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9"
 
 SBPL_PATH = ROOT / "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/param_write_gate.sb"
 STATUS_PATH = ROOT / "book/evidence/syncretic/validation/out/sbpl_param_value_matrix/status.json"

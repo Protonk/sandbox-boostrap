@@ -1,6 +1,6 @@
 # Experiment suite: graph-shape-vs-semantics
 
-Purpose: test whether SBPL/graph encodings with the same intended allow/deny semantics but different shapes (nesting, ordering, sharing) produce equivalent runtime behavior on this world (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`), and what that reveals about PolicyGraph structure/tag interpretation.
+Purpose: test whether SBPL/graph encodings with the same intended allow/deny semantics but different shapes (nesting, ordering, sharing) produce equivalent runtime behavior on this world (`world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`), and what that reveals about PolicyGraph structure/tag interpretation.
 
 Derived outputs are written under `out/derived/<run_id>/` and are stamped with upstream packet provenance.
 

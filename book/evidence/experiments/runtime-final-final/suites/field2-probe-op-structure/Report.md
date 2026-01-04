@@ -4,7 +4,7 @@
 Host-bound runtime slice for anchor checks used by the field2 probe-op-structure experiment. This suite contains only the runtime plan, registry, and bundles.
 
 ## Baseline & scope
-- World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- World: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Evidence: runtime bundles under `out/<run_id>/` (committed via `artifact_index.json`).
 
 ## How to run

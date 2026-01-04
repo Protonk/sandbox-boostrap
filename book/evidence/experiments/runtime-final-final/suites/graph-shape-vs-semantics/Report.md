@@ -11,7 +11,7 @@ and summarizes “same behavior vs mismatch” across these pairs.
 
 ## Baseline & scope
 
-- World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- World: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Harness: `python -m book.api.runtime run --plan book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/plan.json --channel launchd_clean` (commit bundle + promotion packet; consumers use the packet export surface).
 - Profiles:
   - `adv:struct_flat` and `adv:struct_nested`: same intended allow/deny surface over `/tmp/runtime-adv/struct/...`, different graph structures.

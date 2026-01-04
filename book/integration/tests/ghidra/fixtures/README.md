@@ -4,7 +4,7 @@ This repo’s only committed pytest fixtures are for the Ghidra plane, so they
 live next to the Ghidra tests.
 
 All fixtures here are host-bound and scoped to the Sonoma baseline
-(`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`).
+(`world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`).
 
 ## Layout
 

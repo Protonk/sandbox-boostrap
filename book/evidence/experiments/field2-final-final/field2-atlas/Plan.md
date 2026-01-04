@@ -4,7 +4,7 @@
 Build a field2-centric experiment that follows selected field2 IDs end-to-end across the static graph (tag layouts + anchors + canonical system profiles) and a small runtime harness. The goal is to flip the usual anchor/operation view and instead ask: for a given field2 on this host, where does it live in the compiled graphs, which profiles use it, and what happens when we exercise a runtime scenario that should reach it?
 
 ## Baseline & scope
-- Host world: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (fixed).
+- Host world: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` (fixed).
 - Canonical vocab/mappings: `book/integration/carton/bundle/relationships/mappings/vocab/{ops.json,filters.json}`, `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json`, `book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json`, `book/integration/carton/bundle/relationships/mappings/system_profiles/{digests.json,static_checks.json}`, `book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json`.
 - Runtime references: existing traces and signatures under `book/integration/carton/bundle/relationships/mappings/runtime/` (golden traces, adversarial summary, runtime_signatures.json).
 - Initial op focus (runtime-backed on this host): `file-read-data`, `file-write-data`, `mach-lookup`.

@@ -1,4 +1,4 @@
-- world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
+- world_id: sonoma-14.4.1-23E224-arm64-dyld-a3a840f9
 - scope: runtime-only; promotion only when paired with structural anchor bindings
 - primary outputs: out/<run_id>/{runtime_results.json,runtime_events.normalized.json,run_manifest.json,artifact_index.json,path_witnesses.json}
 - upstream structure: book/evidence/experiments/field2-final-final/probe-op-structure/Report.md
@@ -10,7 +10,7 @@
 Provide narrow, stage-labeled runtime evidence that helps close gaps in `probe-op-structure`. The focus is on canonicalization ambiguity (`/etc` vs `/private/etc`), mach service presence vs denial, and IOKit class presence vs denial. This experiment does not claim semantics beyond operation-stage outcomes paired with structural anchor bindings.
 
 ## Baseline & scope
-- World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- World: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Runtime channel: `launchd_clean` only for decision-stage evidence.
 - Preflight: `book/tools/preflight/preflight.py scan` on all SBPL inputs.
 - Profiles: minimal deny-default SBPL with explicit allow rules for the targeted anchors.

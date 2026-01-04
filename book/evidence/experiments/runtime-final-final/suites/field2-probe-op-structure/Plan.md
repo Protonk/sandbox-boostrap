@@ -4,7 +4,7 @@
 Provide the runtime plan and bundles that support the probe-op-structure experiment's anchor checks. Structural decoding and inventories remain under `field2-final-final/probe-op-structure`.
 
 ## Baseline & scope
-- World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- World: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Runtime channel: `launchd_clean` for decision-stage evidence.
 - Profiles and SBPL live in the field2 experiment and are referenced by the registry.
 

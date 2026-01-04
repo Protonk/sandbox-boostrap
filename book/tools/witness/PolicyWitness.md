@@ -1,6 +1,6 @@
 # PolicyWitness.app (User Guide)
 
-PolicyWitness is a macOS research/teaching tool for exploring **App Sandbox + entitlements** while keeping “what happened” separate from “why it happened”. It gives you a structured witness of what ran and what changed alongside on-demand lifecycle context about the sandboxed service and any child processes. Together, this makes sandbox attribution reproducible by separating OS policy enforcement from early process death, harness failures, and session restarts.
+PolicyWitness is a macOS research/teaching tool for exploring **App Sandbox + entitlements** while keeping “what happened” separate from “why it happened”.
 
 It ships as an app bundle containing:
 
@@ -29,7 +29,7 @@ This guide assumes you have only `PolicyWitness.app` and this file (`PolicyWitne
 - Evidence bundle: `bundle-evidence` (plus `verify-evidence`, `inspect-macho`)
 - Quarantine/Gatekeeper deltas (no execution): `quarantine-lab`
 - Deny evidence (outside the sandbox boundary): `PolicyWitness.app/Contents/MacOS/sandbox-log-observer`
-- SANDBOX_LORE API bridge: see `book/api/witness/README.md` when using the repo API.
+- Timeline evidence (Unified Logging signposts): `xpc run --signposts ...` (capture: `--capture-signposts`; helper: `PolicyWitness.app/Contents/MacOS/signpost-log-observer`)
 
 ## Quick start
 
@@ -64,11 +64,10 @@ $PW run-matrix --group baseline capabilities_snapshot
 Create a harness file and set an xattr (extract `data.details.file_path` without `jq`):
 
 ```sh
-$PW xpc run --profile minimal fs_op --op create --path-class tmp --target specimen_file --name pw_xattr.txt --no-cleanup > /tmp/pw_fs_op.json
+$PW xpc run --profile minimal fs_op --op create --path-class tmp --target specimen_file --name pw_xattr.txt > /tmp/pw_fs_op.json
 FILE_PATH=$(plutil -extract data.details.file_path raw -o - /tmp/pw_fs_op.json)
 $PW xpc run --profile minimal fs_xattr --op set --path "$FILE_PATH" --name user.pw --value test
 ```
-Note: without `--no-cleanup`, the harness file may be removed before `fs_xattr` runs.
 
 ## Concepts
 
@@ -121,7 +120,6 @@ Inspect a service “statically” (what the profile says it should have):
 ```sh
 $PW describe-service minimal@injectable
 ```
-Note: `show-profile` returns the base profile plus its variants. Use `describe-service <id@variant>` for variant-specific detail.
 
 **Risk signals**
 
@@ -179,7 +177,6 @@ $PW xpc run --profile minimal --variant injectable sandbox_check --operation fil
 $PW xpc run --profile temporary_exception sandbox_extension --op issue_file --class com.apple.app-sandbox.read --path /etc/hosts --allow-unsafe-path
 $PW xpc run --profile temporary_exception inherit_child --scenario dynamic_extension --path /private/var/db/launchd.db/com.apple.launchd/overrides.plist --allow-unsafe-path
 ```
-Note: `tcp_connect` to 127.0.0.1:9 usually returns `connection_refused` (closed port), not a sandbox denial.
 
 Use `probe_catalog` as the source of truth for per-probe usage; it also lists `fs_op_wait`, `bookmark_make`, `bookmark_op`, `bookmark_roundtrip`, `userdefaults_op`, `fs_coordinated_op`, and `network_tcp_connect`.
 
@@ -204,7 +201,6 @@ $PW xpc run --profile minimal sandbox_extension --op release --token "$TOKEN"
 
 Notes:
 
-- `consume_ok` means the token was accepted; always verify access with a follow-up probe.
 - If you want to issue extensions for a non-harness path, pass `--allow-unsafe-path` to `sandbox_extension --op issue_file`.
 - Tokens are returned in `data.details.token` and also in `data.stdout`.
 - If consume/release fails with invalid-token style errors, try `--token-format prefix` (default: `full`).
@@ -328,7 +324,12 @@ Attach/inspection knobs:
 Host-side sandbox log capture (single artifact):
 
 - Add `--capture-sandbox-logs` to `xpc run` to attach a lookback sandbox log excerpt under `data.host_sandbox_log_capture`.
-- For `inherit_child`, the excerpt is attached under `data.host_sandbox_log_capture` (no summary fields are guaranteed).
+- For `inherit_child`, the excerpt is also summarized into the witness fields `sandbox_log_capture_status` and `sandbox_log_capture` so a run is self-contained.
+
+Signposts (timeline, best-effort):
+
+- Add `--signposts` to enable Unified Logging signpost emission for the run (client/service/child helper where applicable).
+- Add `--capture-signposts` to `xpc run` to attach a lookback signpost timeline under `data.host_signpost_capture` (`--capture-signposts` implies `--signposts`).
 
 How to interpret failures:
 
@@ -345,10 +346,16 @@ Usage:
 ```sh
 $PW xpc session (--profile <id[@variant]> [--variant <base|injectable>] | --service <bundle-id>)
                 [--plan-id <id>] [--correlation-id <id>]
+                [--signposts]
                 [--wait <fifo:auto|fifo:/abs|exists:/abs>]
                 [--wait-timeout-ms <n>] [--wait-interval-ms <n>]
                 [--xpc-timeout-ms <n>]
 ```
+
+Signposts:
+
+- Add `--signposts` to emit Unified Logging signposts for session lifecycle + probe execution.
+- To extract a timeline after the fact, run `PolicyWitness.app/Contents/MacOS/signpost-log-observer --correlation-id <id> --last 2m`.
 
 I/O contract:
 
@@ -385,6 +392,14 @@ Some probes return permission-shaped failures. If you want deny evidence, run th
 
 For `inherit_child`, prefer `xpc run --capture-sandbox-logs` so the log excerpt is attached to the same JSON output artifact (see the `inherit_child` section).
 
+Capture target:
+
+- `--capture-sandbox-logs` defaults to `--capture-sandbox-logs-target auto`:
+  - uses `child_pid` when present (for example `inherit_child`),
+  - otherwise uses the probe service pid (so capture works for non-child probes),
+  - otherwise falls back to the client pid (useful for bootstrap failures like `openSession`).
+- Override with `--capture-sandbox-logs-target <child|service|client|pid>` (and `--capture-sandbox-logs-pid <pid>` for `target=pid`).
+
 The observer requires a PID and process name. You can get them from:
 
 - a `probe_response` (`data.details.service_pid` + `data.details.process_name`, or `data.details.pid` on older outputs), or
@@ -416,7 +431,7 @@ Observer usage (summary):
 Usage:
 
 ```sh
-$PW run-matrix --group <baseline|probe> [--variant <base|injectable>] [--out <dir>] <probe-id> [probe-args...]
+$PW run-matrix --group <baseline|probe> [--variant <base|injectable>] [--out <dir>] [--signposts] [--capture-signposts] <probe-id> [probe-args...]
 ```
 
 Examples:
@@ -427,6 +442,11 @@ $PW run-matrix --group probe --variant injectable capabilities_snapshot
 ```
 
 High-concern variants are included without extra flags.
+
+Signposts:
+
+- Add `--signposts` to emit Unified Logging signposts for each underlying probe run.
+- Add `--capture-signposts` to attach a lookback signpost timeline under each run’s `response.data.host_signpost_capture` (`--capture-signposts` implies `--signposts`).
 
 Groups (use `list-profiles` as the source of truth):
 
@@ -472,13 +492,13 @@ Hard rule: it does **not** *run* payloads (no `execve`, no `posix_spawn`). Note 
 Usage:
 
 ```sh
-$PW quarantine-lab <xpc-service-bundle-id> <payload-class> [options...]
+$PW quarantine-lab [--correlation-id <id>] [--signposts] [--capture-signposts] <xpc-service-bundle-id> <payload-class> [options...]
 ```
 
 Choosing a service id:
 
 - Run `$PW list-profiles` and look for Quarantine Lab profiles (often `quarantine_*`).
-- Run `$PW show-profile <id>` and copy a `data.profile.variants[*].bundle_id` into the `quarantine-lab` invocation.
+- Run `$PW show-profile <id>` and copy `data.variant.bundle_id` into the `quarantine-lab` invocation.
 
 Example:
 
@@ -486,6 +506,11 @@ Example:
 $PW show-profile quarantine_default
 $PW quarantine-lab <bundle_id_from_show_profile> shell_script --dir tmp
 ```
+
+Signposts:
+
+- Add `--signposts` to emit Unified Logging signposts for the quarantine client/service.
+- Add `--capture-signposts` to attach a lookback signpost timeline under `data.host_signpost_capture` (`--capture-signposts` implies `--signposts`).
 
 Payload classes:
 

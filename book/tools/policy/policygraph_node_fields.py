@@ -24,7 +24,7 @@ REPO_ROOT = path_utils.find_repo_root(Path(__file__).resolve())
 SYN_ROOT = REPO_ROOT / "book" / "evidence" / "syncretic" / "policygraph" / "node-fields"
 
 
-WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9"
 FIELDS_SCHEMA_VERSION = "policygraph_node_fields.v0"
 ARG16_SCHEMA_VERSION = "policygraph_node_arg16.v0"
 UNKNOWNS_SCHEMA_VERSION = "policygraph_node_unknowns.v0"

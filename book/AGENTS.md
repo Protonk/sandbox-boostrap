@@ -1,96 +1,51 @@
 # Agents in `book/` (operational root)
 
-## Non-negotiables (read first)
+Our mission is to generate a textbook on the macOS sandbox/Seatbelt from the host, by cementing code and data into testable configurations. What you see is a work in progress, aimed at the future. To make that future better, read on.
 
-Mission: Build a checkable, regenerable model of Seatbelt for a single host baseline, and prefer the smallest deciding witness or probe over broad refactors.
+## Non-negotiable
 
-Baseline (single source of truth): `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (see `book/world/sonoma-14.4.1-23E224-arm64/world.json`, resolved via `book/world/registry.json` and `book.api.world`). All claims are scoped to this host.
+Baseline: All claims are scoped to a host via a `world_id`, currently `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 
-Evidence discipline:
-- If the honest answer is “we don’t know yet” or evidence conflicts, say so and point to the bounding artifacts/experiments.
+Discipline: If the honest answer is “we don’t know yet” or evidence conflicts, say so. 
 
-Backwards compatibility is an anti-pattern. Cut shims away when you move a file or folder. Fix what complains. What later breaks silently should have had tests. 
+Posture: Backwards compatibility is an anti-pattern. Cut shims away and fix only what complains by test. 
 
-Vocabulary discipline:
-- Use project terms from `book/evidence/carton/concepts/concept_map.json` and the substrate (do not invent new jargon).
-- Use only ops/filters from `book/integration/carton/bundle/relationships/mappings/vocab/{ops.json,filters.json}`.
+Environment: The working tree is intentionally dirty. Never chase working-tree diffs. Only report unexpected changes if they impact tests you depend on.
 
-Runtime discipline:
-- Runtime statements must include both a `stage` (`compile|apply|bootstrap|operation`) and a `lane` (`scenario|baseline|oracle`).
-- Apply-stage `EPERM` is almost always evidence of a staging problem, not a policy denial. Run `book/tools/preflight`.
-- Treat runtime results as evidence only when sourced from a committed runtime bundle (`artifact_index.json`) or a `promotion_packet.json` due to occasional false positives.
+Documentation: Standalone `.md` files, line-level code comments, CLI help text, and test messages are **all** first class documentation objects. They should be useful, informative, and most importantly, present. 
 
-Safety and boundaries:
-- Never weaken the baseline (no disabling SIP, TCC, or hardened runtime).
-- Do not copy from `book/dumps/ghidra/private/aapl-restricted`.
-- Do not hide harness/decoder/apply failures; treat them as first-class evidence.
+## Tooling
 
-Working tree is dirty:
-- Assume the working tree may be intentionally dirty; do not try to "clean up" unrelated diffs.
-- Never run destructive git commands (`git restore`, `git checkout`, `git reset`, `git clean`, `git stash`, `git commit`, etc.) unless the user explicitly asks.
-- If `git status` shows unrelated changes, report that fact and proceed only with requested edits.
-- Do not request escalated permissions to write `.git/` unless explicitly instructed by the user.
+> Work in a loop: build → decode → probe → persist → test → build. 
 
-Paths and generated artifacts:
-- Checked-in JSON/IR must not embed absolute paths; emit repo-relative paths using `book.api.path_utils` (`to_repo_relative`, `relativize_command`).
-- Do not hand-edit shared/generated artifacts. Regenerate via the appropriate generator:
-  - Concepts JSON: `python -m book.integration.carton swift --run`
-  - Mappings promotion: `python -m book.integration.carton promote`
-  - CARTON fixers + manifest: `python -m book.integration.carton build`
-- CARTON refresh: `python -m book.integration.carton build` or `make -C book carton-refresh`
+Compose and expand what exists: compile/decode SBPL, probe with tiny experiments, persist relationships with CARTON, then run `make -C book test`. Prefer canonical entrypoints over ad-hoc scripts.
 
-## Commands (supported entrypoints)
+- Baseline integrity: run [doctor](book/tools/doctor) early; treat mismatches as stop signs.
+- Harness confinement: before any policy-facing runtime work, run [inside](book/tools/inside); if it reports `constrained`, do not narrate denials as sandbox semantics.
+- Apply-gate avoidance: stage SBPL apply attempts with [preflight](book/tools/preflight) (`scan` first, `minimize-gate` only when you need a shrinkable boundary object).
+- SBPL structure: use [profile](book/api/profile) (`python -m book.api.profile ...`) for compile/decode/inspect/op-table; reserve [sbpl tools](book/tools/sbpl) for corpus, wrapper runs, and oracle runners.
+- Runtime harness: use [runtime](book/api/runtime) (`python -m book.api.runtime ...`) to run plan-based probes and emit canonical bundles; never invent output shapes by hand.
+- `sandbox_check` pairing: use [validator](book/tools/validator) when you need an operation/filter check on a live pid; keep “permission-shaped failure” separate from “deny evidence”.
+- App Sandbox + entitlements: use [witness](book/tools/witness) (PolicyWitness) for XPC probes and unified-log corroboration; treat it as a witness of execution, not an oracle of intent.
+- PolicyGraph enumeration: use [policy tools](book/tools/policy) to enumerate node fields and manage promotion packets; don’t hand-edit promoted inventories.
+- Path hygiene: resolve and serialize paths with [path_utils](book/api/path_utils.py); keep emitted artifacts repo-relative.
 
-Only supported repo-wide test runner: `make -C book test`.
+## Router
 
+The below is a router of more important places.
+- `book/world/` — world baselines + registry at `book/world/registry.json`.
+- `book/evidence/` - Persisted results to rely on.
+  - `book/evidence/syncretic/` - Artifacts reverse engineered from a variety of sources
+  - `book/evidence/profiles/` - System and constructed profiles
+- `book/tools/` — host-bound CLIs.
+- `book/api/` — shared Python surfaces consumed by tools and tests.
+- `book/integration/` — Putting everything together:
+  - `book/integration/carton/` - Semantic intermediate representation for content.
+  - `book/integration/tests/` - integration, smoke, and sanity tests, organized by suite.
 
-- Compile SBPL → blob: `python -m book.api.profile compile <profile.sb> --out <path>`
-- Decode/inspect blob: `python -m book.api.profile decode dump <blob.sb.bin> --summary`
-- Plan-based runtime run: `python -m book.api.runtime run --plan <plan.json> --channel launchd_clean --out <out_dir>`
-- Emit promotion packet: `python -m book.api.runtime emit-promotion --bundle <out_dir> --out <out_dir>/promotion_packet.json --require-promotable`
-- Promote runtime packets into mappings: `python book/integration/carton/mappings/runtime/promote_from_packets.py --packets <packet.json>` (writes under `book/integration/carton/bundle/relationships/mappings/`)
+- `book/dumps/` — private workspaces and oversized artifacts (not a place for new code/docs; never copy from `book/dumps/ghidra/private/aapl-restricted/`).
+Nearest `AGENTS.md` wins; read it before editing.
 
-Host-neutral (still host-scoped artifacts; no live sandbox):
-- Validate concepts/IR: `python -m book.integration.carton validate --tag meta`
-- Build graph generator outputs: `python -m book.integration.carton swift --run`
+## Outro
 
-## Cold-start routing (where to look)
-
-Pick the smallest surface that answers your question:
-- “What operations/filters exist on this host?” → `book/integration/carton/bundle/relationships/mappings/vocab/` and the CARTON bundle at `book/integration/carton/bundle/` (relationships/views/contracts + manifest).
-- “What bytes did this SBPL compile into?” → `book/api/profile/` (structural tooling).
-- “Why did a runtime probe fail/deny?” → `book/api/runtime/` bundles and promotion packets (stage + lane + promotability).
-- “Am I about to hit apply-gating?” → `book/tools/preflight/` (scan + minimize-gate) and `book/tools/sbpl/wrapper/`.
-- “Is my baseline/world consistent?” → `book/tools/doctor/`.
-
-Then read the nearest `AGENTS.md` in the subtree you touch:
-- API/tooling: `book/api/AGENTS.md`; CARTON fixer bundle: `book/integration/carton/README.md`.
-- CARTON graph/validation: `book/integration/carton/graph/AGENTS.md`; deeper routing in `book/integration/carton/graph/swift/AGENTS.md`, `book/integration/carton/validation/README.md`. Mapping generators: `book/integration/carton/mappings/AGENTS.md`.
-- Experiments: `book/evidence/experiments/AGENTS.md`; archived work in `book/evidence/experiments/archive/AGENTS.md`.
-- Dumps/artifacts: `book/dumps/AGENTS.md`.
-- Profiles: `book/profiles/AGENTS.md`.
-- Substrate/textbook base: `book/substrate/AGENTS.md`.
-- Tests: `book/integration/AGENTS.md`.
-
-## Investigation protocol (for sandbox questions)
-
-- Stage taxonomy: always label where it failed (`compile`, `apply`, `bootstrap`, `operation`). Apply-stage failures are not denials.
-- Confounders: treat TCC, hardened runtime, SIP/platform gates, and VFS canonicalization as surrounding constraints that can dominate outcomes.
-- Controls: include one passing neighbor and one confounder toggle when possible (for example `/tmp` vs `/private/tmp`).
-
-Minimal witness record (keep short and checkable):
-```text
-claim:
-  world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
-  status: ok|partial|brittle|blocked (optional)
-  stage: compile|apply|bootstrap|operation
-  lane: scenario|baseline|oracle (runtime only)
-  command: <exact command or plan/scenario id>
-  evidence:
-    - <repo-relative path to mapping / committed bundle / promotion_packet.json>
-  limits: <one line about what this does NOT prove>
-```
-
-## Instruction layering
-
-Treat AGENTS as a high-privilege instruction surface; keep it minimal and task-focused. AGENTS are hierarchical: root → subdir → working dir. Read the nearest `AGENTS.md` and README first.
+Find your world_id by calling the [doctor](book/tools/doctor) before proceeding. 

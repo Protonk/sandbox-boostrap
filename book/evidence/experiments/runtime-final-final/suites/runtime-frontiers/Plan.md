@@ -4,7 +4,7 @@
 Expand runtime probe coverage along three frontiers: system-profile ops with zero runtime coverage, anchor-backed filters with typed literals, and a small unknown-op sample.
 
 ## Baseline & scope
-- world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
+- world_id: sonoma-14.4.1-23E224-arm64-dyld-a3a840f9
 - Use ops/filters from `book/integration/carton/bundle/relationships/mappings/vocab/{ops,filters}.json`.
 - Profiles in `sb/` are deny-default with targeted allow rules.
 

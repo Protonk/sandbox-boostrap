@@ -21,7 +21,7 @@ def test_runtime_preflight_blocks_known_apply_gate_signature(tmp_path, monkeypat
     assert witness.exists(), "gate-witness SBPL fixture missing"
 
     matrix = {
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
         "profiles": {
             "preflight:test": {
                 "blob": str(witness),
@@ -63,7 +63,7 @@ def test_runtime_preflight_blocks_known_apply_gate_blob_digest(tmp_path, monkeyp
     assert witness_blob.exists(), "gate-witness SBPL blob fixture missing"
 
     matrix = {
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
         "profiles": {
             "preflight:blob": {
                 "blob": str(witness_blob),
@@ -110,7 +110,7 @@ def test_runtime_profile_can_force_apply_even_when_preflight_flags_signature(tmp
     monkeypatch.setattr(runner, "run_probe", fake_run_probe)
 
     matrix = {
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
         "profiles": {
             "preflight:forced": {
                 "blob": str(witness),

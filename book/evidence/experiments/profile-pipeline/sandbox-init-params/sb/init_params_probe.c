@@ -260,7 +260,7 @@ int main(void) {
 
     if (run_json_file) {
         fprintf(run_json_file, "{\n");
-        fprintf(run_json_file, "  \"world_id\": \"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\",\n");
+        fprintf(run_json_file, "  \"world_id\": \"sonoma-14.4.1-23E224-arm64-dyld-a3a840f9\",\n");
         fprintf(run_json_file, "  \"run_id\": \"%s\",\n", run_id);
         fprintf(run_json_file, "  \"mode\": \"%s\",\n", mode_str);
         fprintf(run_json_file, "  \"profile\": ");

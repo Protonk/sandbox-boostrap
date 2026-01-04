@@ -2,16 +2,16 @@
   "counts": {
     "by_classification": {
       "likely_apply_gated_for_harness_identity": 26,
-      "no_known_apply_gate_signature": 672
+      "no_known_apply_gate_signature": 675
     },
     "by_input_kind": {
       "sbpl_blob_path": 349,
-      "sbpl_path": 349
+      "sbpl_path": 352
     },
     "by_signature": {
       "apply_gate_blob_digest": 20,
       "deny_message_filter": 6,
-      "null": 672
+      "null": 675
     },
     "by_source": {
       "book_blobs": {
@@ -20,7 +20,7 @@
       },
       "experiments_sbpl": {
         "likely_apply_gated_for_harness_identity": 2,
-        "no_known_apply_gate_signature": 277
+        "no_known_apply_gate_signature": 280
       },
       "profiles_sbpl": {
         "no_known_apply_gate_signature": 11
@@ -30,7 +30,7 @@
         "no_known_apply_gate_signature": 55
       }
     },
-    "total_records": 698
+    "total_records": 701
   },
   "digest_groups": {
     "apply_gate_blob_digest": [
@@ -614,7 +614,10 @@
       "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/net_outbound_allow.sb",
       "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/net_outbound_deny.sb",
       "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_alias.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_canon_alias.sb",
       "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_canon_alt.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_canon_both.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_canon_private.sb",
       "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_edges.sb",
       "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_edges_private.sb",
       "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/preference_domain.sb",
@@ -735,6 +738,23 @@
       "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_both_plus_metadata_var.sb",
       "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_data_only.sb",
       "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_private_only.sb",
+      "book/evidence/profiles/golden-triple/allow_all.sb.bin",
+      "book/evidence/profiles/golden-triple/bucket4_v1_read.sb",
+      "book/evidence/profiles/golden-triple/bucket4_v1_read.sb.bin",
+      "book/evidence/profiles/golden-triple/bucket5_v11_read_subpath.sb",
+      "book/evidence/profiles/golden-triple/bucket5_v11_read_subpath.sb.bin",
+      "book/evidence/profiles/golden-triple/metafilter_any.sb",
+      "book/evidence/profiles/golden-triple/metafilter_any.sb.bin",
+      "book/evidence/profiles/golden-triple/param_deny_root_allow_default_ROOT_private_tmp_ok.sb.bin",
+      "book/evidence/profiles/golden-triple/runtime_profiles/allow_all.runtime_allow_all.runtime.sb",
+      "book/evidence/profiles/golden-triple/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+      "book/evidence/profiles/golden-triple/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+      "book/evidence/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+      "book/evidence/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+      "book/evidence/profiles/golden-triple/strict_1.sb",
+      "book/evidence/profiles/golden-triple/strict_1.sb.bin",
+      "book/evidence/profiles/textedit/application.sb",
+      "book/evidence/profiles/textedit/textedit-specialized.sb",
       "book/evidence/syncretic/validation/fixtures/blobs/bsd.sb.bin",
       "book/evidence/syncretic/validation/fixtures/blobs/sample.sb.bin",
       "book/evidence/syncretic/validation/out/experiments/gate-witnesses/forensics/airlock/passing_neighbor.sb.bin",
@@ -746,23 +766,6 @@
       "book/integration/carton/bundle/relationships/mappings/runtime/decoded_blobs/runtime_metafilter_any.sb.bin",
       "book/integration/carton/bundle/relationships/mappings/runtime/decoded_blobs/runtime_strict_1.sb.bin",
       "book/integration/carton/bundle/relationships/mappings/runtime/decoded_blobs/sys_bsd.sb.bin",
-      "book/profiles/golden-triple/allow_all.sb.bin",
-      "book/profiles/golden-triple/bucket4_v1_read.sb",
-      "book/profiles/golden-triple/bucket4_v1_read.sb.bin",
-      "book/profiles/golden-triple/bucket5_v11_read_subpath.sb",
-      "book/profiles/golden-triple/bucket5_v11_read_subpath.sb.bin",
-      "book/profiles/golden-triple/metafilter_any.sb",
-      "book/profiles/golden-triple/metafilter_any.sb.bin",
-      "book/profiles/golden-triple/param_deny_root_allow_default_ROOT_private_tmp_ok.sb.bin",
-      "book/profiles/golden-triple/runtime_profiles/allow_all.runtime_allow_all.runtime.sb",
-      "book/profiles/golden-triple/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
-      "book/profiles/golden-triple/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
-      "book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
-      "book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
-      "book/profiles/golden-triple/strict_1.sb",
-      "book/profiles/golden-triple/strict_1.sb.bin",
-      "book/profiles/textedit/application.sb",
-      "book/profiles/textedit/textedit-specialized.sb",
       "book/tools/sbpl/corpus/baseline/allow_all.sb",
       "book/tools/sbpl/corpus/baseline/deny_all.sb",
       "book/tools/sbpl/corpus/baseline/sample.sb",
@@ -820,5 +823,5 @@
       "book/tools/sbpl/corpus/network-matrix/type_sock_stream.sb"
     ]
   },
-  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9"
 }

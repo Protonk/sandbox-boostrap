@@ -1,6 +1,6 @@
 # lifecycle-lockdown (Report)
 
-Baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (Sonoma 14.4.1 / 23E224, arm64).
+Baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` (Sonoma 14.4.1 / 23E224, arm64).
 
 ## Purpose
 
@@ -246,5 +246,5 @@ To narrow further, the experiment likely needs a new witness channel that can at
 
 ## Limits
 
-- This experiment is host-scoped and does not generalize beyond `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- This experiment is host-scoped and does not generalize beyond `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Apply-stage `EPERM` remains apply-stage evidence; it is not a policy decision.

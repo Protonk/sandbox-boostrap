@@ -1,8 +1,8 @@
 {
   "runtime:allow_all": {
     "status": "ok",
-    "profile_path": "book/profiles/golden-triple/allow_all.sb.bin",
-    "base_profile_path": "book/profiles/golden-triple/allow_all.sb.bin",
+    "profile_path": "book/evidence/profiles/golden-triple/allow_all.sb.bin",
+    "base_profile_path": "book/evidence/profiles/golden-triple/allow_all.sb.bin",
     "probes": [
       {
         "name": "read_/etc/hosts",
@@ -20,7 +20,7 @@
         "command": [
           "book/api/SBPL-wrapper/wrapper",
           "--blob",
-          "book/profiles/golden-triple/allow_all.sb.bin",
+          "book/evidence/profiles/golden-triple/allow_all.sb.bin",
           "--",
           "/bin/cat",
           "/etc/hosts"
@@ -45,7 +45,7 @@
         "command": [
           "book/api/SBPL-wrapper/wrapper",
           "--blob",
-          "book/profiles/golden-triple/allow_all.sb.bin",
+          "book/evidence/profiles/golden-triple/allow_all.sb.bin",
           "--",
           "/bin/cat",
           "/tmp/sbpl_rt/read.txt"
@@ -70,7 +70,7 @@
         "command": [
           "book/api/SBPL-wrapper/wrapper",
           "--blob",
-          "book/profiles/golden-triple/allow_all.sb.bin",
+          "book/evidence/profiles/golden-triple/allow_all.sb.bin",
           "--",
           "/bin/sh",
           "-c",
@@ -84,8 +84,8 @@
   },
   "runtime:metafilter_any": {
     "status": "ok",
-    "profile_path": "book/profiles/golden-triple/metafilter_any.sb.bin",
-    "base_profile_path": "book/profiles/golden-triple/metafilter_any.sb.bin",
+    "profile_path": "book/evidence/profiles/golden-triple/metafilter_any.sb.bin",
+    "base_profile_path": "book/evidence/profiles/golden-triple/metafilter_any.sb.bin",
     "probes": [
       {
         "name": "read_foo",
@@ -103,7 +103,7 @@
         "command": [
           "book/api/SBPL-wrapper/wrapper",
           "--blob",
-          "book/profiles/golden-triple/metafilter_any.sb.bin",
+          "book/evidence/profiles/golden-triple/metafilter_any.sb.bin",
           "--",
           "/bin/cat",
           "/tmp/foo.txt"
@@ -128,7 +128,7 @@
         "command": [
           "book/api/SBPL-wrapper/wrapper",
           "--blob",
-          "book/profiles/golden-triple/metafilter_any.sb.bin",
+          "book/evidence/profiles/golden-triple/metafilter_any.sb.bin",
           "--",
           "/bin/cat",
           "/tmp/bar.txt"
@@ -153,7 +153,7 @@
         "command": [
           "book/api/SBPL-wrapper/wrapper",
           "--blob",
-          "book/profiles/golden-triple/metafilter_any.sb.bin",
+          "book/evidence/profiles/golden-triple/metafilter_any.sb.bin",
           "--",
           "/bin/cat",
           "/tmp/qux.txt"
@@ -166,7 +166,7 @@
   },
   "bucket4:v1_read": {
     "status": "ok",
-    "profile_path": "book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+    "profile_path": "book/evidence/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
     "base_profile_path": "book/evidence/experiments/op-table-operation/sb/v1_read.sb",
     "probes": [
       {
@@ -185,7 +185,7 @@
         "command": [
           "sandbox-exec",
           "-f",
-          "book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+          "book/evidence/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
           "--",
           "/bin/cat",
           "/etc/hosts"
@@ -210,7 +210,7 @@
         "command": [
           "sandbox-exec",
           "-f",
-          "book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+          "book/evidence/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
           "--",
           "/bin/sh",
           "-c",
@@ -236,7 +236,7 @@
         "command": [
           "sandbox-exec",
           "-f",
-          "book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+          "book/evidence/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
           "--",
           "/bin/cat",
           "/tmp/foo"
@@ -249,7 +249,7 @@
   },
   "bucket5:v11_read_subpath": {
     "status": "partial",
-    "profile_path": "book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+    "profile_path": "book/evidence/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
     "base_profile_path": "book/evidence/experiments/op-table-operation/sb/v11_read_subpath.sb",
     "probes": [
       {
@@ -268,7 +268,7 @@
         "command": [
           "sandbox-exec",
           "-f",
-          "book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+          "book/evidence/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
           "--",
           "/bin/cat",
           "/tmp/foo"
@@ -293,7 +293,7 @@
         "command": [
           "sandbox-exec",
           "-f",
-          "book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+          "book/evidence/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
           "--",
           "/bin/cat",
           "/tmp/bar"
@@ -318,7 +318,7 @@
         "command": [
           "sandbox-exec",
           "-f",
-          "book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+          "book/evidence/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
           "--",
           "/bin/sh",
           "-c",

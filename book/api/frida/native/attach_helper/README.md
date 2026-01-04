@@ -2,7 +2,7 @@
 
 Role: small signed helper that embeds Python and runs `book.api.frida.native.attach_helper.driver` to perform Frida attach inside the signed process.
 
-World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+World: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 
 Build:
 

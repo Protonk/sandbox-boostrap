@@ -1,16 +1,20 @@
 {
   "considered_packets": [
     {
-      "acceptance": "decision_stage",
+      "error": "expected sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 got sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
       "path": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/promotion_packet.json",
-      "reasons": [],
-      "status": "used"
+      "reasons": [
+        "world_id_mismatch"
+      ],
+      "status": "rejected"
     },
     {
-      "acceptance": "decision_stage",
+      "error": "expected sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 got sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
       "path": "book/evidence/experiments/runtime-final-final/suites/runtime-closure/out/ea704c9c-5102-473a-b942-e24af4136cc8/promotion_packet.json",
-      "reasons": [],
-      "status": "used"
+      "reasons": [
+        "world_id_mismatch"
+      ],
+      "status": "rejected"
     }
   ],
   "input_hashes": {

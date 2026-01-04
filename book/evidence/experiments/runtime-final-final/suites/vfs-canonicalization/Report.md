@@ -1,6 +1,6 @@
 # Path Resolution, Vnode Path Spellings, and SBPL Path Filters (vfs-canonicalization)
 
-This suite is host-bound to `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` and measures a narrow but high-impact sandbox confounder: SBPL profiles are authored over **path spellings**, but the kernel can resolve a requested spelling to a different object spelling during name lookup, and can later reconstruct a printable path spelling for an opened FD that differs from what userland requested.
+This suite is host-bound to `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` and measures a narrow but high-impact sandbox confounder: SBPL profiles are authored over **path spellings**, but the kernel can resolve a requested spelling to a different object spelling during name lookup, and can later reconstruct a printable path spelling for an opened FD that differs from what userland requested.
 
 The directory name (`vfs-canonicalization`) is a local label for this suite. The measured effects are a mix of:
 
@@ -28,7 +28,7 @@ PYTHONPATH=. python book/evidence/experiments/runtime-final-final/suites/vfs-can
 
 ## Scope
 
-- **World:** `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- **World:** `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - **Operations exercised:** `file-read*`, `file-write*`. Some profiles add a minimal `file-read-metadata` allowance to isolate traversal-time requirements (for example, “both spellings” profiles that still deny until a symlink component’s metadata read is permitted).
 - **Profile pattern:** per-family tri-profiles (alias-only, canonical-only, both) plus targeted “plus metadata” variants that add only the symlink-component `file-read-metadata` allowance needed to turn a deny into an allow.
 - **Path families covered:**

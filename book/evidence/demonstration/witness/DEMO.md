@@ -1,25 +1,12 @@
 # PolicyWitness keepalive + attach demo
 
-Baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+Baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 
 ## Purpose
 
 Demonstrate that the keepalive service can hold a target open and that Frida
 can attach reliably to PolicyWitness attachable variants. This is a host-bound
 demonstration of tooling behavior, not a sandbox semantics claim.
-
-## What this demo proves (and what it does not)
-
-**Proves** (tooling-level):
-- A keepalive target can be created and kept alive long enough to attach.
-- Frida attach works against an injectable PolicyWitness service.
-- Negative control: base variants are not attachable.
-- An oracle lane (`sandbox_check`) can be invoked against the attached PID.
-
-**Does not prove**:
-- Any broader sandbox policy truth. Treat results as stage `operation` with
-  lanes noted below.
-- Repeatability across machines or baselines.
 
 ## Prereqs
 

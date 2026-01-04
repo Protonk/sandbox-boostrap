@@ -8,7 +8,7 @@ This experiment produces a small digest corpus of blobs that are witnessed to be
 
 ## Baseline & scope
 
-- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`
+- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`
 - Input kind: compiled profile blobs (`*.sb.bin`)
 - Evidence sources:
   - Minimized witness corpus: `book/evidence/syncretic/validation/out/experiments/gate-witnesses/witness_results.json`

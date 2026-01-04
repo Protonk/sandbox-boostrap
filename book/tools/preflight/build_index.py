@@ -69,7 +69,7 @@ class InputRef:
 
 
 def _discover_profiles_sbpl() -> List[Path]:
-    root = REPO_ROOT / "book" / "profiles"
+    root = REPO_ROOT / "book" / "evidence" / "profiles"
     if not root.exists():
         return []
     return sorted([p for p in root.rglob("*.sb") if p.is_file()])
@@ -128,7 +128,7 @@ def discover_inputs() -> List[InputRef]:
     Enumerate inputs deterministically, deduplicating on resolved path.
 
     Sources:
-    - profiles_sbpl: book/profiles/**/*.sb
+    - profiles_sbpl: book/evidence/profiles/**/*.sb
     - experiments_sbpl: book/evidence/experiments/**/*.sb (excluding out/, entitlement-diff, entitlement-jail-extension-semantics)
     - tools_sbpl: book/tools/sbpl/corpus/**/*.sb
     - book_blobs: book/**/*.sb.bin (excluding book/dumps/**, book/integration/out/**, and excluded experiments)
@@ -182,7 +182,7 @@ def build_manifest(inputs: Sequence[InputRef]) -> Dict[str, Any]:
         "manifest_schema_version": MANIFEST_SCHEMA_VERSION,
         "preflight_schema_version": preflight_mod.PREFLIGHT_SCHEMA_VERSION,
         "inputs": {
-            "profiles_sbpl": "book/profiles/**/*.sb",
+            "profiles_sbpl": "book/evidence/profiles/**/*.sb",
             "experiments_sbpl": f"book/evidence/experiments/**/*.sb (excluding out/ and {EXCLUDED_EXPERIMENTS_LABEL})",
             "tools_sbpl": "book/tools/sbpl/corpus/**/*.sb",
             "book_blobs": (

@@ -9,7 +9,7 @@ BOOK_ROOT = path_utils.find_repo_root(Path(__file__)) / "book"
 MANIFEST_PATH = BOOK_ROOT / "evidence/syncretic/validation/golden_corpus/corpus_manifest.json"
 SUMMARY_PATH = BOOK_ROOT / "evidence/syncretic/validation/golden_corpus/corpus_summary.json"
 TAG_LAYOUTS_PATH = BOOK_ROOT / "integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json"
-WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9"
 
 
 def _load(path: Path):

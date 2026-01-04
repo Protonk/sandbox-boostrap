@@ -1,6 +1,6 @@
 # extensions-dynamic probe notes
 
-- world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
+- world_id: sonoma-14.4.1-23E224-arm64-dyld-a3a840f9
 - executable: book/api/lifecycle_probes/build/extensions_demo
 - command: book/api/lifecycle_probes/build/extensions_demo
 - result: blocked (exit 0), token_issued=false

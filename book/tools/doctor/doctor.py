@@ -506,8 +506,6 @@ def main(argv: Optional[List[str]] = None) -> int:
         "manifest_sha256": None,
         "world_id_suffix_match": None,
         "manifest_world_id_match": None,
-        "manifest_hash_doc": None,
-        "manifest_hash_match": None,
     }
 
     if manifest_path:
@@ -548,32 +546,6 @@ def main(argv: Optional[List[str]] = None) -> int:
     else:
         baseline_integrity["status"] = "warning"
         baseline_integrity["issues"].append({"level": "warning", "error": "manifest_missing"})
-
-    manifest_hash_ref = baseline_doc.get("dyld_manifest_hash") if baseline_doc else None
-    if isinstance(manifest_hash_ref, str):
-        manifest_hash_path = path_utils.ensure_absolute(Path(manifest_hash_ref), REPO_ROOT)
-        hash_doc, err = _load_json(manifest_hash_path)
-        if err:
-            baseline_integrity["manifest_hash_doc"] = {
-                "path": _rel(manifest_hash_path),
-                "status": "error",
-                "error": err,
-            }
-            baseline_integrity["issues"].append({"level": "warning", "error": "manifest_hash_unreadable"})
-        else:
-            baseline_integrity["manifest_hash_doc"] = {
-                "path": _rel(manifest_hash_path),
-                "status": "ok",
-                "sha256": hash_doc.get("sha256") if hash_doc else None,
-                "sha8": hash_doc.get("sha8") if hash_doc else None,
-            }
-            if baseline_integrity.get("manifest_sha256") and hash_doc:
-                expected = hash_doc.get("sha256")
-                match = expected == baseline_integrity.get("manifest_sha256")
-                baseline_integrity["manifest_hash_match"] = match
-                if expected is not None and not match:
-                    baseline_integrity["status"] = "error"
-                    baseline_integrity["issues"].append({"level": "error", "error": "manifest_hash_mismatch"})
 
     if manifest_doc:
         libs_checks = _check_manifest_libs(manifest_doc)
@@ -681,7 +653,6 @@ def main(argv: Optional[List[str]] = None) -> int:
             "world_id": baseline_world_id,
             "host": expected_host,
             "dyld_manifest": _rel(manifest_path) if manifest_path else None,
-            "dyld_manifest_hash": baseline_doc.get("dyld_manifest_hash") if baseline_doc else None,
             "profile_format_variant": baseline_doc.get("profile_format_variant") if baseline_doc else None,
             "apply_gates": baseline_doc.get("apply_gates") if baseline_doc else None,
             "tcc_state": baseline_doc.get("tcc_state") if baseline_doc else None,

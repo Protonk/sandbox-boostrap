@@ -13,7 +13,7 @@ def test_libsandbox_encoder_network_matrix_blob_diffs():
     diffs_path = root / "book/evidence/experiments/field2-final-final/libsandbox-encoder/out/network_matrix/blob_diffs.json"
     diffs = _load_json(diffs_path)
 
-    assert diffs["world_id"] == "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    assert diffs["world_id"] == "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9"
     by_pair = {entry["pair_id"]: entry for entry in diffs["pairs"]}
 
     cross = diffs["cross_pair"]

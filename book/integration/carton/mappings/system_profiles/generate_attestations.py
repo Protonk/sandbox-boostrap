@@ -43,7 +43,7 @@ from book.integration.carton.validation import profile_ingestion as pi
 OUT_JSON = REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/system_profiles/attestations.json"
 OUT_DIR = REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/system_profiles/attestations"
 TAG_LAYOUTS_PATH = REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json"
-GOLDEN_TRIPLE_BLOBS_DIR = REPO_ROOT / "book/profiles/golden-triple"
+GOLDEN_TRIPLE_BLOBS_DIR = REPO_ROOT / "book/evidence/profiles/golden-triple"
 
 
 def load_baseline() -> Dict[str, Any]:

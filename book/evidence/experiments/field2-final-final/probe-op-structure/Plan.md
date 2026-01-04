@@ -5,7 +5,7 @@ Add a minimal runtime slice to test whether anchors surfaced in the structural
 analysis produce the expected allow/deny outcomes under SBPL on this host.
 
 ## Baseline & scope
-- World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- World: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Scope: file-read* (`/tmp/foo`, `/etc/hosts`), mach-lookup
   (`com.apple.cfprefsd.agent`), and iokit-open* anchors
   (`IOUSBHostInterface`, `IOSurfaceRootUserClient`).

@@ -4,7 +4,7 @@
 Frontier runtime probes for system-profile op gaps, anchor-backed filters, and a controlled unknown-op sample.
 
 ## Baseline & scope
-- world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
+- world_id: sonoma-14.4.1-23E224-arm64-dyld-a3a840f9
 - Evidence is scoped to this host; no cross-host claims.
 
 ## Status

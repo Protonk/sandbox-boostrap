@@ -3,7 +3,7 @@
 Stable VFS canonicalization mappings live under `book/integration/carton/bundle/relationships/mappings/vfs_canonicalization/`. This directory hosts the generator and documentation.
 
 Scope:
-- Host: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`
+- Host: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`
 - Evidence: promotable **decision-stage** runtime bundles produced by `book/api/runtime` (clean channel), plus their promotion receipts.
 - Domain: path spellings and kernel-reported FD paths (`F_GETPATH` and `F_GETPATH_NOFIRMLINK`) for the focused `book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/` suite.
 

@@ -1,10 +1,10 @@
 # runtime-mac_policy – Research Report
 
 ## Purpose
-Trace sandbox/mac_policy registration at runtime and capture live `mac_policy_conf`/`mac_policy_ops` evidence (call sites, arguments, and resolved pointers). This is not part of the static “book world” for `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`; it uses a separate runtime-only world to look for evidence the static world cannot see. On the current runtime host no registration events were observed after trace attach.
+Trace sandbox/mac_policy registration at runtime and capture live `mac_policy_conf`/`mac_policy_ops` evidence (call sites, arguments, and resolved pointers). This is not part of the static “book world” for `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`; it uses a separate runtime-only world to look for evidence the static world cannot see. On the current runtime host no registration events were observed after trace attach.
 
 ## Baseline & scope
-- Static reference: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (Apple Silicon, SIP on) stays the comparison point for vocab/op-table IR. Runtime observations come from separately tagged runtime worlds and must carry their own host metadata.
+- Static reference: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` (Apple Silicon, SIP on) stays the comparison point for vocab/op-table IR. Runtime observations come from separately tagged runtime worlds and must carry their own host metadata.
 - Current runtime host: VM tagged `runtime-mac-policy-dev` running macOS 14.6.1 (23G93), arm64, SIP disabled to allow `fbt`. This host is intentionally separate from the static baseline.
 - Inputs: runtime tracing/probing of the kernel/mac_policy layer; static mappings and CARTON stay read-only references.
 - Out of scope: cross-version generalizations or any claim not grounded in the eventual runtime world’s behavior.

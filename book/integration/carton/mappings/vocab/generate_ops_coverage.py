@@ -44,7 +44,7 @@ RUNTIME_MATRICES = [
     / "runtime-adversarial"
     / "out"
     / "expected_matrix.json",
-    REPO_ROOT / "book" / "profiles" / "golden-triple" / "expected_matrix.json",
+    REPO_ROOT / "book" / "evidence" / "profiles" / "golden-triple" / "expected_matrix.json",
 ]
 
 

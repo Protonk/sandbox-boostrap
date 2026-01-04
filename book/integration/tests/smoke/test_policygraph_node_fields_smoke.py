@@ -19,6 +19,6 @@ def test_policygraph_node_fields_describe(run_cmd):
     payload = (res.stdout or res.stderr).strip()
     doc = json.loads(payload)
     assert doc["tool"] == "policygraph_node_fields"
-    assert doc["world_id"] == "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    assert doc["world_id"] == "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9"
     assert "tag_layouts" in doc["inputs"]
     assert "policygraph_node_arg16.json" in doc["outputs"]["arg16"]

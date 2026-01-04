@@ -4,8 +4,8 @@ from pathlib import Path
 
 from book.api import path_utils
 ROOT = path_utils.find_repo_root(Path(__file__))
-MATRIX_PATH = ROOT / "book" / "profiles" / "golden-triple" / "expected_matrix.json"
-RESULTS_PATH = ROOT / "book" / "profiles" / "golden-triple" / "runtime_results.json"
+MATRIX_PATH = ROOT / "book" / "evidence" / "profiles" / "golden-triple" / "expected_matrix.json"
+RESULTS_PATH = ROOT / "book" / "evidence" / "profiles" / "golden-triple" / "runtime_results.json"
 
 
 def load_json(path: Path) -> dict:

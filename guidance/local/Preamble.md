@@ -5,46 +5,15 @@ SANDBOX_LORE is a host-bound, local-only universe for the macOS Seatbelt sandbox
 # Invariants (non-negotiable)
 
 - **World scoping**: every emitted artifact (validation IR, mappings, CARTON) is keyed to exactly one `world_id`. A mismatch means you are mixing worlds or pointing at the wrong baseline; stop and fix world selection. Only mint a new `world_id` by following the rebaseline process in `book/world/README.md`.
-- **Vocabulary**: use project terms from `book/evidence/graph/concepts/concept_map.json` and the substrate; operation and filter names come only from `book/evidence/graph/mappings/vocab/ops.json` and `book/evidence/graph/mappings/vocab/filters.json`. Unknowns stay unknown; do not name ops/filters by guesswork.
-- **Evidence tiering**: every claim names a tier: `bedrock`, `mapped`, or `hypothesis`. Bedrock surfaces are declared in `book/evidence/graph/concepts/BEDROCK_SURFACES.json`; do not upgrade mapped/hypothesis to bedrock. Many artifacts also carry a `status` field (`ok|partial|brittle|blocked`) as an operational health/detail signal; it is not a substitute for tier.
-- **Apply-stage gating**: apply-stage `EPERM` is **hypothesis** evidence, not policy semantics. Preflight before runtime probes that could hit known gates (see `book/tools/preflight/README.md`).
-- **Baseline safety**: never weaken the baseline (no disabling SIP, TCC, or hardened runtime).
-- **Restricted sources**: do not copy from `book/dumps/ghidra/private/aapl-restricted/`.
+- **Apply-stage gating**: apply-stage `EPERM` is evidence of a process error, not policy semantics. Preflight before runtime probes that could hit known gates (see `book/tools/preflight/README.md`).
 - **Failure honesty**: do not hide harness/decoder/apply failures; treat them as first-class evidence.
 - **Runtime labeling**: runtime statements must include both a `stage` (`compile|apply|bootstrap|operation`) and a `lane` (`scenario|baseline|oracle`). If you can’t name them, you don’t have a stable claim yet.
-- **Committed runtime evidence only**: treat runtime results as evidence only when sourced from a committed runtime bundle (`artifact_index.json`) or a `promotion_packet.json`. Anything else is debug/unverified and stays `hypothesis`.
 - **Repo-relative evidence paths**: checked-in JSON/IR must not embed absolute paths; emit repo-relative paths using `book.api.path_utils` helpers.
 - **Regenerate shared IR**: do not hand-edit generated/shared artifacts (mappings, generated concept JSON, CARTON-listed files). Update sources and rerun the appropriate generator (`swift run` for concepts; `book/graph/mappings/run_promotion.py` for mappings; `python -m book.integration.carton.tools.update` for CARTON).
 - **Surrounding constraints are confounders**: treat TCC, hardened runtime, SIP/platform gates, and VFS canonicalization as surrounding constraints that can dominate outcomes. For behavioral claims, prefer at least one passing neighbor and one confounder toggle.
-- **CARTON integrity**: files listed in `book/integration/carton/bundle/CARTON.json` are manifest-verified; do not hand-edit them. Use validation -> mappings -> CARTON fixers + contracts + manifest refresh instead.
-
-# Claim + witness template (use this shape)
-
-Evidence tiers (canonical):
-- `bedrock`: declared in `book/evidence/graph/concepts/BEDROCK_SURFACES.json`; safe to treat as a fixed input for this host world.
-- `mapped`: host-bound, evidence-backed, but scoped; do not generalize beyond the bounded artifacts/scenarios.
-- `hypothesis`: plausible/partial/confounded; use it to bound unknowns, not to assert semantics.
-
-`status` is optional and informal: `ok|partial|brittle|blocked` can add operational context regardless of tier, but it does not change the tier.
-
-Minimal witness record (keep short and checkable):
-```text
-claim:
-  world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
-  tier: bedrock|mapped|hypothesis
-  status: ok|partial|brittle|blocked (optional)
-  stage: compile|apply|bootstrap|operation
-  lane: scenario|baseline|oracle (runtime only)
-  subject: <op/filter/profile/concept in repo vocabulary>
-  evidence:
-    - <repo-relative path to mapping / bundle / promotion packet>
-  limits: <one line about what this does NOT prove>
-```
 
 # Operating contract
 
-- Stay within the Sonoma baseline unless explicitly rebaselining; other world directories exist, but mappings/CARTON are keyed to the active baseline.
-- Use substrate vocabulary (`book/substrate/Concepts.md` and friends) and treat pretraining as subordinate to repo artifacts.
 - Use repo-relative paths in outputs; resolve with `book.api.path_utils`.
 - When evidence conflicts or is missing, say "we don't know yet" and point to the bounding artifacts.
 - When in doubt, stop and read the nearest `AGENTS.md` and README in the subtree you touch.
@@ -54,24 +23,6 @@ claim:
 - World baselines live in `book/world/*`; `world_id` is derived from the dyld manifest hash (see `book/world/README.md`) and stored in each baseline file.
 - The active baseline is `book/world/sonoma-14.4.1-23E224-arm64/world.json`; generators and tools resolve it via `book/world/registry.json` or `book.api.world` unless explicitly overridden.
 - Baseline overrides (when a tool supports them) are explicit CLI flags (for example `--world-id`); otherwise tools default to the baseline world from `book/world/registry.json`.
-
-# Evidence layers and pipeline
-
-- **Substrate + concepts**: `book/substrate/` defines the vocabulary; the concept inventory is in `book/evidence/graph/concepts/CONCEPT_INVENTORY.md` and generated JSON in `book/graph/concepts/` comes from `swift run` in `book/graph`.
-- **Experiments -> validation IR**: experiments write to `book/evidence/experiments/*/out`; the validation driver (`python -m book.graph.concepts.validation`) normalizes into `book/evidence/graph/concepts/validation/out/` and records status.
-- **Validation IR -> mappings**: generators under `book/graph/mappings/*/generate_*.py` read validation outputs and emit host mappings; the supported entrypoint is `book/graph/mappings/run_promotion.py`.
-- **Mappings -> CARTON**: CARTON lives under `book/integration/carton/bundle/` (relationships/views/contracts + manifest). Refresh via `python -m book.integration.carton.tools.update` (or `make -C book carton-refresh`). Use `python -m book.integration.carton.tools.check` / `python -m book.integration.carton.tools.diff` for verification and drift review.
-
-# Evidence sources
-
-Do not copy evidence details from memory. Use these sources as the current cut:
-
-- Bedrock surfaces and their mapping paths: `book/evidence/graph/concepts/BEDROCK_SURFACES.json`.
-- Validation summary and job status: `book/evidence/graph/concepts/validation/out/README.md`, `book/evidence/graph/concepts/validation/out/validation_status.json`, `book/evidence/graph/concepts/validation/out/index.json`.
-- Runtime coverage and signatures: `book/evidence/graph/mappings/runtime/runtime_coverage.json`, `book/evidence/graph/mappings/vocab/ops_coverage.json`, `book/evidence/graph/mappings/runtime/runtime_signatures.json`, `book/graph/mappings/runtime/README.md`.
-- Lifecycle probes: `book/evidence/graph/mappings/runtime/lifecycle.json`.
-- Anchors/field2 status: `book/evidence/graph/mappings/anchors/anchor_field2_map.json`.
-- Apply-gate and preflight: `book/tools/preflight/README.md`.
 
 # Runtime interpretation primer (avoid the common confusions)
 

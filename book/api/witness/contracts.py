@@ -13,6 +13,8 @@ from book.api.witness.paths import REPO_ROOT
 CONTRACT_DIR = REPO_ROOT / "book" / "tools" / "witness" / "fixtures" / "contract"
 POLICY_WITNESS_HELP = CONTRACT_DIR / "policy-witness.help.txt"
 SANDBOX_LOG_OBSERVER_HELP = CONTRACT_DIR / "sandbox-log-observer.help.txt"
+SIGNPOST_LOG_OBSERVER_HELP = CONTRACT_DIR / "signpost-log-observer.help.txt"
+XPC_QUARANTINE_CLIENT_HELP = CONTRACT_DIR / "xpc-quarantine-client.help.txt"
 OBSERVER_SAMPLE = CONTRACT_DIR / "observer.sample.json"
 
 

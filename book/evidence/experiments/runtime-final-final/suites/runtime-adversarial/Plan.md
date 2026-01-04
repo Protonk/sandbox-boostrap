@@ -20,6 +20,27 @@ Probe for static↔runtime divergences by running deliberately adversarial SBPL 
 - Structural variants: `struct_flat` vs `struct_nested` (same file-read semantics, different graph shapes via metafilter nesting vs flat filters).
 - Path/literal edge stress: `path_edges` with overlapping `/tmp` vs `/private/tmp`, `..` segments, literal vs subpath mix.
 
+## Field2 canonicalization witness (runtime-adversarial)
+Goal: produce a packet-backed witness for the `/tmp` -> `/private/tmp` canonicalization boundary so field2=0 can be closed with decision-stage evidence in the runtime-adversarial packet.
+
+Inputs (read-only, do not advance):
+- `status/learnings/merged_vfs_report.md`
+- `book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/Report.md`
+- `book/integration/carton/bundle/relationships/mappings/vfs_canonicalization/path_canonicalization_map.json`
+
+Design:
+- Add three runtime-adversarial profiles that mirror the vfs-canonicalization trio:
+  - alias-only: allow only `/tmp/runtime-adv/canon/*`
+  - canonical-only: allow only `/private/tmp/runtime-adv/canon/*`
+  - both: allow both spellings (control)
+- Keep the operation surface minimal (`file-read*`, `file-write*`) and avoid `/etc`, `/var`, and symlink-component families so traversal gates do not confound the boundary.
+- Use the oracle lane (sandbox_check canonical flag) to tag canonicalization-boundary mismatches; do not treat this as a path discovery mechanism.
+- Run the suite via `launchd_clean` and emit a promotion packet so the field2 atlas can consume the witness from a single packet boundary.
+
+Outputs (runtime-adversarial):
+- `out/LATEST/runtime_results.json` and `out/LATEST/path_witnesses.json` with allow-side witnesses for `/tmp` and `/private/tmp`.
+- `out/LATEST/mismatch_packets.jsonl` with `canonicalization_boundary` tags for alias-only denials.
+
 ## Comparison signals
 - Per expectation_id: expected allow/deny, runtime allow/deny, match flag, mismatch_type (`apply_gate`, `unexpected_allow`, `unexpected_deny`, `canonicalization_boundary`, `op_misroute`, `filter_diff`), notes.
 - `mismatch_summary.json` aggregates mismatches + counts by type; `mismatch_packets.jsonl` captures bounded mismatch packets.
@@ -31,6 +52,6 @@ Probe for static↔runtime divergences by running deliberately adversarial SBPL 
 4. Iterate by adding more families (header/format toggles, field2/tag ambiguity) after Phase 1 lands.
 
 ## Constraints / status markers
-- Host: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (from `book/world/.../world.json`).
+- Host: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` (from `book/world/.../world.json`).
 - Platform blobs remain apply-gated; Phase 1 sticks to custom SBPL.
 - No new vocab/format assumptions; uses existing decoder and harness only.

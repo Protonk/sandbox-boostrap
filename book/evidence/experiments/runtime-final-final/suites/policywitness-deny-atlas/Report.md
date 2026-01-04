@@ -1,6 +1,6 @@
 # policywitness-deny-atlas (Report)
 
-Baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (Sonoma 14.4.1 / 23E224, arm64).
+Baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` (Sonoma 14.4.1 / 23E224, arm64).
 
 ## Purpose
 

@@ -11,7 +11,7 @@ from book.api.runtime.bundles import writer as artifact_writer
 
 from book.api import path_utils
 ROOT = path_utils.find_repo_root(Path(__file__))
-WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9"
 
 
 def _write_json(path: Path, payload: dict) -> None:

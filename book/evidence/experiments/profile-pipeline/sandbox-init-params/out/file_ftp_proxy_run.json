@@ -1,5 +1,5 @@
 {
-  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
   "run_id": "file_ftp_proxy",
   "mode": "file",
   "profile": ";;\n;; ftp proxy - sandbox profile\n;; Copyright (c) 2010 Apple Inc.  All Rights reserved.\n;;\n;; WARNING: The sandbox rules in this file currently constitute \n;; Apple System Private Interface and are subject to change at any time and\n;; without notice. The contents of this file are also auto-generated and not\n;; user editable; it may be overwritten at any time.\n;;\n(version 1)\n\n(deny default)\n\n(import \"system.sb\")\n\n(allow ipc-posix-shm\n\t(ipc-posix-name \"apple.shm.notification_center\"))\n\n(allow mach-lookup\n       (global-name \"com.apple.networkd\")\n       (global-name \"com.apple.NetworkSharing\")\n       (global-name \"com.apple.pfd\"))\n       \n(allow mach-per-user-lookup)\n\n(system-network)\n(allow network* (local ip))\n\n(allow system-socket)\n\n",

@@ -193,16 +193,22 @@ def classify_mismatches(
             return "bootstrap_failed"
 
         op = probe.get("operation")
+        canon_prefixes = (
+            "/tmp/runtime-adv/edges",
+            "/private/tmp/runtime-adv/edges",
+            "/tmp/runtime-adv/canon",
+            "/private/tmp/runtime-adv/canon",
+        )
         if expected == "allow" and actual == "deny":
             path = probe.get("path") or probe.get("target") or ""
             if op in {"file-read*", "file-write*"} and (
-                ".." in path or path.startswith("/tmp/runtime-adv/edges") or path.startswith("/private/tmp/runtime-adv/edges")
+                ".." in path or any(path.startswith(prefix) for prefix in canon_prefixes)
             ):
                 return "canonicalization_boundary"
             return "unexpected_deny"
         if expected == "deny" and actual == "allow":
             path = probe.get("path") or probe.get("target") or ""
-            if op in {"file-read*", "file-write*"} and (".." in path or path.startswith("/tmp/runtime-adv/edges")):
+            if op in {"file-read*", "file-write*"} and (".." in path or any(path.startswith(prefix) for prefix in canon_prefixes)):
                 return "canonicalization_boundary"
             return "unexpected_allow"
         return "filter_diff"

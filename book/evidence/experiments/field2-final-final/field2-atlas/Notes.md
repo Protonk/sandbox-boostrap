@@ -1,6 +1,6 @@
 # Notes — Field2 Atlas
 
-- Initial scaffold created with seeds `0` (path), `5` (global-name), `7` (local); world fixed to `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- Initial scaffold created with seeds `0` (path), `5` (global-name), `7` (local); world fixed to `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Static/runtime/atlas outputs are currently placeholders keyed to existing mappings and golden traces; replace with regenerated data once `book/tools/policy/ratchet/atlas_static.py` and `book/tools/policy/ratchet/atlas_runtime.py` run.
 - Keep runtime attempts, including `EPERM` / apply gates, recorded here with the command, profile, and seed field2 they target.
 - Rebuilt atlas via `PYTHONPATH=. python book/tools/policy/ratchet/atlas_build.py --packet <promotion_packet.json> --out-root book/evidence/experiments/field2-final-final/field2-atlas/out/derived` after refreshing `field2_inventory.json`/`unknown_nodes.json` (new UDP network variant + fcntl/right-name sweeps). Outputs remain stable (`runtime_backed` slice unchanged) but are aligned to the current anchor map/tag layouts.

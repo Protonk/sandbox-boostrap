@@ -36,7 +36,7 @@ This experiment sits between the structural experiments and the validation tooli
 ## Baseline & scope
 **Host / baseline**
 
-- Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (macOS 14.4.1 / 23E224, kernel 23.4.0, Apple Silicon, SIP enabled).
+- Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` (macOS 14.4.1 / 23E224, kernel 23.4.0, Apple Silicon, SIP enabled).
 - This matches the environment used by the node-layout and op-table-operation experiments.
 
 **Upstream artifacts reused**

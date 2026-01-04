@@ -122,7 +122,7 @@ def main() -> None:
     hits_path = args.out_dir / "unknown_value_hits.json"
     payload = {
         "schema_version": SCHEMA_VERSION,
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
         "libsandbox": path_utils.to_repo_relative(libsandbox_path, repo_root=repo_root),
         "unknown_nodes": path_utils.to_repo_relative(args.unknown_nodes, repo_root=repo_root),
         "min_len": args.min_len,
@@ -137,7 +137,7 @@ def main() -> None:
         json.dumps(
             {
                 "schema_version": SCHEMA_VERSION,
-                "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+                "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
                 "libsandbox": payload["libsandbox"],
                 "unknown_nodes": payload["unknown_nodes"],
                 "string_count": payload["string_count"],

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
     "status": "partial",
     "inputs": [
       "book/integration/carton/bundle/relationships/anchor_field2.json",
@@ -19,6 +19,7 @@
         4,
         5,
         6,
+        7,
         11,
         59,
         256,
@@ -33,6 +34,7 @@
         7424
       ],
       "node_indices": [
+        23,
         24,
         34,
         44,
@@ -56,7 +58,8 @@
         "probe:v2_file_three_filters_any",
         "probe:v6_file_mach_combo",
         "probe:v7_file_network_combo",
-        "probe:v8_all_combo"
+        "probe:v8_all_combo",
+        "sys:sample"
       ],
       "status": "partial",
       "role": "contract",
@@ -66,7 +69,8 @@
         "probe:v2_file_three_filters_any",
         "probe:v6_file_mach_combo",
         "probe:v7_file_network_combo",
-        "probe:v8_all_combo"
+        "probe:v8_all_combo",
+        "sys:sample"
       ]
     },
     "/tmp/foo": {
@@ -236,6 +240,44 @@
         "probe:v8_all_combo"
       ]
     },
+    "app-sandbox.read": {
+      "field2_values": [
+        9,
+        10,
+        142,
+        165
+      ],
+      "node_indices": [
+        10,
+        16,
+        18,
+        23,
+        41,
+        42,
+        45,
+        56,
+        71,
+        80,
+        81,
+        93,
+        94,
+        103,
+        104,
+        120,
+        121,
+        145,
+        154,
+        170
+      ],
+      "profiles": [
+        "sys:airlock"
+      ],
+      "status": "partial",
+      "role": "exploratory",
+      "sources": [
+        "sys:airlock"
+      ]
+    },
     "com.apple.cfprefsd.agent": {
       "field2_values": [
         0,
@@ -322,6 +364,22 @@
       "role": "exploratory",
       "sources": [
         "probe:v5_iokit_class_property"
+      ]
+    },
+    "preferences/logging": {
+      "field2_values": [
+        5
+      ],
+      "node_indices": [
+        18
+      ],
+      "profiles": [
+        "sys:bsd"
+      ],
+      "status": "partial",
+      "role": "exploratory",
+      "sources": [
+        "sys:bsd"
       ]
     }
   }

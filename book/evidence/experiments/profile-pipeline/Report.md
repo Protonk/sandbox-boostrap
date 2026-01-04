@@ -4,7 +4,7 @@
 Consolidate the userland SBPL pipeline for this host baseline: compile-time encoder traces, PolicyGraph layout decoding, op-table bucket structure, vocabulary alignment, and `sandbox_init*` apply-stage handle packing.
 
 ## Baseline & scope
-- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Scope: userland compile/apply only. No kernel dispatcher semantics; runtime results are scenario-lane apply-stage witnesses unless explicitly promoted.
 - Dependencies (shared mappings):
   - Operation/Filter vocabularies: `book/integration/carton/bundle/relationships/mappings/vocab/ops.json`, `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`, `book/integration/carton/bundle/relationships/mappings/vocab/ops_coverage.json`.

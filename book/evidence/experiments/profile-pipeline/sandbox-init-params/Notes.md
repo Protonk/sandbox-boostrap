@@ -1,7 +1,7 @@
 # Notes – sandbox-init-params
 
 ## Canonical entry path (init_params_probe)
-- Host: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- Host: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Binary plan: `sb/build/init_params_probe` calling `_sandbox_init_with_parameters("(version 1)\n(allow default)", 0, NULL, &err)`.
 - Toolchain/command: `clang -o sb/build/init_params_probe init_params_probe.c -lsandbox` (run from repo root), execute `./sb/build/init_params_probe`.
 
@@ -76,7 +76,7 @@
   - `init_params_probe_forced`: len 416, call_code 1, forced branch, blob hash matches baseline.
 
 ## Contract
-- World-bound invariants: for `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`, the inline profile (with/without container) must yield `blob_len=416`, `blob_sha256=19832e...3c92`, `call_code=0`, and non-zero pointers; guardrail asserts these.
+- World-bound invariants: for `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`, the inline profile (with/without container) must yield `blob_len=416`, `blob_sha256=19832e...3c92`, `call_code=0`, and non-zero pointers; guardrail asserts these.
 - Pointer addresses are treated as structural (non-zero) not absolute; forced branch is recorded as a variation witness, not a guardrail target.
 
 ## Probe interface (env + JSON)

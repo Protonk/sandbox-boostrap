@@ -4,7 +4,7 @@
 - Resolve the meaning of the `field2` payload `2560` observed on `flow-divert` tags (notably in require-all domain/type/protocol cases) by tying it to concrete anchors or encoder behaviors on the Sonoma baseline.
 
 ## Baseline & scope
-- Host baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- Host baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Inputs: SBPL probes compiled locally, existing vocab/tag layouts (`book/integration/carton/bundle/relationships/mappings/vocab`, `book/integration/carton/bundle/relationships/mappings/tag_layouts`), decoder tooling.
 - Out of scope: cross-version speculation, non-`flow-divert` field2 payloads except as controls.
 

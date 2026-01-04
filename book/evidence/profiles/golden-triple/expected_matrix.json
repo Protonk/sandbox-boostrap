@@ -1,0 +1,167 @@
+{
+  "profiles": {
+    "runtime:allow_all": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/allow_all.sb",
+      "mode": "sbpl",
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "allow_all|file-read*|/etc/hosts"
+        },
+        {
+          "name": "read_/tmp/sbpl_rt/read.txt",
+          "operation": "file-read*",
+          "target": "/tmp/sbpl_rt/read.txt",
+          "expected": "allow",
+          "expectation_id": "allow_all|file-read*|/tmp/sbpl_rt/read.txt"
+        },
+        {
+          "name": "write_/tmp/sbpl_rt/write.txt",
+          "operation": "file-write*",
+          "target": "/tmp/sbpl_rt/write.txt",
+          "expected": "allow",
+          "expectation_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt"
+        }
+      ],
+      "notes": "allow default; should allow all file read/write"
+    },
+    "runtime:metafilter_any": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/metafilter_any.sb",
+      "mode": "sbpl",
+      "probes": [
+        {
+          "name": "read_foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo.txt",
+          "expected": "allow",
+          "expectation_id": "metafilter_any|file-read*|/tmp/foo.txt"
+        },
+        {
+          "name": "read_bar",
+          "operation": "file-read*",
+          "target": "/tmp/bar.txt",
+          "expected": "allow",
+          "expectation_id": "metafilter_any|file-read*|/tmp/bar.txt"
+        },
+        {
+          "name": "read_other",
+          "operation": "file-read*",
+          "target": "/tmp/qux.txt",
+          "expected": "allow",
+          "expectation_id": "metafilter_any|file-read*|/tmp/qux.txt"
+        }
+      ],
+      "notes": "require-any literal foo/bar"
+    },
+    "bucket4:v1_read": {
+      "blob": "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v1_read.sb",
+      "mode": "sbpl",
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "bucket4:v1_read|file-read*|/etc/hosts"
+        },
+        {
+          "name": "write_/etc/hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny"
+        },
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "bucket4:v1_read|file-read*|/tmp/foo"
+        }
+      ],
+      "notes": "Baseline bucket-4 profile: allow file-read* only."
+    },
+    "bucket5:v11_read_subpath": {
+      "blob": "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v11_read_subpath.sb",
+      "mode": "sbpl",
+      "probes": [
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "bucket5:v11_read_subpath|file-read*|/tmp/foo"
+        },
+        {
+          "name": "read_/tmp/bar",
+          "operation": "file-read*",
+          "target": "/tmp/bar",
+          "expected": "deny"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny"
+        }
+      ],
+      "notes": "Bucket-5 subpath profile: allow read under /tmp/foo; deny other reads/writes."
+    },
+    "runtime:strict_1": {
+      "blob": "book/evidence/profiles/golden-triple/strict_1.sb",
+      "mode": "sbpl",
+      "probes": [
+        {
+          "name": "read_strict_ok",
+          "operation": "file-read*",
+          "target": "/private/tmp/strict_ok/allow.txt",
+          "expected": "allow",
+          "expectation_id": "runtime:strict_1|file-read*|/private/tmp/strict_ok/allow.txt"
+        },
+        {
+          "name": "write_strict_ok",
+          "operation": "file-write*",
+          "target": "/private/tmp/strict_ok/allow.txt",
+          "expected": "allow",
+          "expectation_id": "runtime:strict_1|file-write*|/private/tmp/strict_ok/allow.txt"
+        },
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny"
+        },
+        {
+          "name": "write_/etc/hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny"
+        }
+      ],
+      "notes": "Minimal strict profile: only /private/tmp/strict_ok should be reachable."
+    },
+    "runtime:param_deny_root_ok": {
+      "blob": "book/evidence/profiles/golden-triple/param_deny_root_allow_default_ROOT_private_tmp_ok.sb.bin",
+      "mode": "blob",
+      "probes": [
+        {
+          "name": "read_/private/tmp/sbpl_rt/read.txt",
+          "operation": "file-read*",
+          "target": "/private/tmp/sbpl_rt/read.txt",
+          "expected": "allow",
+          "expectation_id": "runtime:param_deny_root_ok|file-read*|/private/tmp/sbpl_rt/read.txt"
+        },
+        {
+          "name": "read_/private/tmp/ok/allow.txt",
+          "operation": "file-read*",
+          "target": "/private/tmp/ok/allow.txt",
+          "expected": "deny",
+          "expectation_id": "runtime:param_deny_root_ok|file-read*|/private/tmp/ok/allow.txt"
+        }
+      ],
+      "notes": "Parameterized SBPL compiled with ROOT=/private/tmp/ok; allow-default plus deny file-read* under ROOT (blob mode)."
+    }
+  }
+}

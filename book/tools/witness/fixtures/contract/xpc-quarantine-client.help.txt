@@ -1,0 +1,14 @@
+usage:
+  xpc-quarantine-client <xpc-service-bundle-id> <payload-class> [options...]
+
+payload-class:
+  shell_script | command_file | text | webarchive_like
+
+options:
+  --operation <create_new|open_only|open_existing_save>
+  --existing-path <path>        (required for open_existing_save; optional for open_only)
+  --dir <tmp|app_support>
+  --name <file-name>
+  --selection <string>          (annotation only; does not grant access)
+  --test-case-id <id>
+  --exec | --no-exec

@@ -203,7 +203,7 @@ def main() -> None:
         entries.append(result)
 
     out = {
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
         "purpose": "Extract (domain,type,proto) tuples from libsandbox-encoder network_matrix compiled blobs using structural witnesses only.",
         "inputs": {
             "manifest": rel(ROOT / "book/evidence/experiments/field2-final-final/libsandbox-encoder/sb/network_matrix/MANIFEST.json"),

@@ -4,7 +4,7 @@
 Consolidate all runtime-facing experiments into a single, host-scoped experiment surface for the Sonoma baseline. This root is the canonical home for runtime harness plans, bundles, promotion packets, and packet-only derived outputs.
 
 ## Baseline & scope
-- World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (unless explicitly marked non-baseline).
+- World: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` (unless explicitly marked non-baseline).
 - Scope: runtime bundles (`artifact_index.json`), promotion packets, and packet-only consumers.
 - Non-baseline runtime suites (debug VMs or SIP-disabled worlds) live under `suites/nonbaseline/` and must carry their own world metadata.
 

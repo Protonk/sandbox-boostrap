@@ -1,6 +1,6 @@
 # Seatbelt interfaces (runtime-closure)
 
-This document maps the seatbelt/sandbox interfaces touched in runtime-closure: SBPL compilation and apply, runtime enforcement ops/filters, oracle callouts, and observer/log surfaces. It is scoped to world_id `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` and is meant to prevent category errors (e.g., reading apply-stage failures as policy decisions).
+This document maps the seatbelt/sandbox interfaces touched in runtime-closure: SBPL compilation and apply, runtime enforcement ops/filters, oracle callouts, and observer/log surfaces. It is scoped to world_id `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` and is meant to prevent category errors (e.g., reading apply-stage failures as policy decisions).
 
 ## Interface map (conceptual)
 

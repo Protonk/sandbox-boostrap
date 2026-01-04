@@ -1,7 +1,7 @@
 # SBPL corpus
 
 This is a curated, host-bound SBPL specimen set for the Sonoma 14.4.1 baseline
-(`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`). It exists to keep known
+(`world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`). It exists to keep known
 inputs in one place and to keep provenance explicit.
 
 ## Families
@@ -24,7 +24,7 @@ work. Scope is narrow and some profiles are known divergences (for example
 `bucket5:v11_read_subpath`); check the golden profile artifacts before treating
 a profile as runtime-aligned.
 
-Pointers: `book/profiles/golden-triple/README.md`,
+Pointers: `book/evidence/profiles/golden-triple/README.md`,
 `book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/Report.md`.
 
 ### `network-matrix/`

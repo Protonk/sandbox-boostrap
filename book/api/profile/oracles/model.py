@@ -18,7 +18,7 @@ from typing import Any, Dict, List, Literal, Optional, Tuple
 
 # World scoping is explicit: oracle outputs are only meaningful on the baseline
 # they were witnessed against.
-WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9"
 
 OracleDim = Literal["domain", "type", "proto"]
 

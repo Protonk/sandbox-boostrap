@@ -1,0 +1,52 @@
+{
+  "label": "sandbox-lore.runtime.ccf0a905-26fc-40cc-aab0-4197d4f2550a",
+  "run_id": "ccf0a905-26fc-40cc-aab0-4197d4f2550a",
+  "domain": "gui/501",
+  "domain_reason": "gui_domain_available",
+  "session_types": null,
+  "plist_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/ccf0a905-26fc-40cc-aab0-4197d4f2550a/launchctl/sandbox-lore.runtime.ccf0a905-26fc-40cc-aab0-4197d4f2550a.plist",
+  "launchctl_cmds": [
+    {
+      "argv": [
+        "/bin/launchctl",
+        "print",
+        "gui/501"
+      ],
+      "rc": 0,
+      "stdout_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/ccf0a905-26fc-40cc-aab0-4197d4f2550a/launchctl/sandbox-lore.runtime.ccf0a905-26fc-40cc-aab0-4197d4f2550a.launchctl_print.gui_501.stdout.txt",
+      "stderr_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/ccf0a905-26fc-40cc-aab0-4197d4f2550a/launchctl/sandbox-lore.runtime.ccf0a905-26fc-40cc-aab0-4197d4f2550a.launchctl_print.gui_501.stderr.txt"
+    },
+    {
+      "argv": [
+        "/usr/bin/plutil",
+        "-lint",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.ccf0a905-26fc-40cc-aab0-4197d4f2550a/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/launchctl/sandbox-lore.runtime.ccf0a905-26fc-40cc-aab0-4197d4f2550a.plist"
+      ],
+      "rc": 0,
+      "stdout_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/ccf0a905-26fc-40cc-aab0-4197d4f2550a/launchctl/sandbox-lore.runtime.ccf0a905-26fc-40cc-aab0-4197d4f2550a.plutil_lint.stdout.txt",
+      "stderr_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/ccf0a905-26fc-40cc-aab0-4197d4f2550a/launchctl/sandbox-lore.runtime.ccf0a905-26fc-40cc-aab0-4197d4f2550a.plutil_lint.stderr.txt"
+    },
+    {
+      "argv": [
+        "/bin/launchctl",
+        "bootstrap",
+        "gui/501",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.ccf0a905-26fc-40cc-aab0-4197d4f2550a/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/launchctl/sandbox-lore.runtime.ccf0a905-26fc-40cc-aab0-4197d4f2550a.plist"
+      ],
+      "rc": 0,
+      "stdout_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/ccf0a905-26fc-40cc-aab0-4197d4f2550a/launchctl/sandbox-lore.runtime.ccf0a905-26fc-40cc-aab0-4197d4f2550a.bootstrap.stdout.txt",
+      "stderr_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/ccf0a905-26fc-40cc-aab0-4197d4f2550a/launchctl/sandbox-lore.runtime.ccf0a905-26fc-40cc-aab0-4197d4f2550a.bootstrap.stderr.txt"
+    },
+    {
+      "argv": [
+        "/bin/launchctl",
+        "bootout",
+        "gui/501",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.ccf0a905-26fc-40cc-aab0-4197d4f2550a/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/launchctl/sandbox-lore.runtime.ccf0a905-26fc-40cc-aab0-4197d4f2550a.plist"
+      ],
+      "rc": 0,
+      "stdout_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/ccf0a905-26fc-40cc-aab0-4197d4f2550a/launchctl/sandbox-lore.runtime.ccf0a905-26fc-40cc-aab0-4197d4f2550a.bootout.stdout.txt",
+      "stderr_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/ccf0a905-26fc-40cc-aab0-4197d4f2550a/launchctl/sandbox-lore.runtime.ccf0a905-26fc-40cc-aab0-4197d4f2550a.bootout.stderr.txt"
+    }
+  ]
+}

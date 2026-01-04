@@ -6,7 +6,7 @@ This file is the “what’s next” plan for the experiment. The canonical narr
 
 We want a **structural signal** for compiled blobs (`.sb.bin`) that is:
 
-- **host-scoped** to `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`
+- **host-scoped** to `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`
 - **phase-disciplined**: it predicts “likely apply-gated” (apply-stage `EPERM`) without implying anything about PolicyGraph decisions
 - treated as **partial/brittle** until we have a broader witness set
 

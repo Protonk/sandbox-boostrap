@@ -19,7 +19,7 @@ if str(REPO_ROOT) not in sys.path:
 from book.api import path_utils
 
 
-WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9"
 EXPECTED_RUNS = {
     "init_params_probe": {
         "call_code": 0,

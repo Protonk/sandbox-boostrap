@@ -3,7 +3,7 @@
 Role: stable, host-specific connector for running Seatbelt-focused Ghidra headless tasks.
 
 Baseline and safety:
-- World: see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- World: see `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Inputs live in `book/dumps/ghidra/private/aapl-restricted/<build>/...` (KC, libsystem_sandbox, profiles); never copy them into tracked trees.
 - Outputs stay under `book/evidence/dumps/ghidra/out/<build>/<task>/`; projects under `book/dumps/ghidra/projects/`; user/home/logs under `book/dumps/ghidra/` (git-ignored: `book/dumps/ghidra/private`, `book/dumps/ghidra/tmp`, `book/dumps/ghidra/user`, `book/dumps/ghidra/projects`, `book/dumps/ghidra/home`, `book/dumps/ghidra/logs`).
 - `HOME`/`GHIDRA_USER_HOME` and `JAVA_TOOL_OPTIONS=-Duser.home=... -Djava.io.tmpdir=...` are set to the sandboxed dirs to avoid leakage or prompts.

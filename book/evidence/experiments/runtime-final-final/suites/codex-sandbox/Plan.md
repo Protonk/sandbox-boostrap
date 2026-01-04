@@ -6,7 +6,7 @@ Detect whether the Codex harness is sandboxed using a small, deterministic senso
 
 ## Baseline and scope
 
-- Host baseline: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5.
+- Host baseline: sonoma-14.4.1-23E224-arm64-dyld-a3a840f9.
 - No SIP/TCC or host changes.
 - Variation: normal harness vs elevated harness (sandboxed vs unsandboxed).
 - Outputs live under `book/evidence/experiments/runtime-final-final/suites/codex-sandbox/out/codex-sandbox/`.

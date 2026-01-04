@@ -1,6 +1,6 @@
 # Attach Guide (PolicyWitness + Keepalive + Frida)
 
-Scope: host baseline `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+Scope: host baseline `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 
 This guide explains how to attach Frida to PolicyWitness services using the keepalive daemon and the signed attach helper. It highlights the common failure modes and how to confirm the target is attachable.
 

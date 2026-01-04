@@ -4,7 +4,7 @@
 Recover the sandbox/mac_policy_conf and mac_policy_ops (plus registration site) for this host baseline, across the kernel and sandbox kext slices.
 
 ## Baseline & scope
-- Host: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (Apple Silicon, SIP on).
+- Host: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` (Apple Silicon, SIP on).
 - Inputs: kernelcache (`book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/BootKernelCollection.kc`) with sandbox fileset entry rebuilt to `book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/sandbox_kext.bin` (arm64e) and AMFI fileset entry rebuilt to `book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/sandbox_kext_com_apple_driver_AppleMobileFileIntegrity.bin`; analyzed Ghidra projects `book/dumps/ghidra/projects/sandbox_14.4.1-23E224` and `book/dumps/ghidra/projects/amfi_kext_14.4.1-23E224`.
 - Out of scope: generic/macOS-cross-version claims; focus only on this world.
 
@@ -128,7 +128,7 @@ Recover the sandbox/mac_policy_conf and mac_policy_ops (plus registration site) 
   - Pointer-constrained pass: 82 candidates across ~132 KB / 16,495 probe points; all pointer slots NULL, only flag fields vary.
   - Pointer-relaxed pass: 118 candidates over the same region; 36 carry non-zero “pointer-like” values (PAC-looking), still no printable strings, no in-image ops/labelnames, no mac_policy_conf-like pointer pattern.
   - No additional sandbox/seatbelt fileset entries beyond `com.apple.security.sandbox`; same pattern across canonical and “any-ptr” runs.
-- Claim: For `world_id = sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`, there is no static `mac_policy_conf`-shaped structure in sandbox/seatbelt fileset kext data. Static kext scanning for `mac_policy_conf`/`mac_policy_ops` is status: ok-negative. Registration-site recovery is still blocked in static analysis because the authenticated GOT/stub references are not yet mapped to call sites; runtime evidence is a separate (out-of-scope) path.
+- Claim: For `world_id = sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`, there is no static `mac_policy_conf`-shaped structure in sandbox/seatbelt fileset kext data. Static kext scanning for `mac_policy_conf`/`mac_policy_ops` is status: ok-negative. Registration-site recovery is still blocked in static analysis because the authenticated GOT/stub references are not yet mapped to call sites; runtime evidence is a separate (out-of-scope) path.
 
 ### Registration-site recovery (static, blocked)
 - Expanded `sandbox_kext.bin` scan with `flow indirect-all all` surfaces `_mac_policy_register`/`_amfi_register_mac_policy` as external labels (`target_count: 4`) but still yields `call_site_count: 0` and `indirect_call_sites: 0` (`registration_sites.json`).

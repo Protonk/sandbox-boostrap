@@ -1,6 +1,6 @@
 # profile.sbpl_scan
 
-Host-scoped static SBPL scanners for the Sonoma baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`).
+Host-scoped static SBPL scanners for the Sonoma baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`).
 
 This surface is intentionally **conservative** and **structural**:
 - It parses SBPL into a minimal AST and scans for known “apply-gate” signatures.

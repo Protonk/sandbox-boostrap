@@ -1,6 +1,6 @@
 # policywitness-deny-atlas (Plan)
 
-Baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+Baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 
 ## Goal
 
@@ -85,7 +85,7 @@ If `probe_catalog` shows a Mach/XPC probe (for example a `mach_*` or `bootstrap`
 ```json
 {
   "schema_version": 1,
-  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
   "records": [
     {
       "profile_id": "minimal",

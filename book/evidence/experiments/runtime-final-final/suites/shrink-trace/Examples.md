@@ -1,6 +1,6 @@
 # Examples
 
-This file is a menagerie of working, host-bound examples that exercise both trace and shrink. Each example points to an `out/` run directory so the artifacts are concrete and inspectable on this host (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`). Treat interpretations here as partial until promoted.
+This file is a menagerie of working, host-bound examples that exercise both trace and shrink. Each example points to an `out/` run directory so the artifacts are concrete and inspectable on this host (`world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`). Treat interpretations here as partial until promoted.
 
 ## How to read the examples
 

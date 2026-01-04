@@ -244,9 +244,7 @@
       "notes": "Discriminate ipc-posix-name via shm_open create.",
       "probe_refs": [
         "adv:ipc_posix_shm:allow-shm",
-        "adv:ipc_posix_shm:deny-shm",
-        "adv:ipc_posix_shm:allow-shm-alt",
-        "adv:ipc_posix_shm:deny-shm-alt"
+        "adv:ipc_posix_shm:deny-shm"
       ],
       "profile_id": "adv:ipc_posix_shm",
       "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/ipc_posix_shm.sb",
@@ -259,9 +257,7 @@
       "notes": "Right-name discriminator via sandbox_check probe.",
       "probe_refs": [
         "adv:authorization_right:allow-right",
-        "adv:authorization_right:deny-right",
-        "adv:authorization_right:allow-right-alt",
-        "adv:authorization_right:deny-right-alt"
+        "adv:authorization_right:deny-right"
       ],
       "profile_id": "adv:authorization_right",
       "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/authorization_right.sb",
@@ -274,9 +270,7 @@
       "notes": "Preference-domain discriminator via sandbox_check probe.",
       "probe_refs": [
         "adv:preference_domain:allow-domain",
-        "adv:preference_domain:deny-domain",
-        "adv:preference_domain:allow-domain-alt",
-        "adv:preference_domain:deny-domain-alt"
+        "adv:preference_domain:deny-domain"
       ],
       "profile_id": "adv:preference_domain",
       "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/preference_domain.sb",
@@ -289,13 +283,50 @@
       "notes": "XPC service discriminator via xpc_probe.",
       "probe_refs": [
         "adv:xpc_service_name:allow-cfprefsd-xpc",
-        "adv:xpc_service_name:deny-bogus-xpc",
-        "adv:xpc_service_name:allow-cfprefsd-xpc-alt",
-        "adv:xpc_service_name:deny-bogus-xpc-alt"
+        "adv:xpc_service_name:deny-bogus-xpc"
       ],
       "profile_id": "adv:xpc_service_name",
       "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/xpc_service_name.sb",
       "semantic_group": "mach:xpc-service-name"
+    },
+    "adv:path_canon_alias": {
+      "family": "path_alias",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Canonicalization alias-only fixture under runtime-adv/canon.",
+      "probe_refs": [
+        "adv:path_canon_alias:allow-tmp",
+        "adv:path_canon_alias:deny-private"
+      ],
+      "profile_id": "adv:path_canon_alias",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_canon_alias.sb",
+      "semantic_group": "paths:canonical-alias"
+    },
+    "adv:path_canon_private": {
+      "family": "path_alias",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Canonicalization private-only fixture under runtime-adv/canon.",
+      "probe_refs": [
+        "adv:path_canon_private:allow-private",
+        "adv:path_canon_private:deny-tmp"
+      ],
+      "profile_id": "adv:path_canon_private",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_canon_private.sb",
+      "semantic_group": "paths:canonical-private"
+    },
+    "adv:path_canon_both": {
+      "family": "path_alias",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Canonicalization control fixture allowing both spellings.",
+      "probe_refs": [
+        "adv:path_canon_both:allow-private",
+        "adv:path_canon_both:allow-tmp"
+      ],
+      "profile_id": "adv:path_canon_both",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_canon_both.sb",
+      "semantic_group": "paths:canonical-both"
     },
     "adv:path_canon_alt": {
       "family": "path_alias",
@@ -313,5 +344,5 @@
   },
   "registry_id": "runtime-adversarial",
   "schema_version": "runtime-tools.profile_registry.v0.2",
-  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9"
 }

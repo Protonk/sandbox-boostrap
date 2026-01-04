@@ -4,7 +4,7 @@
 Consolidate all field2-related work into a single experiment root, keep evidence paths stable, and preserve a coherent static→runtime→atlas pipeline on the Sonoma host baseline.
 
 ## Baseline & scope
-- World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- World: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Scope: structural field2 extraction, anchor/tag layout, encoder emission, focused probe suites, and runtime-atlas joins.
 - Out of scope: cross-world claims and any mapping edits outside the standard promotion flow.
 

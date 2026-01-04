@@ -8,7 +8,7 @@ Deliberately stress static↔runtime alignment for this host using adversarial S
 Outputs: expected/runtime matrices, mismatch summaries, and impact hooks to downgrade canonical claims if mismatches appear.
 
 ## Baseline & scope
-- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (`book/world/sonoma-14.4.1-23E224-arm64/world.json`).
+- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` (`book/world/sonoma-14.4.1-23E224-arm64/world.json`).
 - Execution: `python -m book.api.runtime run --plan book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/plan.json --channel launchd_clean` (plan-based runtime CLI). Bundle outputs under `out/<run_id>/` are authoritative (resolve via `out/LATEST`). Compile/decode via `book.api.profile` and `book.api.profile.decoder`.
 - Profiles: `struct_flat`, `struct_nested` (structural variants); `path_edges`, `path_edges_private`, `path_alias`, `mount_relative_path` (path/literal edge stress + `/tmp` alias witness + `/private/tmp` canonicalization control + mount-relative subpath discriminator); `xattr` (xattr read/write discrimination over `/private/tmp` fixtures); `file_mode` (file-mode discriminator over `/private/tmp` fixtures); `mach_simple_allow`, `mach_simple_variants`, `mach_local_literal`, `mach_local_regex` (mach-lookup variants); `net_outbound_allow`, `net_outbound_deny`, `flow_divert_require_all_tcp` (network-outbound variants including the flow-divert require-all triple). Custom SBPL only; no platform blobs.
 - Outputs live in `sb/`, `sb/build/`, and `out/`.
@@ -44,6 +44,9 @@ python -m book.api.runtime run \
 - Static intent: allow literal `/tmp/runtime-adv/edges/a` and subpath `/tmp/runtime-adv/edges/okdir/*`, deny `/private/tmp/runtime-adv/edges/a` and the `..` literal to catch traversal. Decoder predicts allows on `/tmp/...` probes via literal/subpath filters.
 - Runtime: `/tmp` reads are denied and flagged as `canonicalization_boundary` mismatches; writes to the same paths are unexpected denies. The normalization control (`allow-subpath-normalized`) also denies, so the mismatch packet is labeled `canonicalization_boundary` with a path-witness anchor.
 - Canonicalization control: `path_edges_private` allows the normalized `/private/tmp` targets for the same `/tmp/...` probes, confirming the boundary as VFS canonicalization rather than a decoder error. The graph-shape verdicts treat this as canonicalization-aware equivalence (no counterexample) while retaining the boundary evidence. Canonicalization evidence remains anchored in `book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/Report.md` (host-bound).
+
+### Canonicalization witness (field2=0)
+The runtime-adversarial canonicalization trio now runs under `launchd_clean` (run_id `6d94d4a2-137c-49b4-b282-cd5176316bee`) so the field2 atlas can consume the evidence from the same promotion packet as other field2 runtime candidates. The alias-only profile (`adv:path_canon_alias`) produces a `canonicalization_boundary` mismatch for `allow-tmp` (expected allow, actual deny), and the canonical-only profile (`adv:path_canon_private`) produces a `canonicalization_boundary` mismatch for `deny-tmp` (expected deny, actual allow); the control profile (`adv:path_canon_both`) matches on both spellings. `out/LATEST/path_witnesses.json` records the `/tmp` → `/private/tmp` alias pair, and `out/LATEST/mismatch_packets.jsonl` captures the boundary reason with witness pointers. The vfs-canonicalization suite remains the canonical evidence source and is not advanced here.
 
 ### Mount-relative-path discriminator (mount_relative_path)
 - Static intent: isolate a pure subpath rule under `/private/tmp/runtime-adv/mountrel` to exercise mount-relative-path without `/tmp` alias confounds.
@@ -97,7 +100,7 @@ This family targets the `network-outbound` operation to confirm runtime behavior
 Current run note: decision-stage allow/deny outcomes are visible in the latest bundle outputs (apply preflight succeeded in the launchd staged run).
 
 ### Canonical scenario
-- **Host**: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (this scenario is scoped to this world).
+- **Host**: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` (this scenario is scoped to this world).
 - **Client**: `/usr/bin/nc -z -w 2`.
 - **Profiles**: deny default plus startup shims (`iokit-open`, `mach* sysctl-read`, `file-ioctl`, `file-read-metadata`, `file-read-data` over `/`, `/System`, `/usr`, `/Library`, `/private`, `/dev`), `system-socket`, and `process-exec` pinned to `/usr/bin/nc`.
   - `sb/net_outbound_allow.sb`: includes `allow network-outbound …`.

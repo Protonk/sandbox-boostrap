@@ -6,7 +6,7 @@
     "preflight": {
       "tool": "book/tools/preflight",
       "preflight_schema_version": 1,
-      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
       "input_kind": "sbpl_path",
       "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
       "classification": "no_known_apply_gate_signature",
@@ -184,7 +184,7 @@
     "preflight": {
       "tool": "book/tools/preflight",
       "preflight_schema_version": 1,
-      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
       "input_kind": "sbpl_path",
       "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
       "classification": "no_known_apply_gate_signature",
@@ -357,14 +357,14 @@
   },
   "runtime:allow_all": {
     "status": "ok",
-    "profile_path": "book/profiles/golden-triple/allow_all.sb.bin",
-    "base_profile_path": "book/profiles/golden-triple/allow_all.sb.bin",
+    "profile_path": "book/evidence/profiles/golden-triple/allow_all.sb.bin",
+    "base_profile_path": "book/evidence/profiles/golden-triple/allow_all.sb.bin",
     "preflight": {
       "tool": "book/tools/preflight",
       "preflight_schema_version": 1,
-      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
       "input_kind": "sbpl_blob_path",
-      "input_ref": "book/profiles/golden-triple/allow_all.sb.bin",
+      "input_ref": "book/evidence/profiles/golden-triple/allow_all.sb.bin",
       "classification": "no_known_apply_gate_signature",
       "signature": null,
       "findings": [
@@ -423,14 +423,14 @@
           "--preflight",
           "enforce",
           "--blob",
-          "book/profiles/golden-triple/allow_all.sb.bin",
+          "book/evidence/profiles/golden-triple/allow_all.sb.bin",
           "--",
           "/bin/cat",
           "/etc/hosts"
         ],
         "exit_code": 0,
         "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1             localhost\n",
-        "stderr": "{\"tool\":\"sbpl-preflight\",\"marker_schema_version\":1,\"stage\":\"preflight\",\"mode\":\"blob\",\"policy\":\"enforce\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675/book/profiles/golden-triple/allow_all.sb.bin\",\"rc\":0,\"record_json\":\"{\\\"classification\\\": \\\"no_known_apply_gate_signature\\\", \\\"findings\\\": [{\\\"blob_sha256\\\": \\\"19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92\\\", \\\"matched\\\": false}], \\\"input_kind\\\": \\\"sbpl_blob_path\\\", \\\"input_ref\\\": \\\"book/profiles/golden-triple/allow_all.sb.bin\\\", \\\"preflight_schema_version\\\": 1, \\\"signature\\\": null, \\\"tool\\\": \\\"book/tools/preflight\\\", \\\"world_id\\\": \\\"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\\\"}\",\"pid\":20077}\n{\"tool\":\"entitlement-check\",\"marker_schema_version\":1,\"stage\":\"pre_apply\",\"entitlement\":\"com.apple.private.security.message-filter\",\"pid\":20077,\"rc\":0,\"present\":false,\"value_type\":\"absent\"}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":20077}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":20077}\n",
+        "stderr": "{\"tool\":\"sbpl-preflight\",\"marker_schema_version\":1,\"stage\":\"preflight\",\"mode\":\"blob\",\"policy\":\"enforce\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675/book/evidence/profiles/golden-triple/allow_all.sb.bin\",\"rc\":0,\"record_json\":\"{\\\"classification\\\": \\\"no_known_apply_gate_signature\\\", \\\"findings\\\": [{\\\"blob_sha256\\\": \\\"19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92\\\", \\\"matched\\\": false}], \\\"input_kind\\\": \\\"sbpl_blob_path\\\", \\\"input_ref\\\": \\\"book/evidence/profiles/golden-triple/allow_all.sb.bin\\\", \\\"preflight_schema_version\\\": 1, \\\"signature\\\": null, \\\"tool\\\": \\\"book/tools/preflight\\\", \\\"world_id\\\": \\\"sonoma-14.4.1-23E224-arm64-dyld-a3a840f9\\\"}\",\"pid\":20077}\n{\"tool\":\"entitlement-check\",\"marker_schema_version\":1,\"stage\":\"pre_apply\",\"entitlement\":\"com.apple.private.security.message-filter\",\"pid\":20077,\"rc\":0,\"present\":false,\"value_type\":\"absent\"}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675/book/evidence/profiles/golden-triple/allow_all.sb.bin\",\"pid\":20077}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675/book/evidence/profiles/golden-triple/allow_all.sb.bin\",\"pid\":20077}\n",
         "probe_details": null
       },
       {
@@ -481,14 +481,14 @@
           "--preflight",
           "enforce",
           "--blob",
-          "book/profiles/golden-triple/allow_all.sb.bin",
+          "book/evidence/profiles/golden-triple/allow_all.sb.bin",
           "--",
           "/bin/cat",
           "/tmp/sbpl_rt/read.txt"
         ],
         "exit_code": 0,
         "stdout": "runtime-checks read\n",
-        "stderr": "{\"tool\":\"sbpl-preflight\",\"marker_schema_version\":1,\"stage\":\"preflight\",\"mode\":\"blob\",\"policy\":\"enforce\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675/book/profiles/golden-triple/allow_all.sb.bin\",\"rc\":0,\"record_json\":\"{\\\"classification\\\": \\\"no_known_apply_gate_signature\\\", \\\"findings\\\": [{\\\"blob_sha256\\\": \\\"19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92\\\", \\\"matched\\\": false}], \\\"input_kind\\\": \\\"sbpl_blob_path\\\", \\\"input_ref\\\": \\\"book/profiles/golden-triple/allow_all.sb.bin\\\", \\\"preflight_schema_version\\\": 1, \\\"signature\\\": null, \\\"tool\\\": \\\"book/tools/preflight\\\", \\\"world_id\\\": \\\"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\\\"}\",\"pid\":20079}\n{\"tool\":\"entitlement-check\",\"marker_schema_version\":1,\"stage\":\"pre_apply\",\"entitlement\":\"com.apple.private.security.message-filter\",\"pid\":20079,\"rc\":0,\"present\":false,\"value_type\":\"absent\"}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":20079}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":20079}\n",
+        "stderr": "{\"tool\":\"sbpl-preflight\",\"marker_schema_version\":1,\"stage\":\"preflight\",\"mode\":\"blob\",\"policy\":\"enforce\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675/book/evidence/profiles/golden-triple/allow_all.sb.bin\",\"rc\":0,\"record_json\":\"{\\\"classification\\\": \\\"no_known_apply_gate_signature\\\", \\\"findings\\\": [{\\\"blob_sha256\\\": \\\"19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92\\\", \\\"matched\\\": false}], \\\"input_kind\\\": \\\"sbpl_blob_path\\\", \\\"input_ref\\\": \\\"book/evidence/profiles/golden-triple/allow_all.sb.bin\\\", \\\"preflight_schema_version\\\": 1, \\\"signature\\\": null, \\\"tool\\\": \\\"book/tools/preflight\\\", \\\"world_id\\\": \\\"sonoma-14.4.1-23E224-arm64-dyld-a3a840f9\\\"}\",\"pid\":20079}\n{\"tool\":\"entitlement-check\",\"marker_schema_version\":1,\"stage\":\"pre_apply\",\"entitlement\":\"com.apple.private.security.message-filter\",\"pid\":20079,\"rc\":0,\"present\":false,\"value_type\":\"absent\"}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675/book/evidence/profiles/golden-triple/allow_all.sb.bin\",\"pid\":20079}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675/book/evidence/profiles/golden-triple/allow_all.sb.bin\",\"pid\":20079}\n",
         "probe_details": null
       },
       {
@@ -539,7 +539,7 @@
           "--preflight",
           "enforce",
           "--blob",
-          "book/profiles/golden-triple/allow_all.sb.bin",
+          "book/evidence/profiles/golden-triple/allow_all.sb.bin",
           "--",
           "/bin/sh",
           "-c",
@@ -547,7 +547,7 @@
         ],
         "exit_code": 0,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-preflight\",\"marker_schema_version\":1,\"stage\":\"preflight\",\"mode\":\"blob\",\"policy\":\"enforce\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675/book/profiles/golden-triple/allow_all.sb.bin\",\"rc\":0,\"record_json\":\"{\\\"classification\\\": \\\"no_known_apply_gate_signature\\\", \\\"findings\\\": [{\\\"blob_sha256\\\": \\\"19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92\\\", \\\"matched\\\": false}], \\\"input_kind\\\": \\\"sbpl_blob_path\\\", \\\"input_ref\\\": \\\"book/profiles/golden-triple/allow_all.sb.bin\\\", \\\"preflight_schema_version\\\": 1, \\\"signature\\\": null, \\\"tool\\\": \\\"book/tools/preflight\\\", \\\"world_id\\\": \\\"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\\\"}\",\"pid\":20081}\n{\"tool\":\"entitlement-check\",\"marker_schema_version\":1,\"stage\":\"pre_apply\",\"entitlement\":\"com.apple.private.security.message-filter\",\"pid\":20081,\"rc\":0,\"present\":false,\"value_type\":\"absent\"}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":20081}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":20081}\n",
+        "stderr": "{\"tool\":\"sbpl-preflight\",\"marker_schema_version\":1,\"stage\":\"preflight\",\"mode\":\"blob\",\"policy\":\"enforce\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675/book/evidence/profiles/golden-triple/allow_all.sb.bin\",\"rc\":0,\"record_json\":\"{\\\"classification\\\": \\\"no_known_apply_gate_signature\\\", \\\"findings\\\": [{\\\"blob_sha256\\\": \\\"19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92\\\", \\\"matched\\\": false}], \\\"input_kind\\\": \\\"sbpl_blob_path\\\", \\\"input_ref\\\": \\\"book/evidence/profiles/golden-triple/allow_all.sb.bin\\\", \\\"preflight_schema_version\\\": 1, \\\"signature\\\": null, \\\"tool\\\": \\\"book/tools/preflight\\\", \\\"world_id\\\": \\\"sonoma-14.4.1-23E224-arm64-dyld-a3a840f9\\\"}\",\"pid\":20081}\n{\"tool\":\"entitlement-check\",\"marker_schema_version\":1,\"stage\":\"pre_apply\",\"entitlement\":\"com.apple.private.security.message-filter\",\"pid\":20081,\"rc\":0,\"present\":false,\"value_type\":\"absent\"}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675/book/evidence/profiles/golden-triple/allow_all.sb.bin\",\"pid\":20081}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675/book/evidence/profiles/golden-triple/allow_all.sb.bin\",\"pid\":20081}\n",
         "probe_details": null
       }
     ],
@@ -561,7 +561,7 @@
     "preflight": {
       "tool": "book/tools/preflight",
       "preflight_schema_version": 1,
-      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
       "input_kind": "sbpl_path",
       "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
       "classification": "no_known_apply_gate_signature",
@@ -845,7 +845,7 @@
     "preflight": {
       "tool": "book/tools/preflight",
       "preflight_schema_version": 1,
-      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
       "input_kind": "sbpl_path",
       "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
       "classification": "no_known_apply_gate_signature",
@@ -1076,7 +1076,7 @@
     "preflight": {
       "tool": "book/tools/preflight",
       "preflight_schema_version": 1,
-      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
       "input_kind": "sbpl_path",
       "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/runtime_profiles/airlock.sys_airlock.runtime.sb",
       "classification": "likely_apply_gated_for_harness_identity",
@@ -1281,7 +1281,7 @@
     "preflight": {
       "tool": "book/tools/preflight",
       "preflight_schema_version": 1,
-      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
       "input_kind": "sbpl_path",
       "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/runtime_profiles/bsd.sys_bsd.runtime.sb",
       "classification": "no_known_apply_gate_signature",

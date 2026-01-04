@@ -4,7 +4,7 @@
 Build a clean, provenance-stamped decision-stage runtime lane for non-VFS sandbox surfaces on this host. The focus is on operation-based policy evaluation and the acquire-before vs acquire-after boundary for non-file resources (both treated as hypotheses to validate or falsify on this host).
 
 ## Scope
-- World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` only.
+- World: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` only.
 - Non-VFS operations only (mach/XPC, sysctl, IOKit, process-info, system-socket, notifications).
 - VFS canonicalization is explicitly out-of-scope except as a recorded observation field.
 

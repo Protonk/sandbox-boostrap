@@ -6,7 +6,7 @@ Mapping path: none.
 
 What it checks:
 - world.json and dyld/manifest.json resolution (plus registry lookups)
-- dyld manifest hash vs world_id suffix (and optional manifest.hash.json match)
+- dyld manifest hash vs world_id suffix
 - dyld libs existence, size, and sha256
 - host identity signals (sw_vers, uname, csrutil)
 - dyld shared cache presence and header UUID (best-effort)

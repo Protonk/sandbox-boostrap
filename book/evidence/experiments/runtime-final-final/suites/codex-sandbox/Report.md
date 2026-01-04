@@ -6,7 +6,7 @@ Determine whether the Codex harness is sandboxed by comparing six host-grounded 
 
 ## Baseline and scope
 
-- Host baseline: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- Host baseline: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Canonical vocab mappings referenced:
   - `book/integration/carton/bundle/relationships/mappings/vocab/ops.json`
   - `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`

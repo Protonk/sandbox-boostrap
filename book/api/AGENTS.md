@@ -1,6 +1,6 @@
 # Agents in `book/api/`
 
-This directory is the API/tooling layer for the Seatbelt textbook. All tools assume the fixed host baseline in `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` and the vocab/format mappings under `book/integration/carton/bundle/relationships/mappings/` (generators live under `book/integration/carton/mappings/`).
+This directory is the API/tooling layer for the Seatbelt textbook. All tools assume the fixed host baseline in `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` and the vocab/format mappings under `book/integration/carton/bundle/relationships/mappings/` (generators live under `book/integration/carton/mappings/`).
 
 ## How to route here
 

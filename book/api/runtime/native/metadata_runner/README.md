@@ -7,7 +7,7 @@ emitting a JSON record of the outcome.
 Use when: you need a low-noise runner for `file-read-metadata` and metadata
 write proxy operations under a sandbox profile.
 
-World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+World: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 
 Build:
 

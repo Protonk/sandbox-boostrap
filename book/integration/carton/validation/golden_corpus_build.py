@@ -39,25 +39,25 @@ BLOBS: List[Dict[str, str]] = [
     {
         "id": "golden_allow_all",
         "category": "golden-triple",
-        "path": "profiles/golden-triple/allow_all.sb.bin",
+        "path": "evidence/profiles/golden-triple/allow_all.sb.bin",
         "mode": "runtime-capable",
     },
     {
         "id": "golden_strict_1",
         "category": "golden-triple",
-        "path": "profiles/golden-triple/strict_1.sb.bin",
+        "path": "evidence/profiles/golden-triple/strict_1.sb.bin",
         "mode": "runtime-capable",
     },
     {
         "id": "golden_bucket4_v1_read",
         "category": "golden-triple",
-        "path": "profiles/golden-triple/bucket4_v1_read.sb.bin",
+        "path": "evidence/profiles/golden-triple/bucket4_v1_read.sb.bin",
         "mode": "runtime-capable",
     },
     {
         "id": "golden_bucket5_v11_subpath",
         "category": "golden-triple",
-        "path": "profiles/golden-triple/bucket5_v11_read_subpath.sb.bin",
+        "path": "evidence/profiles/golden-triple/bucket5_v11_read_subpath.sb.bin",
         "mode": "runtime-capable",
     },
     {

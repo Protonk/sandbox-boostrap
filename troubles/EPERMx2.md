@@ -49,7 +49,7 @@ To make this classification mechanically robust (not substring-fragile), the wra
 - Control runs under permissive profiles succeed (distinguishing policy denial from basic filesystem perms).
 
 **Representative sources:**
-- Golden-triple runtime stderr examples: [`book/profiles/golden-triple/runtime_results.json`](book/profiles/golden-triple/runtime_results.json).
+- Golden-triple runtime stderr examples: [`book/evidence/profiles/golden-triple/runtime_results.json`](book/evidence/profiles/golden-triple/runtime_results.json).
 - VFS canonicalization mismatches present as decision-stage `EPERM` (“open target”) even when the SBPL *looks* like it should allow (see [`book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/Report.md`](book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/Report.md) and [`book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/Report.md`](book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/Report.md)).
 - Metadata runner explicitly distinguishes apply success (`apply_rc=0`) from syscall EPERMs on alias paths (see [`book/evidence/experiments/runtime-final-final/suites/metadata-runner/EPERM.md`](book/evidence/experiments/runtime-final-final/suites/metadata-runner/EPERM.md)).
 
@@ -78,7 +78,7 @@ These are *classification* repros: the point is to see whether the failure is ap
 - Build the wrapper once (see [`book/tools/sbpl/wrapper/README.md`](book/tools/sbpl/wrapper/README.md)):
   - `cd book/tools/sbpl/wrapper && clang -Wall -Wextra -o wrapper wrapper.c -lsandbox -framework Security -framework CoreFoundation`
 - Control: a known-good custom blob should apply and then `execvp`:
-  - `book/tools/sbpl/wrapper/wrapper --blob book/profiles/golden-triple/allow_all.sb.bin -- /usr/bin/true`
+  - `book/tools/sbpl/wrapper/wrapper --blob book/evidence/profiles/golden-triple/allow_all.sb.bin -- /usr/bin/true`
 - Apply-stage EPERM (profile-specific gate witness): `airlock` SBPL text:
   - `book/tools/sbpl/wrapper/wrapper --sbpl /System/Library/Sandbox/Profiles/airlock.sb -- /usr/bin/true`
   - Expect: `sandbox_init failed: Operation not permitted`
@@ -160,7 +160,7 @@ These are practical “don’t waste cycles” constraints derived from the curr
 
 ### Decision-stage EPERM (policy denials) references
 
-- [`book/profiles/golden-triple/runtime_results.json`](book/profiles/golden-triple/runtime_results.json) — runtime triples with `open target: Operation not permitted` stderr.
+- [`book/evidence/profiles/golden-triple/runtime_results.json`](book/evidence/profiles/golden-triple/runtime_results.json) — runtime triples with `open target: Operation not permitted` stderr.
 - [`book/evidence/experiments/runtime-final-final/suites/metadata-runner/EPERM.md`](book/evidence/experiments/runtime-final-final/suites/metadata-runner/EPERM.md) — explicitly “not an apply gate” EPERMs (syscall-level) and alias-vs-canonical behavior.
 
 ## Status

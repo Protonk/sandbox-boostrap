@@ -66,7 +66,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "sbpl-graph-runtime",
-        "paths": ["book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime", "book/profiles/golden-triple"],
+        "paths": ["book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime", "book/evidence/profiles/golden-triple"],
         "category": "decision-stage",
         "description": "Golden triples: SBPL ↔ PolicyGraph ↔ runtime outcomes for selected profiles.",
         "privileges": "user",

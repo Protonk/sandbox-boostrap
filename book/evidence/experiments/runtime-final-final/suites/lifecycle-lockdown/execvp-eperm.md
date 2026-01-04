@@ -1,6 +1,6 @@
 # `execvp()` → `EPERM` after successful `sandbox_init` (lifecycle-lockdown)
 
-Baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (Sonoma 14.4.1 / 23E224, arm64).
+Baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` (Sonoma 14.4.1 / 23E224, arm64).
 
 This document is a self-contained, linear account of a specific failure mode observed in `book/evidence/experiments/runtime-final-final/suites/lifecycle-lockdown`: after an SBPL `(version 2)` profile is successfully applied (`sandbox_init rc=0`), the runtime runner fails to `execvp()` the intended probe with `errno=1 (EPERM)`, returning `exit_code=127` and preventing operation-stage evidence from being collected.
 

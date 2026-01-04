@@ -26,7 +26,7 @@ from book.api.path_utils import ensure_absolute, find_repo_root, relativize_comm
 from book.api.runtime.contracts import schema as rt_contract
 
 REPO_ROOT = find_repo_root(Path(__file__))
-DEFAULT_OUT = REPO_ROOT / "book" / "profiles" / "golden-triple"
+DEFAULT_OUT = REPO_ROOT / "book" / "evidence" / "profiles" / "golden-triple"
 DEFAULT_RUNTIME_PROFILE_DIR = DEFAULT_OUT / "runtime_profiles"
 SANDBOX_RUNNER_DIR = REPO_ROOT / "book" / "api" / "runtime" / "native" / "sandbox_runner"
 RUNNER = SANDBOX_RUNNER_DIR / "sandbox_runner"
@@ -397,6 +397,9 @@ def ensure_fixtures(fixture_root: Path = Path("/tmp")) -> None:
     mountrel_outside = Path("/private/tmp/runtime-adv/mountrel_outside")
     mountrel_outside.mkdir(parents=True, exist_ok=True)
     (mountrel_outside / "blocked.txt").write_text("runtime-adv mountrel blocked\n")
+    canon_dir = Path("/private/tmp/runtime-adv/canon")
+    canon_dir.mkdir(parents=True, exist_ok=True)
+    (canon_dir / "allow.txt").write_text("runtime-adv canon allow\n")
     mode_allow = Path("/private/tmp/mode_allow")
     mode_allow.write_text("mode allow\n")
     mode_allow.chmod(0o644)

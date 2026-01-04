@@ -1,6 +1,6 @@
 # Agents in `book/evidence/experiments/`
 
-These instructions apply to all subdirectories of `book/evidence/experiments/`. Experiments share the same fixed host baseline, recorded once in `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (the single source of truth for host metadata).
+These instructions apply to all subdirectories of `book/evidence/experiments/`. Experiments share the same fixed host baseline, recorded once in `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` (the single source of truth for host metadata).
 
 ## Experimenter role
 

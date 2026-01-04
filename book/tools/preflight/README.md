@@ -1,6 +1,6 @@
 # Preflight (profile enterability guardrail)
 
-This directory houses two related apply-gate tools for runtime sandbox work on the fixed SANDBOX_LORE baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`):
+This directory houses two related apply-gate tools for runtime sandbox work on the fixed SANDBOX_LORE baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`):
 
 - `scan` (static): conservative apply-gate avoidance.
 - `minimize-gate` (dynamic): delta-debugger that shrinks apply-gated SBPL into a minimal failing + passing neighbor.

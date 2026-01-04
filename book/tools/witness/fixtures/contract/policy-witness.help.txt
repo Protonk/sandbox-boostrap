@@ -1,9 +1,9 @@
 usage:
   policy-witness run-system <absolute-platform-binary> [args...]
   policy-witness run-embedded <tool-name> [args...]
-  policy-witness xpc run (--profile <id[@variant]> [--variant <base|injectable>] | --service <bundle-id>) [--plan-id <id>] [--row-id <id>] [--correlation-id <id>] [--capture-sandbox-logs] <probe-id> [probe-args...]
-  policy-witness xpc session (--profile <id[@variant]> [--variant <base|injectable>] | --service <bundle-id>) [--plan-id <id>] [--correlation-id <id>] [--wait <fifo:auto|fifo:/abs|exists:/abs>] [--wait-timeout-ms <n>] [--wait-interval-ms <n>] [--xpc-timeout-ms <n>]
-  policy-witness quarantine-lab <xpc-service-bundle-id> <payload-class> [options...]
+  policy-witness xpc run (--profile <id[@variant]> [--variant <base|injectable>] | --service <bundle-id>) [--plan-id <id>] [--row-id <id>] [--correlation-id <id>] [--signposts] [--capture-sandbox-logs] [--capture-sandbox-logs-target <auto|child|service|client|pid>] [--capture-sandbox-logs-pid <pid>] [--capture-signposts] <probe-id> [probe-args...]
+  policy-witness xpc session (--profile <id[@variant]> [--variant <base|injectable>] | --service <bundle-id>) [--plan-id <id>] [--correlation-id <id>] [--signposts] [--wait <fifo:auto|fifo:/abs|exists:/abs>] [--wait-timeout-ms <n>] [--wait-interval-ms <n>] [--xpc-timeout-ms <n>]
+  policy-witness quarantine-lab [--correlation-id <id>] [--signposts] [--capture-signposts] <xpc-service-bundle-id> <payload-class> [options...]
   policy-witness verify-evidence
   policy-witness inspect-macho <service-id|main|path>
   policy-witness list-profiles
@@ -12,7 +12,7 @@ usage:
   policy-witness describe-service <id[@variant]> [--variant <base|injectable>]
   policy-witness health-check [--profile <id[@variant]>] [--variant <base|injectable>]
   policy-witness bundle-evidence [--out <dir>] [--include-health-check]
-  policy-witness run-matrix --group <name> [--variant <base|injectable>] [--out <dir>] <probe-id> [probe-args...]
+  policy-witness run-matrix --group <name> [--variant <base|injectable>] [--out <dir>] [--signposts] [--capture-signposts] <probe-id> [probe-args...]
 
 notes:
   - run-system only allows platform-style paths (/bin, /usr/bin, /sbin, /usr/sbin, /usr/libexec, /System/Library)

@@ -35,7 +35,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
 ## Baseline & scope
 **Host / baseline**
 
-- Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (macOS 14.4.1 / 23E224), Apple Silicon, SIP enabled.
+- Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` (macOS 14.4.1 / 23E224), Apple Silicon, SIP enabled.
 
 **Directory contents**
 

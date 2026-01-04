@@ -4,7 +4,7 @@
 Bind anchor labels emitted by `probe-op-structure` to concrete Filter IDs, while avoiding the “string-only anchor identity” trap: the same SBPL literal can legitimately appear in multiple disjoint filter contexts (and in non-filter structural roles). The canonical output is therefore ctx-indexed (`book/integration/carton/bundle/relationships/mappings/anchors/anchor_ctx_filter_map.json`), with a conservative literal-keyed compatibility view (`book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json`) generated from it.
 
 ## Baseline & scope
-- World: Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- World: Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Inputs:
   - Anchor hits from `book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json`.
   - Field2 inventory (with anchors) from `book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json`.

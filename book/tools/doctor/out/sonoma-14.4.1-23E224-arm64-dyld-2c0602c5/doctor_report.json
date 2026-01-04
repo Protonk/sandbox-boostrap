@@ -17,11 +17,21 @@
     "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
   },
   "baseline_integrity": {
-    "issues": [],
+    "issues": [
+      {
+        "error": "world_id_suffix_mismatch",
+        "expected_suffix": "-dyld-a3a840f9",
+        "level": "error"
+      },
+      {
+        "error": "manifest_hash_mismatch",
+        "level": "error"
+      }
+    ],
     "libs": [
       {
         "index": 0,
-        "path": "book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
+        "path": "book/integration/carton/bundle/relationships/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
         "sha256_actual": "1c6ac62eebffc84416f889caf2205dded41e783635b3e02b0b7f09cc6becfa2b",
         "sha256_expected": "1c6ac62eebffc84416f889caf2205dded41e783635b3e02b0b7f09cc6becfa2b",
         "sha256_match": true,
@@ -32,7 +42,7 @@
       },
       {
         "index": 1,
-        "path": "book/evidence/graph/mappings/dyld-libs/usr/lib/system/libsystem_sandbox.dylib",
+        "path": "book/integration/carton/bundle/relationships/mappings/dyld-libs/usr/lib/system/libsystem_sandbox.dylib",
         "sha256_actual": "f013ea78719ac295d152a25c734ecb57bf78989bed7d91abff8d2743071c9277",
         "sha256_expected": "f013ea78719ac295d152a25c734ecb57bf78989bed7d91abff8d2743071c9277",
         "sha256_match": true,
@@ -48,12 +58,12 @@
       "sha8": "2c0602c5",
       "status": "ok"
     },
-    "manifest_hash_match": true,
-    "manifest_sha256": "2c0602c5b924f11e7cd1f2b5b30d1a34406e5575c1d4d8fb733da7635f711f96",
-    "manifest_sha8": "2c0602c5",
+    "manifest_hash_match": false,
+    "manifest_sha256": "a3a840f9ab54b7da74b3d67f41ec3d282909dbfe5743bc7d2cda2e74809aff74",
+    "manifest_sha8": "a3a840f9",
     "manifest_world_id_match": null,
-    "status": "ok",
-    "world_id_suffix_match": true
+    "status": "error",
+    "world_id_suffix_match": false
   },
   "comparisons": {
     "build": {
@@ -198,10 +208,10 @@
       "uuid_sha8": "9e87778f"
     },
     "uuid_sha8": "9e87778f",
-    "uuid_source": "header_offset_0x58 (hypothesis)"
+    "uuid_source": "header_offset_0x58 (heuristic)"
   },
   "errors": [],
-  "generated_at": "2025-12-28T04:21:04.074111Z",
+  "generated_at": "2026-01-04T04:59:37.771805Z",
   "host": {
     "csrutil": {
       "command": [
@@ -306,7 +316,7 @@
   "out_dir": "book/tools/doctor/out/sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
   "schema_version": 1,
   "verdict": {
-    "baseline_integrity": "ok",
+    "baseline_integrity": "error",
     "world_match": "likely_match"
   }
 }

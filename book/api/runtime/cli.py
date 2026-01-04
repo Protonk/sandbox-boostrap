@@ -93,7 +93,7 @@ def run_command(args: argparse.Namespace) -> int:
         return 0 if bundle.status not in {"failed"} else 1
     if args.dry:
         raise SystemExit("--dry requires --plan")
-    out_dir = args.out or (BOOK_ROOT / "profiles" / "golden-triple")
+    out_dir = args.out or (BOOK_ROOT / "evidence" / "profiles" / "golden-triple")
     out_path = harness_runner.run_matrix(args.matrix, out_dir=out_dir)
     print(f"[+] wrote {out_path}")
     return 0

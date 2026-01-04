@@ -1,0 +1,304 @@
+{
+  "baseline": {
+    "apply_gates": "sandbox_apply/init gated for platform blobs on this host; see validation notes.",
+    "dyld_manifest": "book/world/sonoma-14.4.1-23E224-arm64/dyld/manifest.json",
+    "host": {
+      "build": "23E224",
+      "kernel": "23.4.0",
+      "machine": "arm64",
+      "product": "macOS",
+      "sip": "enabled",
+      "version": "14.4.1"
+    },
+    "path": "book/world/sonoma-14.4.1-23E224-arm64/world.json",
+    "profile_format_variant": "modern-heuristic",
+    "tcc_state": "not_collected",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9"
+  },
+  "baseline_integrity": {
+    "issues": [],
+    "libs": [
+      {
+        "index": 0,
+        "path": "book/integration/carton/bundle/relationships/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
+        "sha256_actual": "1c6ac62eebffc84416f889caf2205dded41e783635b3e02b0b7f09cc6becfa2b",
+        "sha256_expected": "1c6ac62eebffc84416f889caf2205dded41e783635b3e02b0b7f09cc6becfa2b",
+        "sha256_match": true,
+        "size_actual": 524288,
+        "size_expected": 524288,
+        "size_match": true,
+        "status": "ok"
+      },
+      {
+        "index": 1,
+        "path": "book/integration/carton/bundle/relationships/mappings/dyld-libs/usr/lib/system/libsystem_sandbox.dylib",
+        "sha256_actual": "f013ea78719ac295d152a25c734ecb57bf78989bed7d91abff8d2743071c9277",
+        "sha256_expected": "f013ea78719ac295d152a25c734ecb57bf78989bed7d91abff8d2743071c9277",
+        "sha256_match": true,
+        "size_actual": 36864,
+        "size_expected": 36864,
+        "size_match": true,
+        "status": "ok"
+      }
+    ],
+    "manifest_sha256": "a3a840f9ab54b7da74b3d67f41ec3d282909dbfe5743bc7d2cda2e74809aff74",
+    "manifest_sha8": "a3a840f9",
+    "manifest_world_id_match": null,
+    "status": "ok",
+    "world_id_suffix_match": true
+  },
+  "comparisons": {
+    "build": {
+      "expected": "23E224",
+      "observed": "23E224",
+      "status": "match"
+    },
+    "kernel": {
+      "expected": "23.4.0",
+      "observed": {
+        "uname_r": "23.4.0",
+        "uname_v": "Darwin Kernel Version 23.4.0: Fri Mar 15 00:12:41 PDT 2024; root:xnu-10063.101.17~1/RELEASE_ARM64_T8103"
+      },
+      "status": "match"
+    },
+    "machine": {
+      "expected": "arm64",
+      "observed": "arm64",
+      "status": "match"
+    },
+    "product": {
+      "expected": "macOS",
+      "observed": "macOS",
+      "status": "match"
+    },
+    "sip": {
+      "expected": "enabled",
+      "expected_norm": "enabled",
+      "observed": "System Integrity Protection status: enabled.",
+      "observed_norm": "enabled",
+      "status": "match"
+    },
+    "version": {
+      "expected": "14.4.1",
+      "observed": "14.4.1",
+      "status": "match"
+    }
+  },
+  "compile_smoke": {
+    "blob_len": 440,
+    "blob_path": "book/tools/doctor/out/sonoma-14.4.1-23E224-arm64-dyld-a3a840f9/compile_smoke.sb.bin",
+    "blob_sha256": "6a939e69b3b90635a853f9a20e09abe5ec4ee4e3c1d7cd5fde8868524e4e0ec6",
+    "decode_summary": {
+      "format_variant": "modern-heuristic",
+      "maybe_flags": 0,
+      "op_count": 5,
+      "profile_class": 0,
+      "profile_class_word_index": 0,
+      "word0": 0,
+      "word2": 190
+    },
+    "profile_type": 0,
+    "source": {
+      "kind": "inline",
+      "text": "(version 1)\n(deny default)\n(allow file-read*)\n"
+    },
+    "status": "ok"
+  },
+  "confounders": {
+    "apply_gates": "sandbox_apply/init gated for platform blobs on this host; see validation notes.",
+    "product_version_extra": null,
+    "profile_format_variant": "modern-heuristic",
+    "tcc_state": "not_collected",
+    "tmp_symlink": {
+      "is_symlink": true,
+      "path": "/tmp",
+      "realpath": "/private/tmp"
+    }
+  },
+  "dyld_cache": {
+    "candidates": [
+      {
+        "base": "/System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld",
+        "exists": false,
+        "name": "dyld_shared_cache_arm64",
+        "path": "/System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64"
+      },
+      {
+        "base": "/System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld",
+        "exists": true,
+        "name": "dyld_shared_cache_arm64e",
+        "path": "/System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e"
+      },
+      {
+        "base": "/System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld",
+        "exists": true,
+        "name": "dyld_shared_cache_x86_64",
+        "path": "/System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_x86_64"
+      },
+      {
+        "base": "/System/Volumes/Preboot/Cryptexes/Incoming/OS/System/Library/dyld",
+        "exists": false,
+        "name": "dyld_shared_cache_arm64",
+        "path": "/System/Volumes/Preboot/Cryptexes/Incoming/OS/System/Library/dyld/dyld_shared_cache_arm64"
+      },
+      {
+        "base": "/System/Volumes/Preboot/Cryptexes/Incoming/OS/System/Library/dyld",
+        "exists": true,
+        "name": "dyld_shared_cache_arm64e",
+        "path": "/System/Volumes/Preboot/Cryptexes/Incoming/OS/System/Library/dyld/dyld_shared_cache_arm64e"
+      },
+      {
+        "base": "/System/Volumes/Preboot/Cryptexes/Incoming/OS/System/Library/dyld",
+        "exists": true,
+        "name": "dyld_shared_cache_x86_64",
+        "path": "/System/Volumes/Preboot/Cryptexes/Incoming/OS/System/Library/dyld/dyld_shared_cache_x86_64"
+      },
+      {
+        "base": "/System/Library/dyld",
+        "exists": false,
+        "name": "dyld_shared_cache_arm64",
+        "path": "/System/Library/dyld/dyld_shared_cache_arm64"
+      },
+      {
+        "base": "/System/Library/dyld",
+        "exists": false,
+        "name": "dyld_shared_cache_arm64e",
+        "path": "/System/Library/dyld/dyld_shared_cache_arm64e"
+      },
+      {
+        "base": "/System/Library/dyld",
+        "exists": false,
+        "name": "dyld_shared_cache_x86_64",
+        "path": "/System/Library/dyld/dyld_shared_cache_x86_64"
+      }
+    ],
+    "incoming_dir_present": true,
+    "selected_path": "/System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e",
+    "siblings": [
+      "dyld_shared_cache_arm64e.01",
+      "dyld_shared_cache_arm64e.map"
+    ],
+    "uuid": "a53b7d2f-a773-3524-8828-248b33ef0b4e",
+    "uuid_record": {
+      "magic": "dyld_v1  arm64e",
+      "path": "/System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e",
+      "status": "ok",
+      "uuid": "a53b7d2f-a773-3524-8828-248b33ef0b4e",
+      "uuid_bytes_hex": "a53b7d2fa77335248828248b33ef0b4e",
+      "uuid_len": 16,
+      "uuid_offset": 88,
+      "uuid_sha8": "9e87778f"
+    },
+    "uuid_sha8": "9e87778f",
+    "uuid_source": "header_offset_0x58 (heuristic)"
+  },
+  "errors": [],
+  "generated_at": "2026-01-04T05:48:35.998324Z",
+  "host": {
+    "csrutil": {
+      "command": [
+        "csrutil",
+        "status"
+      ],
+      "returncode": 0,
+      "status": "ok",
+      "stderr": "",
+      "stdout": "System Integrity Protection status: enabled."
+    },
+    "sw_vers": {
+      "build": {
+        "command": [
+          "sw_vers",
+          "-buildVersion"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": "23E224"
+      },
+      "extra": {
+        "command": [
+          "sw_vers",
+          "-productVersionExtra"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": ""
+      },
+      "product": {
+        "command": [
+          "sw_vers",
+          "-productName"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": "macOS"
+      },
+      "version": {
+        "command": [
+          "sw_vers",
+          "-productVersion"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": "14.4.1"
+      }
+    },
+    "uname": {
+      "m": {
+        "command": [
+          "uname",
+          "-m"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": "arm64"
+      },
+      "r": {
+        "command": [
+          "uname",
+          "-r"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": "23.4.0"
+      },
+      "v": {
+        "command": [
+          "uname",
+          "-v"
+        ],
+        "returncode": 0,
+        "status": "ok",
+        "stderr": "",
+        "stdout": "Darwin Kernel Version 23.4.0: Fri Mar 15 00:12:41 PDT 2024; root:xnu-10063.101.17~1/RELEASE_ARM64_T8103"
+      }
+    }
+  },
+  "inputs": {
+    "baseline_path": "book/world/sonoma-14.4.1-23E224-arm64/world.json",
+    "errors": [],
+    "input_kind": "registry_world_name",
+    "input_path": "book/world/sonoma-14.4.1-23E224-arm64/world.json",
+    "input_value": "sonoma-14.4.1-23E224-arm64",
+    "manifest_path": "book/world/sonoma-14.4.1-23E224-arm64/dyld/manifest.json",
+    "registry": {
+      "path": "book/world/registry.json",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
+      "world_name": "sonoma-14.4.1-23E224-arm64",
+      "world_path": "book/world/sonoma-14.4.1-23E224-arm64/world.json"
+    },
+    "world_dir": "book/world/sonoma-14.4.1-23E224-arm64"
+  },
+  "out_dir": "book/tools/doctor/out/sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
+  "schema_version": 1,
+  "verdict": {
+    "baseline_integrity": "ok",
+    "world_match": "likely_match"
+  }
+}

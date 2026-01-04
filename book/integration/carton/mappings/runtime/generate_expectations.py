@@ -52,13 +52,14 @@ TRACE_PATHS = {
 LEGACY_TRACE_REWRITES = (
     ("book/evidence/graph/concepts/validation/", "book/evidence/syncretic/validation/"),
     ("book/evidence/carton/validation/", "book/evidence/syncretic/validation/"),
+    ("book/profiles/", "book/evidence/profiles/"),
 )
 
 PROFILE_BLOBS = {
-    "runtime:allow_all": "book/profiles/golden-triple/allow_all.sb.bin",
-    "runtime:metafilter_any": "book/profiles/golden-triple/metafilter_any.sb.bin",
-    "bucket4:v1_read": "book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
-    "bucket5:v11_read_subpath": "book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+    "runtime:allow_all": "book/evidence/profiles/golden-triple/allow_all.sb.bin",
+    "runtime:metafilter_any": "book/evidence/profiles/golden-triple/metafilter_any.sb.bin",
+    "bucket4:v1_read": "book/evidence/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+    "bucket5:v11_read_subpath": "book/evidence/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
 }
 
 

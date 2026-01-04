@@ -45,7 +45,7 @@ def _bucket_for(path: Path) -> str:
         return "validation_out"
     if rel.startswith("book/integration/carton/bundle/relationships/mappings/"):
         return "mappings"
-    if rel.startswith("book/profiles/"):
+    if rel.startswith("book/evidence/profiles/"):
         return "profiles"
     if rel.startswith("book/evidence/experiments/"):
         return "experiments"

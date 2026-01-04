@@ -11,28 +11,14 @@
       "probe:v1_file_require_any": [
         {
           "field2_names": [
-            "global-name",
-            "local-name",
             "path",
             "global-name",
-            "global-name",
-            "global-name",
-            "global-name",
-            "global-name",
-            "path",
-            "path"
+            "local-name"
           ],
           "field2_values": [
-            5,
-            6,
             0,
             5,
-            5,
-            5,
-            5,
-            5,
-            0,
-            0
+            6
           ],
           "node_indices": [
             24,
@@ -51,20 +37,14 @@
       "probe:v2_file_three_filters_any": [
         {
           "field2_names": [
-            "ipc-posix-name",
-            "mount-relative-path",
-            "mount-relative-path",
-            "mount-relative-path",
             "path",
-            "path"
+            "mount-relative-path",
+            "ipc-posix-name"
           ],
           "field2_values": [
-            4,
-            1,
-            1,
-            1,
             0,
-            0
+            1,
+            4
           ],
           "node_indices": [
             24,
@@ -93,38 +73,24 @@
       "probe:v8_all_combo": [
         {
           "field2_names": [
-            "socket-type",
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
             "mount-relative-path",
-            null,
+            "socket-type",
             "iokit-usb-interface-class"
           ],
           "field2_values": [
+            1,
             11,
+            59,
+            256,
+            1281,
+            1536,
             2560,
             2816,
             3072,
             3328,
             3584,
-            3584,
-            3584,
-            1536,
             4352,
-            7424,
-            256,
-            1,
-            1281,
-            59
+            7424
           ],
           "node_indices": [
             24,
@@ -144,6 +110,19 @@
             57
           ]
         }
+      ],
+      "sys:sample": [
+        {
+          "field2_names": [
+            "local"
+          ],
+          "field2_values": [
+            7
+          ],
+          "node_indices": [
+            23
+          ]
+        }
       ]
     },
     "role": "contract",
@@ -161,22 +140,14 @@
       "probe:v1_file_require_any": [
         {
           "field2_names": [
+            "path",
             "mount-relative-path",
-            "global-name",
-            "global-name",
-            "global-name",
-            "global-name",
-            "global-name",
-            "path"
+            "global-name"
           ],
           "field2_values": [
+            0,
             1,
-            5,
-            5,
-            5,
-            5,
-            5,
-            0
+            5
           ],
           "node_indices": [
             23,
@@ -192,14 +163,14 @@
       "probe:v2_file_three_filters_any": [
         {
           "field2_names": [
+            "xattr",
             "file-mode",
-            "global-name",
-            "xattr"
+            "global-name"
           ],
           "field2_values": [
+            2,
             3,
-            5,
-            2
+            5
           ],
           "node_indices": [
             3,
@@ -225,24 +196,16 @@
       "probe:v8_all_combo": [
         {
           "field2_names": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
             "mount-relative-path"
           ],
           "field2_values": [
+            1,
+            256,
+            1536,
             2816,
             3072,
             3328,
-            3584,
-            3584,
-            1536,
-            256,
-            1
+            3584
           ],
           "node_indices": [
             45,
@@ -265,27 +228,14 @@
       "probe:v2_file_three_filters_any": [
         {
           "field2_names": [
-            "ipc-posix-name",
-            "ipc-posix-name",
             "path",
             "mount-relative-path",
-            "mount-relative-path",
-            "mount-relative-path",
-            "path",
-            "path",
-            "path",
-            null
+            "ipc-posix-name"
           ],
           "field2_values": [
+            0,
+            1,
             4,
-            4,
-            0,
-            1,
-            1,
-            1,
-            0,
-            0,
-            0,
             12096
           ],
           "node_indices": [
@@ -311,18 +261,14 @@
       "probe:v11_iokit_user_client_connection": [
         {
           "field2_names": [
+            "path",
             "mount-relative-path",
-            "global-name",
-            "global-name",
-            "global-name",
-            "path"
+            "global-name"
           ],
           "field2_values": [
+            0,
             1,
-            5,
-            5,
-            5,
-            0
+            5
           ],
           "node_indices": [
             23,
@@ -342,27 +288,14 @@
       "probe:v10_iokit_user_client_pair": [
         {
           "field2_names": [
-            "ipc-posix-name",
-            "ipc-posix-name",
             "path",
             "mount-relative-path",
-            "mount-relative-path",
-            "mount-relative-path",
-            "path",
-            "path",
-            "path",
-            null
+            "ipc-posix-name"
           ],
           "field2_values": [
+            0,
+            1,
             4,
-            4,
-            0,
-            1,
-            1,
-            1,
-            0,
-            0,
-            0,
             18753
           ],
           "node_indices": [
@@ -407,16 +340,12 @@
       "probe:v5_iokit_class_property": [
         {
           "field2_names": [
-            "global-name",
-            "global-name",
-            "global-name",
-            "path"
+            "path",
+            "global-name"
           ],
           "field2_values": [
-            5,
-            5,
-            5,
-            0
+            0,
+            5
           ],
           "node_indices": [
             46,
@@ -429,12 +358,12 @@
       "probe:v8_all_combo": [
         {
           "field2_names": [
-            "socket-type",
-            "ipc-posix-name"
+            "ipc-posix-name",
+            "socket-type"
           ],
           "field2_values": [
-            11,
-            4
+            4,
+            11
           ],
           "node_indices": [
             22,
@@ -446,21 +375,59 @@
     "role": "contract",
     "status": "partial"
   },
+  "app-sandbox.read": {
+    "profiles": {
+      "sys:airlock": [
+        {
+          "field2_names": [
+            "control-name",
+            "socket-domain"
+          ],
+          "field2_values": [
+            9,
+            10,
+            142,
+            165
+          ],
+          "node_indices": [
+            10,
+            16,
+            18,
+            23,
+            41,
+            42,
+            45,
+            56,
+            71,
+            80,
+            81,
+            93,
+            94,
+            103,
+            104,
+            120,
+            121,
+            145,
+            154,
+            170
+          ]
+        }
+      ]
+    },
+    "role": "exploratory",
+    "status": "partial"
+  },
   "com.apple.cfprefsd.agent": {
     "profiles": {
       "probe:v3_mach_global_local": [
         {
           "field2_names": [
-            "global-name",
-            "global-name",
-            "global-name",
-            "path"
+            "path",
+            "global-name"
           ],
           "field2_values": [
-            5,
-            5,
-            5,
-            0
+            0,
+            5
           ],
           "node_indices": [
             46,
@@ -473,16 +440,12 @@
       "probe:v6_file_mach_combo": [
         {
           "field2_names": [
-            "mount-relative-path",
-            "mount-relative-path",
-            "mount-relative-path",
-            "path"
+            "path",
+            "mount-relative-path"
           ],
           "field2_values": [
-            1,
-            1,
-            1,
-            0
+            0,
+            1
           ],
           "node_indices": [
             46,
@@ -515,27 +478,17 @@
         {
           "field2_names": [
             "local",
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
             "right-name"
           ],
           "field2_values": [
             7,
+            26,
+            1281,
             2560,
             2816,
             3072,
             3328,
-            3584,
-            3584,
-            3584,
-            1281,
-            26
+            3584
           ],
           "node_indices": [
             25,
@@ -555,27 +508,17 @@
         {
           "field2_names": [
             "local",
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
             "right-name"
           ],
           "field2_values": [
             7,
+            26,
+            1281,
             2560,
             2816,
             3072,
             3328,
-            3584,
-            3584,
-            3584,
-            1281,
-            26
+            3584
           ],
           "node_indices": [
             25,
@@ -594,8 +537,7 @@
       "probe:v8_all_combo": [
         {
           "field2_names": [
-            "socket-type",
-            null
+            "socket-type"
           ],
           "field2_values": [
             11,
@@ -616,18 +558,14 @@
       "probe:v5_iokit_class_property": [
         {
           "field2_names": [
+            "path",
             "mount-relative-path",
-            "global-name",
-            "global-name",
-            "global-name",
-            "path"
+            "global-name"
           ],
           "field2_values": [
+            0,
             1,
-            5,
-            5,
-            5,
-            0
+            5
           ],
           "node_indices": [
             23,
@@ -652,6 +590,25 @@
       "experiment:probe-op-structure"
     ],
     "status": "partial",
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9"
+  },
+  "preferences/logging": {
+    "profiles": {
+      "sys:bsd": [
+        {
+          "field2_names": [
+            "global-name"
+          ],
+          "field2_values": [
+            5
+          ],
+          "node_indices": [
+            18
+          ]
+        }
+      ]
+    },
+    "role": "exploratory",
+    "status": "partial"
   }
 }

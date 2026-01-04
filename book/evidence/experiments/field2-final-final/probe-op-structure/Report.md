@@ -1,4 +1,4 @@
-- world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
+- world_id: sonoma-14.4.1-23E224-arm64-dyld-a3a840f9
 - scope: structural outputs with a narrow runtime slice (single run; provisional)
 - primary outputs: out/analysis.json; out/anchor_hits.json; out/anchor_hits_receipt.json; out/anchor_hits_delta.json; out/anchor_hits_delta_receipt.json; out/tag_inventory.json; out/tag_layout_hypotheses.json; out/literal_scan.json; out/tag_bytes.json; out/tranche_witness.json
 - runtime outputs: book/evidence/experiments/runtime-final-final/suites/field2-probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/{runtime_results.json,runtime_events.normalized.json,run_manifest.json}
@@ -12,7 +12,7 @@
 Build an anchor-aware structural view of `field2` usage across operations and filters on this host. The core question is: which filters show up in `field2` on which nodes/tags for concrete anchors like `/etc/hosts`, `/tmp/foo`, `flow-divert`, `com.apple.cfprefsd.agent`, and `IOUSBHostInterface`? The structural outputs feed `anchor_filter_map.json`. A minimal runtime slice exists to falsify or corroborate a few anchor-level expectations, but it is intentionally narrow.
 
 ## Baseline & scope
-- World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- World: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Vocab: `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` and `book/integration/carton/bundle/relationships/mappings/vocab/filters.json` (both `status: ok`).
 - Profiles:
   - Probe SBPL variants under `book/evidence/experiments/field2-final-final/probe-op-structure/sb/` with compiled blobs in `sb/build/`.

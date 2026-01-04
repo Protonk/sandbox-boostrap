@@ -5,7 +5,7 @@
 - Keep metadata canonicalization evidence separate from data read/write behavior (see `book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/Report.md`).
 
 ## Baseline & scope
-- Host baseline: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 with SIP enabled.
+- Host baseline: sonoma-14.4.1-23E224-arm64-dyld-a3a840f9 with SIP enabled.
 - Scope: `file-read-metadata` and `file-write*` across `/tmp/*` <-> `/private/tmp/*` and `/var/tmp/canon` <-> `/private/var/tmp/canon`, covering literal/subpath/regex anchor forms.
 
 ## How to run

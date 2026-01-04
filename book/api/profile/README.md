@@ -1,6 +1,6 @@
 # profile
 
-Unified profile-byte tooling for the Sonoma baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`).
+Unified profile-byte tooling for the Sonoma baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`).
 
 This package is intentionally **structural**:
 - It compiles SBPL into compiled profile blobs and inspects/decodes the resulting bytes.

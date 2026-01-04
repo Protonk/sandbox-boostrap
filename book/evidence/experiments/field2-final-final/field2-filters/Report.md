@@ -7,13 +7,13 @@ Status: complete (negative)
 
 This experiment set out to understand the third u16 slot carried by compiled PolicyGraph nodes on this host baseline. Historically this slot was discussed as “field2”; in this repo it is now named structurally as `filter_arg_raw`. The goal was to connect that u16 to the host Filter vocabulary where appropriate, and to determine whether the remaining high/out-of-vocab values have interpretable semantics (for example, a flag split or a stable auxiliary identifier).
 
-The experiment is closed as a negative result. On this host (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`), we have exhausted (1) SBPL-based synthesis and perturbation, and (2) kernel-side structure hunting in the sandbox evaluator path, without finding evidence for a kernel-side hi/lo split or a stable semantic interpretation of the remaining out-of-vocab u16 values. The u16 is read and propagated as a raw u16 by the evaluator’s reader helpers. The only evidence-backed interpretation boundary we keep is structural: the u16 slot exists (or not) depending on tag layout; and when the tag’s u16 role is “filter vocabulary id”, the value may or may not resolve in the host filter vocabulary.
+The experiment is closed as a negative result. On this host (`world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`), we have exhausted (1) SBPL-based synthesis and perturbation, and (2) kernel-side structure hunting in the sandbox evaluator path, without finding evidence for a kernel-side hi/lo split or a stable semantic interpretation of the remaining out-of-vocab u16 values. The u16 is read and propagated as a raw u16 by the evaluator’s reader helpers. The only evidence-backed interpretation boundary we keep is structural: the u16 slot exists (or not) depending on tag layout; and when the tag’s u16 role is “filter vocabulary id”, the value may or may not resolve in the host filter vocabulary.
 
 This closure is not “we learned nothing.” We learned a stable set of structural relationships and constraints on this host, and we updated the repo’s IR to preserve those relationships deterministically.
 
 ## World, inputs, and evidence model
 
-All claims in this report are about the single frozen world `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`. The primary evidence is compiled profiles and host-bound mappings.
+All claims in this report are about the single frozen world `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`. The primary evidence is compiled profiles and host-bound mappings.
 
 Canonical vocabulary mappings live at `book/integration/carton/bundle/relationships/mappings/vocab/filters.json` and `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` (status: ok). Canonical profiles used throughout this work are `book/evidence/syncretic/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin`. Experimental probes (SBPL sources and compiled blobs) live under `book/evidence/experiments/field2-final-final/field2-filters/sb/` and `book/evidence/experiments/field2-final-final/field2-filters/sb/build/`.
 

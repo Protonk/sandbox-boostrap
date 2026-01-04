@@ -1,6 +1,6 @@
 # PolicyGraph Node Fields
 
-- world_id: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`
+- world_id: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`
 - record_size_bytes: `8`
 - field_count: `4`
 - arg16_field_index: `2`

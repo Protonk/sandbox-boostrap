@@ -5,7 +5,7 @@ Role: host-bound trace + shrink harness for SBPL profiles on the fixed Sonoma ba
 This tool wraps the `shrink-trace` experiment logic in a stable, reusable CLI while keeping
 outputs compatible with the experiment’s evidence layout.
 
-World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+World: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 
 ## Usage
 

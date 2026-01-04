@@ -8,7 +8,7 @@ does **not** interpret kernel semantics or runtime policy decisions.
 
 ## Baseline & scope
 
-- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Inputs: SBPL corpus under `book/tools/sbpl/corpus/`.
 - Compile-only: no `sandbox_apply` runs.
 - Evidence scope: experiment-local join.

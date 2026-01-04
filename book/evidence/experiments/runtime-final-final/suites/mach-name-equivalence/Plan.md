@@ -6,7 +6,7 @@ Test whether `mach-lookup` (resolve) and `mach-register` (publish) treat a globa
 
 ## Baseline & scope
 
-- World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- World: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Scope: one profile, two names, `mach-lookup` + `mach-register` probes.
 - Out of scope: inventing new probes beyond `book.api.runtime` and `book/tools` surfaces.
 

@@ -9,7 +9,6 @@ The `example-world/` directory is a template for creating a new world. It is **n
 
 - `example-world/world.json` — template baseline record. Populate `world_id`, host fields, capture reason, and runtime-impacting toggles such as `profile_format_variant`, `apply_gates`, and `tcc_state`.
 - `example-world/dyld/manifest.json` — template dyld manifest (empty). For a real world, list trimmed dyld slices (paths, byte sizes, SHA256 digests) and key symbol anchors used for vocab/encoder extraction.
-- Optional: `example-world/dyld/manifest.hash.json` — precomputed hash of the manifest bytes (not required; `doctor` computes hashes directly).
 
 Hashing the dyld manifest is the suggested way to derive `world_id`. Use the raw file bytes (no reformatting) and take the first eight hex digits of the SHA256 digest, appended to the baseline ID as `<baseline>-dyld-<sha8>`. Example (matches the Sonoma world in this repo):
 

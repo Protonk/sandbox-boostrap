@@ -6,7 +6,7 @@ Track and retire the remaining high/opaque `field2` payloads tied to platform pr
 
 ## Baseline & scope
 
-- Host/world: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (project baseline).
+- Host/world: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` (project baseline).
 - Scope: static compile/decode first; runtime only if needed and feasible. No cross-version claims.
 
 ## Prior evidence (static)

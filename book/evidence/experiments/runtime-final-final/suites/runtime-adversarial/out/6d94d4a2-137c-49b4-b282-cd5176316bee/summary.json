@@ -1,0 +1,47 @@
+{
+  "schema_version": "runtime-tools.summary.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
+  "run_id": "6d94d4a2-137c-49b4-b282-cd5176316bee",
+  "status": "partial",
+  "plan_id": "runtime-adversarial.v1",
+  "plan_digest": "c2a9cee931d0c576f7ed4d72aace75fb8afe524d527969a07c9b1a95d7bb0cf9",
+  "channel": "launchd_clean",
+  "lanes": {
+    "baseline": true,
+    "oracle": true,
+    "scenario": true
+  },
+  "profile_count": 24,
+  "scenario_count": 77,
+  "expected_profiles": [
+    "adv:flow_divert_partial_tcp",
+    "adv:flow_divert_require_all_tcp",
+    "adv:mach_local_literal",
+    "adv:mach_local_regex",
+    "adv:mach_simple_allow",
+    "adv:mach_simple_variants",
+    "adv:net_outbound_allow",
+    "adv:net_outbound_deny",
+    "adv:path_alias",
+    "adv:path_edges",
+    "adv:struct_flat",
+    "adv:struct_nested",
+    "adv:path_edges_private",
+    "adv:mount_relative_path",
+    "adv:xattr",
+    "adv:file_mode",
+    "adv:ipc_posix_shm",
+    "adv:authorization_right",
+    "adv:preference_domain",
+    "adv:xpc_service_name",
+    "adv:path_canon_alias",
+    "adv:path_canon_private",
+    "adv:path_canon_both",
+    "adv:path_canon_alt"
+  ],
+  "mismatch_counts": {
+    "unexpected_deny": 12,
+    "canonicalization_boundary": 14
+  },
+  "dry_run": false
+}

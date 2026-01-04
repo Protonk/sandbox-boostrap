@@ -1,6 +1,6 @@
 # Plan (follow-ups)
 
-This plan is scoped to `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` and turns the remaining “open questions” into concrete, host-bound experiments that extend this suite without changing its purpose.
+This plan is scoped to `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` and turns the remaining “open questions” into concrete, host-bound experiments that extend this suite without changing its purpose.
 
 Baseline reading for intent and current results:
 

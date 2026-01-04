@@ -16,7 +16,11 @@ def test_witness_help_contract():
         "--plan-id",
         "--row-id",
         "--correlation-id",
+        "--signposts",
         "--capture-sandbox-logs",
+        "--capture-sandbox-logs-target",
+        "--capture-sandbox-logs-pid",
+        "--capture-signposts",
         "--wait <fifo:auto|fifo:/abs|exists:/abs>",
         "--wait-timeout-ms",
         "--wait-interval-ms",
@@ -45,6 +49,47 @@ def test_witness_observer_help_contract():
         "--correlation-id",
     ]:
         assert flag in text, f"missing {flag} in observer help"
+
+
+def test_witness_signpost_observer_help_contract():
+    help_path = contracts.SIGNPOST_LOG_OBSERVER_HELP
+    assert help_path.exists(), "missing signpost-log-observer help fixture"
+    text = help_path.read_text()
+    for flag in [
+        "--correlation-id",
+        "--subsystem",
+        "--start",
+        "--end",
+        "--last",
+        "--predicate",
+        "--format",
+        "--output",
+        "--plan-id",
+        "--row-id",
+    ]:
+        assert flag in text, f"missing {flag} in signpost observer help"
+
+
+def test_witness_quarantine_client_help_contract():
+    help_path = contracts.XPC_QUARANTINE_CLIENT_HELP
+    assert help_path.exists(), "missing xpc-quarantine-client help fixture"
+    text = help_path.read_text()
+    for token in [
+        "xpc-quarantine-client",
+        "shell_script",
+        "command_file",
+        "text",
+        "webarchive_like",
+        "--operation",
+        "--existing-path",
+        "--dir",
+        "--name",
+        "--selection",
+        "--test-case-id",
+        "--exec",
+        "--no-exec",
+    ]:
+        assert token in text, f"missing {token} in xpc-quarantine-client help"
 
 
 def test_witness_observer_sample_contract():

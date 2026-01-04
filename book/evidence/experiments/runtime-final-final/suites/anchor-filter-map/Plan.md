@@ -4,7 +4,7 @@
 Host-bound runtime discriminator suite that supports the anchor → Filter ID mapping in `field2-final-final/anchor-filter-map`. This suite only covers runtime plans, registries, SBPL, and bundles; mapping synthesis remains in the field2 experiment.
 
 ## Baseline & scope
-- World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- World: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Runtime channel: `launchd_clean` for decision-stage evidence.
 - Outputs: runtime bundles and promotion packets only; mapping updates are handled by field2.
 

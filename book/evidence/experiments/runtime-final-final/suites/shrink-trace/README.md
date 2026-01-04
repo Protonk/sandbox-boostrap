@@ -10,7 +10,7 @@ Provide a host-bound tool that:
 
 ## Scope and assumptions
 
-- Host-bound to `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- Host-bound to `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - macOS-only; depends on `sandbox-exec` and unified logging.
 - SBPL profile syntax and semantics are treated as host-local and may change across OS versions.
 - `sandbox-exec` is deprecated; this API documents a constrained, local tool that is expected to remain usable on the current host but is not promised across releases.

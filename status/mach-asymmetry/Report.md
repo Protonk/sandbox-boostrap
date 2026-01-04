@@ -209,4 +209,4 @@ The asymmetry is not in the operations themselves but in the **temporary-excepti
 
 ## Footnote: profile copy parity
 
-The repo copy `book/profiles/textedit/application.sb` is not bit-identical to `/System/Library/Sandbox/Profiles/application.sb` on this host (hashes differ). The snippets relevant to this issue (`select-mach-filter`, the app-group `global-name-prefix` rule, and both temporary-exception adapters) are identical in both copies, so the adapter asymmetry described here is the same either way and this tour uses the system profile for fidelity.
+The repo copy `book/evidence/profiles/textedit/application.sb` is not bit-identical to `/System/Library/Sandbox/Profiles/application.sb` on this host (hashes differ). The snippets relevant to this issue (`select-mach-filter`, the app-group `global-name-prefix` rule, and both temporary-exception adapters) are identical in both copies, so the adapter asymmetry described here is the same either way and this tour uses the system profile for fidelity.

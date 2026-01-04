@@ -18,9 +18,9 @@ Produce SBPL → PolicyGraph → runtime “golden triples” on the Sonoma host
 - Literal/node details: decoded nodes show `bucket5` references `Ftmp/foo` at node offsets 192 (tag 0) and 264 (tag 6), but there is no `/private/tmp/foo` literal in the pool. `strict_1` includes `/private/tmp/strict_ok` in its literal pool (plus `/etc/hosts` denies and shim anchors). `bucket4` carries no path literals. This is consistent with the canonicalization story and explains the deny on the `/tmp/foo` allow probe.
 
 ## Where artifacts now live
-- Golden profiles and outputs are persisted under `book/profiles/golden-triple/`:
+- Golden profiles and outputs are persisted under `book/evidence/profiles/golden-triple/`:
   - SBPL sources (originals remain under experiments), compiled blobs, ingested summaries (`ingested.json`), static expectations (`static_expectations.json`, schema: provisional), runtime logs (`runtime_results.json`), manifest (`triples_manifest.json`).
-  - Expected matrix for golden probes: `book/profiles/golden-triple/expected_matrix.json`.
+  - Expected matrix for golden probes: `book/evidence/profiles/golden-triple/expected_matrix.json`.
 - Experiment `out/` files have been trimmed to the golden set and remain as scratch.
 - Platform-only and strict/apply-gate profiles stay quarantined in experiments.
 

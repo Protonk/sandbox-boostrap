@@ -11,7 +11,7 @@
 // is to show how SBPL’s `(extension ...)` filters map to tokens that widen a
 // sandbox dynamically (book/substrate/Appendix.md §5).
 //
-// Host baseline: world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5.
+// Host baseline: world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9.
 // On this host, extension issuance/consume is expected to be blocked for
 // unentitled callers; treat failures/crashes as lifecycle evidence, not as
 // proof the mechanism is absent.

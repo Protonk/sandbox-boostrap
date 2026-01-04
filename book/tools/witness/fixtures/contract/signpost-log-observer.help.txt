@@ -1,0 +1,7 @@
+usage:
+  signpost-log-observer --correlation-id <id> [--subsystem <subsystem>] [--start <time> --end <time> | --last <duration>] [--predicate <predicate>] [--format <json|jsonl>] [--output <path>] [--plan-id <id>] [--row-id <id>]
+
+notes:
+  - runs `/usr/bin/log show --signpost --style json` and extracts signpost spans (observer-only)
+  - default predicate filters on subsystem + eventMessage CONTAINS "pw_corr=<id>"
+  - intended to run outside PolicyWitness.app (unsandboxed)

@@ -57,7 +57,7 @@ def test_runtime_promotion_contracts():
         doc = json.loads(packet_set_path.read_text(encoding="utf-8"))
         if doc.get("schema_version") != "runtime.packet_set.v0.1":
             failures.append("packet_set.json schema_version mismatch")
-        if doc.get("world_id") != "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5":
+        if doc.get("world_id") != "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9":
             failures.append("packet_set.json world_id mismatch")
         if doc.get("allow_missing") is not True:
             failures.append("packet_set.json allow_missing must be true")

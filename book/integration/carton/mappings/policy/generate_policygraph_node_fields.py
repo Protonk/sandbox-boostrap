@@ -20,7 +20,7 @@ if str(REPO_ROOT) not in sys.path:
 from book.api import path_utils, tooling  # type: ignore
 
 
-WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9"
 SCHEMA_VERSION = "policygraph_node_fields.mapping.v0"
 
 SYN_ROOT = REPO_ROOT / "book/evidence/syncretic/policygraph/node-fields"

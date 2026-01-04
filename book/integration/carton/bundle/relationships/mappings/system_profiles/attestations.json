@@ -2,6 +2,262 @@
   "attestations": [
     {
       "anchors": [],
+      "canonical_profile_id": null,
+      "format_variant": "modern-heuristic",
+      "length": 416,
+      "literal_strings": [],
+      "op_count": 2,
+      "op_entries": [
+        1,
+        1
+      ],
+      "profile_id": "allow_all.sb",
+      "role": "golden-profile",
+      "runtime_link": {
+        "profile_id": "runtime:allow_all",
+        "status": "ok",
+        "trace_path": "book/integration/carton/bundle/relationships/mappings/runtime/traces/runtime_allow_all.jsonl"
+      },
+      "sections": {
+        "literals": 47,
+        "nodes": 349,
+        "op_table": 4
+      },
+      "sha256": "19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92",
+      "source": "book/evidence/profiles/golden-triple/allow_all.sb.bin",
+      "tag_counts": {
+        "1": 43
+      },
+      "tag_layout_version": "bbe78d204d7d08ecc7e4468e874e9789586b263b4a947b66c826cb0b532a5797",
+      "vocab_versions": {
+        "filters_version": "eb545effa06c8deb17f736f9b8b0e6459d4d0b121df5438cb3e81fd638eb2c5f",
+        "ops_version": "d7f4a65c1455205c6b629361a763d1353cec83384202805a204285839cd6f75d"
+      }
+    },
+    {
+      "anchors": [],
+      "canonical_profile_id": null,
+      "format_variant": "modern-heuristic",
+      "length": 440,
+      "literal_strings": [],
+      "op_count": 5,
+      "op_entries": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "profile_id": "bucket4_v1_read.sb",
+      "role": "golden-profile",
+      "runtime_link": null,
+      "sections": {
+        "literals": 27,
+        "nodes": 387,
+        "op_table": 10
+      },
+      "sha256": "6a939e69b3b90635a853f9a20e09abe5ec4ee4e3c1d7cd5fde8868524e4e0ec6",
+      "source": "book/evidence/profiles/golden-triple/bucket4_v1_read.sb.bin",
+      "tag_counts": {
+        "0": 1,
+        "1": 1,
+        "2": 1,
+        "3": 12,
+        "4": 33
+      },
+      "tag_layout_version": "bbe78d204d7d08ecc7e4468e874e9789586b263b4a947b66c826cb0b532a5797",
+      "vocab_versions": {
+        "filters_version": "eb545effa06c8deb17f736f9b8b0e6459d4d0b121df5438cb3e81fd638eb2c5f",
+        "ops_version": "d7f4a65c1455205c6b629361a763d1353cec83384202805a204285839cd6f75d"
+      }
+    },
+    {
+      "anchors": [
+        {
+          "anchor": "/tmp/foo",
+          "filter_id": null,
+          "filter_name": null,
+          "status": "blocked"
+        }
+      ],
+      "canonical_profile_id": null,
+      "format_variant": "modern-heuristic",
+      "length": 467,
+      "literal_strings": [
+        "G/tmp/foo"
+      ],
+      "op_count": 6,
+      "op_entries": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "profile_id": "bucket5_v11_read_subpath.sb",
+      "role": "golden-profile",
+      "runtime_link": null,
+      "sections": {
+        "literals": 17,
+        "nodes": 422,
+        "op_table": 12
+      },
+      "sha256": "ea3245fcf2b24e051fcab08027f7196880a51bbc20b16ed3ce0720fa7b9e7273",
+      "source": "book/evidence/profiles/golden-triple/bucket5_v11_read_subpath.sb.bin",
+      "tag_counts": {
+        "0": 2,
+        "1": 1,
+        "3": 1,
+        "4": 17,
+        "5": 31
+      },
+      "tag_layout_version": "bbe78d204d7d08ecc7e4468e874e9789586b263b4a947b66c826cb0b532a5797",
+      "vocab_versions": {
+        "filters_version": "eb545effa06c8deb17f736f9b8b0e6459d4d0b121df5438cb3e81fd638eb2c5f",
+        "ops_version": "d7f4a65c1455205c6b629361a763d1353cec83384202805a204285839cd6f75d"
+      }
+    },
+    {
+      "anchors": [],
+      "canonical_profile_id": null,
+      "format_variant": "modern-heuristic",
+      "length": 531,
+      "literal_strings": [
+        "Ctmp/",
+        "Ffoo.txt",
+        "Fbar.txt",
+        "Kprivate/tmp/",
+        "Ffoo.txt",
+        "Fbar.txt",
+        "K/tmp/baz.txt"
+      ],
+      "op_count": 4,
+      "op_entries": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "profile_id": "metafilter_any.sb",
+      "role": "golden-profile",
+      "runtime_link": {
+        "profile_id": "runtime:metafilter_any",
+        "status": "ok",
+        "trace_path": "book/integration/carton/bundle/relationships/mappings/runtime/traces/runtime_metafilter_any.jsonl"
+      },
+      "sections": {
+        "literals": 94,
+        "nodes": 413,
+        "op_table": 8
+      },
+      "sha256": "8bbfd0929503ef11229ee4b48e7a0b6beb05af81fdbc441c7409a10464865b66",
+      "source": "book/evidence/profiles/golden-triple/metafilter_any.sb.bin",
+      "tag_counts": {
+        "0": 3,
+        "1": 4,
+        "2": 3,
+        "3": 41
+      },
+      "tag_layout_version": "bbe78d204d7d08ecc7e4468e874e9789586b263b4a947b66c826cb0b532a5797",
+      "vocab_versions": {
+        "filters_version": "eb545effa06c8deb17f736f9b8b0e6459d4d0b121df5438cb3e81fd638eb2c5f",
+        "ops_version": "d7f4a65c1455205c6b629361a763d1353cec83384202805a204285839cd6f75d"
+      }
+    },
+    {
+      "anchors": [],
+      "canonical_profile_id": null,
+      "format_variant": "modern-heuristic",
+      "length": 450,
+      "literal_strings": [
+        "N/private/tmp/ok"
+      ],
+      "op_count": 3,
+      "op_entries": [
+        2,
+        2,
+        2
+      ],
+      "profile_id": "param_deny_root_allow_default_ROOT_private_tmp_ok.sb",
+      "role": "golden-profile",
+      "runtime_link": null,
+      "sections": {
+        "literals": 24,
+        "nodes": 404,
+        "op_table": 6
+      },
+      "sha256": "1547b8b8b99578925e409b112ac5d947fc128ab3ac1f942e0fab8a9cd60628c2",
+      "source": "book/evidence/profiles/golden-triple/param_deny_root_allow_default_ROOT_private_tmp_ok.sb.bin",
+      "tag_counts": {
+        "0": 3,
+        "1": 1,
+        "2": 46
+      },
+      "tag_layout_version": "bbe78d204d7d08ecc7e4468e874e9789586b263b4a947b66c826cb0b532a5797",
+      "vocab_versions": {
+        "filters_version": "eb545effa06c8deb17f736f9b8b0e6459d4d0b121df5438cb3e81fd638eb2c5f",
+        "ops_version": "d7f4a65c1455205c6b629361a763d1353cec83384202805a204285839cd6f75d"
+      }
+    },
+    {
+      "anchors": [
+        {
+          "anchor": "/etc/hosts",
+          "filter_id": null,
+          "filter_name": null,
+          "status": "blocked"
+        }
+      ],
+      "canonical_profile_id": null,
+      "format_variant": "modern-heuristic",
+      "length": 513,
+      "literal_strings": [
+        "I/etc/hosts",
+        "U/private/tmp/strict_ok"
+      ],
+      "op_count": 7,
+      "op_entries": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        5
+      ],
+      "profile_id": "strict_1.sb",
+      "role": "golden-profile",
+      "runtime_link": null,
+      "sections": {
+        "literals": 55,
+        "nodes": 428,
+        "op_table": 14
+      },
+      "sha256": "1ceec65ff661d5d1050cf14dddb3b6607006a04f57086f1887520615ec094873",
+      "source": "book/evidence/profiles/golden-triple/strict_1.sb.bin",
+      "tag_counts": {
+        "0": 3,
+        "3": 4,
+        "4": 1,
+        "5": 15,
+        "6": 30
+      },
+      "tag_layout_version": "bbe78d204d7d08ecc7e4468e874e9789586b263b4a947b66c826cb0b532a5797",
+      "vocab_versions": {
+        "filters_version": "eb545effa06c8deb17f736f9b8b0e6459d4d0b121df5438cb3e81fd638eb2c5f",
+        "ops_version": "d7f4a65c1455205c6b629361a763d1353cec83384202805a204285839cd6f75d"
+      }
+    },
+    {
+      "anchors": [
+        {
+          "anchor": "app-sandbox.read",
+          "filter_id": null,
+          "filter_name": null,
+          "status": "blocked"
+        }
+      ],
       "canonical_profile_id": "sys:airlock",
       "format_variant": "modern-heuristic",
       "length": 4662,
@@ -375,7 +631,14 @@
       }
     },
     {
-      "anchors": [],
+      "anchors": [
+        {
+          "anchor": "preferences/logging",
+          "filter_id": 5,
+          "filter_name": "global-name",
+          "status": "partial"
+        }
+      ],
       "canonical_profile_id": "sys:bsd",
       "format_variant": "modern-heuristic",
       "length": 2140,
@@ -557,255 +820,6 @@
         "filters_version": "eb545effa06c8deb17f736f9b8b0e6459d4d0b121df5438cb3e81fd638eb2c5f",
         "ops_version": "d7f4a65c1455205c6b629361a763d1353cec83384202805a204285839cd6f75d"
       }
-    },
-    {
-      "anchors": [],
-      "canonical_profile_id": null,
-      "format_variant": "modern-heuristic",
-      "length": 416,
-      "literal_strings": [],
-      "op_count": 2,
-      "op_entries": [
-        1,
-        1
-      ],
-      "profile_id": "allow_all.sb",
-      "role": "golden-profile",
-      "runtime_link": {
-        "profile_id": "runtime:allow_all",
-        "status": "ok",
-        "trace_path": "book/integration/carton/bundle/relationships/mappings/runtime/traces/runtime_allow_all.jsonl"
-      },
-      "sections": {
-        "literals": 47,
-        "nodes": 349,
-        "op_table": 4
-      },
-      "sha256": "19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92",
-      "source": "book/profiles/golden-triple/allow_all.sb.bin",
-      "tag_counts": {
-        "1": 43
-      },
-      "tag_layout_version": "bbe78d204d7d08ecc7e4468e874e9789586b263b4a947b66c826cb0b532a5797",
-      "vocab_versions": {
-        "filters_version": "eb545effa06c8deb17f736f9b8b0e6459d4d0b121df5438cb3e81fd638eb2c5f",
-        "ops_version": "d7f4a65c1455205c6b629361a763d1353cec83384202805a204285839cd6f75d"
-      }
-    },
-    {
-      "anchors": [],
-      "canonical_profile_id": null,
-      "format_variant": "modern-heuristic",
-      "length": 440,
-      "literal_strings": [],
-      "op_count": 5,
-      "op_entries": [
-        4,
-        4,
-        4,
-        4,
-        4
-      ],
-      "profile_id": "bucket4_v1_read.sb",
-      "role": "golden-profile",
-      "runtime_link": null,
-      "sections": {
-        "literals": 27,
-        "nodes": 387,
-        "op_table": 10
-      },
-      "sha256": "6a939e69b3b90635a853f9a20e09abe5ec4ee4e3c1d7cd5fde8868524e4e0ec6",
-      "source": "book/profiles/golden-triple/bucket4_v1_read.sb.bin",
-      "tag_counts": {
-        "0": 1,
-        "1": 1,
-        "2": 1,
-        "3": 12,
-        "4": 33
-      },
-      "tag_layout_version": "bbe78d204d7d08ecc7e4468e874e9789586b263b4a947b66c826cb0b532a5797",
-      "vocab_versions": {
-        "filters_version": "eb545effa06c8deb17f736f9b8b0e6459d4d0b121df5438cb3e81fd638eb2c5f",
-        "ops_version": "d7f4a65c1455205c6b629361a763d1353cec83384202805a204285839cd6f75d"
-      }
-    },
-    {
-      "anchors": [
-        {
-          "anchor": "/tmp/foo",
-          "filter_id": null,
-          "filter_name": null,
-          "status": "blocked"
-        }
-      ],
-      "canonical_profile_id": null,
-      "format_variant": "modern-heuristic",
-      "length": 467,
-      "literal_strings": [
-        "G/tmp/foo"
-      ],
-      "op_count": 6,
-      "op_entries": [
-        5,
-        5,
-        5,
-        5,
-        5,
-        5
-      ],
-      "profile_id": "bucket5_v11_read_subpath.sb",
-      "role": "golden-profile",
-      "runtime_link": null,
-      "sections": {
-        "literals": 17,
-        "nodes": 422,
-        "op_table": 12
-      },
-      "sha256": "ea3245fcf2b24e051fcab08027f7196880a51bbc20b16ed3ce0720fa7b9e7273",
-      "source": "book/profiles/golden-triple/bucket5_v11_read_subpath.sb.bin",
-      "tag_counts": {
-        "0": 2,
-        "1": 1,
-        "3": 1,
-        "4": 17,
-        "5": 31
-      },
-      "tag_layout_version": "bbe78d204d7d08ecc7e4468e874e9789586b263b4a947b66c826cb0b532a5797",
-      "vocab_versions": {
-        "filters_version": "eb545effa06c8deb17f736f9b8b0e6459d4d0b121df5438cb3e81fd638eb2c5f",
-        "ops_version": "d7f4a65c1455205c6b629361a763d1353cec83384202805a204285839cd6f75d"
-      }
-    },
-    {
-      "anchors": [],
-      "canonical_profile_id": null,
-      "format_variant": "modern-heuristic",
-      "length": 531,
-      "literal_strings": [
-        "Ctmp/",
-        "Ffoo.txt",
-        "Fbar.txt",
-        "Kprivate/tmp/",
-        "Ffoo.txt",
-        "Fbar.txt",
-        "K/tmp/baz.txt"
-      ],
-      "op_count": 4,
-      "op_entries": [
-        3,
-        3,
-        3,
-        3
-      ],
-      "profile_id": "metafilter_any.sb",
-      "role": "golden-profile",
-      "runtime_link": {
-        "profile_id": "runtime:metafilter_any",
-        "status": "ok",
-        "trace_path": "book/integration/carton/bundle/relationships/mappings/runtime/traces/runtime_metafilter_any.jsonl"
-      },
-      "sections": {
-        "literals": 94,
-        "nodes": 413,
-        "op_table": 8
-      },
-      "sha256": "8bbfd0929503ef11229ee4b48e7a0b6beb05af81fdbc441c7409a10464865b66",
-      "source": "book/profiles/golden-triple/metafilter_any.sb.bin",
-      "tag_counts": {
-        "0": 3,
-        "1": 4,
-        "2": 3,
-        "3": 41
-      },
-      "tag_layout_version": "bbe78d204d7d08ecc7e4468e874e9789586b263b4a947b66c826cb0b532a5797",
-      "vocab_versions": {
-        "filters_version": "eb545effa06c8deb17f736f9b8b0e6459d4d0b121df5438cb3e81fd638eb2c5f",
-        "ops_version": "d7f4a65c1455205c6b629361a763d1353cec83384202805a204285839cd6f75d"
-      }
-    },
-    {
-      "anchors": [],
-      "canonical_profile_id": null,
-      "format_variant": "modern-heuristic",
-      "length": 450,
-      "literal_strings": [
-        "N/private/tmp/ok"
-      ],
-      "op_count": 3,
-      "op_entries": [
-        2,
-        2,
-        2
-      ],
-      "profile_id": "param_deny_root_allow_default_ROOT_private_tmp_ok.sb",
-      "role": "golden-profile",
-      "runtime_link": null,
-      "sections": {
-        "literals": 24,
-        "nodes": 404,
-        "op_table": 6
-      },
-      "sha256": "1547b8b8b99578925e409b112ac5d947fc128ab3ac1f942e0fab8a9cd60628c2",
-      "source": "book/profiles/golden-triple/param_deny_root_allow_default_ROOT_private_tmp_ok.sb.bin",
-      "tag_counts": {
-        "0": 3,
-        "1": 1,
-        "2": 46
-      },
-      "tag_layout_version": "bbe78d204d7d08ecc7e4468e874e9789586b263b4a947b66c826cb0b532a5797",
-      "vocab_versions": {
-        "filters_version": "eb545effa06c8deb17f736f9b8b0e6459d4d0b121df5438cb3e81fd638eb2c5f",
-        "ops_version": "d7f4a65c1455205c6b629361a763d1353cec83384202805a204285839cd6f75d"
-      }
-    },
-    {
-      "anchors": [
-        {
-          "anchor": "/etc/hosts",
-          "filter_id": null,
-          "filter_name": null,
-          "status": "blocked"
-        }
-      ],
-      "canonical_profile_id": null,
-      "format_variant": "modern-heuristic",
-      "length": 513,
-      "literal_strings": [
-        "I/etc/hosts",
-        "U/private/tmp/strict_ok"
-      ],
-      "op_count": 7,
-      "op_entries": [
-        6,
-        6,
-        6,
-        6,
-        6,
-        6,
-        5
-      ],
-      "profile_id": "strict_1.sb",
-      "role": "golden-profile",
-      "runtime_link": null,
-      "sections": {
-        "literals": 55,
-        "nodes": 428,
-        "op_table": 14
-      },
-      "sha256": "1ceec65ff661d5d1050cf14dddb3b6607006a04f57086f1887520615ec094873",
-      "source": "book/profiles/golden-triple/strict_1.sb.bin",
-      "tag_counts": {
-        "0": 3,
-        "3": 4,
-        "4": 1,
-        "5": 15,
-        "6": 30
-      },
-      "tag_layout_version": "bbe78d204d7d08ecc7e4468e874e9789586b263b4a947b66c826cb0b532a5797",
-      "vocab_versions": {
-        "filters_version": "eb545effa06c8deb17f736f9b8b0e6459d4d0b121df5438cb3e81fd638eb2c5f",
-        "ops_version": "d7f4a65c1455205c6b629361a763d1353cec83384202805a204285839cd6f75d"
-      }
     }
   ],
   "metadata": {
@@ -818,12 +832,12 @@
       "book/integration/carton/bundle/relationships/mappings/vocab/ops.json",
       "book/integration/carton/bundle/relationships/mappings/vocab/filters.json",
       "book/integration/carton/bundle/relationships/mappings/runtime/expectations.json",
-      "book/profiles/golden-triple/allow_all.sb.bin",
-      "book/profiles/golden-triple/bucket4_v1_read.sb.bin",
-      "book/profiles/golden-triple/bucket5_v11_read_subpath.sb.bin",
-      "book/profiles/golden-triple/metafilter_any.sb.bin",
-      "book/profiles/golden-triple/param_deny_root_allow_default_ROOT_private_tmp_ok.sb.bin",
-      "book/profiles/golden-triple/strict_1.sb.bin"
+      "book/evidence/profiles/golden-triple/allow_all.sb.bin",
+      "book/evidence/profiles/golden-triple/bucket4_v1_read.sb.bin",
+      "book/evidence/profiles/golden-triple/bucket5_v11_read_subpath.sb.bin",
+      "book/evidence/profiles/golden-triple/metafilter_any.sb.bin",
+      "book/evidence/profiles/golden-triple/param_deny_root_allow_default_ROOT_private_tmp_ok.sb.bin",
+      "book/evidence/profiles/golden-triple/strict_1.sb.bin"
     ],
     "runtime_manifest": "book/integration/carton/bundle/relationships/mappings/runtime/expectations.json",
     "source_jobs": [
@@ -832,11 +846,11 @@
     "status": "ok",
     "tag_layout_hash": "bbe78d204d7d08ecc7e4468e874e9789586b263b4a947b66c826cb0b532a5797",
     "tag_layout_hash_method": "tag_set",
-    "tag_layouts_file_sha256": "eb3b1cfefae0aaf7260ac017b52fddd38b375922514468b4071f72281af6b2ac",
+    "tag_layouts_file_sha256": "ec2e308f27da7c11e0c4697f699151c129d6774bbec9b00c3d031bd606e42d3d",
     "vocab_versions": {
       "filters_version": "eb545effa06c8deb17f736f9b8b0e6459d4d0b121df5438cb3e81fd638eb2c5f",
       "ops_version": "d7f4a65c1455205c6b629361a763d1353cec83384202805a204285839cd6f75d"
     },
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9"
   }
 }

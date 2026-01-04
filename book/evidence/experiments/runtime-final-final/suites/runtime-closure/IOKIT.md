@@ -2,7 +2,7 @@
 
 ## Purpose and scope
 
-This document is the durable, host-scoped record of the IOKit lane in runtime-closure for world_id `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`. The lane is focused on stage-labeled runtime evidence, not on claiming sandbox policy semantics. In particular, the current post-open IOSurface work is still a call-shape/interface problem: the best candidate calls return `kIOReturnBadArgument` in both baseline and sandbox, so no sandbox gate claim is supported yet.
+This document is the durable, host-scoped record of the IOKit lane in runtime-closure for world_id `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`. The lane is focused on stage-labeled runtime evidence, not on claiming sandbox policy semantics. In particular, the current post-open IOSurface work is still a call-shape/interface problem: the best candidate calls return `kIOReturnBadArgument` in both baseline and sandbox, so no sandbox gate claim is supported yet.
 
 ## Evidence model used
 

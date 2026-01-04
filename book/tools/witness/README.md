@@ -13,6 +13,8 @@ Fixtures live under `fixtures/` and capture stable CLI/JSON shapes the tooling e
 ### Contract fixtures
 - `fixtures/contract/policy-witness.help.txt`
 - `fixtures/contract/sandbox-log-observer.help.txt`
+- `fixtures/contract/signpost-log-observer.help.txt`
+- `fixtures/contract/xpc-quarantine-client.help.txt`
 - `fixtures/contract/observer.sample.json`
 
 ### Refresh (manual)

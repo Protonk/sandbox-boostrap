@@ -33,9 +33,9 @@ Use this file for concise notes on commands, hurdles, and intermediate results.
 
 ## Latest harness rerun (runtime, SBPL mode)
 
-- Switched `book/profiles/golden-triple/expected_matrix.json` to SBPL inputs for `allow_all` / `metafilter_any` to avoid wrapper `sandbox_init` errors (“no version specified”) on blobs. Added a minimal strict profile (`runtime:strict_1`) to the matrix.
-- Command: `python -m book.api.runtime run --matrix book/profiles/golden-triple/expected_matrix.json --out book/profiles/golden-triple`.
-- Results: `runtime:allow_all`, `runtime:metafilter_any`, `bucket4:v1_read`, and new `runtime:strict_1` all `status: ok` in `book/profiles/golden-triple/runtime_results.json`. `bucket5:v11_read_subpath` remains `partial` (read on `/tmp/foo` still returns `EPERM` despite subpath allow). Wrapper “no version specified” errors cleared by SBPL mode; blob apply remains avoided for these runs.
+- Switched `book/evidence/profiles/golden-triple/expected_matrix.json` to SBPL inputs for `allow_all` / `metafilter_any` to avoid wrapper `sandbox_init` errors (“no version specified”) on blobs. Added a minimal strict profile (`runtime:strict_1`) to the matrix.
+- Command: `python -m book.api.runtime run --matrix book/evidence/profiles/golden-triple/expected_matrix.json --out book/evidence/profiles/golden-triple`.
+- Results: `runtime:allow_all`, `runtime:metafilter_any`, `bucket4:v1_read`, and new `runtime:strict_1` all `status: ok` in `book/evidence/profiles/golden-triple/runtime_results.json`. `bucket5:v11_read_subpath` remains `partial` (read on `/tmp/foo` still returns `EPERM` despite subpath allow). Wrapper “no version specified” errors cleared by SBPL mode; blob apply remains avoided for these runs.
 
 ## Bucket5 vs bucket4/strict_1 literals (decoded)
 
@@ -58,4 +58,4 @@ Use this file for concise notes on commands, hurdles, and intermediate results.
   - `profiles/param_deny_root_allow_default.sb` (allow-default deny-root; stable carrier for blob-mode runtime probes).
 - Compile-time observation: for `(when (param "ALLOW_DOWNLOADS") ...)`, parameter *presence* gates compilation; different provided values compile to the same blob (validation-backed on this host).
 - Runtime harness: deny-default + exec-based blob probes can die with SIGABRT when the wrapped helper (`/bin/cat`) cannot fully bootstrap under the applied policy; for a stable blob-mode parameterization witness, use allow-default + parameterized deny-root.
-- Promoted a blob-mode witness into `book/profiles/golden-triple/` as `runtime:param_deny_root_ok` (compiled with `ROOT=/private/tmp/ok`) and recorded aligned runtime results in `book/profiles/golden-triple/runtime_results.json`.
+- Promoted a blob-mode witness into `book/evidence/profiles/golden-triple/` as `runtime:param_deny_root_ok` (compiled with `ROOT=/private/tmp/ok`) and recorded aligned runtime results in `book/evidence/profiles/golden-triple/runtime_results.json`.

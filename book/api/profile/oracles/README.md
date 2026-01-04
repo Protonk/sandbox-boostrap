@@ -1,6 +1,6 @@
 # profile.oracles
 
-Host-scoped “oracle” helpers that map SBPL-visible structure to compiled profile bytes for the fixed Sonoma baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`).
+Host-scoped “oracle” helpers that map SBPL-visible structure to compiled profile bytes for the fixed Sonoma baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`).
 
 This surface is intentionally **structural**:
 - Inputs are compiled profile blobs.

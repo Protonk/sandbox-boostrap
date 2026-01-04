@@ -3,7 +3,7 @@
 This tool detects whether the current process is already sandboxed, so policy-facing runs do not misread harness gates as policy decisions.
 It runs a small sensor set and returns a structured verdict with explicit signal classes and confidence.
 
-Host baseline: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+Host baseline: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 
 ## Sensors and thresholds
 

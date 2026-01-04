@@ -1,7 +1,7 @@
 # runtime
 
 Unified runtime evidence tooling for the Sonoma baseline
-(`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`).
+(`world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`).
 
 This is the **only supported path** for plan-based runtime experiments. It
 turns plan/registry data into committed bundles and promotion packets with a

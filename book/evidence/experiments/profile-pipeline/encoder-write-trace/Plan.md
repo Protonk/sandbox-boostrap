@@ -8,7 +8,7 @@ not exported or dyld-bindable.
 
 ## Baseline & scope
 
-- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Inputs: SBPL corpus under `book/tools/sbpl/corpus/`.
 - No `sandbox_apply` or runtime probes; compile-only.
 - Evidence scope: experiment-local structural join.

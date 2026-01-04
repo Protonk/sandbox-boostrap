@@ -4,7 +4,7 @@ Role: minimal C helper that performs a single `open` + `read`, `open` + `write`,
 
 Use when: you need a deterministic, low-noise file access to test allow/deny outcomes under a sandbox profile.
 
-World: see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+World: see `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 
 Build:
 

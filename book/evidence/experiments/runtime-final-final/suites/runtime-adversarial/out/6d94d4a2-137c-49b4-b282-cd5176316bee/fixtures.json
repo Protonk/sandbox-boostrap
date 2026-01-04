@@ -1,0 +1,344 @@
+{
+  "schema_version": "runtime-tools.fixtures.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9",
+  "run_id": "6d94d4a2-137c-49b4-b282-cd5176316bee",
+  "plan_id": "runtime-adversarial.v1",
+  "records": [
+    {
+      "schema_version": "runtime-tools.fixture_marker.v0.1",
+      "fixture_id": "loopback_listener",
+      "lane": "scenario",
+      "profile_id": "adv:flow_divert_partial_tcp",
+      "probe_name": "tcp-loopback",
+      "scenario_id": "adv:flow_divert_partial_tcp:tcp-loopback",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62646",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62646,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "schema_version": "runtime-tools.fixture_marker.v0.1",
+      "fixture_id": "loopback_listener",
+      "lane": "scenario",
+      "profile_id": "adv:flow_divert_partial_tcp",
+      "probe_name": "tcp-loopback-2",
+      "scenario_id": "adv:flow_divert_partial_tcp:tcp-loopback-2",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62647",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62647,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "schema_version": "runtime-tools.fixture_marker.v0.1",
+      "fixture_id": "loopback_listener",
+      "lane": "scenario",
+      "profile_id": "adv:flow_divert_require_all_tcp",
+      "probe_name": "tcp-loopback",
+      "scenario_id": "adv:flow_divert_require_all_tcp:tcp-loopback",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62646",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62646,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "schema_version": "runtime-tools.fixture_marker.v0.1",
+      "fixture_id": "loopback_listener",
+      "lane": "scenario",
+      "profile_id": "adv:flow_divert_require_all_tcp",
+      "probe_name": "tcp-loopback-2",
+      "scenario_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62647",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62647,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "schema_version": "runtime-tools.fixture_marker.v0.1",
+      "fixture_id": "loopback_listener",
+      "lane": "scenario",
+      "profile_id": "adv:net_outbound_allow",
+      "probe_name": "tcp-loopback",
+      "scenario_id": "adv:net_outbound_allow:tcp-loopback",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62646",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62646,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "schema_version": "runtime-tools.fixture_marker.v0.1",
+      "fixture_id": "loopback_listener",
+      "lane": "scenario",
+      "profile_id": "adv:net_outbound_allow",
+      "probe_name": "tcp-loopback-2",
+      "scenario_id": "adv:net_outbound_allow:tcp-loopback-2",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62647",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62647,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "schema_version": "runtime-tools.fixture_marker.v0.1",
+      "fixture_id": "loopback_listener",
+      "lane": "scenario",
+      "profile_id": "adv:net_outbound_deny",
+      "probe_name": "tcp-loopback",
+      "scenario_id": "adv:net_outbound_deny:tcp-loopback",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62646",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62646,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 1
+      }
+    },
+    {
+      "schema_version": "runtime-tools.fixture_marker.v0.1",
+      "fixture_id": "loopback_listener",
+      "lane": "scenario",
+      "profile_id": "adv:net_outbound_deny",
+      "probe_name": "tcp-loopback-2",
+      "scenario_id": "adv:net_outbound_deny:tcp-loopback-2",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62647",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62647,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 1
+      }
+    },
+    {
+      "schema_version": "runtime-tools.fixture_marker.v0.1",
+      "fixture_id": "loopback_listener",
+      "lane": "baseline",
+      "profile_id": "adv:flow_divert_partial_tcp",
+      "probe_name": "tcp-loopback",
+      "scenario_id": "baseline:adv:flow_divert_partial_tcp:tcp-loopback",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62646",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62646,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "schema_version": "runtime-tools.fixture_marker.v0.1",
+      "fixture_id": "loopback_listener",
+      "lane": "baseline",
+      "profile_id": "adv:flow_divert_partial_tcp",
+      "probe_name": "tcp-loopback-2",
+      "scenario_id": "baseline:adv:flow_divert_partial_tcp:tcp-loopback-2",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62647",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62647,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "schema_version": "runtime-tools.fixture_marker.v0.1",
+      "fixture_id": "loopback_listener",
+      "lane": "baseline",
+      "profile_id": "adv:flow_divert_require_all_tcp",
+      "probe_name": "tcp-loopback",
+      "scenario_id": "baseline:adv:flow_divert_require_all_tcp:tcp-loopback",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62646",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62646,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "schema_version": "runtime-tools.fixture_marker.v0.1",
+      "fixture_id": "loopback_listener",
+      "lane": "baseline",
+      "profile_id": "adv:flow_divert_require_all_tcp",
+      "probe_name": "tcp-loopback-2",
+      "scenario_id": "baseline:adv:flow_divert_require_all_tcp:tcp-loopback-2",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62647",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62647,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "schema_version": "runtime-tools.fixture_marker.v0.1",
+      "fixture_id": "loopback_listener",
+      "lane": "baseline",
+      "profile_id": "adv:net_outbound_allow",
+      "probe_name": "tcp-loopback",
+      "scenario_id": "baseline:adv:net_outbound_allow:tcp-loopback",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62646",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62646,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "schema_version": "runtime-tools.fixture_marker.v0.1",
+      "fixture_id": "loopback_listener",
+      "lane": "baseline",
+      "profile_id": "adv:net_outbound_allow",
+      "probe_name": "tcp-loopback-2",
+      "scenario_id": "baseline:adv:net_outbound_allow:tcp-loopback-2",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62647",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62647,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "schema_version": "runtime-tools.fixture_marker.v0.1",
+      "fixture_id": "loopback_listener",
+      "lane": "baseline",
+      "profile_id": "adv:net_outbound_deny",
+      "probe_name": "tcp-loopback",
+      "scenario_id": "baseline:adv:net_outbound_deny:tcp-loopback",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62646",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62646,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    },
+    {
+      "schema_version": "runtime-tools.fixture_marker.v0.1",
+      "fixture_id": "loopback_listener",
+      "lane": "baseline",
+      "profile_id": "adv:net_outbound_deny",
+      "probe_name": "tcp-loopback-2",
+      "scenario_id": "baseline:adv:net_outbound_deny:tcp-loopback-2",
+      "operation": "network-outbound",
+      "target": "127.0.0.1:62647",
+      "listener": {
+        "host": "127.0.0.1",
+        "port": 62647,
+        "status": "ok",
+        "error": null,
+        "precheck": {
+          "status": "ok",
+          "error": null
+        },
+        "accept_count": 2
+      }
+    }
+  ]
+}

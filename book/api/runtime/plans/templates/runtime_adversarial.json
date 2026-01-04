@@ -32,11 +32,14 @@
       "adv:authorization_right",
       "adv:preference_domain",
       "adv:xpc_service_name",
+      "adv:path_canon_alias",
+      "adv:path_canon_private",
+      "adv:path_canon_both",
       "adv:path_canon_alt"
     ],
     "registry_id": "runtime-adversarial",
     "schema_version": "runtime-tools.plan.v0.1",
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9"
   },
   "probes": {
     "probes": {
@@ -1742,6 +1745,150 @@
         "target": "com.apple.sandboxadversarial.fake.xpc",
         "filter_name": "xpc-service-name"
       },
+      "adv:path_canon_alias:allow-tmp": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "allow",
+        "expected_predicates": [
+          "/tmp/runtime-adv/canon/allow.txt"
+        ],
+        "expected_primary_ops": [
+          "file-read*"
+        ],
+        "name": "allow-tmp",
+        "operation": "file-read*",
+        "probe_id": "adv:path_canon_alias:allow-tmp",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "/tmp/runtime-adv/canon/allow.txt"
+      },
+      "adv:path_canon_alias:deny-private": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "deny",
+        "expected_predicates": [
+          "/private/tmp/runtime-adv/canon/allow.txt"
+        ],
+        "expected_primary_ops": [
+          "file-read*"
+        ],
+        "name": "deny-private",
+        "operation": "file-read*",
+        "probe_id": "adv:path_canon_alias:deny-private",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "/private/tmp/runtime-adv/canon/allow.txt"
+      },
+      "adv:path_canon_private:allow-private": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "allow",
+        "expected_predicates": [
+          "/private/tmp/runtime-adv/canon/allow.txt"
+        ],
+        "expected_primary_ops": [
+          "file-read*"
+        ],
+        "name": "allow-private",
+        "operation": "file-read*",
+        "probe_id": "adv:path_canon_private:allow-private",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "/private/tmp/runtime-adv/canon/allow.txt"
+      },
+      "adv:path_canon_private:deny-tmp": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "deny",
+        "expected_predicates": [
+          "/tmp/runtime-adv/canon/allow.txt"
+        ],
+        "expected_primary_ops": [
+          "file-read*"
+        ],
+        "name": "deny-tmp",
+        "operation": "file-read*",
+        "probe_id": "adv:path_canon_private:deny-tmp",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "/tmp/runtime-adv/canon/allow.txt"
+      },
+      "adv:path_canon_both:allow-private": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "allow",
+        "expected_predicates": [
+          "/private/tmp/runtime-adv/canon/allow.txt"
+        ],
+        "expected_primary_ops": [
+          "file-read*"
+        ],
+        "name": "allow-private",
+        "operation": "file-read*",
+        "probe_id": "adv:path_canon_both:allow-private",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "/private/tmp/runtime-adv/canon/allow.txt"
+      },
+      "adv:path_canon_both:allow-tmp": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "allow",
+        "expected_predicates": [
+          "/tmp/runtime-adv/canon/allow.txt"
+        ],
+        "expected_primary_ops": [
+          "file-read*"
+        ],
+        "name": "allow-tmp",
+        "operation": "file-read*",
+        "probe_id": "adv:path_canon_both:allow-tmp",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "/tmp/runtime-adv/canon/allow.txt"
+      },
       "adv:path_canon_alt:allow-private": {
         "capabilities_required": [],
         "controls_supported": [
@@ -1793,7 +1940,7 @@
     },
     "registry_id": "runtime-adversarial",
     "schema_version": "runtime-tools.probe_registry.v0.2",
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9"
   },
   "profiles": {
     "profiles": {
@@ -2086,6 +2233,45 @@
         "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/xpc_service_name.sb",
         "semantic_group": "mach:xpc-service-name"
       },
+      "adv:path_canon_alias": {
+        "family": "path_alias",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": "Canonicalization alias-only fixture under runtime-adv/canon.",
+        "probe_refs": [
+          "adv:path_canon_alias:allow-tmp",
+          "adv:path_canon_alias:deny-private"
+        ],
+        "profile_id": "adv:path_canon_alias",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_canon_alias.sb",
+        "semantic_group": "paths:canonical-alias"
+      },
+      "adv:path_canon_private": {
+        "family": "path_alias",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": "Canonicalization private-only fixture under runtime-adv/canon.",
+        "probe_refs": [
+          "adv:path_canon_private:allow-private",
+          "adv:path_canon_private:deny-tmp"
+        ],
+        "profile_id": "adv:path_canon_private",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_canon_private.sb",
+        "semantic_group": "paths:canonical-private"
+      },
+      "adv:path_canon_both": {
+        "family": "path_alias",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": "Canonicalization control fixture allowing both spellings.",
+        "probe_refs": [
+          "adv:path_canon_both:allow-private",
+          "adv:path_canon_both:allow-tmp"
+        ],
+        "profile_id": "adv:path_canon_both",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_canon_both.sb",
+        "semantic_group": "paths:canonical-both"
+      },
       "adv:path_canon_alt": {
         "family": "path_alias",
         "key_specific_rules": [],
@@ -2102,10 +2288,10 @@
     },
     "registry_id": "runtime-adversarial",
     "schema_version": "runtime-tools.profile_registry.v0.2",
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9"
   },
   "registry_id": "runtime-adversarial",
   "schema_version": "runtime-tools.plan_template.v0.1",
   "template_id": "runtime-adversarial",
-  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-a3a840f9"
 }

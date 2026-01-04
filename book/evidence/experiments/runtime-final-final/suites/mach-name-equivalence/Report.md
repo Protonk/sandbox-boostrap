@@ -6,7 +6,7 @@ Determine whether `mach-lookup` and `mach-register` induce the same name-equival
 
 ## Baseline & scope
 
-- World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- World: `sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Evidence source: committed runtime bundle (`launchd_clean`) from `book.api.runtime`.
 - Scope: AA = `com.apple.cfprefsd.agent`, BB = `com.apple.cfprefsd.agent.sandboxlore`.
 

@@ -3,11 +3,11 @@
 ## Purpose
 
 - Reproduce a trace-then-shrink workflow that bootstraps SBPL allow rules from sandbox denials and then minimizes the profile.
-- Tie the workflow to host-bound evidence for `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- Tie the workflow to host-bound evidence for `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 
 ## Baseline & scope
 
-- Host baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
+- Host baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`.
 - Scope: host-local behavior only; no cross-version claims.
 - Status: experiment evidence (partial). No promotion to shared mappings yet.
 

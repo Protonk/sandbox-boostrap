@@ -4,7 +4,7 @@
 Locate the sandbox PolicyGraph dispatcher (and helpers) in the KC by combining AppleMatch/sandbox string and import pivots with MACF hook traces and op-table structure checks.
 
 ## Baseline & tooling
-- Host: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (Apple Silicon, SIP on).
+- Host: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9` (Apple Silicon, SIP on).
 - Inputs: `book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/BootKernelExtensions.kc`; analyzed Ghidra project `book/dumps/ghidra/projects/sandbox_14.4.1-23E224`.
 - Tools: `book/api/ghidra/run_task.py` tasks (`kernel-string-refs`, `kernel-data-define`, `kernel-op-table`, etc.), ARM64 processor with `disable_x86_analyzers.py`; repo-local JAVA/HOME/TMPDIR (`JAVA_TOOL_OPTIONS=-Duser.home=$PWD/book/dumps/ghidra/user -Djava.io.tmpdir=$PWD/book/dumps/ghidra/tmp`).
 

@@ -17,7 +17,7 @@ This experiment starts where `libsandbox-encoder` stopped: it treats the compile
 - Does **not** redo PolicyGraph decoding or field2 layout; those results are assumed as given.
 
 ## Setup (canonical path for this iteration)
-- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`, Apple Silicon, SIP enabled.
+- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`, Apple Silicon, SIP enabled.
 - Binary plan: `sb/build/init_params_probe` (to be built in this experiment).
   - Source intent: call `_sandbox_init_with_parameters("(version 1)\n(allow default)", 0, NULL, &err)`.
   - Build/Run (from repo root): `clang -o sb/build/init_params_probe init_params_probe.c -lsandbox` then `./sb/build/init_params_probe`.
@@ -72,7 +72,7 @@ This experiment starts where `libsandbox-encoder` stopped: it treats the compile
 - Result: no natural `handle[0]!=0` witness yet for this world; the forced branch remains the only non-zero handle[0] path and is treated as a variation witness, not part of the guardrail contract.
 
 ## Contract for this world_id
-- For `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`, running `init_params_probe` (with/without container) must produce a compiled blob of length 416 and sha256 `19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92`, with `call_code` = 0.
+- For `world_id sonoma-14.4.1-23E224-arm64-dyld-a3a840f9`, running `init_params_probe` (with/without container) must produce a compiled blob of length 416 and sha256 `19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92`, with `call_code` = 0.
 - Pointer values are treated as structural (non-zero) but not fixed; guardrail asserts length/hash/call_code only.
 - Validation/guardrail: `book/integration/carton/validation/sandbox_init_params_job.py` reads `out/validation_summary.json`, checks required runs for this world, and is exercised by `book/integration/tests/contracts/test_sandbox_init_params_guardrail.py`. Additional named/file runs are recorded as variation witnesses only.
 
