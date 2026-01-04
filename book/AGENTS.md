@@ -9,21 +9,23 @@ Baseline (single source of truth): `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0
 Evidence discipline:
 - If the honest answer is “we don’t know yet” or evidence conflicts, say so and point to the bounding artifacts/experiments.
 
+Backwards compatibility is an anti-pattern. Cut shims away when you move a file or folder. Fix what complains. What later breaks silently should have had tests. 
+
 Vocabulary discipline:
-- Use project terms from `book/evidence/graph/concepts/concept_map.json` and the substrate (do not invent new jargon).
+- Use project terms from `book/evidence/carton/concepts/concept_map.json` and the substrate (do not invent new jargon).
 - Use only ops/filters from `book/integration/carton/bundle/relationships/mappings/vocab/{ops.json,filters.json}`.
 
 Runtime discipline:
 - Runtime statements must include both a `stage` (`compile|apply|bootstrap|operation`) and a `lane` (`scenario|baseline|oracle`).
 - Apply-stage `EPERM` is almost always evidence of a staging problem, not a policy denial. Run `book/tools/preflight`.
-- Treat runtime results as evidence only when sourced from a committed runtime bundle (`artifact_index.json`) or a `promotion_packet.json`.
+- Treat runtime results as evidence only when sourced from a committed runtime bundle (`artifact_index.json`) or a `promotion_packet.json` due to occasional false positives.
 
 Safety and boundaries:
 - Never weaken the baseline (no disabling SIP, TCC, or hardened runtime).
 - Do not copy from `book/dumps/ghidra/private/aapl-restricted`.
 - Do not hide harness/decoder/apply failures; treat them as first-class evidence.
 
-Working tree / git policy (dirty tree is normal):
+Working tree is dirty:
 - Assume the working tree may be intentionally dirty; do not try to "clean up" unrelated diffs.
 - Never run destructive git commands (`git restore`, `git checkout`, `git reset`, `git clean`, `git stash`, `git commit`, etc.) unless the user explicitly asks.
 - If `git status` shows unrelated changes, report that fact and proceed only with requested edits.
@@ -41,7 +43,7 @@ Paths and generated artifacts:
 
 Only supported repo-wide test runner: `make -C book test`.
 
-Common host-bound commands (Sonoma 14.4.1 baseline):
+
 - Compile SBPL → blob: `python -m book.api.profile compile <profile.sb> --out <path>`
 - Decode/inspect blob: `python -m book.api.profile decode dump <blob.sb.bin> --summary`
 - Plan-based runtime run: `python -m book.api.runtime run --plan <plan.json> --channel launchd_clean --out <out_dir>`

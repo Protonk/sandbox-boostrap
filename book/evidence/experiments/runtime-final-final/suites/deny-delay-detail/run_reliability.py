@@ -17,7 +17,9 @@ from typing import Dict, Iterable, List, Optional, Tuple
 
 from book.api import path_utils
 from book.api.profile.identity import baseline_world_id
-from book.api.witness import client, enforcement, outputs, observer as witness_observer
+from book.api.witness import outputs
+from book.api.witness.analysis import enforcement
+from book.api.witness.xpc import client, observer as witness_observer
 
 
 def _load_vocab(path: Path, key: str) -> Dict[str, int]:

@@ -97,8 +97,8 @@ On this world, for all current witnesses (including the non-IOKit `mach-bootstra
 - `missing message filter entitlement`
 
 Example forensics artifacts:
-- minimal failing: `book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt`
-- passing neighbor (control window; empty): `book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.passing_neighbor.txt`
+- minimal failing: `book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt`
+- passing neighbor (control window; empty): `book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.passing_neighbor.txt`
 
 This is a host-grounded runtime witness: it does not rely on substring inference from wrapper stderr, and it is correlated to the wrapper PID and a bounded log window.
 
@@ -106,7 +106,7 @@ This is a host-grounded runtime witness: it does not rely on substring inference
 
 `book/tools/sbpl/wrapper/wrapper` emits a `tool:"entitlement-check"` marker before attempting any apply, recording the runtime-effective value of `com.apple.private.security.message-filter` for the applying process.
 
-In the gate-witnesses validation output, the blob-apply records show `present:false` for this entitlement on the wrapper process, aligning with the unified-log message above (see `entitlement_checks` in `book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json`).
+In the gate-witnesses validation output, the blob-apply records show `present:false` for this entitlement on the wrapper process, aligning with the unified-log message above (see `entitlement_checks` in `book/evidence/carton/validation/out/experiments/gate-witnesses/witness_results.json`).
 
 ## Supporting (brittle) static clue
 
@@ -138,8 +138,8 @@ The same summary also records a small userland cross-check: the trimmed dyld sli
 ## Validation
 
 The validation job now reports `ok` in the permissive (`--yolo`) context and emits witness results. See:
-- `book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/status.json`
-- `book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json`
+- `book/evidence/carton/validation/out/experiments/gate-witnesses/status.json`
+- `book/evidence/carton/validation/out/experiments/gate-witnesses/witness_results.json`
 
 The less permissive control pass was not re-run through validation; its snapshot is preserved in `book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/run.non_yolo.json`.
 

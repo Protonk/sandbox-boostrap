@@ -8,7 +8,7 @@ Build an entitlement-lane deny atlas for this host using PolicyWitness and the e
 
 ## Scope
 
-- Uses PolicyWitness probes (`book.api.witness.client.run_probe`) with observer capture.
+- Uses PolicyWitness probes (`book.api.witness.xpc.client.run_probe`) with observer capture.
 - Uses operation/filter vocabulary from the canonical mappings:
   - `book/integration/carton/bundle/relationships/mappings/vocab/ops.json`
   - `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`
@@ -95,7 +95,7 @@ We observed intermittent deny evidence for `net_client.downloads_rw_probe`: the 
 - Expand the deny set to include a non-file operation that yields explicit filter metadata (to reduce inference).
 - Once observer capture is stable, expand from the smoke subset to a full profile sweep.
 - Consider dropping or repeating `net_client.downloads_rw_probe` if it continues to flap.
-- Integrate `book.api.witness.compare.compare_action` (tri-run) only after the resolved-row stability gate passes.
+- Integrate `book.api.witness.analysis.compare.compare_action` (tri-run) only after the resolved-row stability gate passes.
 - When integrating tri-run, use the SBPL preflight record from `compare_action` to label apply-stage gates explicitly.
 
 We hope this atlas yields a clear, reproducible separation between "permission-shaped failure" and "observer-backed deny" for entitlements-lane probes on this host. That separation makes later reasoning about sandbox policy less fragile and prevents accidental promotion of unresolved outcomes to resolved claims.

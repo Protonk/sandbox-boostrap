@@ -19,8 +19,8 @@ from . import registry
 REPO_ROOT = find_repo_root(Path(__file__))
 ENV_ENABLE = "SANDBOX_LORE_RUN_LIFECYCLE_PROBES"
 
-ENTITLEMENTS_OUT = "book/evidence/graph/concepts/validation/out/lifecycle/entitlements.json"
-EXTENSIONS_OUT = "book/evidence/graph/concepts/validation/out/lifecycle/extensions_dynamic.md"
+ENTITLEMENTS_OUT = "book/evidence/carton/validation/out/lifecycle/entitlements.json"
+EXTENSIONS_OUT = "book/evidence/carton/validation/out/lifecycle/extensions_dynamic.md"
 
 
 def _is_enabled() -> bool:

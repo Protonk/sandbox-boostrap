@@ -12,8 +12,8 @@ from book.integration.carton.validation import registry
 from book.integration.carton.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
-STATUS_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "validation_status.json"
-EXPERIMENT_STATUS_DIR = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "experiments"
+STATUS_PATH = ROOT / "book" / "evidence" / "carton" / "validation" / "out" / "validation_status.json"
+EXPERIMENT_STATUS_DIR = ROOT / "book" / "evidence" / "carton" / "validation" / "out" / "experiments"
 CARTON_MANIFEST = ROOT / "book" / "integration" / "carton" / "bundle" / "CARTON.json"
 MAPPING_CHECKS = [
     ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "runtime_signatures.json",
@@ -24,7 +24,7 @@ MAPPING_CHECKS = [
     ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "vocab" / "filters.json",
     ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "operation_coverage.json",
 ]
-META_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
+META_PATH = ROOT / "book" / "evidence" / "carton" / "validation" / "out" / "metadata.json"
 
 REQUIRED_FIELDS = {"job_id", "status", "host", "inputs", "outputs", "tags"}
 ALLOWED_STATUS = {"ok", "partial", "brittle", "blocked", "skipped"}
@@ -100,7 +100,7 @@ def run_schema_job():
         "job_id": "validation:schema-check",
         "status": status,
         "host": host,
-        "inputs": [rel(STATUS_PATH), "book/evidence/graph/concepts/validation/out/experiments/*/status.json"],
+        "inputs": [rel(STATUS_PATH), "book/evidence/carton/validation/out/experiments/*/status.json"],
         "outputs": [],
         "notes": "; ".join(errors) if errors else "status files conform to schema",
         "metrics": {"checked": len(sources), "errors": len(errors)},

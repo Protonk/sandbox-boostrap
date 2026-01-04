@@ -8,7 +8,7 @@ from book.api.profile import decoder
 from book.api import path_utils
 
 ROOT = path_utils.find_repo_root(Path(__file__))
-FIXTURES_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "fixtures" / "fixtures.json"
+FIXTURES_PATH = ROOT / "book" / "evidence" / "carton" / "validation" / "fixtures" / "fixtures.json"
 
 
 def load_fixtures():

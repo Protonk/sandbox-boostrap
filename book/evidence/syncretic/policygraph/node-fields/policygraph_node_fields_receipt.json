@@ -1,8 +1,6 @@
 {
   "command": [
     "book/tools/policy/policygraph_node_fields.py",
-    "--packet",
-    "book/tools/policy/runtime_annotation.promotion_packet.json",
     "--out",
     "book/evidence/syncretic/policygraph/node-fields"
   ],
@@ -17,19 +15,19 @@
     },
     "anchor_hits": {
       "path": "book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json",
-      "sha256": "af7187729d0741d9f062603e599f32f4808039ed49bad55fdef0ccf547e87fa5"
+      "sha256": "65e23955d6a4d8427bc9e03a109af596c0be94b3fc8ae573f011bedf85efaec6"
     },
     "anchor_hits_delta": {
       "path": "book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_delta.json",
-      "sha256": "d9bdfc3269c4157fceb6720d07466524c440b20ab9915b67f30e004d5a4c340f"
+      "sha256": "e64853be096c0f9a53c86e958ff158ca432bc89c620caa477205db86ad42ce7f"
     },
     "field2_inventory": {
-      "path": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
-      "sha256": "afe851221c28068cefa3e963ffea4199903adafc4f44b395564a5ebec0ac3cdb"
+      "path": "book/evidence/syncretic/policygraph/node-fields/field2_inventory.json",
+      "sha256": "67534340f3fde0e6b62d2d0689ec26ff2be30f39415a63060279c2feb8cb8cc2"
     },
     "field2_seeds": {
       "path": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json",
-      "sha256": "a3ab73b81db231db19fadf35f3931c9d382f10406d75f24c567bb06b27a721b0"
+      "sha256": "bd4d70d9056c1944c5564eccf04c60a343b088d7cdbd9f84519c176b43cf629e"
     },
     "network_matrix_index": {
       "path": "book/evidence/experiments/field2-final-final/libsandbox-encoder/out/network_matrix/index.json",
@@ -40,8 +38,8 @@
       "sha256": "eb3b1cfefae0aaf7260ac017b52fddd38b375922514468b4071f72281af6b2ac"
     },
     "unknown_nodes": {
-      "path": "book/evidence/experiments/field2-final-final/field2-filters/out/unknown_nodes.json",
-      "sha256": "525ecdccea5cdf20860334630303021c9f5c4fb40f4dfbadf576bb045b129cc2"
+      "path": "book/evidence/syncretic/policygraph/node-fields/unknown_nodes.json",
+      "sha256": "1bf0a382b80db82ca6a1a78a8892f75b327c88235622c76429305a3464080f04"
     },
     "vocab_filters": {
       "path": "book/integration/carton/bundle/relationships/mappings/vocab/filters.json",
@@ -59,17 +57,7 @@
     "report": "book/evidence/syncretic/policygraph/node-fields/policygraph_node_fields.md",
     "unknowns": "book/evidence/syncretic/policygraph/node-fields/policygraph_node_unknowns.json"
   },
-  "packet": {
-    "artifact_index": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/artifact_index.json",
-    "artifact_index_sha256": "3c97d7dd4eba9a012bb8a956ef4019435e927558144c0ad532685b63765f740f",
-    "bundle_dir": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c",
-    "consumption_receipt": "book/evidence/syncretic/policygraph/node-fields/policygraph_node_fields_receipt.json",
-    "exports": {
-      "runtime_results": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_results.json"
-    },
-    "packet": "book/tools/policy/runtime_annotation.promotion_packet.json",
-    "run_id": "738fc3d0-1d12-4608-9a97-90addfbc8d4c"
-  },
+  "packet": null,
   "schema_version": "policygraph_node_fields_receipt.v0",
   "tool": "policygraph_node_fields",
   "validator": null,

@@ -29,6 +29,13 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api.profile import decoder  # type: ignore
+from book.api import path_utils, tooling
+
+REPO_ROOT = path_utils.find_repo_root(Path(__file__).resolve())
+
+WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+SCHEMA_VERSION = "probe-op-structure.anchor_hits_delta.v1"
+RECEIPT_SCHEMA_VERSION = "probe-op-structure.anchor_hits_delta.receipt.v1"
 
 
 CONTROL_PROFILE = "probe:v12_iokit_control"
@@ -40,8 +47,14 @@ ANCHOR_FILTER_EXCLUDE = {
 
 CONTROL_PATH = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v12_iokit_control.sb.bin"
 VARIANT_PATH = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v9_iokit_user_client_only.sb.bin"
-OUT_PATH = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_delta.json"
+OUT_DIR = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/out"
+OUT_PATH = OUT_DIR / "anchor_hits_delta.json"
+RECEIPT_PATH = OUT_DIR / "anchor_hits_delta_receipt.json"
 FILTERS_PATH = REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/filters.json"
+
+
+def _rel(path: Path) -> str:
+    return path_utils.to_repo_relative(path, repo_root=REPO_ROOT)
 
 
 def _node_fingerprint(node: Dict[str, Any]) -> str:
@@ -116,19 +129,23 @@ def _delta_anchor_hits(delta_nodes: List[int], variant_nodes: List[Dict[str, Any
                     node_indices.append(idx)
                     break
         field2_vals = []
+        node_u16_roles: List[str | None] = []
         for idx in node_indices:
             fields = variant_nodes[idx].get("fields", [])
             if len(fields) > 2 and isinstance(fields[2], int):
                 field2_vals.append(fields[2])
+            node_u16_roles.append(variant_nodes[idx].get("u16_role"))
+        field2_vals = sorted({int(val) for val in field2_vals if isinstance(val, int)})
         out.append(
             {
                 "anchor": anchor,
                 "node_indices": sorted(set(node_indices)),
                 "field2_values": field2_vals,
-                "field2_names": [filter_names.get(v) for v in field2_vals],
+                "field2_names": [filter_names.get(v) for v in field2_vals if v in filter_names],
                 "literal_offsets": [],
                 "literal_string_index": None,
                 "offsets": [],
+                "node_u16_roles": node_u16_roles,
             }
         )
     return out
@@ -146,14 +163,23 @@ def main() -> None:
 
     out = {
         "metadata": {
+            "schema_version": SCHEMA_VERSION,
+            "world_id": WORLD_ID,
             "control_profile": CONTROL_PROFILE,
             "variant_profile": VARIANT_PROFILE,
             "anchors": DELTA_ANCHORS,
             "node_filter": "u16_role == filter_vocab_id",
             "filter_exclude": {k: sorted(v) for k, v in ANCHOR_FILTER_EXCLUDE.items()},
             "delta_node_count": len(delta_nodes),
+            "delta_node_indices": delta_nodes,
             "control_node_count": len(control_nodes),
             "variant_node_count": len(variant_nodes),
+            "inputs": {
+                "control_profile": {"path": _rel(CONTROL_PATH), "sha256": tooling.sha256_path(CONTROL_PATH)},
+                "variant_profile": {"path": _rel(VARIANT_PATH), "sha256": tooling.sha256_path(VARIANT_PATH)},
+                "filters_vocab": {"path": _rel(FILTERS_PATH), "sha256": tooling.sha256_path(FILTERS_PATH)},
+            },
+            "command": path_utils.relativize_command(sys.argv, repo_root=REPO_ROOT),
         },
         "profiles": {
             VARIANT_PROFILE: {
@@ -164,8 +190,22 @@ def main() -> None:
         },
     }
 
-    OUT_PATH.write_text(json.dumps(out, indent=2))
+    OUT_DIR.mkdir(exist_ok=True)
+    OUT_PATH.write_text(json.dumps(out, indent=2, sort_keys=True))
+    receipt = {
+        "schema_version": RECEIPT_SCHEMA_VERSION,
+        "tool": "probe-op-structure.delta_attribution",
+        "world_id": WORLD_ID,
+        "inputs": out["metadata"]["inputs"],
+        "outputs": {
+            "anchor_hits_delta": _rel(OUT_PATH),
+            "receipt": _rel(RECEIPT_PATH),
+        },
+        "command": out["metadata"]["command"],
+    }
+    RECEIPT_PATH.write_text(json.dumps(receipt, indent=2, sort_keys=True))
     print(f"[+] wrote {OUT_PATH}")
+    print(f"[+] wrote {RECEIPT_PATH}")
 
 
 if __name__ == "__main__":

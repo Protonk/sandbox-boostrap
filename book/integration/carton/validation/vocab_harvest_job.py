@@ -17,8 +17,8 @@ ROOT = find_repo_root(Path(__file__))
 LIB_PATH = ROOT / "book/integration/carton/bundle/relationships/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
 OPS_MAP = ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/ops.json"
 FILTERS_MAP = ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/filters.json"
-META_PATH = ROOT / "book/evidence/graph/concepts/validation/out/metadata.json"
-STATUS_PATH = ROOT / "book/evidence/graph/concepts/validation/out/vocab_status.json"
+META_PATH = ROOT / "book/evidence/carton/validation/out/metadata.json"
+STATUS_PATH = ROOT / "book/evidence/carton/validation/out/vocab_status.json"
 
 from book.integration.carton.validation import registry
 from book.integration.carton.validation.registry import ValidationJob

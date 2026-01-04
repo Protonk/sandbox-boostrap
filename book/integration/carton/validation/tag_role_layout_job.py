@@ -22,9 +22,9 @@ ROOT = find_repo_root(Path(__file__))
 TAG_LAYOUTS_PATH = ROOT / "book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json"
 TAG_U16_ROLES_PATH = ROOT / "book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_u16_roles.json"
 FILTERS_PATH = ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/filters.json"
-META_PATH = ROOT / "book/evidence/graph/concepts/validation/out/metadata.json"
-STATUS_PATH = ROOT / "book/evidence/graph/concepts/validation/out/tag_roles/status.json"
-IR_PATH = ROOT / "book/evidence/graph/concepts/validation/out/tag_roles/ir.json"
+META_PATH = ROOT / "book/evidence/carton/validation/out/metadata.json"
+STATUS_PATH = ROOT / "book/evidence/carton/validation/out/tag_roles/status.json"
+IR_PATH = ROOT / "book/evidence/carton/validation/out/tag_roles/ir.json"
 
 # Canonical corpus for this host.
 _CANONICAL = digests_mod.canonical_system_profile_blobs(ROOT)

@@ -2,164 +2,123 @@ import Foundation
 
 // MARK: - Concept parsing
 
-func parseClusterTags(from inventoryPath: String) -> [String: [String]] {
-    let text = readFile(at: inventoryPath)
-    var currentCluster: String?
-    var mapping: [String: [String]] = [:]
-    for line in text.split(separator: "\n") {
-        if line.starts(with: "### ") {
-            let title = line.dropFirst(4).trimmingCharacters(in: .whitespaces)
-            var slug = slugify(String(title))
-            if slug.hasSuffix("-cluster") {
-                slug = String(slug.dropLast("-cluster".count))
-            }
-            currentCluster = slug
+struct ParsedConcept {
+    let name: String
+    let detail: ConceptDetail
+}
+
+private enum Section {
+    case definition
+    case concrete
+    case validation
+}
+
+private func splitListValues(_ raw: String) -> [String] {
+    let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+    return trimmed
+        .split(whereSeparator: { $0 == ";" || $0 == "," })
+        .map { $0.trimmingCharacters(in: CharacterSet(charactersIn: " .")) }
+        .filter { !$0.isEmpty }
+}
+
+private func parseBulletItem(_ line: String) -> String? {
+    let trimmed = line.trimmingCharacters(in: .whitespaces)
+    if trimmed.hasPrefix("* ") || trimmed.hasPrefix("- ") {
+        let item = trimmed.dropFirst(2).trimmingCharacters(in: .whitespaces)
+        return item.isEmpty ? nil : String(item)
+    }
+    return nil
+}
+
+private func extractInlineValue(from line: String, label: String) -> String? {
+    guard let range = line.range(of: label) else { return nil }
+    let tail = line[range.upperBound...]
+    return tail.trimmingCharacters(in: CharacterSet(charactersIn: "* ").union(.whitespaces))
+}
+
+private func parseConceptBlock(name: String, lines: [String]) -> ParsedConcept {
+    let slug = slugify(name)
+    var definitionLines: [String] = []
+    var role: String?
+    var concreteHandles: [String] = []
+    var validationPatterns: [String] = []
+    var relatedConcepts: [String] = []
+    var clusters: [String] = []
+    var section: Section = .definition
+
+    for line in lines {
+        let trimmed = line.trimmingCharacters(in: .whitespaces)
+        if trimmed.isEmpty {
             continue
         }
-        guard let cluster = currentCluster else { continue }
-        if line.trimmingCharacters(in: .whitespaces).hasPrefix("- ") {
-            let name = line.replacingOccurrences(of: "- ", with: "")
-                .trimmingCharacters(in: .whitespaces)
-            var tags = mapping[name] ?? []
-            if !tags.contains(cluster) {
-                tags.append(cluster)
+
+        if let roleValue = extractInlineValue(from: line, label: "Role:") {
+            role = roleValue.isEmpty ? nil : roleValue
+            continue
+        }
+        if line.contains("Concrete handles:") {
+            section = .concrete
+            continue
+        }
+        if line.contains("Validation pattern:") {
+            section = .validation
+            continue
+        }
+        if let relatedValue = extractInlineValue(from: line, label: "Related concepts:") {
+            relatedConcepts = splitListValues(relatedValue).map { slugify($0) }
+            continue
+        }
+        if trimmed.hasPrefix("Clusters:") {
+            let raw = trimmed.dropFirst("Clusters:".count)
+            clusters = splitListValues(String(raw))
+            continue
+        }
+
+        switch section {
+        case .definition:
+            definitionLines.append(trimmed)
+        case .concrete:
+            if let item = parseBulletItem(line) {
+                concreteHandles.append(item)
+            } else if !concreteHandles.isEmpty {
+                concreteHandles[concreteHandles.count - 1] += " " + trimmed
             }
-            mapping[name] = tags
+        case .validation:
+            if let item = parseBulletItem(line) {
+                validationPatterns.append(item)
+            } else if !validationPatterns.isEmpty {
+                validationPatterns[validationPatterns.count - 1] += " " + trimmed
+            }
         }
     }
-    return mapping
-}
 
-func parseConcepts(conceptsPath: String, inventoryPath: String) -> [Concept] {
-    let clusterMap = parseClusterTags(from: inventoryPath)
-    let text = readFile(at: conceptsPath)
-    var concepts: [Concept] = []
-    for line in text.split(separator: "\n") where line.starts(with: "## ") {
-        let name = line.dropFirst(3).trimmingCharacters(in: .whitespaces)
-        let slug = slugify(String(name))
-        let clusters = clusterMap[String(name)] ?? []
-        concepts.append(
-            Concept(
-                id: slug,
-                name: String(name),
-                anchorID: slug,
-                clusterTags: clusters,
-                notes: nil
-            )
+    let definition = definitionLines.joined(separator: " ").trimmingCharacters(in: .whitespaces)
+    return ParsedConcept(
+        name: name,
+        detail: ConceptDetail(
+            id: slug,
+            definition: definition,
+            role: role,
+            concreteHandles: concreteHandles,
+            validationPatterns: validationPatterns,
+            relatedConcepts: relatedConcepts,
+            clusters: clusters
         )
-    }
-    return concepts
+    )
 }
 
-func parseConceptDetails(mapPath: String, concepts: [Concept]) -> [ConceptDetail] {
+func parseConceptMap(mapPath: String) -> [ParsedConcept] {
     let text = readFile(at: mapPath)
     let lines = text.split(separator: "\n", omittingEmptySubsequences: false).map(String.init)
-    var details: [ConceptDetail] = []
+    var parsed: [ParsedConcept] = []
     var currentName: String?
     var buffer: [String] = []
+
     func flush() {
         guard let name = currentName else { return }
-        let slug = slugify(name)
-        let block = buffer
-        buffer = []
+        parsed.append(parseConceptBlock(name: name, lines: buffer))
         currentName = nil
-
-        func extractDefinition(_ lines: [String]) -> String {
-            var defLines: [String] = []
-            var started = false
-            for line in lines {
-                if line.trimmingCharacters(in: .whitespaces).isEmpty {
-                    if started { break }
-                    else { continue }
-                }
-                if line.hasPrefix("* **Role:**") { break }
-                if line.hasPrefix("* **Concrete handles:**") { break }
-                if line.hasPrefix("* **Validation pattern:**") { break }
-                defLines.append(line.trimmingCharacters(in: .whitespaces))
-                started = true
-            }
-            return defLines.joined(separator: " ").trimmingCharacters(in: .whitespaces)
-        }
-
-        func extractRole(_ lines: [String]) -> String? {
-            for line in lines where line.contains("**Role:**") {
-                if let range = line.range(of: "**Role:**") {
-                    let tail = line[range.upperBound...].trimmingCharacters(in: .whitespaces)
-                    return tail.trimmingCharacters(in: CharacterSet(charactersIn: "* ").union(.whitespaces))
-                }
-            }
-            return nil
-        }
-
-        func extractList(after marker: String, from lines: [String]) -> [String] {
-            var capture = false
-            var items: [String] = []
-            for line in lines {
-                if line.contains(marker) {
-                    capture = true
-                    continue
-                }
-                if capture {
-                    if line.trimmingCharacters(in: .whitespaces).hasPrefix("*") == false && line.hasPrefix("  *") == false {
-                        if line.trimmingCharacters(in: .whitespaces).isEmpty { break }
-                    }
-                    if line.trimmingCharacters(in: .whitespaces).hasPrefix("*") || line.trimmingCharacters(in: .whitespaces).hasPrefix("-") {
-                        let trimmed = line.replacingOccurrences(of: "*", with: "")
-                            .replacingOccurrences(of: "-", with: "")
-                            .trimmingCharacters(in: .whitespaces)
-                        if trimmed.contains("Validation pattern:") { continue }
-                        if !trimmed.isEmpty {
-                            items.append(trimmed)
-                        }
-                    } else if line.hasPrefix("  *") {
-                        let trimmed = line.replacingOccurrences(of: "  *", with: "").trimmingCharacters(in: .whitespaces)
-                        if !trimmed.isEmpty {
-                            items.append(trimmed)
-                        }
-                    } else {
-                        break
-                    }
-                }
-            }
-            return items
-        }
-
-        func extractLineValue(prefix: String, from lines: [String]) -> String? {
-            for line in lines where line.contains(prefix) {
-                if let range = line.range(of: prefix) {
-                    let tail = line[range.upperBound...].trimmingCharacters(in: .whitespaces)
-                    return tail
-                }
-            }
-            return nil
-        }
-
-        let definition = extractDefinition(block)
-        let role = extractRole(block)
-        let handles = extractList(after: "**Concrete handles:**", from: block)
-        let validation = extractList(after: "**Validation pattern:**", from: block)
-        let relatedRaw = extractLineValue(prefix: "Related concepts:", from: block) ?? extractLineValue(prefix: "**Related concepts:**", from: block) ?? ""
-        let related = relatedRaw
-            .split(whereSeparator: { [",", ";"].contains(String($0)) })
-            .map { slugify($0.trimmingCharacters(in: .whitespaces)) }
-            .filter { !$0.isEmpty }
-        let clustersRaw = extractLineValue(prefix: "Clusters:", from: block) ?? ""
-        let clusters = clustersRaw
-            .split(whereSeparator: { [",", ";"].contains(String($0)) })
-            .map { $0.trimmingCharacters(in: .whitespaces) }
-            .filter { !$0.isEmpty }
-
-        details.append(
-            ConceptDetail(
-                id: slug,
-                definition: definition,
-                role: role,
-                concreteHandles: handles,
-                validationPatterns: validation,
-                relatedConcepts: related,
-                clusters: clusters
-            )
-        )
+        buffer = []
     }
 
     for line in lines {
@@ -173,5 +132,6 @@ func parseConceptDetails(mapPath: String, concepts: [Concept]) -> [ConceptDetail
         }
     }
     flush()
-    return details
+
+    return parsed
 }

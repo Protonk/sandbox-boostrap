@@ -1,0 +1,33 @@
+{
+  "job_id": "structure:sbpl-parameterization",
+  "status": "ok",
+  "host": {
+    "product": "macOS",
+    "version": "14.4.1",
+    "build": "23E224",
+    "kernel": "23.4.0",
+    "machine": "arm64"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "inputs": [
+    "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/param_path.sb"
+  ],
+  "outputs": [
+    "book/evidence/carton/validation/out/sbpl_parameterization/status.json"
+  ],
+  "tags": [
+    "structure",
+    "sbpl",
+    "sbpl-parameterization",
+    "static-format"
+  ],
+  "metrics": {
+    "compiled_len": 503,
+    "compiled_sha256": "d126353bc1ff1de6ff9f826d83d4effb24ac51c8faff5a1b15a9449487a673a0",
+    "compiled_profile_type": 0,
+    "literal_strings_count": 2
+  },
+  "no_params_error": "compile failed: invalid data type of path filter; expected pattern, got boolean",
+  "mismatches": [],
+  "notes": "Asserts libsandbox params-handle compilation supports a minimal `(param ...)`-using SBPL specimen on this world."
+}

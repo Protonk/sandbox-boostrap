@@ -11,7 +11,7 @@ This experiment produces a small digest corpus of blobs that are witnessed to be
 - World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`
 - Input kind: compiled profile blobs (`*.sb.bin`)
 - Evidence sources:
-  - Minimized witness corpus: `book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json`
+  - Minimized witness corpus: `book/evidence/carton/validation/out/experiments/gate-witnesses/witness_results.json`
   - Direct blob-apply measurements for canonical `sys:*` fixtures: `out/blob_apply_matrix.outside_harness.json`
 - Non-goals:
   - explaining *why* apply gating happens (see `book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md` and `troubles/EPERMx2.md`)
@@ -21,7 +21,7 @@ This experiment produces a small digest corpus of blobs that are witnessed to be
 
 Current state:
 - Digest corpus: `out/apply_gate_blob_digests.json` lists 9 apply-gated blob digests (witness-derived + `sys:airlock` fixture + validated micro-variants).
-- Validation IR: `book/evidence/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json` is the tool-consumed source for `.sb.bin` preflight.
+- Validation IR: `book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json` is the tool-consumed source for `.sb.bin` preflight.
 - Tool behavior: `book/tools/preflight/preflight.py` classifies `.sb.bin` inputs by digest membership (`signature="apply_gate_blob_digest"`).
 
 ## Plan & execution log
@@ -74,7 +74,7 @@ Blob apply matrix (from `out/blob_apply_matrix.*.json`):
   - `out/control_digests.json` — small set of “known not apply-gated” control digests with evidence.
 - Digest corpus + tool wiring
   - `out/apply_gate_blob_digests.json` — canonical list of apply-gated digests (input to validation job).
-  - `book/evidence/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json` — tool-consumed IR.
+  - `book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json` — tool-consumed IR.
   - `book/tools/preflight/preflight.py` — `.sb.bin` preflight classifier.
 
 ## Regeneration
@@ -98,17 +98,17 @@ python3 book/evidence/experiments/runtime-final-final/suites/preflight-blob-dige
 # 3) blob apply matrix (requires an execution context where the control blob is not apply-gated)
 python3 book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/blob_apply_matrix.py \
   --label outside_harness \
-  --blob book/evidence/graph/concepts/validation/fixtures/blobs/airlock.sb.bin \
-  --blob book/evidence/graph/concepts/validation/fixtures/blobs/bsd.sb.bin \
-  --blob book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin \
+  --blob book/evidence/carton/validation/fixtures/blobs/airlock.sb.bin \
+  --blob book/evidence/carton/validation/fixtures/blobs/bsd.sb.bin \
+  --blob book/evidence/carton/validation/fixtures/blobs/sample.sb.bin \
   --out book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/out/blob_apply_matrix.outside_harness.json
 
 # 4) (optional) record the globally gated harness context for contrast
 python3 book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/blob_apply_matrix.py \
   --label in_harness \
-  --blob book/evidence/graph/concepts/validation/fixtures/blobs/airlock.sb.bin \
-  --blob book/evidence/graph/concepts/validation/fixtures/blobs/bsd.sb.bin \
-  --blob book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin \
+  --blob book/evidence/carton/validation/fixtures/blobs/airlock.sb.bin \
+  --blob book/evidence/carton/validation/fixtures/blobs/bsd.sb.bin \
+  --blob book/evidence/carton/validation/fixtures/blobs/sample.sb.bin \
   --out book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/out/blob_apply_matrix.in_harness.json
 
 # 5) comparisons + controls

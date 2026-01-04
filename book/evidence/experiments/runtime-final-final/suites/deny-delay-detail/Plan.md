@@ -8,8 +8,8 @@ Establish a reusable process for diagnosing intermittent kernel deny evidence, a
 
 ## Inputs and tooling
 
-- PolicyWitness API: `book.api.witness.client`, `book.api.witness.enforcement`, `book.api.witness.compare`.
-- Observer: `book.api.witness.observer` (manual `--last` and external range; capture mode if it becomes available).
+- PolicyWitness API: `book.api.witness.xpc.client`, `book.api.witness.analysis.enforcement`, `book.api.witness.analysis.compare`.
+- Observer: `book.api.witness.xpc.observer` (manual `--last` and external range; capture mode if it becomes available).
 - Vocab (canonical): `book/integration/carton/bundle/relationships/mappings/vocab/ops.json`, `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`, `book/integration/carton/bundle/relationships/mappings/vocab/ops_coverage.json`.
 - Path helpers: `book.api.path_utils` for repo-relative outputs.
 
@@ -61,7 +61,7 @@ Establish a reusable process for diagnosing intermittent kernel deny evidence, a
    - Record differences in deny evidence and mapping.
 
 3) **Baseline comparison hook**
-   - For stable configurations, wire a tri-run comparison using `book.api.witness.compare.compare_action` to capture entitlements vs SBPL vs none baselines.
+- For stable configurations, wire a tri-run comparison using `book.api.witness.analysis.compare.compare_action` to capture entitlements vs SBPL vs none baselines.
    - Use the SBPL preflight record to label apply-stage gates.
 
 ## Status targets

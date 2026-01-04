@@ -5,21 +5,24 @@ Host-bound Python API for PolicyWitness.app on the Sonoma baseline. This package
 PolicyWitness app bundle: `book/tools/witness/PolicyWitness.app`
 
 ## Entry points
-- `book.api.witness.client.run_probe` / `run_probe_request` (one-shot probes via `xpc run`)
-- `book.api.witness.session.open_session` / `XpcSession` (`xpc session` control plane)
+- `book.api.witness.xpc.client.run_probe` / `run_probe_request` (one-shot probes via `xpc run`)
+- `book.api.witness.xpc.session.open_session` / `XpcSession` (`xpc session` control plane)
 - `book.api.witness.keepalive.KeepaliveService` / `KeepaliveClient` (keepalive daemon + control socket)
-- `book.api.witness.sb_api_validator.run_sb_api_validator` (sandbox_check oracle lane)
-- `book.api.witness.lifecycle.snapshot_from_probe` / `snapshot_from_session` (on-demand lifecycle snapshots)
-- `book.api.witness.enforcement.enforcement_detail` (minute enforcement detail from probe + observer)
-- `book.api.witness.compare.compare_action` (entitlements/SBPL/none baseline comparison)
+- `book.api.witness.analysis.sb_api_validator.run_sb_api_validator` (sandbox_check oracle lane)
+- `book.api.witness.analysis.lifecycle.snapshot_from_probe` / `snapshot_from_session` (on-demand lifecycle snapshots)
+- `book.api.witness.analysis.enforcement.enforcement_detail` (minute enforcement detail from probe + observer)
+- `book.api.witness.analysis.compare.compare_action` (entitlements/SBPL/none baseline comparison)
 - `book.api.witness.outputs.OutputSpec` (output layout control)
 - `book.api.witness.frida` (PolicyWitness attach-first Frida harness)
 - `book.api.witness.keepalive` (keepalive daemon + hook-frida CLI)
-- `book.api.witness.client.list_profiles` / `list_services` / `show_profile` / `describe_service`
+- `book.api.witness.xpc.client.list_profiles` / `list_services` / `show_profile` / `describe_service`
+
+## Attach guide
+See `book/api/witness/attach-guide.md` for the keepalive + Frida attach flow, helper signing, and target selection gotchas.
 
 ## Health check (recommended first step)
 ```py
-from book.api.witness import client
+from book.api.witness.xpc import client
 
 health = client.health_check()
 print(health["stdout_json"]["data"]["ok"])
@@ -96,18 +99,18 @@ python -m book.api.witness.keepalive hook-frida \
 ```
 
 ## CLI to API mapping (high level)
-- `policy-witness list-profiles` -> `client.list_profiles`
-- `policy-witness list-services` -> `client.list_services`
-- `policy-witness show-profile <id>` -> `client.show_profile`
-- `policy-witness describe-service <id@variant>` -> `client.describe_service`
-- `policy-witness xpc run --profile ...` -> `client.run_probe`
-- `policy-witness xpc session ...` -> `session.open_session`
-- `policy-witness run-matrix ...` -> `client.run_matrix`
-- `policy-witness bundle-evidence` -> `client.bundle_evidence`
-- `policy-witness verify-evidence` -> `client.verify_evidence`
-- `policy-witness inspect-macho ...` -> `client.inspect_macho`
-- `sandbox-log-observer` -> `observer.run_sandbox_log_observer`
-- `policy-witness quarantine-lab ...` -> `client.quarantine_lab` (see note below)
+- `policy-witness list-profiles` -> `xpc.client.list_profiles`
+- `policy-witness list-services` -> `xpc.client.list_services`
+- `policy-witness show-profile <id>` -> `xpc.client.show_profile`
+- `policy-witness describe-service <id@variant>` -> `xpc.client.describe_service`
+- `policy-witness xpc run --profile ...` -> `xpc.client.run_probe`
+- `policy-witness xpc session ...` -> `xpc.session.open_session`
+- `policy-witness run-matrix ...` -> `xpc.client.run_matrix`
+- `policy-witness bundle-evidence` -> `xpc.client.bundle_evidence`
+- `policy-witness verify-evidence` -> `xpc.client.verify_evidence`
+- `policy-witness inspect-macho ...` -> `xpc.client.inspect_macho`
+- `sandbox-log-observer` -> `xpc.observer.run_sandbox_log_observer`
+- `policy-witness quarantine-lab ...` -> `xpc.client.quarantine_lab` (see note below)
 - CLI-only: `run-system`, `run-embedded`, `xpc-quarantine-client`
 
 ## Output layout (OutputSpec)
@@ -130,7 +133,8 @@ WITNESS_OBSERVER_MODE=disabled
 ```py
 from pathlib import Path
 
-from book.api.witness import client, outputs
+from book.api.witness import outputs
+from book.api.witness.xpc import client
 
 result = client.run_probe(
     profile_id="minimal",
@@ -148,7 +152,7 @@ print(result.stdout_json)
 
 ## Service-id probe example
 ```py
-from book.api.witness import client
+from book.api.witness.xpc import client
 
 profiles = client.show_profile("minimal")
 variants = profiles["stdout_json"]["data"]["profile"]["variants"]
@@ -165,7 +169,7 @@ print(result.stdout_json["data"]["service_bundle_id"])
 
 ## XPC session wait flow (attach-first)
 ```py
-from book.api.witness import session
+from book.api.witness.xpc import session
 
 with session.open_session(profile_id="minimal", plan_id="witness:session", wait_spec="fifo:auto") as sess:
     pre = sess.run_probe(probe_id="capabilities_snapshot", argv=[])
@@ -182,7 +186,7 @@ See `book/api/witness/frida/ATTACH_PRIVILEGE.md` and `python -m book.api.witness
 
 ## Lifecycle + enforcement detail
 ```py
-from book.api.witness import enforcement, lifecycle
+from book.api.witness.analysis import enforcement, lifecycle
 
 snapshot = lifecycle.snapshot_from_probe(result.stdout_json, profile_id="minimal")
 print(snapshot.to_json())
@@ -195,7 +199,8 @@ print(detail.to_json())
 ```py
 from pathlib import Path
 
-from book.api.witness import compare, models
+from book.api.witness import models
+from book.api.witness.analysis import compare
 
 action = models.ActionSpec(
     action_id="fs_read_hosts",
@@ -218,7 +223,7 @@ print(report.to_json())
 Use `sb_api_validator` to query `sandbox_check()` against a target PID (oracle only):
 
 ```py
-from book.api.witness import sb_api_validator
+from book.api.witness.analysis import sb_api_validator
 
 result = sb_api_validator.run_sb_api_validator(
     pid=1234,
@@ -238,7 +243,8 @@ book/api/witness/native/sb_api_validator/build.sh
 Attach it to tri-run by adding `sandbox_check` to `ActionSpec`:
 
 ```py
-from book.api.witness import compare, models
+from book.api.witness import models
+from book.api.witness.analysis import compare
 
 action = models.ActionSpec(
     action_id="fs_read_hosts",
@@ -281,7 +287,7 @@ Environment toggles:
 Use `variant` when you want the injectable service, or pass `bundle_id` directly:
 
 ```py
-from book.api.witness import client
+from book.api.witness.xpc import client
 
 result = client.quarantine_lab(
     profile_id="quarantine_default",

@@ -4,7 +4,7 @@ from pathlib import Path
 
 from book.api import path_utils
 ROOT = path_utils.find_repo_root(Path(__file__))
-UNKNOWN_NODES_PATH = ROOT / "book/evidence/experiments/field2-final-final/field2-filters/out/unknown_nodes.json"
+UNKNOWN_NODES_PATH = ROOT / "book/evidence/syncretic/policygraph/node-fields/unknown_nodes.json"
 MATRIX_RECORDS_PATH = ROOT / "book/evidence/experiments/field2-final-final/flow-divert-2560/out/matrix_records.jsonl"
 
 # Stable set of high/unknown field2 payloads on this host baseline.

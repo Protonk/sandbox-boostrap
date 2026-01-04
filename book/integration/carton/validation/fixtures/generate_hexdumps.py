@@ -3,7 +3,7 @@
 Emit small hexdump snapshots for curated blobs to aid decoder authors.
 Reads fixtures.json and writes per-blob dumps under fixtures/hexdumps/.
 
-Fixture data lives under `book/evidence/graph/concepts/validation/fixtures/`.
+Fixture data lives under `book/evidence/carton/validation/fixtures/`.
 """
 
 from __future__ import annotations
@@ -15,7 +15,7 @@ from pathlib import Path
 from book.api.path_utils import find_repo_root
 
 ROOT = find_repo_root(Path(__file__))
-FIXTURES_DIR = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "fixtures"
+FIXTURES_DIR = ROOT / "book" / "evidence" / "carton" / "validation" / "fixtures"
 
 
 def hexdump_region(data: bytes, start: int, length: int) -> str:

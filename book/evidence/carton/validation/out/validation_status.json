@@ -1,0 +1,196 @@
+{
+  "schema": {
+    "job_id": "string",
+    "status": "ok|partial|brittle|blocked|skipped",
+    "host": "object",
+    "inputs": "list[str]",
+    "outputs": "list[str]",
+    "tags": "list[str]",
+    "notes": "string?",
+    "metrics": "object?",
+    "error": "string?",
+    "change": "changed|unchanged?"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "jobs": [
+    {
+      "job_id": "vocab:sonoma-14.4.1",
+      "status": "ok",
+      "host": {
+        "product": "macOS",
+        "version": "14.4.1",
+        "build": "23E224",
+        "kernel": "23.4.0",
+        "machine": "arm64"
+      },
+      "inputs": [
+        "book/integration/carton/bundle/relationships/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
+      ],
+      "outputs": [
+        "book/integration/carton/bundle/relationships/mappings/vocab/ops.json",
+        "book/integration/carton/bundle/relationships/mappings/vocab/filters.json",
+        "book/evidence/carton/validation/out/vocab_status.json"
+      ],
+      "tags": [
+        "vocab",
+        "host:sonoma-14.4.1",
+        "smoke",
+        "golden"
+      ],
+      "hashes": {
+        "book/integration/carton/bundle/relationships/mappings/vocab/ops.json": "8bfec7acc3afe687e7117909658eafafa3ddf173f8300ea90380bbffd7a2f8a2",
+        "book/integration/carton/bundle/relationships/mappings/vocab/filters.json": "637e53a6123199460af10a3699b3dc5bb5337bf1622ac02d5efdf141a436d35e",
+        "book/evidence/carton/validation/out/vocab_status.json": "f133f840e11a513c9b5603db5a7f8dcce05a51e135af0b3e65483d7493ab829a"
+      },
+      "notes": "Verified libsandbox vocab against canonical mappings.",
+      "metrics": {
+        "ops": 196,
+        "filters": 93
+      }
+    },
+    {
+      "job_id": "experiment:field2",
+      "status": "ok",
+      "host": {
+        "product": "macOS",
+        "version": "14.4.1",
+        "build": "23E224",
+        "kernel": "23.4.0",
+        "machine": "arm64"
+      },
+      "inputs": [
+        "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
+        "book/evidence/experiments/field2-final-final/field2-filters/out/unknown_nodes.json"
+      ],
+      "outputs": [
+        "book/evidence/carton/validation/out/experiments/field2/field2_ir.json",
+        "book/evidence/carton/validation/out/experiments/field2/status.json"
+      ],
+      "tags": [
+        "experiment:field2",
+        "experiment",
+        "field2",
+        "smoke"
+      ],
+      "hashes": {
+        "book/evidence/carton/validation/out/experiments/field2/field2_ir.json": "f6290b159972d4627d776d4713d049c60dd08cd7abf4159365af7b5f44375dee",
+        "book/evidence/carton/validation/out/experiments/field2/status.json": "21f0c4af04073923264e8bb5c80feced03c70bd70871fc4bac95c8e23b6b9506"
+      },
+      "notes": "Normalized field2 inventory and unknown nodes into IR.",
+      "metrics": {
+        "profiles": 45,
+        "unknown_nodes": 0
+      }
+    },
+    {
+      "job_id": "experiment:runtime-checks",
+      "status": "ok",
+      "host": {
+        "product": "macOS",
+        "version": "14.4.1",
+        "build": "23E224",
+        "kernel": "23.4.0",
+        "machine": "arm64"
+      },
+      "inputs": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/de0d011d-5d6e-4860-b908-f3a932b1c47e/artifact_index.json",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/de0d011d-5d6e-4860-b908-f3a932b1c47e/runtime_results.json"
+      ],
+      "outputs": [
+        "book/evidence/carton/validation/out/experiments/runtime-checks/runtime_results.normalized.json",
+        "book/evidence/carton/validation/out/experiments/runtime-checks/status.json"
+      ],
+      "tags": [
+        "experiment:runtime-checks",
+        "experiment",
+        "runtime",
+        "smoke",
+        "golden"
+      ],
+      "hashes": {
+        "book/evidence/carton/validation/out/experiments/runtime-checks/runtime_results.normalized.json": "640b9ab0c1d3b9662fb0a63a5583166c69ece55e40299e8942765df1a87b2117",
+        "book/evidence/carton/validation/out/experiments/runtime-checks/status.json": "4fdff02c18195d9c1403dd60eedb1ad324cb310deac4c04a2e5ac0b4444f1f51"
+      },
+      "notes": "Normalized runtime_results into contract-shaped runtime events for this world.",
+      "metrics": {
+        "events": 56
+      }
+    },
+    {
+      "job_id": "experiment:system-profile-digest",
+      "status": "ok",
+      "host": {
+        "product": "macOS",
+        "version": "14.4.1",
+        "build": "23E224",
+        "kernel": "23.4.0",
+        "machine": "arm64"
+      },
+      "inputs": [
+        "book/evidence/carton/validation/fixtures/blobs/airlock.sb.bin",
+        "book/evidence/carton/validation/fixtures/blobs/bsd.sb.bin",
+        "book/evidence/carton/validation/fixtures/blobs/sample.sb.bin"
+      ],
+      "outputs": [
+        "book/evidence/carton/validation/out/experiments/system-profile-digest/digests_ir.json",
+        "book/evidence/carton/validation/out/experiments/system-profile-digest/status.json"
+      ],
+      "tags": [
+        "experiment:system-profile-digest",
+        "experiment",
+        "system-profiles",
+        "golden"
+      ],
+      "hashes": {
+        "book/evidence/carton/validation/out/experiments/system-profile-digest/digests_ir.json": "28e6c122bc83971b774d93d55400d1a3a621c8213d7231670c22c86bef8998cd",
+        "book/evidence/carton/validation/out/experiments/system-profile-digest/status.json": "7a6f83f363c787486f9eccad56a3179c875896e1bad77b3f8e8bc2f0dbc4cdf8"
+      },
+      "notes": "Normalized system profile digests into IR.",
+      "metrics": {
+        "profiles": 3
+      },
+      "change": "unchanged"
+    },
+    {
+      "job_id": "structure:tag_roles",
+      "status": "ok",
+      "host": {
+        "product": "macOS",
+        "version": "14.4.1",
+        "build": "23E224",
+        "kernel": "23.4.0",
+        "machine": "arm64"
+      },
+      "inputs": [
+        "book/evidence/carton/validation/fixtures/blobs/airlock.sb.bin",
+        "book/evidence/carton/validation/fixtures/blobs/bsd.sb.bin",
+        "book/evidence/carton/validation/fixtures/blobs/sample.sb.bin",
+        "book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json",
+        "book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_u16_roles.json"
+      ],
+      "outputs": [
+        "book/evidence/carton/validation/out/tag_roles/ir.json",
+        "book/evidence/carton/validation/out/tag_roles/status.json"
+      ],
+      "tags": [
+        "structure",
+        "tag",
+        "layout",
+        "role",
+        "smoke"
+      ],
+      "hashes": {
+        "book/evidence/carton/validation/out/tag_roles/ir.json": "045b35895e9ba5b9831d2a365441f65ddb95d94ecafa9da5d320a6db3f1a2ace",
+        "book/evidence/carton/validation/out/tag_roles/status.json": "fa84afd0fe626f8be50f598598e91425758fba15392b198087ef6c763a7f2aa3"
+      },
+      "metrics": {
+        "profiles": 3,
+        "missing_roles_total": 0,
+        "missing_layout_total": 0,
+        "fallback_nodes_total": 0,
+        "vocab_hits_total": 119,
+        "vocab_misses_total": 9
+      }
+    }
+  ]
+}

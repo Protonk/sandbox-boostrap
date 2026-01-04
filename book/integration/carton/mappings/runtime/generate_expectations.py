@@ -49,6 +49,10 @@ TRACE_PATHS = {
     "bucket5:v11_read_subpath": "book/integration/carton/bundle/relationships/mappings/runtime/traces/bucket5_v11_read_subpath.jsonl",
 }
 
+LEGACY_TRACE_REWRITES = (
+    ("book/evidence/graph/concepts/validation/", "book/evidence/carton/validation/"),
+)
+
 PROFILE_BLOBS = {
     "runtime:allow_all": "book/profiles/golden-triple/allow_all.sb.bin",
     "runtime:metafilter_any": "book/profiles/golden-triple/metafilter_any.sb.bin",
@@ -87,6 +91,17 @@ def count_trace_rows(path: Path) -> int:
         return 0
     with path.open("r", encoding="utf-8") as fh:
         return sum(1 for _ in fh)
+
+def normalize_trace_sources(path: Path) -> None:
+    if not path.exists():
+        return
+    text = path.read_text()
+    updated = text
+    for old, new in LEGACY_TRACE_REWRITES:
+        if old in updated:
+            updated = updated.replace(old, new)
+    if updated != text:
+        path.write_text(updated)
 
 
 def allowed_mismatch(expectation_id: str, impact_map: Dict[str, Any]) -> bool:
@@ -156,6 +171,8 @@ def main() -> None:
     world_id = baseline_world()
     story = load_json(RUNTIME_STORY)
     impact_map = load_json(IMPACT_MAP)
+    for trace_rel in TRACE_PATHS.values():
+        normalize_trace_sources(ROOT / trace_rel)
     run_manifest_checks = load_json(RUN_MANIFEST_CHECKS)
     if not run_manifest_checks:
         raise RuntimeError("missing runtime-checks run_manifest.json; run via launchctl clean channel")

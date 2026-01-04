@@ -6,8 +6,8 @@ from pathlib import Path
 from book.api import path_utils
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 BOOK_ROOT = path_utils.find_repo_root(Path(__file__)) / "book"
-MANIFEST_PATH = BOOK_ROOT / "evidence/graph/concepts/validation/golden_corpus/corpus_manifest.json"
-SUMMARY_PATH = BOOK_ROOT / "evidence/graph/concepts/validation/golden_corpus/corpus_summary.json"
+MANIFEST_PATH = BOOK_ROOT / "evidence/carton/validation/golden_corpus/corpus_manifest.json"
+SUMMARY_PATH = BOOK_ROOT / "evidence/carton/validation/golden_corpus/corpus_summary.json"
 TAG_LAYOUTS_PATH = BOOK_ROOT / "integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json"
 WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 
@@ -66,7 +66,7 @@ def test_platform_entries_are_static_only():
     for entry in static_only:
         rec_id = entry["id"]
         # Ensure decodes exist for static-only entries.
-        decode_path = BOOK_ROOT / f"evidence/graph/concepts/validation/golden_corpus/decodes/{rec_id}.json"
+        decode_path = BOOK_ROOT / f"evidence/carton/validation/golden_corpus/decodes/{rec_id}.json"
         assert decode_path.exists(), f"decode missing for static-only entry {rec_id}"
         # Ensure we are not silently treating static-only entries as runtime-capable.
         assert entry.get("mode") == "static-only", f"static-only mode not set for {rec_id}"

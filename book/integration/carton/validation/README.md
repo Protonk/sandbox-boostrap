@@ -11,12 +11,6 @@ Validation units (use these tags/IDs when adding jobs):
 - `experiment:<name>` — validations whose inputs live under `book/evidence/experiments/<name>/out`.
 - `graph:*` — consistency checks for artifacts under `book/integration/carton/bundle/relationships/mappings/*`.
 
-The CARTON graph tool also writes a lightweight validation report to `book/evidence/graph/concepts/validation/validation_report.json`, capturing schema/ID checks (e.g., concept IDs referenced by strategies and runtime expectations). Run it via:
-
-```
-python -m book.integration.carton swift --run
-```
-
 Python validation driver (single entrypoint):
 - List jobs: `python -m book.integration.carton validate --list`
 - Run everything: `python -m book.integration.carton validate --all`
@@ -36,19 +30,17 @@ Promotion contract:
 - Mapping generators must: (1) run the validation driver for relevant tags/IDs, (2) refuse to proceed on non-`ok` jobs, (3) read normalized validation IR only (not raw experiment out/), and (4) carry host/provenance (`host`, `source_jobs`) into outputs. See `book/integration/carton/mappings/run_promotion.py` and `book/integration/carton/mappings/runtime/generate_runtime_signatures.py` / `book/integration/carton/mappings/system_profiles/generate_digests_from_ir.py` for the pattern.
 - CARTON: the frozen IR/mapping bundle for Sonoma 14.4.1 lives under `book/integration/carton/bundle/` with its manifest at `book/integration/carton/bundle/CARTON.json`. After rerunning validation + mapping generators, refresh CARTON via `python -m book.integration.carton build` to rebuild relationships/views/contracts and the manifest. Schema checks assert CARTON and mapping provenance. CARTON is what the textbook and CI read; this validation directory is where you extend or regenerate the IR that feeds it.
 
-Keep Swift-side validation non-fatal: extend the report rather than blocking generation when checks fail.
-
 Guidelines for new validation work:
 - Prefer small, composable scripts (for example, `profile_ingestion.py` or `node_decoder.py`) over monolithic tools.
-- Emit typed JSON under `book/evidence/graph/concepts/validation/out/` and record host/OS/build metadata in outputs.
+- Emit typed JSON under `book/evidence/carton/validation/out/` and record host/OS/build metadata in outputs.
 - Do not hide decoder or ingestion failures; mark jobs `partial` or `brittle` and note the limitation in status output.
 - If decoding or ingestion semantics change, update this README and check whether mappings under `book/integration/carton/bundle/relationships/mappings/` need regeneration.
-- Keep fixtures under `book/evidence/graph/concepts/validation/fixtures/` small and explicit, and wire new fixtures or strategies into `book/evidence/graph/concepts/validation/strategies.json` (or the owning routing file).
+- Keep fixtures under `book/evidence/carton/validation/fixtures/` small and explicit, and wire new fixtures into `tasks.py` plus the owning job module.
 
 ## Files
 
 - `tasks.py` – declarative mapping of validation tasks to inputs and expected artifacts. Used as the source of truth for which fixtures/experiments exercise which clusters.
-- `book/evidence/graph/concepts/validation/out/` – drop-in location for captured evidence (JSON logs, parsed headers, vocab tables) keyed by cluster/run/OS version.
+- `book/evidence/carton/validation/out/` – drop-in location for captured evidence (JSON logs, parsed headers, vocab tables) keyed by cluster/run/OS version.
 - Decoder lives under `book/api/profile/decoder/` (Python); import `book.api.profile.decoder` (or `from book.api.profile import decoder`) in validation tooling.
 
 ## Usage model (planned)
@@ -59,4 +51,4 @@ Guidelines for new validation work:
 4. For Vocabulary tasks, extract operation/filter maps from compiled blobs (from Static-Format) and from runtime logs (from Semantic Graph), then normalize into versioned tables under `book/integration/carton/bundle/relationships/mappings/vocab/` (a shared, stable location). Stable op-table artifacts live under `book/integration/carton/bundle/relationships/mappings/op_table/`.
 5. For Runtime Lifecycle tasks, run the lifecycle probes via `book.api.lifecycle` (entitlements/platform/containers/extensions/apply attempts) and capture label/entitlement/container/extension evidence under `out/lifecycle/`.
 
-All scripts and automation that support these steps should live in this directory; fixtures live under `book/evidence/graph/concepts/validation/fixtures/`, and experiment bundles stay under `book/evidence/experiments/`.
+All scripts and automation that support these steps should live in this directory; fixtures live under `book/evidence/carton/validation/fixtures/`, and experiment bundles stay under `book/evidence/experiments/`.

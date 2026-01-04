@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from book.api.witness import client
+from book.api.witness.xpc import client
 from book.api.witness.paths import WITNESS_CLI
 
 

@@ -99,7 +99,8 @@ Example:
 python - <<'PY'
 from pathlib import Path
 
-from book.api.witness import client, outputs
+from book.api.witness import outputs
+from book.api.witness.xpc import client
 
 result = client.run_probe(
     profile_id="minimal",

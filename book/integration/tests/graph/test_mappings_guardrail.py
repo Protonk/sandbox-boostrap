@@ -66,10 +66,7 @@ def test_field2_inventory_present():
     inv_path = (
         ROOT
         / "book"
-        / "evidence"
-        / "graph"
-        / "concepts"
-        / "validation"
+        / "evidence" / "carton" / "validation"
         / "out"
         / "experiments"
         / "field2"

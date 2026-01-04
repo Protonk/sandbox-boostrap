@@ -52,7 +52,7 @@ This experiment sits between the structural experiments and the validation tooli
 **Validation tooling**
 
 - `book/integration/carton/validation/profile_ingestion` and `decoder` – establish how we slice and decode modern profiles.
-- `book/evidence/graph/concepts/validation/out/metadata.json` – records host/OS baseline and static-format metadata.
+- `book/evidence/carton/validation/out/metadata.json` – records host/OS baseline and static-format metadata.
 
 ---
 
@@ -160,7 +160,7 @@ This experiment sits between the structural experiments and the validation tooli
   - Textual interpretation in `ResearchReport.md` framed in terms of the Operation, Operation Pointer Table, and Operation Vocabulary Map concepts.
   ---
 - **5. Turnover and integration**
-  - Add a short summary and pointer into `book/evidence/graph/concepts/EXPERIMENT_FEEDBACK.md` and any validation tasks that consume op-table/vocab data.
+  - Add a short summary and pointer into `book/integration/carton/Concept_map.md` and any validation tasks that consume op-table/vocab data.
   Open questions to track (Upcoming):
   - How best to represent “buckets” in a way that stays stable across OS builds while still tying to concrete Operation IDs.
   - How much alignment logic should live here versus shared validation tooling under `book/integration/carton/validation/`.
@@ -170,7 +170,7 @@ This experiment sits between the structural experiments and the validation tooli
 - `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` and `filters.json` harvested from the dyld cache for this host (status: ok).
 - `book/evidence/experiments/profile-pipeline/op-table-operation/out/summary.json`, `op_table_map.json`, and `op_table_signatures.json` as upstream structural inputs.
 - `book/evidence/experiments/profile-pipeline/op-table-vocab-alignment/out/op_table_vocab_alignment.json` capturing per-profile operations, op-table buckets, and (when present) vocabulary IDs and versions.
-- Host/format metadata in `book/evidence/graph/concepts/validation/out/metadata.json` that tie alignment runs to the Sonoma baseline.
+- Host/format metadata in `book/evidence/carton/validation/out/metadata.json` that tie alignment runs to the Sonoma baseline.
 
 ## Blockers / risks
 - Alignment logic is currently scoped to the synthetic profiles exercised in `op-table-operation`; operations not present there are outside this experiment’s coverage.
@@ -243,7 +243,7 @@ This experiment can treat “SBPL op name → Operation ID” as complete for th
    - cross-link to:
      - `node-layout` (e.g., “tag6-heavy regions correlate with Operation IDs X, Y, Z in bucket 6”),
      - `op-table-operation` (e.g., “bucket 5 is where mach-lookup and filtered read IDs land in these synthetic profiles”),
-     - `book/evidence/graph/concepts/EXPERIMENT_FEEDBACK.md` with a short note and pointers.
+     - `book/integration/carton/Concept_map.md` with a short note and pointers.
 
    This will turn the current bucket-level observations into properly versioned vocabulary evidence.
 

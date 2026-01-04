@@ -14,14 +14,11 @@ from book.integration.carton.validation import registry
 from book.integration.carton.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
-META_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
+META_PATH = ROOT / "book" / "evidence" / "carton" / "validation" / "out" / "metadata.json"
 STATUS_PATH = (
     ROOT
     / "book"
-    / "evidence"
-    / "graph"
-    / "concepts"
-    / "validation"
+    / "evidence" / "carton" / "validation"
     / "out"
     / "experiments"
     / "system-profile-digest"
@@ -30,10 +27,7 @@ STATUS_PATH = (
 IR_PATH = (
     ROOT
     / "book"
-    / "evidence"
-    / "graph"
-    / "concepts"
-    / "validation"
+    / "evidence" / "carton" / "validation"
     / "out"
     / "experiments"
     / "system-profile-digest"

@@ -30,6 +30,11 @@ DEFAULT_PACKET_SET_PATH = REPO_ROOT / "book/integration/carton/bundle/relationsh
 
 REQUIRED_FIELDS = ("run_manifest", "expected_matrix", "runtime_results", "runtime_events")
 OPTIONAL_FIELDS = ("baseline_results", "oracle_results", "mismatch_packets", "summary", "impact_map")
+LEGACY_PATH_REWRITES = (
+    ("book/evidence/graph/concepts/validation/", "book/evidence/carton/validation/"),
+    ("book/evidence/graph/concepts/", "book/evidence/carton/concepts/"),
+    ("book/evidence/graph/mappings/", "book/integration/carton/bundle/relationships/mappings/"),
+)
 
 
 @dataclass(frozen=True)
@@ -51,6 +56,19 @@ def _load_json(path: Path) -> Dict[str, Any]:
     if not path.exists():
         raise FileNotFoundError(f"missing input: {path}")
     return json.loads(path.read_text())
+
+def _rewrite_legacy_paths(value: Any) -> Any:
+    if isinstance(value, str):
+        updated = value
+        for old, new in LEGACY_PATH_REWRITES:
+            if old in updated:
+                updated = updated.replace(old, new)
+        return updated
+    if isinstance(value, list):
+        return [_rewrite_legacy_paths(item) for item in value]
+    if isinstance(value, dict):
+        return {key: _rewrite_legacy_paths(val) for key, val in value.items()}
+    return value
 
 def load_packet_set(packet_set_path: Path) -> PacketSet:
     packet_set_path = path_utils.ensure_absolute(packet_set_path, REPO_ROOT)
@@ -144,6 +162,7 @@ def load_observations(packet: PromotionPacket) -> List[models.RuntimeObservation
     for row in rows:
         if not isinstance(row, dict):
             continue
+        row = _rewrite_legacy_paths(row)
         try:
             observations.append(models.RuntimeObservation(**row))
         except TypeError as exc:

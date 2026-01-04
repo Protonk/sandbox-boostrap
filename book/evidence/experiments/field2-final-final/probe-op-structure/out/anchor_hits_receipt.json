@@ -1,0 +1,84 @@
+{
+  "command": [
+    "book/evidence/experiments/field2-final-final/probe-op-structure/anchor_scan.py"
+  ],
+  "inputs": {
+    "anchor_map": {
+      "path": "book/evidence/experiments/field2-final-final/probe-op-structure/anchor_map.json",
+      "sha256": "f5dde5df9240a9573bd4429f6a4ee27bafc4a674043dc0c21e292677dac83e70"
+    },
+    "filters_vocab": {
+      "path": "book/integration/carton/bundle/relationships/mappings/vocab/filters.json",
+      "sha256": "637e53a6123199460af10a3699b3dc5bb5337bf1622ac02d5efdf141a436d35e"
+    },
+    "profiles": {
+      "probe:v0_file_require_all": {
+        "path": "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v0_file_require_all.sb.bin",
+        "sha256": "0b491b96b6e101f53cd12081c41af87e31caaedec3344e11960018f25f6f4eda"
+      },
+      "probe:v10_iokit_user_client_pair": {
+        "path": "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v10_iokit_user_client_pair.sb.bin",
+        "sha256": "10e654f8a250b4a4f7f7766cfd7911a7fb0f68b3efa16a575502548a7f53e158"
+      },
+      "probe:v11_iokit_user_client_connection": {
+        "path": "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v11_iokit_user_client_connection.sb.bin",
+        "sha256": "d8abf1d64b726983ee7826d94dbd3876a33e46bacd062ff6405996e79c3d6c4c"
+      },
+      "probe:v1_file_require_any": {
+        "path": "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v1_file_require_any.sb.bin",
+        "sha256": "63bf15c323171eb512e17fa60f20f988d1ca6751b554a4a8b2eda8dc23b1c321"
+      },
+      "probe:v2_file_three_filters_any": {
+        "path": "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v2_file_three_filters_any.sb.bin",
+        "sha256": "8a57477fa839ec95bd6374bbbc6af948a70dc419cd95a341e35c2024a0accb00"
+      },
+      "probe:v3_mach_global_local": {
+        "path": "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v3_mach_global_local.sb.bin",
+        "sha256": "a19fec64d5eb993e7d14d89204a950a41283b36401cbfb1f351b82f483c011bc"
+      },
+      "probe:v4_network_socket_require_all": {
+        "path": "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v4_network_socket_require_all.sb.bin",
+        "sha256": "13ac83c6ffea7232e86baff165f248f4314fd224ec1be863b7ca0d107e4a244b"
+      },
+      "probe:v5_iokit_class_property": {
+        "path": "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v5_iokit_class_property.sb.bin",
+        "sha256": "988f2fcee8d77aec40453d38d6f953077b6743963aee843a8410236b3a0bdf5f"
+      },
+      "probe:v6_file_mach_combo": {
+        "path": "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v6_file_mach_combo.sb.bin",
+        "sha256": "4329a93b168167ecc32c70de50cea09e60760df91add145f65600ca948961e40"
+      },
+      "probe:v7_file_network_combo": {
+        "path": "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v7_file_network_combo.sb.bin",
+        "sha256": "13ac83c6ffea7232e86baff165f248f4314fd224ec1be863b7ca0d107e4a244b"
+      },
+      "probe:v8_all_combo": {
+        "path": "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v8_all_combo.sb.bin",
+        "sha256": "32306bbba824add4f3f0bf66fe74d219181b33f9958d68afe906380770fa9082"
+      },
+      "probe:v9_iokit_user_client_only": {
+        "path": "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v9_iokit_user_client_only.sb.bin",
+        "sha256": "e574dcd98b7184b3ed0429d18a25bcd7f9aba8fbcedb88d90be934475b4d9fb4"
+      },
+      "sys:airlock": {
+        "path": "book/evidence/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
+        "sha256": "33d1a72e709f86f7827cb6e5a919a30cc86a3d0ea6e048b2117d0240a923467e"
+      },
+      "sys:bsd": {
+        "path": "book/evidence/graph/concepts/validation/fixtures/blobs/bsd.sb.bin",
+        "sha256": "c6fe205fe002bcb0e094419e149d5f1a8a49517d034033fe5bec52ef8e75a179"
+      },
+      "sys:sample": {
+        "path": "book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin",
+        "sha256": "a82e5aa81c57e46988a3bbf96880e9131e01f9e0ac19939b6ea7b645753fbaac"
+      }
+    }
+  },
+  "outputs": {
+    "anchor_hits": "book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json",
+    "receipt": "book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_receipt.json"
+  },
+  "schema_version": "probe-op-structure.anchor_hits.receipt.v1",
+  "tool": "probe-op-structure.anchor_scan",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

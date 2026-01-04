@@ -2,11 +2,11 @@ from pathlib import Path
 
 import pytest
 
-from book.api.witness import observer as witness_observer
-from book.api.witness.lifecycle import extract_details
+from book.api.witness.xpc import observer as witness_observer
+from book.api.witness.analysis.lifecycle import extract_details
 from book.api.witness.paths import WITNESS_CLI
-from book.api.witness.protocol import WaitSpec
-from book.api.witness.session import open_session
+from book.api.witness.xpc.protocol import WaitSpec
+from book.api.witness.xpc.session import open_session
 
 
 @pytest.mark.system

@@ -20,7 +20,7 @@ Turn the intermittent “missing deny evidence” problem into a repeatable meth
 - `Plan.md`, `Report.md`, `Notes.md` (this experiment scaffold).
 - Reliability matrix artifacts (machine + human readable).
 - A short playbook that explains the decision ladder used to resolve missing deny evidence.
-- A tri-run comparison sample that exercises `book.api.witness` baseline comparisons for a Downloads-shaped probe.
+- A tri-run comparison sample that exercises `book.api.witness.analysis.compare` baseline comparisons for a Downloads-shaped probe.
 
 ## Plan & execution log
 

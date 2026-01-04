@@ -4,7 +4,7 @@ Build a field2 frontier from userland-visible sources.
 
 Frontier inputs:
 - seed manifest (field2-atlas/field2_seeds.json)
-- field2 inventory + unknown census (field2-filters)
+- promoted field2 inventory + unknown census (syncretic policygraph/node-fields)
 - anchor hits (probe-op-structure)
 - optional atlas output (field2-atlas out/derived)
 """
@@ -43,20 +43,18 @@ DEFAULT_INVENTORY = (
     REPO_ROOT
     / "book"
     / "evidence"
-    / "experiments"
-    / "field2-final-final"
-    / "field2-filters"
-    / "out"
+    / "syncretic"
+    / "policygraph"
+    / "node-fields"
     / "field2_inventory.json"
 )
 DEFAULT_UNKNOWN_NODES = (
     REPO_ROOT
     / "book"
     / "evidence"
-    / "experiments"
-    / "field2-final-final"
-    / "field2-filters"
-    / "out"
+    / "syncretic"
+    / "policygraph"
+    / "node-fields"
     / "unknown_nodes.json"
 )
 DEFAULT_ANCHOR_HITS = (

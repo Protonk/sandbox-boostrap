@@ -50,5 +50,5 @@ Fixtures and fixture policy:
 - Treat fixtures as inputs to tests, not outputs of test runs.
 - Regenerate fixtures via the owning tool; avoid hand-editing.
 - If a fixture change affects hashes/indices, update
-  `book/evidence/graph/concepts/validation/fixtures/fixtures.json` (and any other
+  `book/evidence/carton/validation/fixtures/fixtures.json` (and any other
   contract that pins that fixture) in the same change.

@@ -15,6 +15,7 @@ enumerator and its supporting inputs.
 From repo root:
 
 ```sh
+python3 book/tools/policy/ratchet/promote_field2_static.py
 python3 book/tools/policy/policygraph_node_fields.py --out book/evidence/syncretic/policygraph/node-fields
 python3 book/tools/policy/policygraph_node_fields.py --describe
 ```
@@ -26,6 +27,9 @@ python3 book/tools/policy/policygraph_node_fields.py \
   --packet book/tools/policy/runtime_annotation.promotion_packet.json \
   --out book/evidence/syncretic/policygraph/node-fields
 ```
+
+Core static promotion keeps the field2 inventory and unknown census in sync under
+`book/evidence/syncretic/policygraph/node-fields/`.
 
 ## Outputs
 

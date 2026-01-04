@@ -24,8 +24,8 @@ if str(ROOT) not in sys.path:
 
 from book.integration.carton.validation import registry
 
-METADATA_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
-STATUS_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "validation_status.json"
+METADATA_PATH = ROOT / "book" / "evidence" / "carton" / "validation" / "out" / "metadata.json"
+STATUS_PATH = ROOT / "book" / "evidence" / "carton" / "validation" / "out" / "validation_status.json"
 ALLOWED_STATUS = {
     "ok",
     "partial",

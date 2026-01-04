@@ -3,7 +3,7 @@
 Regenerate system profile digests mapping from validation IR only.
 
 Inputs:
-- book/evidence/graph/concepts/validation/out/experiments/system-profile-digest/digests_ir.json
+- book/evidence/carton/validation/out/experiments/system-profile-digest/digests_ir.json
 
 Flow:
 - Run validation driver with tag `system-profiles` (and smoke for dependencies).
@@ -30,16 +30,13 @@ from book.api import world as world_mod  # noqa: E402
 IR_PATH = (
     ROOT
     / "book"
-    / "evidence"
-    / "graph"
-    / "concepts"
-    / "validation"
+    / "evidence" / "carton" / "validation"
     / "out"
     / "experiments"
     / "system-profile-digest"
     / "digests_ir.json"
 )
-STATUS_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "validation_status.json"
+STATUS_PATH = ROOT / "book" / "evidence" / "carton" / "validation" / "out" / "validation_status.json"
 OUT_PATH = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "system_profiles" / "digests.json"
 STATIC_CHECKS_PATH = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "system_profiles" / "static_checks.json"
 EXPECTED_JOB = "experiment:system-profile-digest"

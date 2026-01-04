@@ -36,6 +36,7 @@ DEFAULT_MILESTONE = FIELD2_ROOT / "active_milestone.json"
 DEFAULT_DECISIONS = FIELD2_ROOT / "decisions.jsonl"
 FRONTIER_SCRIPT = RATCHET_ROOT / "frontier_build.py"
 TRANCHE_SCRIPT = RATCHET_ROOT / "tranche_select.py"
+PROMOTE_STATIC_SCRIPT = RATCHET_ROOT / "promote_field2_static.py"
 
 
 def _load_json(path: Path) -> Any:
@@ -120,6 +121,7 @@ def main() -> None:
     )
     parser.add_argument("--milestone", type=Path, default=DEFAULT_MILESTONE)
     parser.add_argument("--decisions", type=Path, default=DEFAULT_DECISIONS)
+    parser.add_argument("--skip-promote-static", action="store_true")
     parser.add_argument("--skip-frontier", action="store_true")
     parser.add_argument("--skip-tranche", action="store_true")
     parser.add_argument("--allow-missing-decisions", action="store_true")
@@ -129,6 +131,9 @@ def main() -> None:
     packet_path = path_utils.ensure_absolute(args.packet, repo_root=repo_root)
     if not packet_path.exists():
         raise FileNotFoundError(f"missing packet: {packet_path}")
+
+    if not args.skip_promote_static:
+        _run_script(PROMOTE_STATIC_SCRIPT, [])
 
     static_doc = atlas_static.build_records()
     atlas_static.write_records(static_doc)

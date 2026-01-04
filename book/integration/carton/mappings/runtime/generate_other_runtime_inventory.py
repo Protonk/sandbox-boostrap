@@ -15,9 +15,11 @@ DEFAULT_SOURCE = (
 )
 DEFAULT_OUT = "book/integration/carton/bundle/relationships/mappings/runtime/other_runtime_inventory.json"
 
-LEGACY_PREFIXES = ("book/graph/",)
+LEGACY_PREFIXES = ("book/graph/", "book/evidence/graph/")
 
 REWRITE_PREFIXES = (
+    ("book/evidence/graph/concepts/validation/", "book/evidence/carton/validation/"),
+    ("book/evidence/graph/concepts/", "book/evidence/carton/concepts/"),
     ("book/graph/concepts/validation/", "book/integration/carton/validation/"),
     ("book/graph/swift/", "book/integration/carton/graph/swift/"),
     ("book/graph/mappings/", "book/integration/carton/mappings/"),
@@ -26,6 +28,11 @@ REWRITE_PREFIXES = (
 SPECIAL_REWRITES = {
     "book/graph/concepts/validation/Concept_map.md": "book/integration/carton/Concept_map.md",
     "book/graph/AGENTS.md": "book/integration/carton/graph/AGENTS.md",
+    "book/evidence/graph/concepts/CONCEPT_INVENTORY.md": None,
+    "book/evidence/graph/concepts/EXAMPLES.md": None,
+    "book/evidence/graph/concepts/EXPERIMENT_FEEDBACK.md": None,
+    "book/evidence/graph/concepts/concept_text_map.json": None,
+    "book/evidence/graph/concepts/validation/strategies.json": None,
 }
 
 
@@ -45,7 +52,7 @@ def _iter_paths(doc: dict) -> Iterable[str]:
             yield path
 
 
-def _rewrite_path(path: str) -> str:
+def _rewrite_path(path: str) -> str | None:
     if path in SPECIAL_REWRITES:
         return SPECIAL_REWRITES[path]
     for old_prefix, new_prefix in REWRITE_PREFIXES:
@@ -58,22 +65,44 @@ def _rewrite_inventory(doc: dict) -> None:
     for entry in doc.get("in_repo", []) or []:
         paths = entry.get("paths")
         if isinstance(paths, list):
-            entry["paths"] = [
-                _rewrite_path(path) if isinstance(path, str) else path for path in paths
-            ]
+            rewritten = []
+            for path in paths:
+                if not isinstance(path, str):
+                    rewritten.append(path)
+                    continue
+                updated = _rewrite_path(path)
+                if updated is not None:
+                    rewritten.append(updated)
+            entry["paths"] = rewritten
         files = entry.get("files")
         if isinstance(files, list):
+            rewritten_files = []
             for fentry in files:
-                if isinstance(fentry, dict):
-                    path = fentry.get("path")
-                    if isinstance(path, str):
-                        fentry["path"] = _rewrite_path(path)
+                if not isinstance(fentry, dict):
+                    rewritten_files.append(fentry)
+                    continue
+                path = fentry.get("path")
+                if isinstance(path, str):
+                    updated = _rewrite_path(path)
+                    if updated is None:
+                        continue
+                    fentry["path"] = updated
+                rewritten_files.append(fentry)
+            entry["files"] = rewritten_files
 
     for entry in doc.get("unclassified_hits", []) or []:
         if isinstance(entry, dict):
             path = entry.get("path")
             if isinstance(path, str):
-                entry["path"] = _rewrite_path(path)
+                updated = _rewrite_path(path)
+                if updated is None:
+                    entry.pop("path", None)
+                else:
+                    entry["path"] = updated
+
+    doc["unclassified_hits"] = [
+        entry for entry in doc.get("unclassified_hits", []) or [] if entry.get("path")
+    ]
 
 
 def _validate_inventory(doc: dict) -> None:

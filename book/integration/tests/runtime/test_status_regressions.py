@@ -7,7 +7,7 @@ from book.integration.tests.runtime.runtime_bundle_helpers import load_bundle_js
 ROOT = path_utils.find_repo_root(Path(__file__))
 BASELINE = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
 VALIDATION_STATUS = (
-    ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "validation_status.json"
+    ROOT / "book" / "evidence" / "carton" / "validation" / "out" / "validation_status.json"
 )
 
 STATUS_TARGETS = [

@@ -4,7 +4,7 @@
 - record_size_bytes: `8`
 - field_count: `4`
 - arg16_field_index: `2`
-- runtime_annotation: `book/tools/policy/runtime_annotation.promotion_packet.json (run_id=738fc3d0-1d12-4608-9a97-90addfbc8d4c, artifact_index_sha256=3c97d7dd4eba9a012bb8a956ef4019435e927558144c0ad532685b63765f740f)`
+- runtime_annotation: `none`
 
 ## Field Layout
 
@@ -24,26 +24,17 @@
 - anchor_hits_present: `23`
 - probe_anchor_hits_present: `27`
 - runtime_candidates: `14`
-- runtime_matched: `8`
-- runtime_missing_probe: `6`
+- runtime_matched: `0`
+- runtime_missing_probe: `14`
 - runtime_blocked: `0`
 
 ### Runtime Matched (scenario lane)
 
-| arg16 | filter_name | operation | actual | stage | lane | scenario_id |
-| --- | --- | --- | --- | --- | --- | --- |
-| 0 | path | file-read* | allow | operation | scenario | adv:path_edges_private:allow-tmp |
-| 1 | mount-relative-path | file-read* | allow | operation | scenario | adv:mount_relative_path:allow-subpath |
-| 2 | xattr | file-read-xattr | allow | operation | scenario | adv:xattr:allow-foo-read |
-| 3 | file-mode | file-read* | allow | operation | scenario | adv:file_mode:allow-private |
-| 5 | global-name | mach-lookup | allow | operation | scenario | field2-5-mach-global |
-| 6 | local-name | mach-lookup | allow | operation | scenario | adv:mach_local_regex:allow-cfprefsd-local |
-| 7 | local | mach-lookup | allow | operation | scenario | field2-7-mach-local |
-| 2560 | opaque | network-outbound | allow | operation | scenario | field2-2560-flow-divert |
+- none
 
 ### Runtime Missing Probes
 
-- values: 4, 26, 27, 34, 37, 49
+- values: 0, 1, 2, 3, 4, 5, 6, 7, 26, 27, 34, 37, ... (14 total)
 
 ## Unknowns
 
@@ -54,13 +45,13 @@
 
 - anchor_ctx_filter_map: `book/integration/carton/bundle/relationships/mappings/anchors/anchor_ctx_filter_map.json` (sha256=76498c627bd0254de8b1eb5eb014f60275a0c36cf02f09562257ba39ef8c9c5f)
 - anchor_filter_map: `book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json` (sha256=f456f655196c6c1d2258b241dfe4600185cdc5d4b8aca989b0dd6361f1194834)
-- anchor_hits: `book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json` (sha256=af7187729d0741d9f062603e599f32f4808039ed49bad55fdef0ccf547e87fa5)
-- anchor_hits_delta: `book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_delta.json` (sha256=d9bdfc3269c4157fceb6720d07466524c440b20ab9915b67f30e004d5a4c340f)
-- field2_inventory: `book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json` (sha256=afe851221c28068cefa3e963ffea4199903adafc4f44b395564a5ebec0ac3cdb)
-- field2_seeds: `book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json` (sha256=a3ab73b81db231db19fadf35f3931c9d382f10406d75f24c567bb06b27a721b0)
+- anchor_hits: `book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json` (sha256=65e23955d6a4d8427bc9e03a109af596c0be94b3fc8ae573f011bedf85efaec6)
+- anchor_hits_delta: `book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_delta.json` (sha256=e64853be096c0f9a53c86e958ff158ca432bc89c620caa477205db86ad42ce7f)
+- field2_inventory: `book/evidence/syncretic/policygraph/node-fields/field2_inventory.json` (sha256=67534340f3fde0e6b62d2d0689ec26ff2be30f39415a63060279c2feb8cb8cc2)
+- field2_seeds: `book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json` (sha256=bd4d70d9056c1944c5564eccf04c60a343b088d7cdbd9f84519c176b43cf629e)
 - network_matrix_index: `book/evidence/experiments/field2-final-final/libsandbox-encoder/out/network_matrix/index.json` (sha256=86c5709f4fc3b3f74e787ce848fd5b9ea2214ef316c3745ea1fd297170b4377e)
 - tag_layouts: `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json` (sha256=eb3b1cfefae0aaf7260ac017b52fddd38b375922514468b4071f72281af6b2ac)
-- unknown_nodes: `book/evidence/experiments/field2-final-final/field2-filters/out/unknown_nodes.json` (sha256=525ecdccea5cdf20860334630303021c9f5c4fb40f4dfbadf576bb045b129cc2)
+- unknown_nodes: `book/evidence/syncretic/policygraph/node-fields/unknown_nodes.json` (sha256=1bf0a382b80db82ca6a1a78a8892f75b327c88235622c76429305a3464080f04)
 - vocab_filters: `book/integration/carton/bundle/relationships/mappings/vocab/filters.json` (sha256=637e53a6123199460af10a3699b3dc5bb5337bf1622ac02d5efdf141a436d35e)
 - vocab_ops: `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` (sha256=8bfec7acc3afe687e7117909658eafafa3ddf173f8300ea90380bbffd7a2f8a2)
 

@@ -239,33 +239,95 @@
         "notes": "Multiple anchor witnesses in probe-op-structure; present in canonical sys:sample decode (tag 7). Structural coverage ok; runtime to be refreshed.",
         "profiles": [
           {
-            "count": 9,
+            "count": 1,
             "name": "path",
-            "profile": "sys:airlock",
+            "profile": "probe-op:v0_file_require_all.sb",
             "tags": {
-              "0": 2,
-              "166": 3,
-              "53": 1,
-              "58": 1,
-              "6": 1,
-              "71": 1
+              "4": 1
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe-op:v10_iokit_user_client_pair.sb",
+            "tags": {
+              "0": 1,
+              "4": 2,
+              "5": 1
             }
           },
           {
             "count": 3,
             "name": "path",
-            "profile": "sys:bsd",
+            "profile": "probe-op:v11_iokit_user_client_connection.sb",
             "tags": {
-              "1": 2,
-              "26": 1
+              "0": 1,
+              "6": 2
             }
           },
           {
             "count": 1,
             "name": "path",
-            "profile": "sys:sample",
+            "profile": "probe-op:v12_iokit_control.sb",
             "tags": {
-              "7": 1
+              "4": 1
+            }
+          },
+          {
+            "count": 3,
+            "name": "path",
+            "profile": "probe-op:v1_file_require_any.sb",
+            "tags": {
+              "0": 1,
+              "6": 2
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe-op:v2_file_three_filters_any.sb",
+            "tags": {
+              "0": 1,
+              "4": 2,
+              "5": 1
+            }
+          },
+          {
+            "count": 3,
+            "name": "path",
+            "profile": "probe-op:v3_mach_global_local.sb",
+            "tags": {
+              "0": 1,
+              "6": 2
+            }
+          },
+          {
+            "count": 3,
+            "name": "path",
+            "profile": "probe-op:v5_iokit_class_property.sb",
+            "tags": {
+              "0": 1,
+              "6": 2
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe-op:v6_file_mach_combo.sb",
+            "tags": {
+              "0": 1,
+              "4": 2,
+              "5": 1
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe-op:v9_iokit_user_client_only.sb",
+            "tags": {
+              "0": 1,
+              "4": 2,
+              "5": 1
             }
           },
           {
@@ -508,95 +570,33 @@
             }
           },
           {
-            "count": 1,
+            "count": 9,
             "name": "path",
-            "profile": "probe-op:v0_file_require_all.sb",
+            "profile": "sys:airlock",
             "tags": {
-              "4": 1
-            }
-          },
-          {
-            "count": 4,
-            "name": "path",
-            "profile": "probe-op:v10_iokit_user_client_pair.sb",
-            "tags": {
-              "0": 1,
-              "4": 2,
-              "5": 1
+              "0": 2,
+              "166": 3,
+              "53": 1,
+              "58": 1,
+              "6": 1,
+              "71": 1
             }
           },
           {
             "count": 3,
             "name": "path",
-            "profile": "probe-op:v11_iokit_user_client_connection.sb",
+            "profile": "sys:bsd",
             "tags": {
-              "0": 1,
-              "6": 2
+              "1": 2,
+              "26": 1
             }
           },
           {
             "count": 1,
             "name": "path",
-            "profile": "probe-op:v12_iokit_control.sb",
+            "profile": "sys:sample",
             "tags": {
-              "4": 1
-            }
-          },
-          {
-            "count": 3,
-            "name": "path",
-            "profile": "probe-op:v1_file_require_any.sb",
-            "tags": {
-              "0": 1,
-              "6": 2
-            }
-          },
-          {
-            "count": 4,
-            "name": "path",
-            "profile": "probe-op:v2_file_three_filters_any.sb",
-            "tags": {
-              "0": 1,
-              "4": 2,
-              "5": 1
-            }
-          },
-          {
-            "count": 3,
-            "name": "path",
-            "profile": "probe-op:v3_mach_global_local.sb",
-            "tags": {
-              "0": 1,
-              "6": 2
-            }
-          },
-          {
-            "count": 3,
-            "name": "path",
-            "profile": "probe-op:v5_iokit_class_property.sb",
-            "tags": {
-              "0": 1,
-              "6": 2
-            }
-          },
-          {
-            "count": 4,
-            "name": "path",
-            "profile": "probe-op:v6_file_mach_combo.sb",
-            "tags": {
-              "0": 1,
-              "4": 2,
-              "5": 1
-            }
-          },
-          {
-            "count": 4,
-            "name": "path",
-            "profile": "probe-op:v9_iokit_user_client_only.sb",
-            "tags": {
-              "0": 1,
-              "4": 2,
-              "5": 1
+              "7": 1
             }
           }
         ],
@@ -614,7 +614,7 @@
         ],
         "source_artifacts": {
           "anchor_map": "book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json",
-          "field2_inventory": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
+          "field2_inventory": "book/evidence/syncretic/policygraph/node-fields/field2_inventory.json",
           "seeds": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json"
         },
         "status": "ok",
@@ -850,19 +850,95 @@
         "notes": "Nearby static-only candidate riding the same path ops/profiles as seed0; added to exercise atlas growth. No runtime probe yet.",
         "profiles": [
           {
-            "count": 1,
+            "count": 3,
             "name": "mount-relative-path",
-            "profile": "sys:bsd",
+            "profile": "probe-op:v10_iokit_user_client_pair.sb",
             "tags": {
-              "27": 1
+              "0": 1,
+              "4": 2
             }
           },
           {
             "count": 1,
             "name": "mount-relative-path",
-            "profile": "sys:sample",
+            "profile": "probe-op:v11_iokit_user_client_connection.sb",
             "tags": {
-              "3": 1
+              "6": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe-op:v1_file_require_any.sb",
+            "tags": {
+              "6": 1
+            }
+          },
+          {
+            "count": 3,
+            "name": "mount-relative-path",
+            "profile": "probe-op:v2_file_three_filters_any.sb",
+            "tags": {
+              "0": 1,
+              "4": 2
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe-op:v3_mach_global_local.sb",
+            "tags": {
+              "6": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe-op:v4_network_socket_require_all.sb",
+            "tags": {
+              "1": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe-op:v5_iokit_class_property.sb",
+            "tags": {
+              "6": 1
+            }
+          },
+          {
+            "count": 3,
+            "name": "mount-relative-path",
+            "profile": "probe-op:v6_file_mach_combo.sb",
+            "tags": {
+              "0": 1,
+              "4": 2
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe-op:v7_file_network_combo.sb",
+            "tags": {
+              "1": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe-op:v8_all_combo.sb",
+            "tags": {
+              "0": 1
+            }
+          },
+          {
+            "count": 3,
+            "name": "mount-relative-path",
+            "profile": "probe-op:v9_iokit_user_client_only.sb",
+            "tags": {
+              "0": 1,
+              "4": 2
             }
           },
           {
@@ -1079,95 +1155,19 @@
             }
           },
           {
-            "count": 3,
+            "count": 1,
             "name": "mount-relative-path",
-            "profile": "probe-op:v10_iokit_user_client_pair.sb",
+            "profile": "sys:bsd",
             "tags": {
-              "0": 1,
-              "4": 2
+              "27": 1
             }
           },
           {
             "count": 1,
             "name": "mount-relative-path",
-            "profile": "probe-op:v11_iokit_user_client_connection.sb",
+            "profile": "sys:sample",
             "tags": {
-              "6": 1
-            }
-          },
-          {
-            "count": 1,
-            "name": "mount-relative-path",
-            "profile": "probe-op:v1_file_require_any.sb",
-            "tags": {
-              "6": 1
-            }
-          },
-          {
-            "count": 3,
-            "name": "mount-relative-path",
-            "profile": "probe-op:v2_file_three_filters_any.sb",
-            "tags": {
-              "0": 1,
-              "4": 2
-            }
-          },
-          {
-            "count": 1,
-            "name": "mount-relative-path",
-            "profile": "probe-op:v3_mach_global_local.sb",
-            "tags": {
-              "6": 1
-            }
-          },
-          {
-            "count": 1,
-            "name": "mount-relative-path",
-            "profile": "probe-op:v4_network_socket_require_all.sb",
-            "tags": {
-              "1": 1
-            }
-          },
-          {
-            "count": 1,
-            "name": "mount-relative-path",
-            "profile": "probe-op:v5_iokit_class_property.sb",
-            "tags": {
-              "6": 1
-            }
-          },
-          {
-            "count": 3,
-            "name": "mount-relative-path",
-            "profile": "probe-op:v6_file_mach_combo.sb",
-            "tags": {
-              "0": 1,
-              "4": 2
-            }
-          },
-          {
-            "count": 1,
-            "name": "mount-relative-path",
-            "profile": "probe-op:v7_file_network_combo.sb",
-            "tags": {
-              "1": 1
-            }
-          },
-          {
-            "count": 1,
-            "name": "mount-relative-path",
-            "profile": "probe-op:v8_all_combo.sb",
-            "tags": {
-              "0": 1
-            }
-          },
-          {
-            "count": 3,
-            "name": "mount-relative-path",
-            "profile": "probe-op:v9_iokit_user_client_only.sb",
-            "tags": {
-              "0": 1,
-              "4": 2
+              "3": 1
             }
           }
         ],
@@ -1180,7 +1180,7 @@
         ],
         "source_artifacts": {
           "anchor_map": "book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json",
-          "field2_inventory": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
+          "field2_inventory": "book/evidence/syncretic/policygraph/node-fields/field2_inventory.json",
           "seeds": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json"
         },
         "status": "ok",
@@ -1301,17 +1301,33 @@
           {
             "count": 1,
             "name": "xattr",
-            "profile": "sys:airlock",
+            "profile": "probe-op:v10_iokit_user_client_pair.sb",
             "tags": {
-              "166": 1
+              "5": 1
             }
           },
           {
             "count": 1,
             "name": "xattr",
-            "profile": "sys:bsd",
+            "profile": "probe-op:v2_file_three_filters_any.sb",
             "tags": {
-              "26": 1
+              "5": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "xattr",
+            "profile": "probe-op:v6_file_mach_combo.sb",
+            "tags": {
+              "5": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "xattr",
+            "profile": "probe-op:v9_iokit_user_client_only.sb",
+            "tags": {
+              "5": 1
             }
           },
           {
@@ -1421,33 +1437,17 @@
           {
             "count": 1,
             "name": "xattr",
-            "profile": "probe-op:v10_iokit_user_client_pair.sb",
+            "profile": "sys:airlock",
             "tags": {
-              "5": 1
+              "166": 1
             }
           },
           {
             "count": 1,
             "name": "xattr",
-            "profile": "probe-op:v2_file_three_filters_any.sb",
+            "profile": "sys:bsd",
             "tags": {
-              "5": 1
-            }
-          },
-          {
-            "count": 1,
-            "name": "xattr",
-            "profile": "probe-op:v6_file_mach_combo.sb",
-            "tags": {
-              "5": 1
-            }
-          },
-          {
-            "count": 1,
-            "name": "xattr",
-            "profile": "probe-op:v9_iokit_user_client_only.sb",
-            "tags": {
-              "5": 1
+              "26": 1
             }
           }
         ],
@@ -1460,7 +1460,7 @@
         ],
         "source_artifacts": {
           "anchor_map": "book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json",
-          "field2_inventory": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
+          "field2_inventory": "book/evidence/syncretic/policygraph/node-fields/field2_inventory.json",
           "seeds": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json"
         },
         "status": "ok",
@@ -1563,20 +1563,55 @@
         "notes": "file-mode appears in sys:bsd (tag 27) and sys:sample (tags 3/8); runtime probes use a file-read* discriminator over /private/tmp mode fixtures.",
         "profiles": [
           {
-            "count": 1,
+            "count": 15,
             "name": "file-mode",
-            "profile": "sys:bsd",
+            "profile": "probe-op:v0_file_require_all.sb",
             "tags": {
-              "27": 1
+              "2": 1,
+              "3": 5,
+              "4": 9
             }
           },
           {
-            "count": 2,
+            "count": 1,
             "name": "file-mode",
-            "profile": "sys:sample",
+            "profile": "probe-op:v11_iokit_user_client_connection.sb",
             "tags": {
-              "3": 1,
-              "8": 1
+              "5": 1
+            }
+          },
+          {
+            "count": 15,
+            "name": "file-mode",
+            "profile": "probe-op:v12_iokit_control.sb",
+            "tags": {
+              "2": 1,
+              "3": 5,
+              "4": 9
+            }
+          },
+          {
+            "count": 1,
+            "name": "file-mode",
+            "profile": "probe-op:v1_file_require_any.sb",
+            "tags": {
+              "6": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "file-mode",
+            "profile": "probe-op:v2_file_three_filters_any.sb",
+            "tags": {
+              "5": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "file-mode",
+            "profile": "probe-op:v5_iokit_class_property.sb",
+            "tags": {
+              "5": 1
             }
           },
           {
@@ -1712,62 +1747,27 @@
             }
           },
           {
-            "count": 15,
-            "name": "file-mode",
-            "profile": "probe-op:v0_file_require_all.sb",
-            "tags": {
-              "2": 1,
-              "3": 5,
-              "4": 9
-            }
-          },
-          {
             "count": 1,
             "name": "file-mode",
-            "profile": "probe-op:v11_iokit_user_client_connection.sb",
+            "profile": "sys:bsd",
             "tags": {
-              "5": 1
+              "27": 1
             }
           },
           {
-            "count": 15,
+            "count": 2,
             "name": "file-mode",
-            "profile": "probe-op:v12_iokit_control.sb",
+            "profile": "sys:sample",
             "tags": {
-              "2": 1,
-              "3": 5,
-              "4": 9
-            }
-          },
-          {
-            "count": 1,
-            "name": "file-mode",
-            "profile": "probe-op:v1_file_require_any.sb",
-            "tags": {
-              "6": 1
-            }
-          },
-          {
-            "count": 1,
-            "name": "file-mode",
-            "profile": "probe-op:v2_file_three_filters_any.sb",
-            "tags": {
-              "5": 1
-            }
-          },
-          {
-            "count": 1,
-            "name": "file-mode",
-            "profile": "probe-op:v5_iokit_class_property.sb",
-            "tags": {
-              "5": 1
+              "3": 1,
+              "8": 1
             }
           }
         ],
         "seed_anchors": [],
         "source_artifacts": {
           "anchor_map": "book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json",
-          "field2_inventory": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
+          "field2_inventory": "book/evidence/syncretic/policygraph/node-fields/field2_inventory.json",
           "seeds": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json"
         },
         "status": "ok",
@@ -1925,19 +1925,101 @@
         "notes": "ipc-posix-name appears in sys:bsd and sys:airlock; userland probes can use shm_open/sem_open and sandbox_check for decision oracles.",
         "profiles": [
           {
-            "count": 1,
+            "count": 30,
             "name": "ipc-posix-name",
-            "profile": "sys:airlock",
+            "profile": "probe-op:v0_file_require_all.sb",
             "tags": {
-              "104": 1
+              "3": 6,
+              "4": 24
+            }
+          },
+          {
+            "count": 11,
+            "name": "ipc-posix-name",
+            "profile": "probe-op:v10_iokit_user_client_pair.sb",
+            "tags": {
+              "1": 1,
+              "4": 3,
+              "5": 7
             }
           },
           {
             "count": 1,
             "name": "ipc-posix-name",
-            "profile": "sys:bsd",
+            "profile": "probe-op:v11_iokit_user_client_connection.sb",
             "tags": {
-              "0": 1
+              "6": 1
+            }
+          },
+          {
+            "count": 30,
+            "name": "ipc-posix-name",
+            "profile": "probe-op:v12_iokit_control.sb",
+            "tags": {
+              "3": 6,
+              "4": 24
+            }
+          },
+          {
+            "count": 11,
+            "name": "ipc-posix-name",
+            "profile": "probe-op:v2_file_three_filters_any.sb",
+            "tags": {
+              "1": 1,
+              "4": 3,
+              "5": 7
+            }
+          },
+          {
+            "count": 1,
+            "name": "ipc-posix-name",
+            "profile": "probe-op:v4_network_socket_require_all.sb",
+            "tags": {
+              "8": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "ipc-posix-name",
+            "profile": "probe-op:v5_iokit_class_property.sb",
+            "tags": {
+              "6": 1
+            }
+          },
+          {
+            "count": 11,
+            "name": "ipc-posix-name",
+            "profile": "probe-op:v6_file_mach_combo.sb",
+            "tags": {
+              "1": 1,
+              "4": 3,
+              "5": 7
+            }
+          },
+          {
+            "count": 1,
+            "name": "ipc-posix-name",
+            "profile": "probe-op:v7_file_network_combo.sb",
+            "tags": {
+              "8": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "ipc-posix-name",
+            "profile": "probe-op:v8_all_combo.sb",
+            "tags": {
+              "12": 1
+            }
+          },
+          {
+            "count": 11,
+            "name": "ipc-posix-name",
+            "profile": "probe-op:v9_iokit_user_client_only.sb",
+            "tags": {
+              "1": 1,
+              "4": 3,
+              "5": 7
             }
           },
           {
@@ -2094,108 +2176,26 @@
             }
           },
           {
-            "count": 30,
+            "count": 1,
             "name": "ipc-posix-name",
-            "profile": "probe-op:v0_file_require_all.sb",
+            "profile": "sys:airlock",
             "tags": {
-              "3": 6,
-              "4": 24
-            }
-          },
-          {
-            "count": 11,
-            "name": "ipc-posix-name",
-            "profile": "probe-op:v10_iokit_user_client_pair.sb",
-            "tags": {
-              "1": 1,
-              "4": 3,
-              "5": 7
+              "104": 1
             }
           },
           {
             "count": 1,
             "name": "ipc-posix-name",
-            "profile": "probe-op:v11_iokit_user_client_connection.sb",
+            "profile": "sys:bsd",
             "tags": {
-              "6": 1
-            }
-          },
-          {
-            "count": 30,
-            "name": "ipc-posix-name",
-            "profile": "probe-op:v12_iokit_control.sb",
-            "tags": {
-              "3": 6,
-              "4": 24
-            }
-          },
-          {
-            "count": 11,
-            "name": "ipc-posix-name",
-            "profile": "probe-op:v2_file_three_filters_any.sb",
-            "tags": {
-              "1": 1,
-              "4": 3,
-              "5": 7
-            }
-          },
-          {
-            "count": 1,
-            "name": "ipc-posix-name",
-            "profile": "probe-op:v4_network_socket_require_all.sb",
-            "tags": {
-              "8": 1
-            }
-          },
-          {
-            "count": 1,
-            "name": "ipc-posix-name",
-            "profile": "probe-op:v5_iokit_class_property.sb",
-            "tags": {
-              "6": 1
-            }
-          },
-          {
-            "count": 11,
-            "name": "ipc-posix-name",
-            "profile": "probe-op:v6_file_mach_combo.sb",
-            "tags": {
-              "1": 1,
-              "4": 3,
-              "5": 7
-            }
-          },
-          {
-            "count": 1,
-            "name": "ipc-posix-name",
-            "profile": "probe-op:v7_file_network_combo.sb",
-            "tags": {
-              "8": 1
-            }
-          },
-          {
-            "count": 1,
-            "name": "ipc-posix-name",
-            "profile": "probe-op:v8_all_combo.sb",
-            "tags": {
-              "12": 1
-            }
-          },
-          {
-            "count": 11,
-            "name": "ipc-posix-name",
-            "profile": "probe-op:v9_iokit_user_client_only.sb",
-            "tags": {
-              "1": 1,
-              "4": 3,
-              "5": 7
+              "0": 1
             }
           }
         ],
         "seed_anchors": [],
         "source_artifacts": {
           "anchor_map": "book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json",
-          "field2_inventory": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
+          "field2_inventory": "book/evidence/syncretic/policygraph/node-fields/field2_inventory.json",
           "seeds": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json"
         },
         "status": "ok",
@@ -2417,19 +2417,85 @@
         "notes": "Global-name appears on multiple anchors (mach + path probes) and in sys:bsd tag 27; runtime backed by mach-lookup traces on this host.",
         "profiles": [
           {
-            "count": 1,
+            "count": 33,
             "name": "global-name",
-            "profile": "sys:bsd",
+            "profile": "probe-op:v10_iokit_user_client_pair.sb",
             "tags": {
-              "27": 1
+              "3": 1,
+              "4": 10,
+              "5": 22
             }
           },
           {
-            "count": 1,
+            "count": 16,
             "name": "global-name",
-            "profile": "sys:sample",
+            "profile": "probe-op:v11_iokit_user_client_connection.sb",
             "tags": {
-              "8": 1
+              "0": 2,
+              "5": 6,
+              "6": 8
+            }
+          },
+          {
+            "count": 17,
+            "name": "global-name",
+            "profile": "probe-op:v1_file_require_any.sb",
+            "tags": {
+              "0": 2,
+              "3": 1,
+              "4": 1,
+              "5": 6,
+              "6": 7
+            }
+          },
+          {
+            "count": 32,
+            "name": "global-name",
+            "profile": "probe-op:v2_file_three_filters_any.sb",
+            "tags": {
+              "3": 1,
+              "4": 10,
+              "5": 21
+            }
+          },
+          {
+            "count": 17,
+            "name": "global-name",
+            "profile": "probe-op:v3_mach_global_local.sb",
+            "tags": {
+              "0": 2,
+              "4": 1,
+              "5": 6,
+              "6": 8
+            }
+          },
+          {
+            "count": 16,
+            "name": "global-name",
+            "profile": "probe-op:v5_iokit_class_property.sb",
+            "tags": {
+              "0": 2,
+              "5": 6,
+              "6": 8
+            }
+          },
+          {
+            "count": 33,
+            "name": "global-name",
+            "profile": "probe-op:v6_file_mach_combo.sb",
+            "tags": {
+              "4": 10,
+              "5": 23
+            }
+          },
+          {
+            "count": 33,
+            "name": "global-name",
+            "profile": "probe-op:v9_iokit_user_client_only.sb",
+            "tags": {
+              "3": 1,
+              "4": 10,
+              "5": 22
             }
           },
           {
@@ -2609,85 +2675,19 @@
             }
           },
           {
-            "count": 33,
+            "count": 1,
             "name": "global-name",
-            "profile": "probe-op:v10_iokit_user_client_pair.sb",
+            "profile": "sys:bsd",
             "tags": {
-              "3": 1,
-              "4": 10,
-              "5": 22
+              "27": 1
             }
           },
           {
-            "count": 16,
+            "count": 1,
             "name": "global-name",
-            "profile": "probe-op:v11_iokit_user_client_connection.sb",
+            "profile": "sys:sample",
             "tags": {
-              "0": 2,
-              "5": 6,
-              "6": 8
-            }
-          },
-          {
-            "count": 17,
-            "name": "global-name",
-            "profile": "probe-op:v1_file_require_any.sb",
-            "tags": {
-              "0": 2,
-              "3": 1,
-              "4": 1,
-              "5": 6,
-              "6": 7
-            }
-          },
-          {
-            "count": 32,
-            "name": "global-name",
-            "profile": "probe-op:v2_file_three_filters_any.sb",
-            "tags": {
-              "3": 1,
-              "4": 10,
-              "5": 21
-            }
-          },
-          {
-            "count": 17,
-            "name": "global-name",
-            "profile": "probe-op:v3_mach_global_local.sb",
-            "tags": {
-              "0": 2,
-              "4": 1,
-              "5": 6,
-              "6": 8
-            }
-          },
-          {
-            "count": 16,
-            "name": "global-name",
-            "profile": "probe-op:v5_iokit_class_property.sb",
-            "tags": {
-              "0": 2,
-              "5": 6,
-              "6": 8
-            }
-          },
-          {
-            "count": 33,
-            "name": "global-name",
-            "profile": "probe-op:v6_file_mach_combo.sb",
-            "tags": {
-              "4": 10,
-              "5": 23
-            }
-          },
-          {
-            "count": 33,
-            "name": "global-name",
-            "profile": "probe-op:v9_iokit_user_client_only.sb",
-            "tags": {
-              "3": 1,
-              "4": 10,
-              "5": 22
+              "8": 1
             }
           }
         ],
@@ -2705,7 +2705,7 @@
         ],
         "source_artifacts": {
           "anchor_map": "book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json",
-          "field2_inventory": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
+          "field2_inventory": "book/evidence/syncretic/policygraph/node-fields/field2_inventory.json",
           "seeds": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json"
         },
         "status": "ok",
@@ -2816,6 +2816,43 @@
         "notes": "local-name appears in mach probe profiles; no system profile witness in the current field2 inventory.",
         "profiles": [
           {
+            "count": 31,
+            "name": "local-name",
+            "profile": "probe-op:v11_iokit_user_client_connection.sb",
+            "tags": {
+              "5": 8,
+              "6": 23
+            }
+          },
+          {
+            "count": 31,
+            "name": "local-name",
+            "profile": "probe-op:v1_file_require_any.sb",
+            "tags": {
+              "5": 9,
+              "6": 22
+            }
+          },
+          {
+            "count": 32,
+            "name": "local-name",
+            "profile": "probe-op:v3_mach_global_local.sb",
+            "tags": {
+              "3": 1,
+              "5": 9,
+              "6": 22
+            }
+          },
+          {
+            "count": 31,
+            "name": "local-name",
+            "profile": "probe-op:v5_iokit_class_property.sb",
+            "tags": {
+              "5": 8,
+              "6": 23
+            }
+          },
+          {
             "count": 16,
             "name": "local-name",
             "profile": "probe:airlock_system_fcntl.sb",
@@ -2911,49 +2948,12 @@
               "5": 9,
               "6": 23
             }
-          },
-          {
-            "count": 31,
-            "name": "local-name",
-            "profile": "probe-op:v11_iokit_user_client_connection.sb",
-            "tags": {
-              "5": 8,
-              "6": 23
-            }
-          },
-          {
-            "count": 31,
-            "name": "local-name",
-            "profile": "probe-op:v1_file_require_any.sb",
-            "tags": {
-              "5": 9,
-              "6": 22
-            }
-          },
-          {
-            "count": 32,
-            "name": "local-name",
-            "profile": "probe-op:v3_mach_global_local.sb",
-            "tags": {
-              "3": 1,
-              "5": 9,
-              "6": 22
-            }
-          },
-          {
-            "count": 31,
-            "name": "local-name",
-            "profile": "probe-op:v5_iokit_class_property.sb",
-            "tags": {
-              "5": 8,
-              "6": 23
-            }
           }
         ],
         "seed_anchors": [],
         "source_artifacts": {
           "anchor_map": "book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json",
-          "field2_inventory": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
+          "field2_inventory": "book/evidence/syncretic/policygraph/node-fields/field2_inventory.json",
           "seeds": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json"
         },
         "status": "ok",
@@ -3076,14 +3076,23 @@
         "notes": "Local (mach/socket) has multiple anchor witnesses, including a blocked flow-divert path; present in sys:sample tags 3/7/8. Runtime probes exist for mach/local combos; reuse them here.",
         "profiles": [
           {
-            "count": 18,
+            "count": 14,
             "name": "local",
-            "profile": "sys:sample",
+            "profile": "probe-op:v4_network_socket_require_all.sb",
             "tags": {
-              "2": 1,
-              "3": 1,
-              "7": 10,
-              "8": 6
+              "6": 1,
+              "7": 5,
+              "8": 8
+            }
+          },
+          {
+            "count": 14,
+            "name": "local",
+            "profile": "probe-op:v7_file_network_combo.sb",
+            "tags": {
+              "6": 1,
+              "7": 5,
+              "8": 8
             }
           },
           {
@@ -3168,23 +3177,14 @@
             }
           },
           {
-            "count": 14,
+            "count": 18,
             "name": "local",
-            "profile": "probe-op:v4_network_socket_require_all.sb",
+            "profile": "sys:sample",
             "tags": {
-              "6": 1,
-              "7": 5,
-              "8": 8
-            }
-          },
-          {
-            "count": 14,
-            "name": "local",
-            "profile": "probe-op:v7_file_network_combo.sb",
-            "tags": {
-              "6": 1,
-              "7": 5,
-              "8": 8
+              "2": 1,
+              "3": 1,
+              "7": 10,
+              "8": 6
             }
           }
         ],
@@ -3202,7 +3202,7 @@
         ],
         "source_artifacts": {
           "anchor_map": "book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json",
-          "field2_inventory": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
+          "field2_inventory": "book/evidence/syncretic/policygraph/node-fields/field2_inventory.json",
           "seeds": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json"
         },
         "status": "ok",
@@ -3302,13 +3302,19 @@
         "notes": "right-name appears in sys:bsd; runtime backing can use authorization-right-obtain with sandbox_check callouts.",
         "profiles": [
           {
-            "count": 13,
+            "count": 1,
             "name": "right-name",
-            "profile": "sys:bsd",
+            "profile": "probe-op:v4_network_socket_require_all.sb",
             "tags": {
-              "26": 7,
-              "27": 5,
-              "5": 1
+              "0": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "right-name",
+            "profile": "probe-op:v7_file_network_combo.sb",
+            "tags": {
+              "0": 1
             }
           },
           {
@@ -3328,26 +3334,20 @@
             }
           },
           {
-            "count": 1,
+            "count": 13,
             "name": "right-name",
-            "profile": "probe-op:v4_network_socket_require_all.sb",
+            "profile": "sys:bsd",
             "tags": {
-              "0": 1
-            }
-          },
-          {
-            "count": 1,
-            "name": "right-name",
-            "profile": "probe-op:v7_file_network_combo.sb",
-            "tags": {
-              "0": 1
+              "26": 7,
+              "27": 5,
+              "5": 1
             }
           }
         ],
         "seed_anchors": [],
         "source_artifacts": {
           "anchor_map": "book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json",
-          "field2_inventory": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
+          "field2_inventory": "book/evidence/syncretic/policygraph/node-fields/field2_inventory.json",
           "seeds": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json"
         },
         "status": "ok",
@@ -3436,7 +3436,7 @@
         "seed_anchors": [],
         "source_artifacts": {
           "anchor_map": "book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json",
-          "field2_inventory": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
+          "field2_inventory": "book/evidence/syncretic/policygraph/node-fields/field2_inventory.json",
           "seeds": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json"
         },
         "status": "ok",
@@ -3520,7 +3520,7 @@
         "seed_anchors": [],
         "source_artifacts": {
           "anchor_map": "book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json",
-          "field2_inventory": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
+          "field2_inventory": "book/evidence/syncretic/policygraph/node-fields/field2_inventory.json",
           "seeds": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json"
         },
         "status": "ok",
@@ -3617,7 +3617,7 @@
         ],
         "source_artifacts": {
           "anchor_map": "book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json",
-          "field2_inventory": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
+          "field2_inventory": "book/evidence/syncretic/policygraph/node-fields/field2_inventory.json",
           "seeds": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json"
         },
         "status": "partial",
@@ -3714,7 +3714,7 @@
         ],
         "source_artifacts": {
           "anchor_map": "book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json",
-          "field2_inventory": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
+          "field2_inventory": "book/evidence/syncretic/policygraph/node-fields/field2_inventory.json",
           "seeds": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json"
         },
         "status": "partial",
@@ -3899,22 +3899,6 @@
           {
             "count": 1,
             "name": null,
-            "profile": "probe:net_require_all_domain_type_proto.sb",
-            "tags": {
-              "0": 1
-            }
-          },
-          {
-            "count": 1,
-            "name": null,
-            "profile": "probe:net_require_all_domain_type_proto_udp.sb",
-            "tags": {
-              "0": 1
-            }
-          },
-          {
-            "count": 1,
-            "name": null,
             "profile": "probe-op:v4_network_socket_require_all.sb",
             "tags": {
               "0": 1
@@ -3935,6 +3919,22 @@
             "tags": {
               "0": 1
             }
+          },
+          {
+            "count": 1,
+            "name": null,
+            "profile": "probe:net_require_all_domain_type_proto.sb",
+            "tags": {
+              "0": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": null,
+            "profile": "probe:net_require_all_domain_type_proto_udp.sb",
+            "tags": {
+              "0": 1
+            }
           }
         ],
         "seed_anchors": [
@@ -3947,7 +3947,7 @@
         ],
         "source_artifacts": {
           "anchor_map": "book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json",
-          "field2_inventory": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
+          "field2_inventory": "book/evidence/syncretic/policygraph/node-fields/field2_inventory.json",
           "seeds": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json"
         },
         "status": "ok",
@@ -3972,11 +3972,11 @@
     },
     "seeds": {
       "path": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json",
-      "sha256": "a3ab73b81db231db19fadf35f3931c9d382f10406d75f24c567bb06b27a721b0"
+      "sha256": "bd4d70d9056c1944c5564eccf04c60a343b088d7cdbd9f84519c176b43cf629e"
     },
     "static": {
       "path": "book/evidence/experiments/field2-final-final/field2-atlas/out/static/field2_records.jsonl",
-      "sha256": "0de0be8b76d566d44ca4e54c6434efa420f8d43104daeb06c9e1ad36fded9dce"
+      "sha256": "d140d6ecb5a1bf6b22cafe365718e5347232e741cdd3159ec685191f640d70b3"
     }
   },
   "provenance": {

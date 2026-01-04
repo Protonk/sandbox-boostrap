@@ -11,7 +11,8 @@ from pathlib import Path
 
 from book.api import path_utils
 from book.api.profile.identity import baseline_world_id
-from book.api.witness import compare, outputs
+from book.api.witness import outputs
+from book.api.witness.analysis import compare
 from book.api.witness.models import ActionSpec, CommandSpec, EntitlementAction, SbplAction
 
 

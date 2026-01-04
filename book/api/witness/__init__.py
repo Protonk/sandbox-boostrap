@@ -1,6 +1,6 @@
 """Witness tooling surface (stable API exports)."""
 
-from book.api.witness.client import (
+from book.api.witness.xpc.client import (
     WORLD_ID,
     bundle_evidence,
     describe_service,
@@ -19,8 +19,8 @@ from book.api.witness.client import (
     show_profile,
     verify_evidence,
 )
-from book.api.witness.compare import compare_action
-from book.api.witness.enforcement import enforcement_detail, enforcement_detail_from_probe_result
+from book.api.witness.analysis.compare import compare_action
+from book.api.witness.analysis.enforcement import enforcement_detail, enforcement_detail_from_probe_result
 from book.api.witness.keepalive import (
     KeepaliveClient,
     KeepaliveConfig,
@@ -28,8 +28,8 @@ from book.api.witness.keepalive import (
     KeepaliveError,
     KeepaliveService,
 )
-from book.api.witness.sb_api_validator import run_sb_api_validator
-from book.api.witness.lifecycle import snapshot_from_event, snapshot_from_probe, snapshot_from_session
+from book.api.witness.analysis.sb_api_validator import run_sb_api_validator
+from book.api.witness.analysis.lifecycle import snapshot_from_event, snapshot_from_probe, snapshot_from_session
 from book.api.witness.models import (
     ActionSpec,
     CommandResult,
@@ -57,8 +57,8 @@ from book.api.witness.paths import (
     WITNESS_RESOURCES,
     WITNESS_SB_API_VALIDATOR,
 )
-from book.api.witness.protocol import WaitSpec
-from book.api.witness.session import XpcSession, open_session
+from book.api.witness.xpc.protocol import WaitSpec
+from book.api.witness.xpc.session import XpcSession, open_session
 
 __all__ = [
     "ActionSpec",

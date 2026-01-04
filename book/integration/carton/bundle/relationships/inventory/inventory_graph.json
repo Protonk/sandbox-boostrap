@@ -2949,16 +2949,37 @@
     },
     {
       "digest_mode": "bytes",
-      "id": "api:book/api/witness/client.py",
+      "id": "api:book/api/witness/analysis/__init__.py",
       "kind": "api",
-      "path": "book/api/witness/client.py",
+      "path": "book/api/witness/analysis/__init__.py",
       "sensitivity": "normal"
     },
     {
       "digest_mode": "bytes",
-      "id": "api:book/api/witness/compare.py",
+      "id": "api:book/api/witness/analysis/compare.py",
       "kind": "api",
-      "path": "book/api/witness/compare.py",
+      "path": "book/api/witness/analysis/compare.py",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/analysis/enforcement.py",
+      "kind": "api",
+      "path": "book/api/witness/analysis/enforcement.py",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/analysis/lifecycle.py",
+      "kind": "api",
+      "path": "book/api/witness/analysis/lifecycle.py",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/analysis/sb_api_validator.py",
+      "kind": "api",
+      "path": "book/api/witness/analysis/sb_api_validator.py",
       "sensitivity": "normal"
     },
     {
@@ -2966,13 +2987,6 @@
       "id": "api:book/api/witness/contracts.py",
       "kind": "api",
       "path": "book/api/witness/contracts.py",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "api:book/api/witness/enforcement.py",
-      "kind": "api",
-      "path": "book/api/witness/enforcement.py",
       "sensitivity": "normal"
     },
     {
@@ -3008,13 +3022,6 @@
       "id": "api:book/api/witness/keepalive.py",
       "kind": "api",
       "path": "book/api/witness/keepalive.py",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "api:book/api/witness/lifecycle.py",
-      "kind": "api",
-      "path": "book/api/witness/lifecycle.py",
       "sensitivity": "normal"
     },
     {
@@ -3071,13 +3078,6 @@
       "id": "api:book/api/witness/native/sb_api_validator/sb_api_validator.c",
       "kind": "api",
       "path": "book/api/witness/native/sb_api_validator/sb_api_validator.c",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "api:book/api/witness/observer.py",
-      "kind": "api",
-      "path": "book/api/witness/observer.py",
       "sensitivity": "normal"
     },
     {
@@ -3176,6 +3176,55 @@
       "id": "api:book/api/witness/out/1f54a03d-9a62-4717-8baf-47dd36ef5292/witness/run_probe.json",
       "kind": "api",
       "path": "book/api/witness/out/1f54a03d-9a62-4717-8baf-47dd36ef5292/witness/run_probe.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/1fdf4325-09d2-4563-96ba-1669395ea55c/frida/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/1fdf4325-09d2-4563-96ba-1669395ea55c/frida/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "api:book/api/witness/out/1fdf4325-09d2-4563-96ba-1669395ea55c/manifest.json",
+      "kind": "api",
+      "path": "book/api/witness/out/1fdf4325-09d2-4563-96ba-1669395ea55c/manifest.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "api:book/api/witness/out/1fdf4325-09d2-4563-96ba-1669395ea55c/witness/capabilities_snapshot.json",
+      "kind": "api",
+      "path": "book/api/witness/out/1fdf4325-09d2-4563-96ba-1669395ea55c/witness/capabilities_snapshot.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/1fdf4325-09d2-4563-96ba-1669395ea55c/witness/logs/capabilities_snapshot.log",
+      "kind": "api",
+      "path": "book/api/witness/out/1fdf4325-09d2-4563-96ba-1669395ea55c/witness/logs/capabilities_snapshot.log",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "api:book/api/witness/out/1fdf4325-09d2-4563-96ba-1669395ea55c/witness/logs/observer/capabilities_snapshot.log.observer.json",
+      "kind": "api",
+      "path": "book/api/witness/out/1fdf4325-09d2-4563-96ba-1669395ea55c/witness/logs/observer/capabilities_snapshot.log.observer.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/1fdf4325-09d2-4563-96ba-1669395ea55c/witness/logs/run_probe.log",
+      "kind": "api",
+      "path": "book/api/witness/out/1fdf4325-09d2-4563-96ba-1669395ea55c/witness/logs/run_probe.log",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "api:book/api/witness/out/1fdf4325-09d2-4563-96ba-1669395ea55c/witness/run_probe.json",
+      "kind": "api",
+      "path": "book/api/witness/out/1fdf4325-09d2-4563-96ba-1669395ea55c/witness/run_probe.json",
       "sensitivity": "normal"
     },
     {
@@ -3316,6 +3365,62 @@
       "id": "api:book/api/witness/out/53e65e85-dcdc-4880-85e8-308e8629e35d/witness/run_probe.json",
       "kind": "api",
       "path": "book/api/witness/out/53e65e85-dcdc-4880-85e8-308e8629e35d/witness/run_probe.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0/frida/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0/frida/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "api:book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0/frida/meta.json",
+      "kind": "api",
+      "path": "book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0/frida/meta.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "api:book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0/manifest.json",
+      "kind": "api",
+      "path": "book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0/manifest.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "api:book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0/witness/capabilities_snapshot.json",
+      "kind": "api",
+      "path": "book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0/witness/capabilities_snapshot.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0/witness/logs/capabilities_snapshot.log",
+      "kind": "api",
+      "path": "book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0/witness/logs/capabilities_snapshot.log",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "api:book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0/witness/logs/observer/capabilities_snapshot.log.observer.json",
+      "kind": "api",
+      "path": "book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0/witness/logs/observer/capabilities_snapshot.log.observer.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0/witness/logs/run_probe.log",
+      "kind": "api",
+      "path": "book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0/witness/logs/run_probe.log",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "api:book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0/witness/run_probe.json",
+      "kind": "api",
+      "path": "book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0/witness/run_probe.json",
       "sensitivity": "normal"
     },
     {
@@ -3467,6 +3572,20 @@
     },
     {
       "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/0c0bcf3d17bd480b95624b39ed0d485b/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/0c0bcf3d17bd480b95624b39ed0d485b/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/0ee25616231243bf9cc2f3a9d4368363/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/0ee25616231243bf9cc2f3a9d4368363/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
       "id": "api:book/api/witness/out/keepalive/0f8c26518f5541cbbe0d408eef3234f2/events.jsonl",
       "kind": "api",
       "path": "book/api/witness/out/keepalive/0f8c26518f5541cbbe0d408eef3234f2/events.jsonl",
@@ -3481,9 +3600,23 @@
     },
     {
       "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/16a7141c6ed34670a0172186b93720f2/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/16a7141c6ed34670a0172186b93720f2/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
       "id": "api:book/api/witness/out/keepalive/1719601e5b3d4c91a104dd8964713444/events.jsonl",
       "kind": "api",
       "path": "book/api/witness/out/keepalive/1719601e5b3d4c91a104dd8964713444/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/1f83533e611140719b767cbc6bc66dc4/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/1f83533e611140719b767cbc6bc66dc4/events.jsonl",
       "sensitivity": "normal"
     },
     {
@@ -3509,6 +3642,13 @@
     },
     {
       "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/3233983dd0ed46f2b69da21171b85e34/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/3233983dd0ed46f2b69da21171b85e34/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
       "id": "api:book/api/witness/out/keepalive/398e4c0348ee40f893621b40a3986991/events.jsonl",
       "kind": "api",
       "path": "book/api/witness/out/keepalive/398e4c0348ee40f893621b40a3986991/events.jsonl",
@@ -3519,6 +3659,13 @@
       "id": "api:book/api/witness/out/keepalive/3abbe5b86ccf4ca791273467e95a6346/events.jsonl",
       "kind": "api",
       "path": "book/api/witness/out/keepalive/3abbe5b86ccf4ca791273467e95a6346/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/3ea67138a26849458fd39799925c83e5/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/3ea67138a26849458fd39799925c83e5/events.jsonl",
       "sensitivity": "normal"
     },
     {
@@ -3579,6 +3726,13 @@
     },
     {
       "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/5c266fa09ed04af0b13894a2fefe6735/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/5c266fa09ed04af0b13894a2fefe6735/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
       "id": "api:book/api/witness/out/keepalive/5eae84da9ab741178c335873d7fb4d3d/events.jsonl",
       "kind": "api",
       "path": "book/api/witness/out/keepalive/5eae84da9ab741178c335873d7fb4d3d/events.jsonl",
@@ -3593,6 +3747,20 @@
     },
     {
       "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/607a6d8008514fd79c6ed0001a20d2a3/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/607a6d8008514fd79c6ed0001a20d2a3/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/63af6f4de1784545bad02ebcfe8fc268/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/63af6f4de1784545bad02ebcfe8fc268/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
       "id": "api:book/api/witness/out/keepalive/670980f6c1c74377a8cfdcaaa199eda1/events.jsonl",
       "kind": "api",
       "path": "book/api/witness/out/keepalive/670980f6c1c74377a8cfdcaaa199eda1/events.jsonl",
@@ -3603,6 +3771,41 @@
       "id": "api:book/api/witness/out/keepalive/72bce05ac3514863b6bf967beb18e95f/events.jsonl",
       "kind": "api",
       "path": "book/api/witness/out/keepalive/72bce05ac3514863b6bf967beb18e95f/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/7538ca83dfe54b12a1fd3e86981e5a13/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/7538ca83dfe54b12a1fd3e86981e5a13/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/779d899dbb8e46fbb42a8737ffbede32/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/779d899dbb8e46fbb42a8737ffbede32/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/7bd70f7ea796482c8182f43c48e8049e/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/7bd70f7ea796482c8182f43c48e8049e/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/7cbf88c17b124b5ebd0b809eb1d369ad/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/7cbf88c17b124b5ebd0b809eb1d369ad/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/8106e0704d534b81a2d04ace5a3e397c/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/8106e0704d534b81a2d04ace5a3e397c/events.jsonl",
       "sensitivity": "normal"
     },
     {
@@ -3642,6 +3845,13 @@
     },
     {
       "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/8f01b1ba8a8e4b8b9512198e92580976/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/8f01b1ba8a8e4b8b9512198e92580976/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
       "id": "api:book/api/witness/out/keepalive/8fc6bb4ce1a54b278f2597cdcfae1219/events.jsonl",
       "kind": "api",
       "path": "book/api/witness/out/keepalive/8fc6bb4ce1a54b278f2597cdcfae1219/events.jsonl",
@@ -3659,6 +3869,13 @@
       "id": "api:book/api/witness/out/keepalive/9f60f42c8b37476786d6b5e23241d0b9/events.jsonl",
       "kind": "api",
       "path": "book/api/witness/out/keepalive/9f60f42c8b37476786d6b5e23241d0b9/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/9fb57150136648a385c1451324d6891c/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/9fb57150136648a385c1451324d6891c/events.jsonl",
       "sensitivity": "normal"
     },
     {
@@ -3684,6 +3901,13 @@
     },
     {
       "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/ad63a2fe85834326867bbb0a06aa16b1/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/ad63a2fe85834326867bbb0a06aa16b1/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
       "id": "api:book/api/witness/out/keepalive/adb3dd96307f4b84839c60188b85e5b0/events.jsonl",
       "kind": "api",
       "path": "book/api/witness/out/keepalive/adb3dd96307f4b84839c60188b85e5b0/events.jsonl",
@@ -3705,6 +3929,13 @@
     },
     {
       "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/b4824f1991f149e3b536492bbc2a3248/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/b4824f1991f149e3b536492bbc2a3248/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
       "id": "api:book/api/witness/out/keepalive/bf5dcbcf174e4e43941a2b7f6d52268e/events.jsonl",
       "kind": "api",
       "path": "book/api/witness/out/keepalive/bf5dcbcf174e4e43941a2b7f6d52268e/events.jsonl",
@@ -3719,9 +3950,37 @@
     },
     {
       "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/c23255f882824f55a39de87008de4565/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/c23255f882824f55a39de87008de4565/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/c458e70bce3b41e19bf26a67e80467fc/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/c458e70bce3b41e19bf26a67e80467fc/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
       "id": "api:book/api/witness/out/keepalive/c5a41b893ea246ae9a5acd4abcbb006c/events.jsonl",
       "kind": "api",
       "path": "book/api/witness/out/keepalive/c5a41b893ea246ae9a5acd4abcbb006c/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/c907ea53f83146a99316e3ce1d6a42dc/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/c907ea53f83146a99316e3ce1d6a42dc/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/d72310be01ed4d23856fd039f7e78f08/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/d72310be01ed4d23856fd039f7e78f08/events.jsonl",
       "sensitivity": "normal"
     },
     {
@@ -3743,6 +4002,34 @@
       "id": "api:book/api/witness/out/keepalive/ddaafb69399f4a3cb0884e58ec3eba02/events.jsonl",
       "kind": "api",
       "path": "book/api/witness/out/keepalive/ddaafb69399f4a3cb0884e58ec3eba02/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/e11d514fda0446118aa8b24334eda7e2/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/e11d514fda0446118aa8b24334eda7e2/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/e56a13a85ebf4d158d143098d1d954c6/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/e56a13a85ebf4d158d143098d1d954c6/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/e7d648d37b2a414dac0779cbe84e77ed/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/e7d648d37b2a414dac0779cbe84e77ed/events.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/keepalive/e8b6dba0df444b1db025b7cf6845ab75/events.jsonl",
+      "kind": "api",
+      "path": "book/api/witness/out/keepalive/e8b6dba0df444b1db025b7cf6845ab75/events.jsonl",
       "sensitivity": "normal"
     },
     {
@@ -3803,6 +4090,20 @@
     },
     {
       "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/taskgated/kernel-taskport-minimal-f79ae82b4ed445cf8947eab4ad9289c9.log",
+      "kind": "api",
+      "path": "book/api/witness/out/taskgated/kernel-taskport-minimal-f79ae82b4ed445cf8947eab4ad9289c9.log",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/out/taskgated/kernel-taskport-minimal@injectable-3a2c8c5e29dc43948808b47be7f0d265.log",
+      "kind": "api",
+      "path": "book/api/witness/out/taskgated/kernel-taskport-minimal@injectable-3a2c8c5e29dc43948808b47be7f0d265.log",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
       "id": "api:book/api/witness/out/taskgated/taskgated-3d924767b22a413697a786ea3c3bcb1c.log",
       "kind": "api",
       "path": "book/api/witness/out/taskgated/taskgated-3d924767b22a413697a786ea3c3bcb1c.log",
@@ -3831,23 +4132,37 @@
     },
     {
       "digest_mode": "bytes",
-      "id": "api:book/api/witness/protocol.py",
+      "id": "api:book/api/witness/xpc/__init__.py",
       "kind": "api",
-      "path": "book/api/witness/protocol.py",
+      "path": "book/api/witness/xpc/__init__.py",
       "sensitivity": "normal"
     },
     {
       "digest_mode": "bytes",
-      "id": "api:book/api/witness/sb_api_validator.py",
+      "id": "api:book/api/witness/xpc/client.py",
       "kind": "api",
-      "path": "book/api/witness/sb_api_validator.py",
+      "path": "book/api/witness/xpc/client.py",
       "sensitivity": "normal"
     },
     {
       "digest_mode": "bytes",
-      "id": "api:book/api/witness/session.py",
+      "id": "api:book/api/witness/xpc/observer.py",
       "kind": "api",
-      "path": "book/api/witness/session.py",
+      "path": "book/api/witness/xpc/observer.py",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/xpc/protocol.py",
+      "kind": "api",
+      "path": "book/api/witness/xpc/protocol.py",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "api:book/api/witness/xpc/session.py",
+      "kind": "api",
+      "path": "book/api/witness/xpc/session.py",
       "sensitivity": "normal"
     },
     {
@@ -3855,6 +4170,853 @@
       "id": "api:book/api/world.py",
       "kind": "api",
       "path": "book/api/world.py",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/concepts/concept_map.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/concepts/concept_map.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/concepts/concepts.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/concepts/concepts.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/fixtures/FORMAT_NOTES.md",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/fixtures/FORMAT_NOTES.md",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/fixtures/INVARIANTS.md",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/fixtures/INVARIANTS.md",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/fixtures/VOCAB_CONTRACT_SAMPLE.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/fixtures/VOCAB_CONTRACT_SAMPLE.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/fixtures/blobs/airlock.sb.bin",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/fixtures/blobs/airlock.sb.bin",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/fixtures/blobs/bsd.sb.bin",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/fixtures/blobs/bsd.sb.bin",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/fixtures/blobs/sample.sb.bin",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/fixtures/blobs/sample.sb.bin",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/fixtures/fixtures.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/fixtures/fixtures.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/fixtures/hexdumps/airlock.sb.bin.hexdump.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/fixtures/hexdumps/airlock.sb.bin.hexdump.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/fixtures/hexdumps/bsd.sb.bin.hexdump.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/fixtures/hexdumps/bsd.sb.bin.hexdump.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/fixtures/hexdumps/sample.sb.bin.hexdump.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/fixtures/hexdumps/sample.sb.bin.hexdump.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/fixtures/hexdumps/v11_read_subpath.sb.bin.hexdump.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/fixtures/hexdumps/v11_read_subpath.sb.bin.hexdump.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/fixtures/hexdumps/v1_read.sb.bin.hexdump.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/fixtures/hexdumps/v1_read.sb.bin.hexdump.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/fixtures/hexdumps/v3_mach.sb.bin.hexdump.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/fixtures/hexdumps/v3_mach.sb.bin.hexdump.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/corpus_manifest.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/corpus_manifest.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/corpus_summary.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/corpus_summary.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/decodes/encoder_single_file_subpath.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/decodes/encoder_single_file_subpath.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/decodes/golden_allow_all.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/decodes/golden_allow_all.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/decodes/golden_bucket4_v1_read.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/decodes/golden_bucket4_v1_read.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/decodes/golden_bucket5_v11_subpath.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/decodes/golden_bucket5_v11_subpath.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/decodes/golden_strict_1.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/decodes/golden_strict_1.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/decodes/platform_airlock.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/decodes/platform_airlock.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/decodes/runtime_deny_all.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/decodes/runtime_deny_all.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/decodes/runtime_param_path_concrete.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/decodes/runtime_param_path_concrete.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/inspect/encoder_single_file_subpath_inspect.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/inspect/encoder_single_file_subpath_inspect.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/inspect/encoder_single_file_subpath_op_table.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/inspect/encoder_single_file_subpath_op_table.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/inspect/golden_allow_all_inspect.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/inspect/golden_allow_all_inspect.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/inspect/golden_allow_all_op_table.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/inspect/golden_allow_all_op_table.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/inspect/golden_bucket4_v1_read_inspect.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/inspect/golden_bucket4_v1_read_inspect.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/inspect/golden_bucket4_v1_read_op_table.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/inspect/golden_bucket4_v1_read_op_table.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/inspect/golden_bucket5_v11_subpath_inspect.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/inspect/golden_bucket5_v11_subpath_inspect.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/inspect/golden_bucket5_v11_subpath_op_table.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/inspect/golden_bucket5_v11_subpath_op_table.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/inspect/golden_strict_1_inspect.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/inspect/golden_strict_1_inspect.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/inspect/golden_strict_1_op_table.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/inspect/golden_strict_1_op_table.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/inspect/platform_airlock_inspect.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/inspect/platform_airlock_inspect.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/inspect/platform_airlock_op_table.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/inspect/platform_airlock_op_table.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/inspect/runtime_deny_all_inspect.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/inspect/runtime_deny_all_inspect.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/inspect/runtime_deny_all_op_table.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/inspect/runtime_deny_all_op_table.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/inspect/runtime_param_path_concrete_inspect.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/inspect/runtime_param_path_concrete_inspect.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/inspect/runtime_param_path_concrete_op_table.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/inspect/runtime_param_path_concrete_op_table.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/raw/encoder_single_file_subpath.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/raw/encoder_single_file_subpath.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/raw/golden_allow_all.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/raw/golden_allow_all.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/raw/golden_bucket4_v1_read.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/raw/golden_bucket4_v1_read.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/raw/golden_bucket5_v11_subpath.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/raw/golden_bucket5_v11_subpath.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/raw/golden_strict_1.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/raw/golden_strict_1.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/raw/platform_airlock.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/raw/platform_airlock.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/raw/runtime_deny_all.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/raw/runtime_deny_all.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/golden_corpus/raw/runtime_param_path_concrete.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/golden_corpus/raw/runtime_param_path_concrete.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/field2/field2_ir.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/field2/field2_ir.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/field2/status.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/field2/status.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_fallback.minimal_failing.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_fallback.minimal_failing.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_fallback.passing_neighbor.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_fallback.passing_neighbor.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_fallback.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_fallback.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.passing_neighbor.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.passing_neighbor.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/passing_neighbor.sb.bin",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/airlock/passing_neighbor.sb.bin",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_fallback.minimal_failing.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_fallback.minimal_failing.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_fallback.passing_neighbor.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_fallback.passing_neighbor.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_fallback.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_fallback.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_primary.minimal_failing.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_primary.minimal_failing.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_primary.passing_neighbor.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_primary.passing_neighbor.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_primary.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_primary.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/minimal_failing.sb.bin",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/minimal_failing.sb.bin",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/passing_neighbor.sb.bin",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/blastdoor/passing_neighbor.sb.bin",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_fallback.minimal_failing.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_fallback.minimal_failing.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_fallback.passing_neighbor.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_fallback.passing_neighbor.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_fallback.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_fallback.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_primary.minimal_failing.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_primary.minimal_failing.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_primary.passing_neighbor.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_primary.passing_neighbor.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_primary.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_primary.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb.bin",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb.bin",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb.bin",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb.bin",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_fallback.minimal_failing.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_fallback.minimal_failing.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_fallback.passing_neighbor.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_fallback.passing_neighbor.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_fallback.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_fallback.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_primary.minimal_failing.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_primary.minimal_failing.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_primary.passing_neighbor.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_primary.passing_neighbor.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_primary.txt",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_primary.txt",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/passing_neighbor.sb.bin",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/passing_neighbor.sb.bin",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/status.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/status.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/gate-witnesses/witness_results.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/gate-witnesses/witness_results.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/golden-corpus/rerun_summary.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/golden-corpus/rerun_summary.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/golden-corpus/status.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/golden-corpus/status.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/metadata-runner/runtime_events.normalized.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/metadata-runner/runtime_events.normalized.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/preflight-blob-digests/status.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/preflight-blob-digests/status.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/runtime-checks/runtime_results.normalized.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/runtime-checks/runtime_results.normalized.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/runtime-checks/status.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/runtime-checks/status.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/sandbox-init-params/status.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/sandbox-init-params/status.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/system-profile-digest/digests_ir.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/system-profile-digest/digests_ir.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/experiments/system-profile-digest/status.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/experiments/system-profile-digest/status.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/fixtures_status.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/fixtures_status.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/index.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/index.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/lifecycle/entitlements.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/lifecycle/entitlements.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/lifecycle/extensions_dynamic.md",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/lifecycle/extensions_dynamic.md",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/metadata.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/metadata.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/sbpl_param_value_matrix/status.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/sbpl_param_value_matrix/status.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/sbpl_parameterization/status.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/sbpl_parameterization/status.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/semantic/mach_services.jsonl",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/semantic/mach_services.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/semantic/mach_services.md",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/semantic/mach_services.md",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/semantic/metafilter.jsonl",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/semantic/metafilter.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/semantic/network.jsonl",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/semantic/network.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/semantic/runtime_results.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/semantic/runtime_results.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "evidence:book/evidence/carton/validation/out/semantic/sbpl_params.jsonl",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/semantic/sbpl_params.jsonl",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/static/mappings.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/static/mappings.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/static/node_remainders.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/static/node_remainders.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/static/sample.sb.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/static/sample.sb.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/static/system_profiles.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/static/system_profiles.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/tag_roles/ir.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/tag_roles/ir.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/tag_roles/status.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/tag_roles/status.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/validation_status.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/validation_status.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/vocab/filter_names.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/vocab/filter_names.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/vocab/filters.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/vocab/filters.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/vocab/operation_names.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/vocab/operation_names.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/vocab/ops.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/vocab/ops.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/vocab/runtime_usage.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/vocab/runtime_usage.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/carton/validation/out/vocab_status.json",
+      "kind": "evidence",
+      "path": "book/evidence/carton/validation/out/vocab_status.json",
       "sensitivity": "normal"
     },
     {
@@ -4464,6 +5626,20 @@
       "id": "evidence:book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_delta.json",
       "kind": "evidence",
       "path": "book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_delta.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_delta_receipt.json",
+      "kind": "evidence",
+      "path": "book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_delta_receipt.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_receipt.json",
+      "kind": "evidence",
+      "path": "book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_receipt.json",
       "sensitivity": "normal"
     },
     {
@@ -7043,892 +8219,45 @@
       "sensitivity": "normal"
     },
     {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/CONCEPT_INVENTORY.md",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/CONCEPT_INVENTORY.md",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/EXAMPLES.md",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/EXAMPLES.md",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/EXPERIMENT_FEEDBACK.md",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/EXPERIMENT_FEEDBACK.md",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/concept_map.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/concept_map.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/concept_text_map.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/concept_text_map.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/concepts.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/concepts.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/fixtures/FORMAT_NOTES.md",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/fixtures/FORMAT_NOTES.md",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/fixtures/INVARIANTS.md",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/fixtures/INVARIANTS.md",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/fixtures/VOCAB_CONTRACT_SAMPLE.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/fixtures/VOCAB_CONTRACT_SAMPLE.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/fixtures/blobs/bsd.sb.bin",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/fixtures/blobs/bsd.sb.bin",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/fixtures/fixtures.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/fixtures/fixtures.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/fixtures/hexdumps/airlock.sb.bin.hexdump.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/fixtures/hexdumps/airlock.sb.bin.hexdump.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/fixtures/hexdumps/bsd.sb.bin.hexdump.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/fixtures/hexdumps/bsd.sb.bin.hexdump.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/fixtures/hexdumps/sample.sb.bin.hexdump.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/fixtures/hexdumps/sample.sb.bin.hexdump.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/fixtures/hexdumps/v11_read_subpath.sb.bin.hexdump.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/fixtures/hexdumps/v11_read_subpath.sb.bin.hexdump.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/fixtures/hexdumps/v1_read.sb.bin.hexdump.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/fixtures/hexdumps/v1_read.sb.bin.hexdump.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/fixtures/hexdumps/v3_mach.sb.bin.hexdump.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/fixtures/hexdumps/v3_mach.sb.bin.hexdump.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/corpus_manifest.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/corpus_manifest.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/corpus_summary.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/corpus_summary.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/decodes/encoder_single_file_subpath.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/decodes/encoder_single_file_subpath.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/decodes/golden_allow_all.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/decodes/golden_allow_all.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/decodes/golden_bucket4_v1_read.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/decodes/golden_bucket4_v1_read.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/decodes/golden_bucket5_v11_subpath.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/decodes/golden_bucket5_v11_subpath.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/decodes/golden_strict_1.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/decodes/golden_strict_1.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/decodes/platform_airlock.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/decodes/platform_airlock.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/decodes/runtime_deny_all.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/decodes/runtime_deny_all.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/decodes/runtime_param_path_concrete.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/decodes/runtime_param_path_concrete.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/inspect/encoder_single_file_subpath_inspect.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/inspect/encoder_single_file_subpath_inspect.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/inspect/encoder_single_file_subpath_op_table.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/inspect/encoder_single_file_subpath_op_table.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/inspect/golden_allow_all_inspect.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/inspect/golden_allow_all_inspect.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/inspect/golden_allow_all_op_table.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/inspect/golden_allow_all_op_table.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/inspect/golden_bucket4_v1_read_inspect.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/inspect/golden_bucket4_v1_read_inspect.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/inspect/golden_bucket4_v1_read_op_table.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/inspect/golden_bucket4_v1_read_op_table.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/inspect/golden_bucket5_v11_subpath_inspect.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/inspect/golden_bucket5_v11_subpath_inspect.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/inspect/golden_bucket5_v11_subpath_op_table.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/inspect/golden_bucket5_v11_subpath_op_table.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/inspect/golden_strict_1_inspect.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/inspect/golden_strict_1_inspect.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/inspect/golden_strict_1_op_table.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/inspect/golden_strict_1_op_table.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/inspect/platform_airlock_inspect.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/inspect/platform_airlock_inspect.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/inspect/platform_airlock_op_table.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/inspect/platform_airlock_op_table.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/inspect/runtime_deny_all_inspect.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/inspect/runtime_deny_all_inspect.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/inspect/runtime_deny_all_op_table.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/inspect/runtime_deny_all_op_table.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/inspect/runtime_param_path_concrete_inspect.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/inspect/runtime_param_path_concrete_inspect.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/inspect/runtime_param_path_concrete_op_table.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/inspect/runtime_param_path_concrete_op_table.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/raw/encoder_single_file_subpath.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/raw/encoder_single_file_subpath.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/raw/golden_allow_all.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/raw/golden_allow_all.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/raw/golden_bucket4_v1_read.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/raw/golden_bucket4_v1_read.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/raw/golden_bucket5_v11_subpath.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/raw/golden_bucket5_v11_subpath.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/raw/golden_strict_1.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/raw/golden_strict_1.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/raw/platform_airlock.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/raw/platform_airlock.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/raw/runtime_deny_all.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/raw/runtime_deny_all.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/golden_corpus/raw/runtime_param_path_concrete.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/golden_corpus/raw/runtime_param_path_concrete.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/field2/field2_ir.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/field2/field2_ir.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/field2/status.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/field2/status.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_fallback.minimal_failing.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_fallback.minimal_failing.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_fallback.passing_neighbor.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_fallback.passing_neighbor.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_fallback.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_fallback.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.passing_neighbor.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.passing_neighbor.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/passing_neighbor.sb.bin",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/passing_neighbor.sb.bin",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_fallback.minimal_failing.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_fallback.minimal_failing.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_fallback.passing_neighbor.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_fallback.passing_neighbor.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_fallback.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_fallback.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_primary.minimal_failing.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_primary.minimal_failing.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_primary.passing_neighbor.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_primary.passing_neighbor.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_primary.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_primary.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/minimal_failing.sb.bin",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/minimal_failing.sb.bin",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/passing_neighbor.sb.bin",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/passing_neighbor.sb.bin",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_fallback.minimal_failing.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_fallback.minimal_failing.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_fallback.passing_neighbor.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_fallback.passing_neighbor.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_fallback.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_fallback.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_primary.minimal_failing.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_primary.minimal_failing.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_primary.passing_neighbor.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_primary.passing_neighbor.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_primary.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_primary.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb.bin",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb.bin",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb.bin",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb.bin",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_fallback.minimal_failing.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_fallback.minimal_failing.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_fallback.passing_neighbor.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_fallback.passing_neighbor.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_fallback.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_fallback.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_primary.minimal_failing.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_primary.minimal_failing.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_primary.passing_neighbor.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_primary.passing_neighbor.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_primary.txt",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_primary.txt",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/passing_neighbor.sb.bin",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/passing_neighbor.sb.bin",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/status.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/status.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/golden-corpus/rerun_summary.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/golden-corpus/rerun_summary.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/golden-corpus/status.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/golden-corpus/status.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/metadata-runner/runtime_events.normalized.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/metadata-runner/runtime_events.normalized.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/preflight-blob-digests/status.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/preflight-blob-digests/status.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/runtime-checks/runtime_results.normalized.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/runtime-checks/runtime_results.normalized.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/runtime-checks/status.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/runtime-checks/status.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/sandbox-init-params/status.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/sandbox-init-params/status.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/system-profile-digest/digests_ir.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/system-profile-digest/digests_ir.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/experiments/system-profile-digest/status.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/experiments/system-profile-digest/status.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/fixtures_status.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/fixtures_status.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/index.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/index.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/lifecycle/entitlements.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/lifecycle/entitlements.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/lifecycle/extensions_dynamic.md",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/lifecycle/extensions_dynamic.md",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/metadata.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/metadata.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/sbpl_param_value_matrix/status.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/sbpl_param_value_matrix/status.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/sbpl_parameterization/status.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/sbpl_parameterization/status.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/semantic/mach_services.jsonl",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/semantic/mach_services.jsonl",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/semantic/mach_services.md",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/semantic/mach_services.md",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/semantic/metafilter.jsonl",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/semantic/metafilter.jsonl",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/semantic/network.jsonl",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/semantic/network.jsonl",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/semantic/runtime_results.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/semantic/runtime_results.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "bytes",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/semantic/sbpl_params.jsonl",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/semantic/sbpl_params.jsonl",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/static/mappings.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/static/mappings.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/static/node_remainders.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/static/node_remainders.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/static/sample.sb.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/static/sample.sb.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/static/system_profiles.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/static/system_profiles.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/tag_roles/ir.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/tag_roles/ir.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/tag_roles/status.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/tag_roles/status.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/validation_status.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/validation_status.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/vocab/filter_names.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/vocab/filter_names.json",
-      "sensitivity": "normal"
-    },
-    {
-      "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/vocab/filters.json",
-      "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/vocab/filters.json",
-      "sensitivity": "normal"
-    },
-    {
       "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/vocab/operation_names.json",
+      "id": "evidence:book/evidence/syncretic/policygraph/anchor/anchor_hits.json",
       "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/vocab/operation_names.json",
+      "path": "book/evidence/syncretic/policygraph/anchor/anchor_hits.json",
       "sensitivity": "normal"
     },
     {
       "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/vocab/ops.json",
+      "id": "evidence:book/evidence/syncretic/policygraph/anchor/anchor_hits_delta.json",
       "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/vocab/ops.json",
+      "path": "book/evidence/syncretic/policygraph/anchor/anchor_hits_delta.json",
       "sensitivity": "normal"
     },
     {
       "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/vocab/runtime_usage.json",
+      "id": "evidence:book/evidence/syncretic/policygraph/anchor/anchor_hits_delta_receipt.json",
       "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/vocab/runtime_usage.json",
+      "path": "book/evidence/syncretic/policygraph/anchor/anchor_hits_delta_receipt.json",
       "sensitivity": "normal"
     },
     {
       "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/out/vocab_status.json",
+      "id": "evidence:book/evidence/syncretic/policygraph/anchor/anchor_hits_receipt.json",
       "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/out/vocab_status.json",
+      "path": "book/evidence/syncretic/policygraph/anchor/anchor_hits_receipt.json",
       "sensitivity": "normal"
     },
     {
       "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/strategies.json",
+      "id": "evidence:book/evidence/syncretic/policygraph/anchor/policygraph_anchor_receipt.json",
       "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/strategies.json",
+      "path": "book/evidence/syncretic/policygraph/anchor/policygraph_anchor_receipt.json",
       "sensitivity": "normal"
     },
     {
       "digest_mode": "semantic_json",
-      "id": "evidence:book/evidence/graph/concepts/validation/validation_report.json",
+      "id": "evidence:book/evidence/syncretic/policygraph/node-fields/field2_inventory.json",
       "kind": "evidence",
-      "path": "book/evidence/graph/concepts/validation/validation_report.json",
+      "path": "book/evidence/syncretic/policygraph/node-fields/field2_inventory.json",
       "sensitivity": "normal"
     },
     {
@@ -7954,6 +8283,13 @@
     },
     {
       "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/syncretic/policygraph/node-fields/policygraph_node_fields_core_static_receipt.json",
+      "kind": "evidence",
+      "path": "book/evidence/syncretic/policygraph/node-fields/policygraph_node_fields_core_static_receipt.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
       "id": "evidence:book/evidence/syncretic/policygraph/node-fields/policygraph_node_fields_receipt.json",
       "kind": "evidence",
       "path": "book/evidence/syncretic/policygraph/node-fields/policygraph_node_fields_receipt.json",
@@ -7964,6 +8300,13 @@
       "id": "evidence:book/evidence/syncretic/policygraph/node-fields/policygraph_node_unknowns.json",
       "kind": "evidence",
       "path": "book/evidence/syncretic/policygraph/node-fields/policygraph_node_unknowns.json",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "semantic_json",
+      "id": "evidence:book/evidence/syncretic/policygraph/node-fields/unknown_nodes.json",
+      "kind": "evidence",
+      "path": "book/evidence/syncretic/policygraph/node-fields/unknown_nodes.json",
       "sensitivity": "normal"
     },
     {
@@ -8494,6 +8837,20 @@
       "id": "tool:book/tools/policy/ratchet/milestone_freeze.py",
       "kind": "tool",
       "path": "book/tools/policy/ratchet/milestone_freeze.py",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "tool:book/tools/policy/ratchet/promote_anchor_hits.py",
+      "kind": "tool",
+      "path": "book/tools/policy/ratchet/promote_anchor_hits.py",
+      "sensitivity": "normal"
+    },
+    {
+      "digest_mode": "bytes",
+      "id": "tool:book/tools/policy/ratchet/promote_field2_static.py",
+      "kind": "tool",
+      "path": "book/tools/policy/ratchet/promote_field2_static.py",
       "sensitivity": "normal"
     },
     {
@@ -10536,14 +10893,14 @@
   ],
   "edges": [
     {
+      "from": "evidence:book/evidence/carton/validation/out/experiments/system-profile-digest/digests_ir.json",
+      "kind": "consumes",
+      "to": "mapping:book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json"
+    },
+    {
       "from": "evidence:book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json",
       "kind": "consumes",
       "to": "mapping:book/integration/carton/bundle/relationships/anchor_field2.json"
-    },
-    {
-      "from": "evidence:book/evidence/graph/concepts/validation/out/experiments/system-profile-digest/digests_ir.json",
-      "kind": "consumes",
-      "to": "mapping:book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json"
     },
     {
       "from": "experiment:book/evidence/experiments/field2-final-final/bsd-airlock-highvals/carton.enroll.json",
@@ -10979,6 +11336,16 @@
       "from": "experiment:book/evidence/experiments/field2-final-final/probe-op-structure/carton.enroll.json",
       "kind": "declares",
       "to": "evidence:book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_delta.json"
+    },
+    {
+      "from": "experiment:book/evidence/experiments/field2-final-final/probe-op-structure/carton.enroll.json",
+      "kind": "declares",
+      "to": "evidence:book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_delta_receipt.json"
+    },
+    {
+      "from": "experiment:book/evidence/experiments/field2-final-final/probe-op-structure/carton.enroll.json",
+      "kind": "declares",
+      "to": "evidence:book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_receipt.json"
     },
     {
       "from": "experiment:book/evidence/experiments/field2-final-final/probe-op-structure/carton.enroll.json",

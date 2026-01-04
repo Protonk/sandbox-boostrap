@@ -21,7 +21,7 @@ from typing import Any, Dict, List, Optional, Sequence
 
 from book.api import path_utils
 from book.api.profile.identity import baseline_world_id
-from book.api.witness import session as witness_session
+from book.api.witness.xpc import session as witness_session
 from book.api.witness.paths import (
     REPO_ROOT,
     WITNESS_CLI,
@@ -29,7 +29,7 @@ from book.api.witness.paths import (
     WITNESS_HOLD_OPEN,
     WITNESS_KEEPALIVE_OUT,
 )
-from book.api.witness.protocol import normalize_wait_spec, trigger_wait_path
+from book.api.witness.xpc.protocol import normalize_wait_spec, trigger_wait_path
 
 KEEPALIVE_PROTOCOL_VERSION = 1
 KEEPALIVE_EVENT_KIND = "keepalive_event"
@@ -1244,6 +1244,21 @@ class KeepaliveService:
     def start(self) -> None:
         try:
             self.daemon.start()
+        except OSError as exc:
+            if getattr(exc, "errno", None) == 1:
+                raise KeepaliveError(
+                    "sandbox_restriction",
+                    f"Sandbox restriction: unable to bind keepalive socket ({exc})",
+                    details={
+                        "control_path": path_utils.to_repo_relative(
+                            self.config.control_path, self.config.repo_root
+                        )
+                    },
+                ) from exc
+            raise KeepaliveError(
+                "keepalive_start_failed",
+                f"keepalive daemon failed to start: {type(exc).__name__}: {exc}",
+            ) from exc
         except Exception as exc:
             raise KeepaliveError(
                 "keepalive_start_failed",

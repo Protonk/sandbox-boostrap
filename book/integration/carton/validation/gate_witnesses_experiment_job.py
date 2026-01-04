@@ -29,10 +29,10 @@ from book.integration.carton.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
 WITNESS_ROOT = ROOT / "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses"
-OUT_DIR = ROOT / "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses"
+OUT_DIR = ROOT / "book/evidence/carton/validation/out/experiments/gate-witnesses"
 STATUS_PATH = OUT_DIR / "status.json"
 RESULTS_PATH = OUT_DIR / "witness_results.json"
-META_PATH = ROOT / "book/evidence/graph/concepts/validation/out/metadata.json"
+META_PATH = ROOT / "book/evidence/carton/validation/out/metadata.json"
 
 WRAPPER = ROOT / "book/tools/sbpl/wrapper/wrapper"
 CONTROL_SBPL = ROOT / "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v0_empty.sb"

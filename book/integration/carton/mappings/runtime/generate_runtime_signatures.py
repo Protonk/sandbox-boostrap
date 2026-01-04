@@ -26,8 +26,8 @@ if str(SCRIPT_ROOT) not in sys.path:
     sys.path.insert(0, str(SCRIPT_ROOT))
 
 import promotion_packets
-FIELD2_IR = ROOT / "book/evidence/graph/concepts/validation/out/experiments/field2/field2_ir.json"
-STATUS_PATH = ROOT / "book/evidence/graph/concepts/validation/out/validation_status.json"
+FIELD2_IR = ROOT / "book/evidence/carton/validation/out/experiments/field2/field2_ir.json"
+STATUS_PATH = ROOT / "book/evidence/carton/validation/out/validation_status.json"
 OUT_PATH = ROOT / "book/integration/carton/bundle/relationships/mappings/runtime/runtime_signatures.json"
 EXPECTED_JOBS = {"experiment:field2"}
 RUNTIME_STORY = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime_cuts" / "runtime_story.json"

@@ -1,0 +1,190 @@
+{
+  "attach": {
+    "attach_stage": "wait",
+    "keepalive": {
+      "error": null,
+      "events_path": "book/api/witness/out/keepalive/0c0bcf3d17bd480b95624b39ed0d485b/events.jsonl",
+      "hook_id": "h-e75b7b8ecc5a4416b1d3979710a71296",
+      "hook_record": {
+        "error": null,
+        "events_path": "book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0/frida/events.jsonl",
+        "gate_release": false,
+        "helper_path": "book/api/frida/native/attach_helper/frida_attach_helper",
+        "helper_pid": 29753,
+        "hook_id": "h-e75b7b8ecc5a4416b1d3979710a71296",
+        "kind": "frida",
+        "lane": "oracle",
+        "meta_path": "book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0/frida/meta.json",
+        "stage": "operation",
+        "started_at_unix_s": 1767485646.1375349,
+        "status": "ready",
+        "target_id": "t-7a8ecaa6188c40f5b92add525526ae7c"
+      },
+      "run_id": "0c0bcf3d17bd480b95624b39ed0d485b",
+      "target_id": "t-7a8ecaa6188c40f5b92add525526ae7c"
+    },
+    "pid": 29752,
+    "pid_candidates": [
+      29752
+    ],
+    "pid_error": null,
+    "pid_matches_service_pid": true,
+    "pid_source": "session_ready",
+    "run_id": "7d6f3c20-4264-4e9a-818c-67c15d963fc0",
+    "service_pid": "29752",
+    "t0_ns": 1767485646101613000,
+    "wait_info": {
+      "session_ready": {
+        "correlation_id": "frida-testing:witness-frida.7d6f3c20-4264-4e9a-818c-67c15d963fc0",
+        "event": "session_ready",
+        "message": "session opened",
+        "pid": 29752,
+        "plan_id": "frida-testing:witness-frida",
+        "service_bundle_id": "com.yourteam.policy-witness.ProbeService_minimal.injectable",
+        "service_name": "ProbeService_minimal__injectable",
+        "session_token": "56C64431-A2EB-4739-B600-FBDE8E0DB73B",
+        "wait_mode": "fifo",
+        "wait_path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal.injectable/Data/tmp/policy-witness-session/wait.4F522AAB-B65D-4444-9250-5214E3D69FC5.fifo"
+      },
+      "wait_mode": "fifo",
+      "wait_path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal.injectable/Data/tmp/policy-witness-session/wait.4F522AAB-B65D-4444-9250-5214E3D69FC5.fifo",
+      "wait_ready": {
+        "correlation_id": "frida-testing:witness-frida.7d6f3c20-4264-4e9a-818c-67c15d963fc0",
+        "event": "wait_ready",
+        "message": "wait configured",
+        "pid": 29752,
+        "plan_id": "frida-testing:witness-frida",
+        "service_bundle_id": "com.yourteam.policy-witness.ProbeService_minimal.injectable",
+        "service_name": "ProbeService_minimal__injectable",
+        "session_token": "56C64431-A2EB-4739-B600-FBDE8E0DB73B",
+        "wait_mode": "fifo",
+        "wait_path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal.injectable/Data/tmp/policy-witness-session/wait.4F522AAB-B65D-4444-9250-5214E3D69FC5.fifo"
+      },
+      "wait_timeout_ms": 30000
+    }
+  },
+  "frida": {
+    "python_pkg_version": "17.5.2"
+  },
+  "host": {
+    "machine": "arm64",
+    "platform": "macOS-14.4.1-arm64-arm-64bit-Mach-O",
+    "python": "3.14.2"
+  },
+  "out_dir": "book/api/witness/out/7d6f3c20-4264-4e9a-818c-67c15d963fc0",
+  "outcome": {
+    "details": null,
+    "error": "process-terminated",
+    "reason": "session-detached",
+    "status": "error"
+  },
+  "run_id": "7d6f3c20-4264-4e9a-818c-67c15d963fc0",
+  "script": {
+    "assembled_sha256": "182ca54b569386e9a48516f943c97749f3ce0c95f1b6f7caa84b7124d6c94b5f",
+    "assembly_version": 1,
+    "config": {
+      "source": {
+        "base": {
+          "kind": "none"
+        },
+        "kind": "composed",
+        "overlay": {
+          "kind": "helper"
+        }
+      },
+      "value": {
+        "selftest_path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal.injectable/Data/tmp/pw_noaccess"
+      }
+    },
+    "config_validation": {
+      "error": null,
+      "status": "pass",
+      "violations": []
+    },
+    "configure": {
+      "error": null,
+      "present": true,
+      "result": {
+        "received_keys": [
+          "selftest_path"
+        ]
+      },
+      "status": "pass"
+    },
+    "helper": {
+      "path": "book/api/frida/hooks/_shared/trace_helper.js",
+      "sha256": "0a5d4b3ce69c6ae01ca2de5f073bd4085466e4acfb4e47f164411c10967bdb6f"
+    },
+    "manifest": {
+      "config": {
+        "schema": {
+          "additionalProperties": true,
+          "type": "object"
+        }
+      },
+      "configure": {
+        "input_schema": {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        "supported": true
+      },
+      "hook": {
+        "id": "smoke",
+        "script_path": "book/api/frida/hooks/smoke.js",
+        "summary": "Emits basic Process metadata on load."
+      },
+      "module_expectations": [],
+      "rpc": {
+        "configure": {
+          "present": true
+        }
+      },
+      "rpc_exports": [
+        "configure"
+      ],
+      "schema_name": "book.api.frida.hook_manifest",
+      "schema_version": 1,
+      "send_payload_kinds": [
+        "smoke"
+      ],
+      "trace_event_schema": {
+        "events_format": "jsonl",
+        "schema_name": "book.api.frida.trace_event",
+        "schema_path": "book/api/frida/schemas/trace_event_v1.schema.json",
+        "schema_version": 1
+      }
+    },
+    "manifest_error": null,
+    "manifest_path": "book/api/frida/hooks/smoke.manifest.json",
+    "manifest_sha256": "a6d391305b2958b427eff1334a05826a7f58830988659df0246f1a27ee735e8d",
+    "manifest_violations": [],
+    "path": "book/api/frida/hooks/smoke.js",
+    "resolved_path": "book/api/frida/hooks/smoke.js",
+    "sha256": "a895ae4d45380a42b6bfe0e0d34e26edd27d2271b46db36810d1e30245a55872"
+  },
+  "t0_ns": 1767485646101613000,
+  "tooling": {
+    "frida": {
+      "python_pkg_version": "17.5.2"
+    },
+    "platform": {
+      "mac_ver": "14.4.1",
+      "machine": "arm64",
+      "release": "23.4.0",
+      "system": "Darwin",
+      "version": "Darwin Kernel Version 23.4.0: Fri Mar 15 00:12:41 PDT 2024; root:xnu-10063.101.17~1/RELEASE_ARM64_T8103"
+    },
+    "python": {
+      "implementation": "CPython",
+      "version": "3.14.2"
+    }
+  },
+  "trace_event_schema": {
+    "events_format": "jsonl",
+    "schema_name": "book.api.frida.trace_event",
+    "schema_path": "book/api/frida/schemas/trace_event_v1.schema.json",
+    "schema_version": 1
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

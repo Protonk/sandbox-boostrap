@@ -12,10 +12,11 @@ from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Tuple
 
 from book.api import path_utils
-from book.api.witness import client as witness_client
-from book.api.witness import keepalive, lifecycle, outputs
+from book.api.witness.xpc import client as witness_client
+from book.api.witness import keepalive, outputs
+from book.api.witness.analysis import lifecycle
 from book.api.witness.paths import WITNESS_FRIDA_ATTACH_HELPER
-from book.api.witness.session import XpcSession
+from book.api.witness.xpc.session import XpcSession
 from book.api.frida.capture import FridaCapture, now_ns
 from book.api.profile.identity import baseline_world_id
 
@@ -334,6 +335,7 @@ def run_from_args(args: argparse.Namespace) -> int:
             frida_attach_error = attach_meta.get("pid_error") or "pid_not_found"
             return
         if args.keepalive:
+            # Keepalive attach expects an injectable target with get-task-allow; base variants will be denied.
             _attach_with_keepalive(pid)
         else:
             _attach_with_frida(pid)

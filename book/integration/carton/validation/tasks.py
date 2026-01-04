@@ -2,7 +2,7 @@
 Declarative map of validation tasks to inputs and expected artifacts.
 
 Use this as the source of truth when wiring automation; keep scripts small and
-confined to this directory. Fixtures live under book/evidence/graph/concepts/validation/fixtures.
+confined to this directory. Fixtures live under book/evidence/carton/validation/fixtures.
 """
 
 PLAN = {
@@ -10,14 +10,14 @@ PLAN = {
         {
             "name": "modern-sb-sample",
             "example": "sbpl-corpus sample",
-            "run": "python -m book.api.profile compile book/tools/sbpl/corpus/baseline/sample.sb --out book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin --no-preview",
+            "run": "python -m book.api.profile compile book/tools/sbpl/corpus/baseline/sample.sb --out book/evidence/carton/validation/fixtures/blobs/sample.sb.bin --no-preview",
             "artifacts": ["out/static/sb-sample.json"],
             "notes": "Compile sample.sb (modern graph format) and emit parsed header/op-table/node/regex/literal JSON via shared ingestion.",
         },
         {
             "name": "system-profiles-airlock-bsd",
             "example": "system SBPL templates",
-            "run": "python -m book.api.profile compile /System/Library/Sandbox/Profiles/airlock.sb /System/Library/Sandbox/Profiles/bsd.sb --out-dir book/evidence/graph/concepts/validation/fixtures/blobs --no-preview",
+            "run": "python -m book.api.profile compile /System/Library/Sandbox/Profiles/airlock.sb /System/Library/Sandbox/Profiles/bsd.sb --out-dir book/evidence/carton/validation/fixtures/blobs --no-preview",
             "artifacts": [
                 "out/static/airlock.sb.bin.json",
                 "out/static/bsd.sb.bin.json",
@@ -81,35 +81,35 @@ PLAN = {
         {
             "name": "entitlements-diff",
             "example": "lifecycle entitlements probe",
-            "run": "python -m book.api.lifecycle entitlements --out book/evidence/graph/concepts/validation/out/lifecycle/entitlements.json",
+            "run": "python -m book.api.lifecycle entitlements --out book/evidence/carton/validation/out/lifecycle/entitlements.json",
             "artifacts": ["out/lifecycle/entitlements.json"],
             "notes": "Capture signing identifier and entitlement sets for differently signed builds; correlate with filters in platform/app profiles.",
         },
         {
             "name": "platform-policy-probes",
             "example": "lifecycle platform probe",
-            "run": "python -m book.api.lifecycle platform-policy --out book/evidence/graph/concepts/validation/out/lifecycle/platform.jsonl",
+            "run": "python -m book.api.lifecycle platform-policy --out book/evidence/carton/validation/out/lifecycle/platform.jsonl",
             "artifacts": ["out/lifecycle/platform.jsonl"],
             "notes": "Probe sysctl/SIP-protected paths/Mach services to show platform-layer denies; annotate SIP vs Seatbelt behavior and OS/build.",
         },
         {
             "name": "container-paths",
             "example": "lifecycle container probe",
-            "run": "python -m book.api.lifecycle containers --out book/evidence/graph/concepts/validation/out/lifecycle/containers.json",
+            "run": "python -m book.api.lifecycle containers --out book/evidence/carton/validation/out/lifecycle/containers.json",
             "artifacts": ["out/lifecycle/containers.json"],
             "notes": "Record container roots/group containers/symlink targets; useful for tying path filters to real resolved paths.",
         },
         {
             "name": "extension-issuance",
             "example": "lifecycle extension probe",
-            "run": "python -m book.api.lifecycle extensions --out book/evidence/graph/concepts/validation/out/lifecycle/extensions_dynamic.md",
+            "run": "python -m book.api.lifecycle extensions --out book/evidence/carton/validation/out/lifecycle/extensions_dynamic.md",
             "artifacts": ["out/lifecycle/extensions_dynamic.md"],
             "notes": "Attempt to issue/consume/release extensions; log token issuance success/failure and any changed access. Note expected EPERM without entitlements.",
         },
         {
             "name": "sandbox-apply-attempt",
             "example": "lifecycle apply attempt",
-            "run": "python -m book.api.lifecycle apply-attempt --out book/evidence/graph/concepts/validation/out/lifecycle/apply_attempt.json",
+            "run": "python -m book.api.lifecycle apply-attempt --out book/evidence/carton/validation/out/lifecycle/apply_attempt.json",
             "artifacts": ["out/lifecycle/apply_attempt.json"],
             "notes": "Demonstrate compilation succeeds but apply fails without entitlements/SIP relaxation; captures lifecycle stage where policy attachment is refused.",
         },

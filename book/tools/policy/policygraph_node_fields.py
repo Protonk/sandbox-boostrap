@@ -21,6 +21,7 @@ if str(REPO_ROOT) not in sys.path:
 from book.api import path_utils, tooling  # type: ignore
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__).resolve())
+SYN_ROOT = REPO_ROOT / "book" / "evidence" / "syncretic" / "policygraph" / "node-fields"
 
 
 WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
@@ -44,10 +45,8 @@ def _static_inputs() -> Dict[str, Path]:
         / "book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json",
         "anchor_ctx_filter_map": REPO_ROOT
         / "book/integration/carton/bundle/relationships/mappings/anchors/anchor_ctx_filter_map.json",
-        "field2_inventory": REPO_ROOT
-        / "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
-        "unknown_nodes": REPO_ROOT
-        / "book/evidence/experiments/field2-final-final/field2-filters/out/unknown_nodes.json",
+        "field2_inventory": SYN_ROOT / "field2_inventory.json",
+        "unknown_nodes": SYN_ROOT / "unknown_nodes.json",
         "anchor_hits": REPO_ROOT
         / "book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json",
         "anchor_hits_delta": REPO_ROOT

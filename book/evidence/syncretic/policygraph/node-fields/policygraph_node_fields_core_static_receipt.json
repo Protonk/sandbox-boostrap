@@ -1,0 +1,23 @@
+{
+  "command": [
+    "book/tools/policy/ratchet/promote_field2_static.py"
+  ],
+  "inputs": {
+    "field2_inventory": {
+      "path": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
+      "sha256": "afe851221c28068cefa3e963ffea4199903adafc4f44b395564a5ebec0ac3cdb"
+    },
+    "unknown_nodes": {
+      "path": "book/evidence/experiments/field2-final-final/field2-filters/out/unknown_nodes.json",
+      "sha256": "525ecdccea5cdf20860334630303021c9f5c4fb40f4dfbadf576bb045b129cc2"
+    }
+  },
+  "outputs": {
+    "field2_inventory": "book/evidence/syncretic/policygraph/node-fields/field2_inventory.json",
+    "receipt": "book/evidence/syncretic/policygraph/node-fields/policygraph_node_fields_core_static_receipt.json",
+    "unknown_nodes": "book/evidence/syncretic/policygraph/node-fields/unknown_nodes.json"
+  },
+  "schema_version": "policygraph_node_fields.core_static_receipt.v0",
+  "tool": "policygraph_node_fields_core_static",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

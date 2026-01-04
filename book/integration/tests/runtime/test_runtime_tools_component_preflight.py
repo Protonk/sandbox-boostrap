@@ -57,7 +57,7 @@ def test_runtime_preflight_blocks_known_apply_gate_blob_digest(tmp_path, monkeyp
     monkeypatch.delenv("SANDBOX_LORE_PREFLIGHT_FORCE", raising=False)
 
     witness_blob = Path(
-        "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/"
+        "book/evidence/carton/validation/out/experiments/gate-witnesses/forensics/"
         "mach_bootstrap_deny_message_send/minimal_failing.sb.bin"
     )
     assert witness_blob.exists(), "gate-witness SBPL blob fixture missing"

@@ -34,10 +34,28 @@ if str(REPO_ROOT) not in sys.path:
 from book.api.profile import decoder  # type: ignore
 from book.api.profile import digests as digests_mod  # type: ignore
 from book.api.profile import ingestion as pi  # type: ignore
+from book.api import path_utils, tooling
+
+REPO_ROOT = path_utils.find_repo_root(Path(__file__).resolve())
+
+WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+SCHEMA_VERSION = "probe-op-structure.anchor_hits.v1"
+RECEIPT_SCHEMA_VERSION = "probe-op-structure.anchor_hits.receipt.v1"
+
+ANCHOR_MAP_PATH = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/anchor_map.json"
+FILTERS_PATH = REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/filters.json"
+PROFILES_DIR = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build"
+OUT_DIR = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/out"
+OUT_PATH = OUT_DIR / "anchor_hits.json"
+RECEIPT_PATH = OUT_DIR / "anchor_hits_receipt.json"
+
+
+def _rel(path: Path) -> str:
+    return path_utils.to_repo_relative(path, repo_root=REPO_ROOT)
 
 
 def load_filter_names() -> Dict[int, str]:
-    filters = json.loads((REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/filters.json").read_text())
+    filters = json.loads(FILTERS_PATH.read_text())
     return {e["id"]: e["name"] for e in filters.get("filters", [])}
 
 
@@ -168,7 +186,7 @@ def summarize(profile_path: Path, anchors: List[str], filter_names: Dict[int, st
     literal_strings = extract_strings(literal_pool)
 
     anchor_hits = []
-    for anchor in anchors:
+    for anchor in sorted({a for a in anchors if isinstance(a, str)}):
         a_bytes = anchor.encode()
         offsets_lit = find_anchor_offsets(literal_pool, a_bytes)
         # Also match offsets from decoder literal_strings_with_offsets for substring anchors.
@@ -201,11 +219,16 @@ def summarize(profile_path: Path, anchors: List[str], filter_names: Dict[int, st
         else:
             node_idxs = sorted(set(ref_hits))
         field2_vals = []
+        node_u16_roles: List[str | None] = []
         for idx in node_idxs:
             if idx < len(nodes_decoded):
                 fields = nodes_decoded[idx].get("fields", [])
                 if len(fields) > 2:
                     field2_vals.append(fields[2])
+                node_u16_roles.append(nodes_decoded[idx].get("u16_role"))
+            else:
+                node_u16_roles.append(None)
+        field2_vals = sorted({int(val) for val in field2_vals if isinstance(val, int)})
         anchor_hits.append(
             {
                 "anchor": anchor,
@@ -214,7 +237,8 @@ def summarize(profile_path: Path, anchors: List[str], filter_names: Dict[int, st
                 "literal_string_index": string_index,
                 "node_indices": node_idxs,
                 "field2_values": field2_vals,
-                "field2_names": [filter_names.get(v) for v in field2_vals],
+                "field2_names": [filter_names.get(v) for v in field2_vals if v in filter_names],
+                "node_u16_roles": node_u16_roles,
             }
         )
 
@@ -228,28 +252,56 @@ def summarize(profile_path: Path, anchors: List[str], filter_names: Dict[int, st
 
 def main() -> None:
     filter_names = load_filter_names()
-    anchors_map = json.loads((REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/anchor_map.json").read_text())
-    profiles_dir = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build"
+    anchors_map = json.loads(ANCHOR_MAP_PATH.read_text())
     canonical = digests_mod.canonical_system_profile_blobs(REPO_ROOT)
     sys_profiles = {"sys:airlock": canonical["airlock"], "sys:bsd": canonical["bsd"], "sys:sample": canonical["sample"]}
     outputs: Dict[str, Any] = {}
+    profile_sources: Dict[str, Dict[str, str]] = {}
 
-    for name, anchors in anchors_map.items():
-        p = profiles_dir / f"{name}.sb.bin"
+    for name, anchors in sorted(anchors_map.items()):
+        p = PROFILES_DIR / f"{name}.sb.bin"
         if not p.exists():
             continue
-        outputs[f"probe:{name}"] = summarize(p, anchors, filter_names)
+        profile_id = f"probe:{name}"
+        outputs[profile_id] = summarize(p, anchors, filter_names)
+        profile_sources[profile_id] = {
+            "path": _rel(p),
+            "sha256": tooling.sha256_path(p),
+        }
 
-    for name, p in sys_profiles.items():
+    for name, p in sorted(sys_profiles.items()):
         if not p.exists():
             continue
         outputs[name] = summarize(p, anchors_map.get(name, []), filter_names)
+        profile_sources[name] = {"path": _rel(p), "sha256": tooling.sha256_path(p)}
 
-    out_dir = REPO_ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/out"
-    out_dir.mkdir(exist_ok=True)
-    out_path = out_dir / "anchor_hits.json"
-    out_path.write_text(json.dumps(outputs, indent=2))
-    print(f"[+] wrote {out_path}")
+    outputs["metadata"] = {
+        "schema_version": SCHEMA_VERSION,
+        "world_id": WORLD_ID,
+        "inputs": {
+            "anchor_map": {"path": _rel(ANCHOR_MAP_PATH), "sha256": tooling.sha256_path(ANCHOR_MAP_PATH)},
+            "filters_vocab": {"path": _rel(FILTERS_PATH), "sha256": tooling.sha256_path(FILTERS_PATH)},
+            "profiles": profile_sources,
+        },
+        "command": path_utils.relativize_command(sys.argv, repo_root=REPO_ROOT),
+    }
+
+    OUT_DIR.mkdir(exist_ok=True)
+    OUT_PATH.write_text(json.dumps(outputs, indent=2, sort_keys=True))
+    receipt = {
+        "schema_version": RECEIPT_SCHEMA_VERSION,
+        "tool": "probe-op-structure.anchor_scan",
+        "world_id": WORLD_ID,
+        "inputs": outputs["metadata"]["inputs"],
+        "outputs": {
+            "anchor_hits": _rel(OUT_PATH),
+            "receipt": _rel(RECEIPT_PATH),
+        },
+        "command": outputs["metadata"]["command"],
+    }
+    RECEIPT_PATH.write_text(json.dumps(receipt, indent=2, sort_keys=True))
+    print(f"[+] wrote {OUT_PATH}")
+    print(f"[+] wrote {RECEIPT_PATH}")
 
 
 if __name__ == "__main__":

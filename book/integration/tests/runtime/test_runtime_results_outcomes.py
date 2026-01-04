@@ -8,10 +8,7 @@ ROOT = path_utils.find_repo_root(Path(__file__))
 RUNTIME_IR = (
     ROOT
     / "book"
-    / "evidence"
-    / "graph"
-    / "concepts"
-    / "validation"
+    / "evidence" / "carton" / "validation"
     / "out"
     / "experiments"
     / "runtime-checks"

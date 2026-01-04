@@ -1,0 +1,3 @@
+Filtering the log data using "process == "kernel" AND (composedMessage CONTAINS "taskport" OR composedMessage CONTAINS "get-task-allow" OR composedMessage CONTAINS "macOSTaskPolicy")"
+Timestamp                       (process)[PID]    
+2026-01-03 16:13:45.407597-0800  localhost kernel[0]: (AppleMobileFileIntegrity) macOSTaskPolicy: (re.frida.Helper) may not get the task control port of (ProbeService_min) (pid: 29586): (ProbeService_min) is hardened, (ProbeService_min) doesn't have get-task-allow, (re.frida.Helper) is a declared debugger(re.frida.Helper) is not a declared read-only debugger

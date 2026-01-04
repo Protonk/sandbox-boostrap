@@ -1,6 +1,6 @@
 - world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
 - scope: structural outputs with a narrow runtime slice (single run; provisional)
-- primary outputs: out/analysis.json; out/anchor_hits.json; out/anchor_hits_delta.json; out/tag_inventory.json; out/tag_layout_hypotheses.json; out/literal_scan.json; out/tag_bytes.json; out/tranche_witness.json
+- primary outputs: out/analysis.json; out/anchor_hits.json; out/anchor_hits_receipt.json; out/anchor_hits_delta.json; out/anchor_hits_delta_receipt.json; out/tag_inventory.json; out/tag_layout_hypotheses.json; out/literal_scan.json; out/tag_bytes.json; out/tranche_witness.json
 - runtime outputs: book/evidence/experiments/runtime-final-final/suites/field2-probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/{runtime_results.json,runtime_events.normalized.json,run_manifest.json}
 - upstream IR: book/api/profile/decoder/; book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json; book/integration/carton/bundle/relationships/mappings/vocab/filters.json
 - downstream mappings: book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json; book/evidence/experiments/field2-final-final/field2-filters/out/*
@@ -16,7 +16,7 @@ Build an anchor-aware structural view of `field2` usage across operations and fi
 - Vocab: `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` and `book/integration/carton/bundle/relationships/mappings/vocab/filters.json` (both `status: ok`).
 - Profiles:
   - Probe SBPL variants under `book/evidence/experiments/field2-final-final/probe-op-structure/sb/` with compiled blobs in `sb/build/`.
-  - Canonical system blobs: `book/evidence/graph/concepts/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin`.
+  - Canonical system blobs: `book/evidence/carton/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin`.
 - Decoder backbone: `book/api/profile/decoder/` with canonical layouts from `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json` (`status: ok`).
 - Runtime slice: `book/evidence/experiments/runtime-final-final/suites/field2-probe-op-structure/plan.json` and registry data under `book/evidence/experiments/runtime-final-final/suites/field2-probe-op-structure/registry/`.
 
@@ -64,6 +64,12 @@ Build an anchor-aware structural view of `field2` usage across operations and fi
 | `IOAccelerator`           | blocked (candidates: mount-relative-path / global-name / path) | — | — | 0, 1, 5                  |
 
 Use the “solid” rows for structural anchor→Filter references on this host. Blocked rows are explicitly unresolved and should not be promoted.
+
+What we learned: `book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json` gives a host‑bound structural map from concrete anchors (e.g., `/etc/hosts`, `/tmp/foo`, `IO*` user clients) to node indices and observed `field2` payloads across probe and system profiles; it shows which anchors are dominated by generic filters (path/global/local/local‑name) and which anchors are mixed/blocked because multiple contexts appear. `book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_delta.json` is narrower and more decisive: the IOSurface delta attribution isolates nodes introduced by the variant profile, filters to `u16_role=filter_vocab_id`, and pins `IOSurfaceRootUserClient` to `mount-relative-path` while explicitly excluding the generic `path` context.
+
+Trust/care: I’d rate trust as medium‑high when an anchor hit is driven by decoder `literal_refs`, has stable `node_indices`, and the node’s `u16_role` is `filter_vocab_id` (especially in the delta output). I’d rate it lower when the hit comes from byte‑level offset scans or prefix‑compression heuristics (e.g., IO* prefix stripping), or when `node_indices` are empty; those are more suggestive than definitive. I care about these outputs because they are the only systematic, host‑bound bridge between literal anchors and filter‑vocab payloads, and they directly feed `anchor_filter_map.json` guardrails and the policygraph node‑field story. They are not enforcement proofs; they are structural evidence about how the graph encodes anchors.
+
+How to use them to cross‑check: (1) validate that any resolved anchor in `book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json` is actually observed in `anchor_hits.json` or `anchor_hits_delta.json` with the pinned filter id in `field2_values`; that’s already what the guardrail enforces, and it catches drift. (2) Cross‑check `field2_inventory.json` and `unknown_nodes.json` to make sure anchors tied to “opaque” payloads stay opaque, and anchors tied to vocab‑bearing payloads show `u16_role=filter_vocab_id`. (3) Use anchor hits to pick or reject runtime candidates: anchors with clean `field2_values` and filter‑vocab roles are good targets; anchors that remain mixed are likely to stay blocked and should not be promoted. (4) Use deltas as a disambiguation tool when the same literal appears in multiple contexts (exactly the IOSurfaceRootUserClient case).
 
 ## Runtime slice (launchd clean)
 A minimal runtime plan exists to test a few anchors under the shared runtime harness.
